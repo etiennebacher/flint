@@ -1,9 +1,6 @@
 id: left-double-assignment
-language: r  
+language: r
 severity: hint
 rule:
   kind: <<-
-note: |
-  <<- can have hard-to-predict behavior; prefer assigning to a
-  specific environment instead (with assign() or <-).  
-  
+message: <<- can have hard-to-predict behavior; prefer assigning to a specific environment instead (with assign() or <-).

@@ -1,7 +1,7 @@
 id: apply-colsum
-language: r  
-severity: hint
+language: r
+severity: warning
 rule:
   pattern: apply($INPUT, 2, sum)
 fix: colSums($INPUT)
-note: Use colSums(x) rather than apply(x, 1, sum)
+message: Use colSums(x) rather than apply(x, 1, sum)

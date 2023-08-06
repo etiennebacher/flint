@@ -1,6 +1,6 @@
 id: right-assignment
-language: r  
+language: r
 severity: hint
 rule:
   kind: ->
-note: Use <-, not ->, for assignment.
+message: Use <-, not ->, for assignment.

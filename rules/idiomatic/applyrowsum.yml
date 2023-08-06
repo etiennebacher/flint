@@ -1,8 +1,0 @@
-id: apply-rowsum
-language: r
-severity: warning
-rule:
-  pattern: apply($INPUT, 1, sum)
-fix: rowSums($INPUT)
-message: Use rowSums(x) rather than apply(x, 1, sum)
-

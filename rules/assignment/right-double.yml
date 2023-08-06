@@ -1,6 +1,0 @@
-id: right-double-assignment
-language: r
-severity: hint
-rule:
-  kind: ->>
-message: ->> can have hard-to-predict behavior; prefer assigning to a specific environment instead (with assign() or <-).

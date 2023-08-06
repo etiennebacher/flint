@@ -2,3 +2,6 @@
 ^\.Rproj\.user$
 ^src/\.cargo$
 ^README\.Rmd$
+# tinylint files
+^inst/rules
+sgconfig.yml

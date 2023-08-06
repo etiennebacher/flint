@@ -1,0 +1,7 @@
+# sgconfig.yml
+ruleDirs: ["./rules"]
+customLanguages:
+  r:
+      libraryPath: r.so     
+      extensions: [R, r, rmd]  
+      expandoChar: λ

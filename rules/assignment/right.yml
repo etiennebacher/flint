@@ -1,0 +1,6 @@
+id: right-assignment
+language: r  
+severity: hint
+rule:
+  kind: ->
+note: Use <-, not ->, for assignment.

@@ -1,0 +1,8 @@
+id: any-duplicated
+language: r  
+severity: hint
+rule:
+  pattern: any(duplicated($MYVAR) $$$)
+fix: anyDuplicated($MYVAR) > 0
+note: |
+  anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...).

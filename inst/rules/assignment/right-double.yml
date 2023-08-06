@@ -1,0 +1,8 @@
+id: right-double-assignment
+language: r  
+severity: hint
+rule:
+  kind: ->>
+note: |
+  ->> can have hard-to-predict behavior; prefer assigning to a
+  specific environment instead (with assign() or <-).

@@ -8,7 +8,7 @@ if (any(is.na(x))) {
   TRUE
 }
 
-any(is.na(x), na.rm = TRUE)
+any(is.na(x))
 
 apply(x, 1, sum)
 

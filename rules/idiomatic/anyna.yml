@@ -2,6 +2,6 @@ id: any-NA
 language: r
 severity: warning
 rule:
-  pattern: any(is.na($MYVAR))
+  pattern: any($$$ is.na($MYVAR) $$$)
 fix: anyNA($MYVAR)
 message: anyNA(x) is better than any(is.na(x)).

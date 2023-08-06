@@ -2,6 +2,6 @@ id: any-duplicated
 language: r
 severity: warning
 rule:
-  pattern: any(duplicated($MYVAR) $$$)
+  pattern: any($$$ duplicated($MYVAR) $$$)
 fix: anyDuplicated($MYVAR) > 0
 message: anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...).

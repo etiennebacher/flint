@@ -1,5 +1,5 @@
 #' @export
-lint <- function(path = ".", open = TRUE) {
+lint <- function(path = ".", open = TRUE) { # TODO: add a "linter" arg
 
   # run ast-grep and export the result to a JSON file that I can parse
   tmp <- tempfile(fileext = ".json")

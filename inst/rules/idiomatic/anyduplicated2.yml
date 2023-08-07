@@ -1,0 +1,9 @@
+id: any-duplicated-2
+language: r
+severity: warning
+rule:
+  any:
+    - pattern: length(unique($MYVAR)) == length($MYVAR)
+    - pattern: length($MYVAR) == length(unique($MYVAR))
+fix: anyDuplicated($MYVAR) == 0L
+message: anyDuplicated(x) == 0L is better than length(unique(x)) == length(x).

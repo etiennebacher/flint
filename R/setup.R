@@ -19,7 +19,9 @@ sgconfig.yml",
   invisible(
     file.copy(system.file("sgconfig.yml", package = "tinylint"), ".")
   )
-
+  invisible(
+    file.copy(system.file("tinylint/r.so", package = "tinylint"), "inst/tinylint")
+  )
 }
 
 add_to_rbuildignore <- function(x) {

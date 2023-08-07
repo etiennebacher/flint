@@ -4,7 +4,7 @@ expect_lint <- function(x, message, linter = NULL) {
     testthat::expect_true(length(out) == 0)
   } else {
     testthat::expect_true(
-      nrow(out) > 0 && message == out$message
+      nrow(out) > 0 && all(message == out$message | grepl(message, out$message, perl = TRUE))
     )
   }
 }

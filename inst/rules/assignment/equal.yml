@@ -2,15 +2,9 @@ id: equal-assignment
 language: r
 severity: hint
 rule:
-  kind: =
+  pattern: $LHS = $RHS
+  has:
+    field: lhs
+    kind: identifier
+fix: $LHS <- $RHS
 message: Use <-, not =, for assignment.
-
-  # all:
-  #   - pattern: <-
-  #   - inside:
-  #       kind: if
-  #       # any:
-  #       #   - kind: if
-  #       #   - kind: for
-  #       #   - kind: while
-  #       field: condition

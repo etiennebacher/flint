@@ -9,7 +9,7 @@ lint <- function(path = ".", open = TRUE) { # TODO: add a "linter" arg
   lints <- clean_json(lints_raw)
 
   # clean names
-  if (length(lints) == 0) return(invisible())
+  if (nrow(lints) == 0) return(invisible())
   to_select <- c("text", "line_start", "col_start", "line_end",
                  "col_end", "file", "severity",
                  "message", "replacement")

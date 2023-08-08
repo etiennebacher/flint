@@ -8,12 +8,18 @@ lint <- function(path = ".", open = TRUE) { # TODO: add a "linter" arg
 
   # clean names
   if (length(lints) == 0) return(invisible())
-  lints <- lints[, c("text", "range.start.line", "range.start.column",
-                     "range.end.line", "range.end.column", "file",
-                     "replacement", "severity", "message")]
-  names(lints) <- c("text", "line_start", "col_start", "line_end",
-                    "col_end", "file", "replacement", "severity",
-                    "message")
+  to_select <- c("text", "range.start.line", "range.start.column",
+                 "range.end.line", "range.end.column", "file",
+                 "severity", "message")
+  new_names <- c("text", "line_start", "col_start", "line_end",
+                 "col_end", "file", "severity",
+                 "message")
+  if ("replacement" %in% names(lints)) {
+    to_select <- c(to_select, "replacement")
+    new_names <- c(new_names, "replacement")
+  }
+  lints <- lints[, to_select]
+  names(lints) <- new_names
 
   # lines and columns locations are 0-indexed so I need to bump them
   locs <- c("line_start", "col_start", "line_end", "col_end")

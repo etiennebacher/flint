@@ -16,35 +16,32 @@ test_that("assignment_linter blocks disallowed usages", {
   expect_lint("blah = fun(1)", lint_msg, linter)
   expect_lint("fun((blah = fun(1)))", lint_msg, linter)
 
-  expect_lint(
-    "blah = fun(1) {",
-    lint_msg, linter
-  )
+  expect_lint("blah = fun(1) {", lint_msg, linter)
 })
 
-# TODO:
-# test_that("arguments handle <<- and ->/->> correctly", {
-#   expect_lint("1 -> blah", rex::rex("Use <-, not ->, for assignment."), NULL)
-#   expect_lint("1 ->> blah", rex::rex("->> can have hard-to-predict behavior;"), NULL)
-#
-#   # <<- is only blocked optionally
-#   expect_lint("1 <<- blah", NULL, NULL)
-#   expect_lint(
-#     "1 <<- blah",
-#     rex::rex("<<- can have hard-to-predict behavior;"),
-#     assignment_linter(allow_cascading_assign = FALSE)
-#   )
-#
-#   # blocking -> can be disabled
-#   expect_lint("1 -> blah", NULL, assignment_linter(allow_right_assign = TRUE))
-#   expect_lint("1 ->> blah", NULL, assignment_linter(allow_right_assign = TRUE))
-#   # blocked under cascading assign but not under right assign --> blocked
-#   expect_lint(
-#     "1 ->> blah",
-#     rex::rex("->> can have hard-to-predict behavior;"),
-#     assignment_linter(allow_cascading_assign = FALSE, allow_right_assign = TRUE)
-#   )
-# })
+test_that("arguments handle <<- and ->/->> correctly", {
+  expect_lint("1 -> blah", rex::rex("Use <-, not ->, for assignment."), NULL)
+  expect_lint("1 ->> blah", rex::rex("->> can have hard-to-predict behavior;"), NULL)
+  expect_lint("blah <<- blah", rex::rex("<<- can have hard-to-predict behavior;"), NULL)
+
+  # <<- is only blocked optionally
+  # expect_lint("1 <<- blah", NULL, NULL)
+  # expect_lint(
+  #   "1 <<- blah",
+  #   rex::rex("<<- can have hard-to-predict behavior;"),
+  #   assignment_linter(allow_cascading_assign = FALSE)
+  # )
+
+  # # blocking -> can be disabled
+  # expect_lint("1 -> blah", NULL, assignment_linter(allow_right_assign = TRUE))
+  # expect_lint("1 ->> blah", NULL, assignment_linter(allow_right_assign = TRUE))
+  # # blocked under cascading assign but not under right assign --> blocked
+  # expect_lint(
+  #   "1 ->> blah",
+  #   rex::rex("->> can have hard-to-predict behavior;"),
+  #   assignment_linter(allow_cascading_assign = FALSE, allow_right_assign = TRUE)
+  # )
+})
 #
 # test_that("arguments handle trailing assignment operators correctly", {
 #   expect_lint("x <- y", NULL, assignment_linter(allow_trailing = FALSE))

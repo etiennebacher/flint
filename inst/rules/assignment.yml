@@ -1,0 +1,49 @@
+id: equal-assignment
+language: r
+severity: hint
+rule:
+  pattern: $LHS = $RHS
+  has:
+    field: lhs
+    kind: identifier
+fix: $LHS <- $RHS
+message: Use <-, not =, for assignment.
+
+---
+
+id: right-assignment
+language: r
+severity: hint
+rule:
+  pattern: $RHS -> $LHS
+  has:
+    field: rhs
+    kind: identifier
+fix: $LHS <- $RHS
+message: Use <-, not ->, for assignment.
+
+---
+
+id: right-double-assignment
+language: r
+severity: hint
+rule:
+  pattern: $RHS ->> $LHS
+  has:
+    field: rhs
+    kind: identifier
+message: ->> can have hard-to-predict behavior; prefer assigning to a
+  specific environment instead (with assign() or <-).
+
+---
+
+id: left-double-assignment
+language: r
+severity: hint
+rule:
+  pattern: $LHS <<- $RHS
+  has:
+    field: lhs
+    kind: identifier
+message: <<- can have hard-to-predict behavior; prefer assigning to a
+  specific environment instead (with assign() or <-).

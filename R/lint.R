@@ -6,25 +6,7 @@ lint <- function(path = ".", open = TRUE) { # TODO: add a "linter" arg
   system2("ast-grep", paste("scan --json=compact", path), stdout = tmp)
 
   lints_raw <- rjson::fromJSON(file = tmp)
-  lints <- data.frame(
-    text = sapply(lints_raw, function(x) x$text),
-    range_start_byteOffset = sapply(lints_raw, function(x) x$range$byteOffset$start),
-    range_end_byteOffset = sapply(lints_raw, function(x) x$range$byteOffset$end),
-    line_start = sapply(lints_raw, function(x) x$range$start$line),
-    col_start = sapply(lints_raw, function(x) x$range$start$column),
-    line_end = sapply(lints_raw, function(x) x$range$end$line),
-    col_end = sapply(lints_raw, function(x) x$range$end$column),
-    file = sapply(lints_raw, function(x) x$file),
-    language = sapply(lints_raw, function(x) x$language),
-    ruleId = sapply(lints_raw, function(x) x$ruleId),
-    severity = sapply(lints_raw, function(x) x$severity),
-    message = sapply(lints_raw, function(x) x$message)
-  )
-
-  replacement <- sapply(lints_raw, function(x) x$replacement)
-  if (length(replacement) > 0) {
-    lints$replacement <- replacement
-  }
+  lints <- clean_json(lints_raw)
 
   # clean names
   if (length(lints) == 0) return(invisible())

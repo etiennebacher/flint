@@ -4,7 +4,14 @@ lint <- function(path = ".", open = TRUE) { # TODO: add a "linter" arg
   # run ast-grep and export the result to a JSON file that I can parse
   tmp <- tempfile(fileext = ".json")
   system2("ast-grep", paste("scan --json=compact", path), stdout = tmp)
-  lints <- jsonlite::fromJSON(tmp, flatten = TRUE)
+
+  lints <- rjson::fromJSON(file = tmp)
+  browser()
+  lints <- rbindlist(lints)
+  lints[, labels := NULL]
+  lints[, metaVariables := NULL]
+  print(lints$range)
+  print(lints[, list(range = unlist(range)), by = setdiff(names(lints), 'range')])
 
   # clean names
   if (length(lints) == 0) return(invisible())
@@ -18,7 +25,7 @@ lint <- function(path = ".", open = TRUE) { # TODO: add a "linter" arg
     to_select <- c(to_select, "replacement")
     new_names <- c(new_names, "replacement")
   }
-  lints <- lints[, to_select]
+  lints <- lints[, .(to_select)]
   names(lints) <- new_names
 
   # lines and columns locations are 0-indexed so I need to bump them

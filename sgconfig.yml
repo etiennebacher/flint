@@ -2,6 +2,6 @@
 ruleDirs: ["./inst/rules"]
 customLanguages:
   r:
-      libraryPath: inst/tinylint/r.so
-      extensions: [R, r, rmd]
+      libraryPath: ./inst/tinylint/r.so
+      extensions: [R, r, rmd, Rmd]
       expandoChar: λ

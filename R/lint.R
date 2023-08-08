@@ -3,7 +3,7 @@ lint <- function(path = ".", open = TRUE) { # TODO: add a "linter" arg
 
   # run ast-grep and export the result to a JSON file that I can parse
   tmp <- tempfile(fileext = ".json")
-  system2("ast-grep", paste("scan --json=compact", path), stdout = tmp)
+  system2("ast-grep", paste("scan --json=compact", paste(path, collapse = " ")), stdout = tmp)
 
   lints_raw <- rjson::fromJSON(file = tmp)
   lints <- clean_json(lints_raw)
@@ -29,6 +29,12 @@ lint <- function(path = ".", open = TRUE) { # TODO: add a "linter" arg
   } else {
     lints
   }
+}
+
+#' @export
+lint_diff <- function(path = ".", open = TRUE) {
+  changed_files <- system2("git", paste("diff --name-only", path), stdout = TRUE)
+  lint(path = changed_files, open = open)
 }
 
 #' @export

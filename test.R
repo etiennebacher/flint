@@ -15,8 +15,14 @@
 # apply(x, 1, paste)
 #
 # apply(x, 2, sum)
+#
+#
+# 1 ->> blah
+#
+# 1 ->> blah
 
+x == NA_character_
 
-1 ->> blah
+x == "NA"
 
-1 ->> blah
+is.na(x)

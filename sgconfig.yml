@@ -1,5 +1,5 @@
 # sgconfig.yml
-ruleDirs: ["./inst/rules"]
+ruleDirs: ["./inst/tinylint/rules"]
 customLanguages:
   r:
       libraryPath: ./inst/tinylint/r.so

@@ -8,6 +8,6 @@ crate-type = [ 'staticlib' ]
 name = 'tinylint'
 
 [dependencies]
-ast-grep = "0.10.1"
+ast-grep = "0.12.5"
 extendr-api = '*'
 tree-sitter-r = { git = "https://github.com/r-lib/tree-sitter-r", branch = "next", version = "0.20.1" }

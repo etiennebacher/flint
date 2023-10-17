@@ -1,0 +1,7 @@
+# sgconfig.yml
+ruleDirs: ["./inst/tinylint/rules"]
+customLanguages:
+  r:
+      libraryPath: ./inst/tinylint/r.so
+      extensions: [R, r, rmd, Rmd]
+      expandoChar: λ

@@ -36,6 +36,26 @@ lints.
 `styler` is a package to clean code by fixing indentation and other
 things, but doesn’t perform code replacement based on lints.
 
-`tinylint` is extremely performant:
+`tinylint` is extremely performant. This is a small benchmark on 3.5k
+lines of code with only three linters:
 
-\[TODO\]
+``` r
+library(bench)
+library(lintr)
+library(tinylint, warn.conflicts = FALSE)
+
+file <- system.file("bench/test.R", package = "tinylint")
+
+bench::mark(
+  lintr::lint(file, linters = list(any_duplicated_linter(), any_is_na_linter(), matrix_apply_linter())),
+  tinylint::lint(file, linters = c("any_duplicated", "any_na", "matrix_apply"), open = FALSE),
+  check = FALSE
+)
+#> Warning: Some expressions had a GC in every iteration; so filtering is
+#> disabled.
+#> # A tibble: 2 × 6
+#>   expression                           min   median `itr/sec` mem_alloc `gc/sec`
+#>   <bch:expr>                      <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
+#> 1 "lintr::lint(file, linters = l…    2.42s    2.42s     0.413  314.28MB     8.66
+#> 2 "tinylint::lint(file, linters … 103.42ms 114.27ms     8.74     9.01MB     1.75
+```

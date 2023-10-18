@@ -1,0 +1,18 @@
+list_linters <- function() {
+
+  c(
+    "any_duplicated",
+    "any_na",
+    "double_assignment",
+    "equal_assignment",
+    "equals_na",
+    "ifelse_pmin_pmax",
+    "implicit_assignment",
+    "matrix_apply",
+    "right_assignment",
+    "sapply_length"
+  )
+
+}
+
+

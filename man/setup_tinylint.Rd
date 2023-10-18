@@ -7,11 +7,11 @@
 setup_tinylint()
 }
 \value{
-Imports files necessary for `tinylint` to work but doesn't return any
+Imports files necessary for \code{tinylint} to work but doesn't return any
 value in R.
 }
 \description{
-This stores the default rules and internal files in `inst/tinylint`. It also
-imports `sgconfig.yml` that is used by `ast-grep`. This file must live at the
+This stores the default rules and internal files in \code{inst/tinylint}. It also
+imports \code{sgconfig.yml} that is used by \code{ast-grep}. This file must live at the
 root of the project and cannot be renamed.
 }

@@ -1,4 +1,4 @@
-id: sapply-lengths
+id: sapply_lengths
 language: r
 severity: warning
 rule:

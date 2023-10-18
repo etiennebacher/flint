@@ -1,5 +1,5 @@
-id: implicit-assignment
-language: r  
+id: implicit_assignment
+language: r
 severity: hint
 rule:
   pattern: =

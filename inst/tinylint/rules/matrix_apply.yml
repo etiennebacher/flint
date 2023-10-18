@@ -1,4 +1,4 @@
-id: apply-colsum
+id: matrix_apply_1
 language: r
 severity: warning
 rule:
@@ -8,7 +8,7 @@ message: Use colSums(x) rather than apply(x, 1, sum)
 
 ---
 
-id: apply-rowsum
+id: matrix_apply_2
 language: r
 severity: warning
 rule:

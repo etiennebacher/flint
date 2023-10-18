@@ -1,4 +1,4 @@
-id: any-duplicated
+id: any_duplicated
 language: r
 severity: warning
 rule:
@@ -8,7 +8,7 @@ message: anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...).
 
 ---
 
-id: any-duplicated-2
+id: any_duplicated-2
 language: r
 severity: warning
 rule:
@@ -20,7 +20,7 @@ message: anyDuplicated(x) == 0L is better than length(unique(x)) == length(x).
 
 ---
 
-id: any-duplicated-3
+id: any_duplicated-3
 language: r
 severity: warning
 rule:

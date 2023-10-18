@@ -1,4 +1,4 @@
-id: any-NA
+id: any_na
 language: r
 severity: warning
 rule:

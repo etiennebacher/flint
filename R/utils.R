@@ -1,25 +1,32 @@
-clean_json <- function(lints_raw) {
-  # using vapply() because it guarantees type strictness. However, it's not
-  # faster than sapply() on large examples (only at the microsecond level).
-  # It's a bit more memory efficient than sapply.
-  lints <- data.frame(
-    text = vapply(lints_raw, function(x) x$text, FUN.VALUE = character(1L)),
-    range_start_byteOffset = vapply(lints_raw, function(x) x$range$byteOffset$start, FUN.VALUE = numeric(1L)),
-    range_end_byteOffset = vapply(lints_raw, function(x) x$range$byteOffset$end, FUN.VALUE = numeric(1L)),
-    line_start = vapply(lints_raw, function(x) x$range$start$line, FUN.VALUE = numeric(1L)),
-    col_start = vapply(lints_raw, function(x) x$range$start$column, FUN.VALUE = numeric(1L)),
-    line_end = vapply(lints_raw, function(x) x$range$end$line, FUN.VALUE = numeric(1L)),
-    col_end = vapply(lints_raw, function(x) x$range$end$column, FUN.VALUE = numeric(1L)),
-    file = vapply(lints_raw, function(x) x$file, FUN.VALUE = character(1L)),
-    language = vapply(lints_raw, function(x) x$language, FUN.VALUE = character(1L)),
-    ruleId = vapply(lints_raw, function(x) x$ruleId, FUN.VALUE = character(1L)),
-    severity = vapply(lints_raw, function(x) x$severity, FUN.VALUE = character(1L)),
-    message = vapply(lints_raw, function(x) x$message, FUN.VALUE = character(1L))
-  )
+clean_lints <- function(lints_raw) {
+  lints <- lints_raw[, setdiff(names(lints_raw), c("metaVariables", "labels"))]
+  data.table::setDT(lints)
 
-  replacement <- sapply(lints_raw, function(x) x$replacement)
-  if (length(replacement) > 0) {
-    lints$replacement <- replacement
+  ranges <- data.table::rbindlist(lints$range)
+  cols <- c("byteOffset", "start", "end")
+  ranges[, (cols) := lapply(.SD, unlist), .SDcols = cols]
+  ranges[, id := rep(seq_len(nrow(ranges)/2), each = 2)]
+  ranges[, type := rep(c("row", "col"), nrow(ranges)/2)]
+  ranges <- data.table::dcast(ranges, id ~ type, value.var = cols)
+  ranges[, c("id", "byteOffset_col", "byteOffset_row") := NULL]
+  data.table::setnames(ranges, c("start_col", "start_row", "end_col", "end_row"),
+                       c("col_start", "line_start", "col_end", "line_end"))
+
+  lints[, range := NULL]
+  lints <- cbind(lints, ranges)
+
+  # clean names
+  to_select <- c("text", "line_start", "col_start", "line_end",
+                 "col_end", "file", "severity",
+                 "message")
+  if ("replacement" %in% names(lints)) {
+    to_select <- c(to_select, "replacement")
   }
-  lints
+
+  lints <- lints[, ..to_select]
+
+  # lines and columns locations are 0-indexed so I need to bump them
+  locs <- c("line_start", "col_start", "line_end", "col_end")
+  lints[, (locs) := lapply(.SD, function(x) x + 1), .SDcols = locs]
+  lints[with(lints, order(file, line_start)), ]
 }

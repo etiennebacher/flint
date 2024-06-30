@@ -27,36 +27,28 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
     linters <- list_linters()
   }
 
-  # run ast-grep and export the result to a JSON file that I can parse
-  tmp <- tempfile(fileext = ".json")
-  system2(
-    "ast-grep",
-    paste(
-      "scan --json=compact",
-      if (length(linters) == length(list_linters())) {
-        ""
-      } else {
-        paste0("--filter ", paste(linters, collapse = "|"))
-      } ,
-      paste(path, collapse = " ")
-    ),
-    stdout = tmp
-  )
+  # r_files <- list.files(path, pattern = "\\.R$", recursive = TRUE)
+  r_files <- "test.R"
+  for (i in r_files) {
+    root <- astgrepr::tree_new(file = i) |>
+      astgrepr::tree_root()
+    browser()
 
-  lints_raw <- RcppSimdJson::fload(tmp)
+    lints_raw <- astgrepr::node_find_all(root, files = paste0("inst/tinylint/rules/", linters, ".yml"))
 
-  if (is.null(lints_raw)) {
-    return(invisible())
-  }
-  lints <- clean_lints(lints_raw)
+    if (is.null(lints_raw)) {
+      return(invisible())
+    }
+    lints <- clean_lints(lints_raw)
 
-  if (isTRUE(open) &&
+    if (isTRUE(open) &&
       requireNamespace("rstudioapi", quietly = TRUE) &&
       rstudioapi::isAvailable()) {
-    rstudio_source_markers(lints)
-    return(invisible(lints))
-  } else {
-    lints
+      rstudio_source_markers(lints)
+      return(invisible(lints))
+    } else {
+      lints
+    }
   }
 }
 
@@ -86,7 +78,9 @@ lint_text <- function(text) {
   # We're only parsing a small text in general so passing twice is not an issue.
   system2("ast-grep", paste("scan", tmp), stdout = tmp_out)
   out <- lint(tmp, open = FALSE)
-  if (length(out) == 0) return(invisible())
+  if (length(out) == 0) {
+    return(invisible())
+  }
 
   attr(out, "tinylint_output") <- readLines(tmp_out)
   class(out) <- c("tinylint", class(out))

@@ -28,7 +28,7 @@ lint <- function(path = ".", linters = NULL, open = TRUE, return_nodes = FALSE) 
   }
 
   if (fs::is_dir(path)) {
-    r_files <- list.files(path, pattern = "\\.R$", recursive = TRUE)
+    r_files <- list.files(path, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
   } else {
     r_files <- path
   }
@@ -38,15 +38,11 @@ lint <- function(path = ".", linters = NULL, open = TRUE, return_nodes = FALSE) 
     root <- astgrepr::tree_new(file = i) |>
       astgrepr::tree_root()
 
-    if (testthat::is_testing()) {
-      files <- fs::path(system.file(package = "tinylint"), "rules/", paste0(linters, ".yml"))
-    } else {
-      files <- paste0("inst/rules/", linters, ".yml")
-    }
+    files <- fs::path(system.file(package = "tinylint"), "rules/", paste0(linters, ".yml"))
     lints_raw <- astgrepr::node_find_all(root, files = files)
 
     if (all(lengths(lints_raw) == 0)) {
-      return(invisible())
+      next
     }
 
     if (isTRUE(return_nodes)) {
@@ -59,7 +55,7 @@ lint <- function(path = ".", linters = NULL, open = TRUE, return_nodes = FALSE) 
   if (isTRUE(return_nodes)) {
     return(unlist(lints, recursive = FALSE, use.names = FALSE))
   } else {
-    lints <- data.table::rbindlist(lints)
+    lints <- data.table::rbindlist(lints, use.names = TRUE)
   }
 
 

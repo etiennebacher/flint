@@ -12,7 +12,7 @@ clean_lints <- function(lints_raw, file) {
         line_end = y$end[1] + 1,
         col_end = y$end[2] + 1
       )
-    }))
+    }), use.names = TRUE)
     if (nrow(res) > 0) {
       res[["id"]] <- names(locs)[x]
     }
@@ -20,10 +20,10 @@ clean_lints <- function(lints_raw, file) {
   })
   locs_reorg <- Filter(function(x) length(x) > 0, locs_reorg)
 
-  locs2 <- data.table::rbindlist(locs_reorg)
+  locs2 <- data.table::rbindlist(locs_reorg, use.names = TRUE)
   txts2 <- data.table::rbindlist(lapply(txts, function(x) {
     data.frame(text = unlist(x))
-  }))
+  }), use.names = TRUE)
 
   other_info <- lapply(seq_along(lints_raw), function(x) {
     res <- attributes(lints_raw[[x]])[["other_info"]]
@@ -32,7 +32,7 @@ clean_lints <- function(lints_raw, file) {
     res
   })
 
-  other_info <- data.table::rbindlist(other_info, fill = TRUE)
+  other_info <- data.table::rbindlist(other_info, fill = TRUE, use.names = TRUE)
 
   lints <- cbind(txts2, locs2)
   lints <- merge(lints, other_info, by = "id", all.x = TRUE)

@@ -19,7 +19,7 @@
 #'
 #' @export
 
-lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linter" arg
+lint <- function(path = ".", linters = NULL, open = TRUE, return_nodes = FALSE) { # TODO: add a "linter" arg
 
   if (!is.null(linters) && !all(linters %in% list_linters())) {
     stop(paste0("Unknown linters: ", toString(setdiff(linters, list_linters()))))
@@ -41,7 +41,7 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
     if (testthat::is_testing()) {
       files <- fs::path(system.file(package = "tinylint"), "rules/", paste0(linters, ".yml"))
     } else {
-      files <- paste0("inst/tinylint/rules/", linters, ".yml")
+      files <- paste0("inst/rules/", linters, ".yml")
     }
     lints_raw <- astgrepr::node_find_all(root, files = files)
 
@@ -49,10 +49,19 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
       return(invisible())
     }
 
-    lints[[i]] <- clean_lints(lints_raw, file = i)
+    if (isTRUE(return_nodes)) {
+      lints[[i]] <- lints_raw
+    } else {
+      lints[[i]] <- clean_lints(lints_raw, file = i)
+    }
   }
 
-  lints <- data.table::rbindlist(lints)
+  if (isTRUE(return_nodes)) {
+    return(unlist(lints, recursive = FALSE, use.names = FALSE))
+  } else {
+    lints <- data.table::rbindlist(lints)
+  }
+
 
   if (isTRUE(open) &&
       requireNamespace("rstudioapi", quietly = TRUE) &&
@@ -78,7 +87,7 @@ lint_diff <- function(path = ".", open = TRUE) {
 #' @rdname lint
 #' @export
 
-lint_text <- function(text, linters = NULL) {
+lint_text <- function(text, linters = NULL, return_nodes = FALSE) {
   tmp <- tempfile(fileext = ".R")
   text <- trimws(text)
   cat(text, file = tmp)
@@ -87,7 +96,7 @@ lint_text <- function(text, linters = NULL) {
   # output that is used in the custom print method. It's also easier to have a
   # dataframe output in tests.
   # We're only parsing a small text in general so passing twice is not an issue.
-  out <- lint(tmp, linters = linters, open = FALSE)
+  out <- lint(tmp, linters = linters, open = FALSE, return_nodes = return_nodes)
   if (length(out) == 0) {
     return(invisible())
   }

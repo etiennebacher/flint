@@ -58,7 +58,6 @@ lint <- function(path = ".", linters = NULL, open = TRUE, return_nodes = FALSE) 
     lints <- data.table::rbindlist(lints, use.names = TRUE)
   }
 
-
   if (isTRUE(open) &&
       requireNamespace("rstudioapi", quietly = TRUE) &&
       rstudioapi::isAvailable()) {

@@ -69,6 +69,9 @@ bench::mark(
 One can also experiment with `tinylint::lint_text()`:
 
 ```{r}
-lint_text("any(duplicated(x))")
+lint_text("
+any(is.na(x))
+any(duplicated(y))
+")
 ```
 

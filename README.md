@@ -56,16 +56,22 @@ bench::mark(
 #> Warning: Some expressions had a GC in every iteration; so filtering is
 #> disabled.
 #> # A tibble: 2 × 6
-#>   expression                             min median `itr/sec` mem_alloc `gc/sec`
-#>   <bch:expr>                          <bch:> <bch:>     <dbl> <bch:byt>    <dbl>
-#> 1 "lintr::lint(file, linters = list(…   2.7s   2.7s     0.371  314.34MB    10.7 
-#> 2 "tinylint::lint(file, linters = c(… 61.1ms 84.9ms    12.3      7.03MB     5.26
+#>   expression                            min  median `itr/sec` mem_alloc `gc/sec`
+#>   <bch:expr>                        <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl>
+#> 1 "lintr::lint(file, linters = lis…   3.29s   3.29s     0.304  314.34MB     8.81
+#> 2 "tinylint::lint(file, linters = … 50.06ms 70.61ms    14.8      6.64MB     1.85
 ```
 
 One can also experiment with `tinylint::lint_text()`:
 
 ``` r
-lint_text("any(duplicated(x))")
-#> Original code: any(duplicated(x)) 
+lint_text("
+any(is.na(x))
+any(duplicated(y))
+")
+#> Original code: any(is.na(x)) 
+#> Suggestion: anyNA(x) is better than any(is.na(x)). 
+#> 
+#> Original code: any(duplicated(y)) 
 #> Suggestion: anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...).
 ```

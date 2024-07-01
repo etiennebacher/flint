@@ -1,0 +1,30 @@
+---
+title: "Adding new rules"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Adding new rules}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(tinylint)
+```
+
+```{r}
+library(treesitter, warn.conflicts = FALSE)
+
+# Language specific grammars come from extension packages
+language <- treesitter.r::language()
+parser <- parser(language)
+
+parser_parse(parser, "class(x)[class(x) == 'foo']")
+```
+

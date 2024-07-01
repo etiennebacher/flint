@@ -9,8 +9,7 @@ Description: More about what it does (maybe more than one line)
 Imports:
     astgrepr,
     data.table,
-    fs,
-    RcppSimdJson
+    fs
 Suggests:
     patrick,
     rex,

@@ -1,5 +1,7 @@
 #' @export
 print.tinylint <- function(x, ...) {
-  cat("Original code:", crayon::red(x$text), "\n")
-  cat("Suggestion:", crayon::green(x$message))
+  for (i in seq_along(x$text)) {
+    cat("Original code:", crayon::red(x$text[i]), "\n")
+    cat("Suggestion:", crayon::green(x$message[i]), "\n\n")
+  }
 }

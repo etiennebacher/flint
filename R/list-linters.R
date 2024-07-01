@@ -3,6 +3,7 @@ list_linters <- function() {
   c(
     "any_duplicated",
     "any_na",
+    "class_equals",
     "double_assignment",
     "equal_assignment",
     "equals_na",
@@ -15,5 +16,3 @@ list_linters <- function() {
   )
 
 }
-
-

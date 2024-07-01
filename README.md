@@ -12,7 +12,9 @@ replace them.
 - Extremely fast
 - Low-dependency
 
-`tinylint` is powered by the Rust crate
+`tinylint` is powered by
+[`astgrepr`](https://github.com/etiennebacher/astgrepr/), which is
+itself built on the Rust crate
 [`ast-grep`](https://ast-grep.github.io/).
 
 ## Usage
@@ -54,8 +56,16 @@ bench::mark(
 #> Warning: Some expressions had a GC in every iteration; so filtering is
 #> disabled.
 #> # A tibble: 2 × 6
-#>   expression                           min   median `itr/sec` mem_alloc `gc/sec`
-#>   <bch:expr>                      <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 "lintr::lint(file, linters = l…    2.42s    2.42s     0.413  314.28MB     8.66
-#> 2 "tinylint::lint(file, linters … 103.42ms 114.27ms     8.74     9.01MB     1.75
+#>   expression                            min  median `itr/sec` mem_alloc `gc/sec`
+#>   <bch:expr>                        <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl>
+#> 1 "lintr::lint(file, linters = lis…   2.47s   2.47s     0.405  314.34MB    12.6 
+#> 2 "tinylint::lint(file, linters = … 83.81ms 89.26ms    10.6      7.03MB     3.55
+```
+
+One can also experiment with `tinylint::lint_text()`:
+
+``` r
+lint_text("any(duplicated(x))")
+#> Original code: any(duplicated(x)) 
+#> Suggestion: anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...).
 ```

@@ -40,15 +40,17 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
     }
 
     lints <- clean_lints(lints_raw, file = i)
+  }
 
-    if (isTRUE(open) &&
+  lints <- data.table::rbindlist(lints)
+
+  if (isTRUE(open) &&
       requireNamespace("rstudioapi", quietly = TRUE) &&
       rstudioapi::isAvailable()) {
-      rstudio_source_markers(lints)
-      return(invisible(lints))
-    } else {
-      lints
-    }
+    rstudio_source_markers(lints)
+    return(invisible(lints))
+  } else {
+    lints
   }
 }
 

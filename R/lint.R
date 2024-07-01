@@ -39,7 +39,7 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
       astgrepr::tree_root()
 
     if (testthat::is_testing()) {
-      files <- fs::path(system.file(package = "tinylint"), "tinylint/rules/", paste0(linters, ".yml"))
+      files <- fs::path(system.file(package = "tinylint"), "rules/", paste0(linters, ".yml"))
     } else {
       files <- paste0("inst/tinylint/rules/", linters, ".yml")
     }

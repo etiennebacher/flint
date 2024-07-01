@@ -1,5 +1,5 @@
 #' @export
 print.tinylint <- function(x, ...) {
-  raw <- attributes(x)$tinylint_output
-  cat(paste(raw[-c(2, 3)], collapse = "\n"))
+  cat("Original code:", crayon::red(x$text), "\n")
+  cat("Suggestion:", crayon::green(x$message))
 }

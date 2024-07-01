@@ -24,7 +24,8 @@ replace them.
 * Extremely fast
 * Low-dependency
 
-`tinylint` is powered by the Rust crate [`ast-grep`](https://ast-grep.github.io/).
+`tinylint` is powered by [`astgrepr`](https://github.com/etiennebacher/astgrepr/),
+which is itself built on the Rust crate [`ast-grep`](https://ast-grep.github.io/).
 
 
 ## Usage
@@ -64,4 +65,9 @@ bench::mark(
 )
 ```
 
+One can also experiment with `tinylint::lint_text()`:
+
+```{r}
+lint_text("any(duplicated(x))")
+```
 

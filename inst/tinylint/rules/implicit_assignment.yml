@@ -4,9 +4,4 @@ severity: hint
 rule:
   pattern: =
   inside:
-    kind: if
-    # any:
-    #   - kind: if
-    #   - kind: for
-    #   - kind: while
-    field: condition
+    kind: if_statement

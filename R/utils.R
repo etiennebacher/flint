@@ -1,32 +1,42 @@
-clean_lints <- function(lints_raw) {
-  lints <- lints_raw[, setdiff(names(lints_raw), c("metaVariables", "labels"))]
-  data.table::setDT(lints)
+clean_lints <- function(lints_raw, file) {
+  locs <- astgrepr::node_range_all(lints_raw)
+  txts <- astgrepr::node_text_all(lints_raw)
 
-  ranges <- data.table::rbindlist(lints$range)
-  cols <- c("byteOffset", "start", "end")
-  ranges[, (cols) := lapply(.SD, unlist), .SDcols = cols]
-  ranges[, id := rep(seq_len(nrow(ranges)/2), each = 2)]
-  ranges[, type := rep(c("row", "col"), nrow(ranges)/2)]
-  ranges <- data.table::dcast(ranges, id ~ type, value.var = cols)
-  ranges[, c("id", "byteOffset_col", "byteOffset_row") := NULL]
-  data.table::setnames(ranges, c("start_col", "start_row", "end_col", "end_row"),
-                       c("col_start", "line_start", "col_end", "line_end"))
+  locs_reorg <- lapply(seq_along(locs), function(x) {
+    dat <- locs[[x]]
+    res <- data.table::rbindlist(lapply(dat, function(y) {
+      # locations are 0-indexed
+      list(
+        line_start = y$start[1] + 1,
+        col_start = y$start[2] + 1,
+        line_end = y$end[1] + 1,
+        col_end = y$end[2] + 1
+      )
+    }))
+    if (nrow(res) > 0) {
+      res[["id"]] <- names(locs)[x]
+    }
+    res
+  })
+  locs_reorg <- Filter(function(x) length(x) > 0, locs_reorg)
 
-  lints[, range := NULL]
-  lints <- cbind(lints, ranges)
+  locs2 <- data.table::rbindlist(locs_reorg)
+  txts2 <- data.table::rbindlist(lapply(txts, function(x) {
+    data.frame(text = unlist(x))
+  }))
 
-  # clean names
-  to_select <- c("text", "line_start", "col_start", "line_end",
-                 "col_end", "file", "severity",
-                 "message")
-  if ("replacement" %in% names(lints)) {
-    to_select <- c(to_select, "replacement")
-  }
+  other_info <- lapply(seq_along(lints_raw), function(x) {
+    res <- attributes(lints_raw[[x]])[["other_info"]]
+    res[["language"]] <- NULL
+    res[["id"]] <- names(lints_raw)[x]
+    res
+  })
 
-  lints <- lints[, ..to_select]
+  other_info <- data.table::rbindlist(other_info, fill = TRUE)
 
-  # lines and columns locations are 0-indexed so I need to bump them
-  locs <- c("line_start", "col_start", "line_end", "col_end")
-  lints[, (locs) := lapply(.SD, function(x) x + 1), .SDcols = locs]
-  lints[with(lints, order(file, line_start)), ]
+  lints <- cbind(txts2, locs2)
+  lints <- merge(lints, other_info, by = "id", all.x = TRUE)
+  lints[["file"]] <- file
+
+  lints[order(line_start)]
 }

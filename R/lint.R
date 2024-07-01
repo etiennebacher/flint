@@ -29,6 +29,7 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
 
   # r_files <- list.files(path, pattern = "\\.R$", recursive = TRUE)
   r_files <- "test.R"
+  lints <- list()
   for (i in r_files) {
     root <- astgrepr::tree_new(file = i) |>
       astgrepr::tree_root()
@@ -39,7 +40,7 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
       return(invisible())
     }
 
-    lints <- clean_lints(lints_raw, file = i)
+    lints[[i]] <- clean_lints(lints_raw, file = i)
   }
 
   lints <- data.table::rbindlist(lints)

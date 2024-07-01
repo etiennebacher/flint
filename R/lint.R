@@ -32,14 +32,14 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
   for (i in r_files) {
     root <- astgrepr::tree_new(file = i) |>
       astgrepr::tree_root()
-    browser()
 
     lints_raw <- astgrepr::node_find_all(root, files = paste0("inst/tinylint/rules/", linters, ".yml"))
 
-    if (is.null(lints_raw)) {
+    if (all(lengths(lints_raw) == 0)) {
       return(invisible())
     }
-    lints <- clean_lints(lints_raw)
+
+    lints <- clean_lints(lints_raw, file = i)
 
     if (isTRUE(open) &&
       requireNamespace("rstudioapi", quietly = TRUE) &&

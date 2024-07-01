@@ -13,6 +13,7 @@ test_that("T_and_F_symbol_linter blocks disallowed usages", {
   msg_variable_true <- "Don't use T as a variable name, as it can break code relying on T being TRUE."
   msg_variable_false <- "Don't use F as a variable name, as it can break code relying on F being FALSE."
 
+  expect_lint("'T <- 1'", NULL, linter)
   expect_lint("T", msg_true, linter)
   expect_lint("F", msg_false, linter)
   expect_lint("T = 42", msg_variable_true, linter)

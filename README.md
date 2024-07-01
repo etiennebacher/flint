@@ -20,8 +20,8 @@ itself built on the Rust crate
 ## Usage
 
 Start by setting up `tinylint` with `tinylint::setup_tinylint()`. This
-imports `sgconfig.yml` and stores a set of rules in
-`inst/tinylint/rules`.
+stores a set of rules in `inst/tinylint/rules`. You can then extend
+those rules if you want more control.
 
 `tinylint` provides two families of functions:
 
@@ -56,10 +56,10 @@ bench::mark(
 #> Warning: Some expressions had a GC in every iteration; so filtering is
 #> disabled.
 #> # A tibble: 2 × 6
-#>   expression                            min  median `itr/sec` mem_alloc `gc/sec`
-#>   <bch:expr>                        <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl>
-#> 1 "lintr::lint(file, linters = lis…   2.47s   2.47s     0.405  314.34MB    12.6 
-#> 2 "tinylint::lint(file, linters = … 83.81ms 89.26ms    10.6      7.03MB     3.55
+#>   expression                             min median `itr/sec` mem_alloc `gc/sec`
+#>   <bch:expr>                          <bch:> <bch:>     <dbl> <bch:byt>    <dbl>
+#> 1 "lintr::lint(file, linters = list(…   2.7s   2.7s     0.371  314.34MB    10.7 
+#> 2 "tinylint::lint(file, linters = c(… 61.1ms 84.9ms    12.3      7.03MB     5.26
 ```
 
 One can also experiment with `tinylint::lint_text()`:

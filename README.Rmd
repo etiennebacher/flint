@@ -30,8 +30,9 @@ which is itself built on the Rust crate [`ast-grep`](https://ast-grep.github.io/
 
 ## Usage
 
-Start by setting up `tinylint` with `tinylint::setup_tinylint()`. This imports
-`sgconfig.yml` and stores a set of rules in `inst/tinylint/rules`. 
+Start by setting up `tinylint` with `tinylint::setup_tinylint()`. This stores a 
+set of rules in `inst/tinylint/rules`. You can then extend those rules if you
+want more control.
 
 `tinylint` provides two families of functions: 
 

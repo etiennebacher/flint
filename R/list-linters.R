@@ -10,7 +10,8 @@ list_linters <- function() {
     "implicit_assignment",
     "matrix_apply",
     "right_assignment",
-    "sapply_length"
+    "sapply_length",
+    "T_and_F_symbol"
   )
 
 }

@@ -27,14 +27,23 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
     linters <- list_linters()
   }
 
-  # r_files <- list.files(path, pattern = "\\.R$", recursive = TRUE)
-  r_files <- "test.R"
+  if (fs::is_dir(path)) {
+    r_files <- list.files(path, pattern = "\\.R$", recursive = TRUE)
+  } else {
+    r_files <- path
+  }
   lints <- list()
+
   for (i in r_files) {
     root <- astgrepr::tree_new(file = i) |>
       astgrepr::tree_root()
 
-    lints_raw <- astgrepr::node_find_all(root, files = paste0("inst/tinylint/rules/", linters, ".yml"))
+    if (testthat::is_testing()) {
+      files <- fs::path(system.file(package = "tinylint"), "tinylint/rules/", paste0(linters, ".yml"))
+    } else {
+      files <- paste0("inst/tinylint/rules/", linters, ".yml")
+    }
+    lints_raw <- astgrepr::node_find_all(root, files = files)
 
     if (all(lengths(lints_raw) == 0)) {
       return(invisible())
@@ -69,9 +78,8 @@ lint_diff <- function(path = ".", open = TRUE) {
 #' @rdname lint
 #' @export
 
-lint_text <- function(text) {
+lint_text <- function(text, linters = NULL) {
   tmp <- tempfile(fileext = ".R")
-  tmp_out <- tempfile()
   text <- trimws(text)
   cat(text, file = tmp)
 
@@ -79,13 +87,11 @@ lint_text <- function(text) {
   # output that is used in the custom print method. It's also easier to have a
   # dataframe output in tests.
   # We're only parsing a small text in general so passing twice is not an issue.
-  system2("ast-grep", paste("scan", tmp), stdout = tmp_out)
-  out <- lint(tmp, open = FALSE)
+  out <- lint(tmp, linters = linters, open = FALSE)
   if (length(out) == 0) {
     return(invisible())
   }
 
-  attr(out, "tinylint_output") <- readLines(tmp_out)
   class(out) <- c("tinylint", class(out))
   out
 }

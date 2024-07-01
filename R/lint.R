@@ -96,6 +96,6 @@ lint_text <- function(text, linters = NULL, return_nodes = FALSE) {
     return(invisible())
   }
 
-  class(out) <- c("tinylint", class(out))
+  class(out) <- c("tinylint_lint", class(out))
   out
 }

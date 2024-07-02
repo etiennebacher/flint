@@ -48,7 +48,7 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
     lints[[i]] <- clean_lints(lints_raw, file = i)
   }
 
-  lints <- data.table::rbindlist(lints, use.names = TRUE)
+  lints <- data.table::rbindlist(lints, fill = TRUE)
 
   if (isTRUE(open) &&
       requireNamespace("rstudioapi", quietly = TRUE) &&

@@ -2,15 +2,12 @@
 % Please edit documentation in R/lint.R
 \name{lint}
 \alias{lint}
-\alias{lint_diff}
 \alias{lint_text}
 \title{List all lints in a file or a directory}
 \usage{
 lint(path = ".", linters = NULL, open = TRUE)
 
-lint_diff(path = ".", open = TRUE)
-
-lint_text(text)
+lint_text(text, linters = NULL)
 }
 \arguments{
 \item{path}{A valid path to a file or a directory. Relative paths are accepted.}

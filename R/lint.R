@@ -63,17 +63,6 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
 #' @rdname lint
 #' @export
 
-lint_diff <- function(path = ".", open = TRUE) {
-  if (!fs::is_dir(path)) {
-    stop("`lint_diff()` only works with path to directories.")
-  }
-  changed_files <- system2("git", paste("diff --name-only", path), stdout = TRUE)
-  lint(path = changed_files, open = open)
-}
-
-#' @rdname lint
-#' @export
-
 lint_text <- function(text, linters = NULL) {
   tmp <- tempfile(fileext = ".R")
   text <- trimws(text)

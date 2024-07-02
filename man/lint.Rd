@@ -2,10 +2,16 @@
 % Please edit documentation in R/lint.R
 \name{lint}
 \alias{lint}
+\alias{lint_dir}
+\alias{lint_package}
 \alias{lint_text}
 \title{List all lints in a file or a directory}
 \usage{
 lint(path = ".", linters = NULL, open = TRUE)
+
+lint_dir(path = ".", linters = NULL, open = TRUE)
+
+lint_package(path = ".", linters = NULL, open = TRUE)
 
 lint_text(text, linters = NULL)
 }

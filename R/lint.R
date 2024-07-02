@@ -27,7 +27,7 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
     linters <- list_linters()
   }
 
-  if (fs::is_dir(path)) {
+  if (all(fs::is_dir(path))) {
     r_files <- list.files(path, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
   } else {
     r_files <- path
@@ -58,6 +58,28 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
   } else {
     lints
   }
+}
+
+#' @rdname lint
+#' @export
+
+lint_dir <- function(path = ".", linters = NULL, open = TRUE) {
+  if (!fs::is_dir(path)) {
+    stop("`path` must be a directory.")
+  }
+  lint(path, linters = linters, open = open)
+}
+
+#' @rdname lint
+#' @export
+
+lint_package <- function(path = ".", linters = NULL, open = TRUE) {
+  if (!fs::is_dir(path)) {
+    stop("`path` must be a directory.")
+  }
+  paths <- fs::path(path, c("R", "tests", "inst", "vignettes", "data-raw", "demo", "exec"))
+  paths <- paths[fs::dir_exists(paths)]
+  lint(path, linters = linters, open = open)
 }
 
 #' @rdname lint

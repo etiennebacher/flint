@@ -1,6 +1,9 @@
 # Taken from lintr: R/lint.R
 
 rstudio_source_markers <- function(lints) {
+  if (nrow(lints) == 0) {
+    return(invisible())
+  }
   if (any(startsWith(lints$file, "./"))) {
     lints$file <- normalizePath(lints$file)
   }

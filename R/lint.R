@@ -32,14 +32,14 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
   } else {
     r_files <- path
   }
+  rule_files <- fs::path(system.file(package = "tinylint"), "rules/", paste0(linters, ".yml"))
   lints <- list()
 
   for (i in r_files) {
     root <- astgrepr::tree_new(file = i) |>
       astgrepr::tree_root()
 
-    files <- fs::path(system.file(package = "tinylint"), "rules/", paste0(linters, ".yml"))
-    lints_raw <- astgrepr::node_find_all(root, files = files)
+    lints_raw <- astgrepr::node_find_all(root, files = rule_files)
 
     if (all(lengths(lints_raw) == 0)) {
       next

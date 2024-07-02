@@ -4,9 +4,9 @@
 \name{flint-package}
 \alias{flint}
 \alias{flint-package}
-\title{flint: What the Package Does (Title Case)}
+\title{flint: Find and Fix Lints in R Code}
 \description{
-More about what it does (maybe more than one line) Use four spaces when indenting paragraphs within the Description.
+Lints are code patterns that are not optimal because they are inefficient, forget corner cases, or less readable. 'flint' provides a small set of functions to detect those lints and automatically fix them. It builds on 'astgrepr', which itself uses the Rust crate 'ast-grep' to parse and navigate R code.
 }
 \seealso{
 Useful links:
@@ -14,6 +14,10 @@ Useful links:
   \item \url{https://github.com/etiennebacher/flint}
   \item Report bugs at \url{https://github.com/etiennebacher/flint/issues}
 }
+
+}
+\author{
+\strong{Maintainer}: Etienne Bacher \email{etienne.bacher@protonmail.com} [copyright holder]
 
 }
 \keyword{internal}

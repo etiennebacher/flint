@@ -24,8 +24,10 @@ you want more control.
 
 `flint` provides two families of functions:
 
-- those for linting: `lint()`, `lint_text()`.
-- those for replacing lints: `fix()`, `fix_text()`
+- those for linting: `lint()` applies rules on R files, `lint_text()`
+  does the same on code as text input.
+- those for replacing lints: `fix()` and `fix_text()` apply rules and
+  automatically replace matches by the provided replacements.
 
 ## Comparison with existing tools
 
@@ -57,8 +59,8 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression                            min  median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>                        <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl>
-#> 1 "lintr::lint(file, linters = lis…   3.01s   3.01s     0.332  314.34MB     9.63
-#> 2 "flint::lint(file, linters = c(\… 59.82ms 69.06ms    13.5      6.61MB     1.93
+#> 1 "lintr::lint(file, linters = lis…   2.61s   2.61s     0.383  314.34MB    11.1 
+#> 2 "flint::lint(file, linters = c(\… 59.61ms 79.32ms    12.8      6.61MB     1.83
 ```
 
 One can also experiment with `flint::lint_text()`:

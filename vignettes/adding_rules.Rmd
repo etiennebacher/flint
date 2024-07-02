@@ -126,7 +126,13 @@ lint_text("class(z) %in% c('numeric', 'integer')")
 
 Then it doesn't work. To remedy this, we can use the
 [`strictness`](https://ast-grep.github.io/guide/rule-config/atomic-rule.html#strictness) 
-parameter in `ast-grep`.
+parameter in `ast-grep`. By default, this is `smart` but we want to ignore quotation
+so we set it to `ast` (see [here](https://ast-grep.github.io/advanced/match-algorithm.html#strictness-examples) for examples):
+
+```{yaml}
+
+```
+
 
 
 ```{r}

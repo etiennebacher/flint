@@ -17,3 +17,23 @@ list_linters <- function() {
   )
 
 }
+
+
+#' suppressWarnings(file.remove("R/linters_factory.R"))
+#' for (i in list_linters()) {
+#'   cat(
+#'     sprintf(
+#' "\n
+#' #' %s
+#' #' @usage %s
+#' #' @name %s_linter
+#' #' @export
+#' NULL
+#' makeActiveBinding('%s', function() { function() '%s' }, env = environment())\n
+#' ",
+#'     i, i, i, i, i
+#'     ),
+#'     file = "R/linters_factory.R",
+#'     append = TRUE
+#'   )
+#' }

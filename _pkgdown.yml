@@ -33,3 +33,7 @@ reference:
   contents:
   - setup_flint
 
+- title: Linters
+  contents:
+  - ends_with("linter")
+

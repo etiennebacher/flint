@@ -27,19 +27,19 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
     linters <- list_linters()
   }
 
-  if (fs::is_dir(path)) {
+  if (all(fs::is_dir(path))) {
     r_files <- list.files(path, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
   } else {
     r_files <- path
   }
+  rule_files <- fs::path(system.file(package = "tinylint"), "rules/", paste0(linters, ".yml"))
   lints <- list()
 
   for (i in r_files) {
     root <- astgrepr::tree_new(file = i) |>
       astgrepr::tree_root()
 
-    files <- fs::path(system.file(package = "tinylint"), "rules/", paste0(linters, ".yml"))
-    lints_raw <- astgrepr::node_find_all(root, files = files)
+    lints_raw <- astgrepr::node_find_all(root, files = rule_files)
 
     if (all(lengths(lints_raw) == 0)) {
       next
@@ -48,7 +48,7 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
     lints[[i]] <- clean_lints(lints_raw, file = i)
   }
 
-  lints <- data.table::rbindlist(lints, use.names = TRUE)
+  lints <- data.table::rbindlist(lints, fill = TRUE)
 
   if (isTRUE(open) &&
       requireNamespace("rstudioapi", quietly = TRUE) &&
@@ -63,12 +63,23 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
 #' @rdname lint
 #' @export
 
-lint_diff <- function(path = ".", open = TRUE) {
+lint_dir <- function(path = ".", linters = NULL, open = TRUE) {
   if (!fs::is_dir(path)) {
-    stop("`lint_diff()` only works with path to directories.")
+    stop("`path` must be a directory.")
   }
-  changed_files <- system2("git", paste("diff --name-only", path), stdout = TRUE)
-  lint(path = changed_files, open = open)
+  lint(path, linters = linters, open = open)
+}
+
+#' @rdname lint
+#' @export
+
+lint_package <- function(path = ".", linters = NULL, open = TRUE) {
+  if (!fs::is_dir(path)) {
+    stop("`path` must be a directory.")
+  }
+  paths <- fs::path(path, c("R", "tests", "inst", "vignettes", "data-raw", "demo", "exec"))
+  paths <- paths[fs::dir_exists(paths)]
+  lint(path, linters = linters, open = open)
 }
 
 #' @rdname lint

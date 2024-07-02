@@ -21,9 +21,7 @@ clean_lints <- function(lints_raw, file) {
   locs_reorg <- Filter(function(x) length(x) > 0, locs_reorg)
 
   locs2 <- data.table::rbindlist(locs_reorg, use.names = TRUE)
-  txts2 <- data.table::rbindlist(lapply(txts, function(x) {
-    data.frame(text = unlist(x))
-  }), use.names = TRUE)
+  txts2 <- data.table::data.table(text = unlist(txts, recursive = TRUE, use.names = FALSE))
 
   other_info <- lapply(seq_along(lints_raw), function(x) {
     res <- attributes(lints_raw[[x]])[["other_info"]]

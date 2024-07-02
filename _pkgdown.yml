@@ -1,0 +1,35 @@
+url: https://flint.etiennebacher.com/
+template:
+  bootstrap: 5
+  bslib:
+    primary: '#0B7189'
+    line-height-base: 1.7
+
+authors:
+  Etienne Bacher:
+    href: https://www.etiennebacher.com
+
+navbar:
+  structure:
+    left:
+    - intro
+    - articles
+    - reference
+    - news
+    right:
+    - search
+    - github
+
+reference:
+- title: Find lints
+  contents:
+  - lint
+
+- title: Fix lints
+  contents:
+  - fix
+
+- title: Setup `flint`
+  contents:
+  - setup_flint
+

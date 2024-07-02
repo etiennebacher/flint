@@ -21,6 +21,7 @@ severity: warning
 rule:
   any:
     - pattern: $CLASSNAME %in% class($VAR)
-    - pattern: class($VAR) %in% $CLASSNAME
+    - pattern: class($VAR) %in% '$CLASSNAME'
+    - pattern: class($VAR) %in% "$CLASSNAME"
 fix: inherits($VAR, $CLASSNAME)
 message: Instead of comparing class(x) with %in%, use inherits(x, 'class-name') or is.<class> or is(x, 'class')

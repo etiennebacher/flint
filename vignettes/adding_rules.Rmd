@@ -15,11 +15,11 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(tinylint)
+library(flint)
 ```
 
 
-`tinylint` comes with an extensive set of rules taken from `lintr`, but if 
+`flint` comes with an extensive set of rules taken from `lintr`, but if 
 necessary one can also extend it relatively easily. This will require some
 knowledge of `astgrepr` and therefore of the Rust crate `ast-grep`. This crate
 has great documentation on [creating new rules](https://ast-grep.github.io/guide/pattern-syntax.html)
@@ -37,7 +37,7 @@ We need three things to start experimenting with new rules:
   This doesn't return anything since we haven't implemented the rule yet.
   
 * a rule: this requires storing a new YAML file in `inst/rules`. We can call this
-  one `if_not_else.yml`.
+  one `is_numeric.yml`.
   
 * store the rule name (`"is_numeric"`) in `list_linters()`.
   
@@ -126,22 +126,53 @@ lint_text("class(z) %in% c('numeric', 'integer')")
 
 Then it doesn't work. To remedy this, we can use the
 [`strictness`](https://ast-grep.github.io/guide/rule-config/atomic-rule.html#strictness) 
-parameter in `ast-grep`. By default, this is `smart` but we want to ignore quotation
-so we set it to `ast` (see [here](https://ast-grep.github.io/advanced/match-algorithm.html#strictness-examples) for examples):
+parameter in `ast-grep`, that comes as a sublevel of the `pattern` level. By 
+default, `strictness` is `smart` but we want to ignore quotation so we set it to 
+`ast` (see [here](https://ast-grep.github.io/advanced/match-algorithm.html#strictness-examples) 
+for examples):
 
 ```{yaml}
+id: is_numeric_2
+language: r
+severity: warning
+rule:
+  any:
+    - pattern:
+        context: class($VAR) %in% c("numeric", "integer")
+        strictness: ast
+    - pattern:
+        context: class($VAR) %in% c("integer", "numeric")
+        strictness: ast
+message: class(x) %in% c("numeric", "integer") can be simplified to is.numeric(x). Use
+    is.double(x) to test for objects stored as 64-bit floating point.
+```
 
+We now have what we wanted:
+
+```{.r}
+lint_text("class(z) %in% c('numeric', 'integer')")
+#> Original code: class(z) %in% c('numeric', 'integer') 
+#> Suggestion: class(x) %in% c("numeric", "integer") can be simplified to is.numeric(x). Use is.double(x) to test for objects stored as 64-bit floating point. 
+
+lint_text('class(z) %in% c("numeric", "integer")')
+#> Original code: class(z) %in% c('numeric', 'integer') 
+#> Suggestion: class(x) %in% c("numeric", "integer") can be simplified to is.numeric(x). Use is.double(x) to test for objects stored as 64-bit floating point. 
 ```
 
 
+## Step 3: corner cases
 
-```{r}
-library(treesitter, warn.conflicts = FALSE)
+We want to avoid false positives and false negatives. If the rule exists in 
+`lintr` then we can copy the section of their test suite that tests this rule.
+In this case, it is [this file](https://github.com/r-lib/lintr/blob/main/tests/testthat/test-is_numeric_linter.R).
 
-# Language specific grammars come from extension packages
-language <- treesitter.r::language()
-parser <- parser(language)
+<!-- ```{r} -->
+<!-- library(treesitter, warn.conflicts = FALSE) -->
 
-parser_parse(parser, "class(x)[class(x) == 'foo']")
-```
+<!-- # Language specific grammars come from extension packages -->
+<!-- language <- treesitter.r::language() -->
+<!-- parser <- parser(language) -->
+
+<!-- parser_parse(parser, "class(x)[class(x) == 'foo']") -->
+<!-- ``` -->
 

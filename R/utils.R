@@ -38,3 +38,9 @@ clean_lints <- function(lints_raw, file) {
 
   lints[order(line_start)]
 }
+
+
+get_tests_from_lintr <- function(name) {
+  url <- paste0("https://raw.githubusercontent.com/r-lib/lintr/main/tests/testthat/test-", name, "_linter.R")
+  download.file(url, destfile = paste0("tests/testthat/test-", name, ".R"))
+}

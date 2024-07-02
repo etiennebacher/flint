@@ -15,16 +15,164 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(tinylint)
+library(flint)
 ```
 
-```{r}
-library(treesitter, warn.conflicts = FALSE)
 
-# Language specific grammars come from extension packages
-language <- treesitter.r::language()
-parser <- parser(language)
+`flint` comes with an extensive set of rules taken from `lintr`, but if 
+necessary one can also extend it relatively easily. This will require some
+knowledge of `astgrepr` and therefore of the Rust crate `ast-grep`. This crate
+has great documentation on [creating new rules](https://ast-grep.github.io/guide/pattern-syntax.html)
+so you should start there.
 
-parser_parse(parser, "class(x)[class(x) == 'foo']")
+The objective for this vignette is to add support for
+[`is_numeric_linter()`](https://lintr.r-lib.org/reference/is_numeric_linter.html).
+
+## Step 1: setup
+
+We need three things to start experimenting with new rules:
+
+* an example: this can be taken from `lintr`'s examples for a specific linter. 
+  For instance we can already run `lint_text("is.numeric(y) || is.integer(y)")`. 
+  This doesn't return anything since we haven't implemented the rule yet.
+  
+* a rule: this requires storing a new YAML file in `inst/rules`. We can call this
+  one `is_numeric.yml`.
+  
+* store the rule name (`"is_numeric"`) in `list_linters()`.
+  
+Additionally, if the rules we want to add are part of `lintr`, we can copy the
+tests stored in [`lintr` test suite](https://github.com/r-lib/lintr/tree/main/tests/testthat) 
+to ensure that our rules cover most corner cases.
+
+
+## Step 2: start exploring
+
+In `lintr::is_numeric_linter()`, we want to warn if one uses `is.numeric(y) || is.integer(y)`
+or `is.integer(y) || is.numeric(y)` since this equivalent to `is.numeric(y)`.
+
+In our rule, we can already add those two patterns using `any`:
+
+```{yaml}
+id: is_numeric_1
+language: r
+severity: warning
+rule:
+  any:
+    - pattern: is.numeric($VAR) || is.integer($VAR)
+    - pattern: is.integer($VAR) || is.numeric($VAR)
+message: is.numeric(x) is the same as is.numeric(x) || is.integer(x). Use
+    is.double(x) to test for objects stored as 64-bit floating point.
 ```
+
+Running our example now shows the message:
+
+```{.r}
+lint_text("is.numeric(y) || is.integer(y)")
+#> Original code: is.numeric(y) || is.integer(y) 
+#> Suggestion: is.numeric(x) || is.integer(x) can be simplified to is.numeric(x). Use is.double(x) to test for objects stored as 64-bit floating point. 
+```
+
+But we can see from the `lintr::is_numeric_linter()` examples that are more
+cases in which we should warn. For instance, `class(z) %in% c("numeric", "integer")`
+should warn since it is equivalent to `is.numeric(z)`, 
+`class(z) %in% c("numeric", "integer", "factor")` shouldn't.
+
+We can add a second rule in our YAML file by adding a separator `---`:
+
+```{yaml}
+id: is_numeric_1
+language: r
+severity: warning
+rule:
+  any:
+    - pattern: is.numeric($VAR) || is.integer($VAR)
+    - pattern: is.integer($VAR) || is.numeric($VAR)
+message: is.numeric(x) || is.integer(x) can be simplified to is.numeric(x). Use
+    is.double(x) to test for objects stored as 64-bit floating point.
+
+---
+
+id: is_numeric_2
+language: r
+severity: warning
+rule:
+  any:
+    - pattern: class($VAR) %in% c("numeric", "integer")
+    - pattern: class($VAR) %in% c("integer", "numeric")
+message: class(x) %in% c("numeric", "integer") can be simplified to is.numeric(x). Use
+    is.double(x) to test for objects stored as 64-bit floating point.
+```
+
+And this now works as well:
+
+```{.r}
+lint_text('class(z) %in% c("numeric", "integer")')
+#> Original code: class(z) %in% c("numeric", "integer") 
+#> Suggestion: class(x) %in% c("numeric", "integer") can be simplified to is.numeric(x). Use is.double(x) to test for objects stored as 64-bit floating point. 
+```
+
+```{.r}
+lint_text('class(z) %in% c("numeric", "integer", "factor")')
+```
+
+
+Notice however that the patterns in our rule use double quotation marks `"`. So
+what happens when the code has single quotation marks `'` instead?
+
+```{.r}
+lint_text("class(z) %in% c('numeric', 'integer')")
+```
+
+Then it doesn't work. To remedy this, we can use the
+[`strictness`](https://ast-grep.github.io/guide/rule-config/atomic-rule.html#strictness) 
+parameter in `ast-grep`, that comes as a sublevel of the `pattern` level. By 
+default, `strictness` is `smart` but we want to ignore quotation so we set it to 
+`ast` (see [here](https://ast-grep.github.io/advanced/match-algorithm.html#strictness-examples) 
+for examples):
+
+```{yaml}
+id: is_numeric_2
+language: r
+severity: warning
+rule:
+  any:
+    - pattern:
+        context: class($VAR) %in% c("numeric", "integer")
+        strictness: ast
+    - pattern:
+        context: class($VAR) %in% c("integer", "numeric")
+        strictness: ast
+message: class(x) %in% c("numeric", "integer") can be simplified to is.numeric(x). Use
+    is.double(x) to test for objects stored as 64-bit floating point.
+```
+
+We now have what we wanted:
+
+```{.r}
+lint_text("class(z) %in% c('numeric', 'integer')")
+#> Original code: class(z) %in% c('numeric', 'integer') 
+#> Suggestion: class(x) %in% c("numeric", "integer") can be simplified to is.numeric(x). Use is.double(x) to test for objects stored as 64-bit floating point. 
+
+lint_text('class(z) %in% c("numeric", "integer")')
+#> Original code: class(z) %in% c('numeric', 'integer') 
+#> Suggestion: class(x) %in% c("numeric", "integer") can be simplified to is.numeric(x). Use is.double(x) to test for objects stored as 64-bit floating point. 
+```
+
+
+## Step 3: corner cases
+
+We want to avoid false positives and false negatives. If the rule exists in 
+`lintr` then we can copy the section of their test suite that tests this rule.
+In this case, it is [this file](https://github.com/r-lib/lintr/blob/main/tests/testthat/test-is_numeric_linter.R).
+
+<!-- ```{r} -->
+<!-- library(treesitter, warn.conflicts = FALSE) -->
+
+<!-- # Language specific grammars come from extension packages -->
+<!-- language <- treesitter.r::language() -->
+<!-- parser <- parser(language) -->
+
+<!-- parser_parse(parser, "class(x)[class(x) == 'foo']") -->
+<!-- ``` -->
 

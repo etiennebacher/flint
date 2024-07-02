@@ -32,7 +32,7 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
   } else {
     r_files <- path
   }
-  rule_files <- fs::path(system.file(package = "tinylint"), "rules/", paste0(linters, ".yml"))
+  rule_files <- fs::path(system.file(package = "flint"), "rules/", paste0(linters, ".yml"))
   lints <- list()
 
   for (i in r_files) {
@@ -99,6 +99,6 @@ lint_text <- function(text, linters = NULL) {
     return(invisible())
   }
 
-  class(out) <- c("tinylint", class(out))
+  class(out) <- c("flint", class(out))
   out
 }

@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(tinylint)
+library(flint)
 
-test_check("tinylint")
+test_check("flint")

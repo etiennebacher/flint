@@ -1,10 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# tinylint
+# flint
 
-`tinylint` is a small R package to detect lints in R code and optionally
-replace them.
+`flint` is a small R package to find and replace linters in R code.
 
 - Lint detections with `lint()`
 - Automatic replacement of lints with `fix()`
@@ -12,18 +11,18 @@ replace them.
 - Extremely fast
 - Low-dependency
 
-`tinylint` is powered by
+`flint` is powered by
 [`astgrepr`](https://github.com/etiennebacher/astgrepr/), which is
 itself built on the Rust crate
 [`ast-grep`](https://ast-grep.github.io/).
 
 ## Usage
 
-Start by setting up `tinylint` with `tinylint::setup_tinylint()`. This
-stores a set of rules in `inst/tinylint/rules`. You can then extend
-those rules if you want more control.
+Start by setting up `flint` with `flint::setup_flint()`. This stores a
+set of rules in `inst/flint/rules`. You can then extend those rules if
+you want more control.
 
-`tinylint` provides two families of functions:
+`flint` provides two families of functions:
 
 - those for linting: `lint()`, `lint_text()`.
 - those for replacing lints: `fix()`, `fix_text()`
@@ -38,19 +37,19 @@ lints.
 `styler` is a package to clean code by fixing indentation and other
 things, but doesn’t perform code replacement based on lints.
 
-`tinylint` is extremely performant. This is a small benchmark on 3.5k
-lines of code with only three linters:
+`flint` is extremely performant. This is a small benchmark on 3.5k lines
+of code with only three linters:
 
 ``` r
 library(bench)
 library(lintr)
-library(tinylint, warn.conflicts = FALSE)
+library(flint, warn.conflicts = FALSE)
 
-file <- system.file("bench/test.R", package = "tinylint")
+file <- system.file("bench/test.R", package = "flint")
 
 bench::mark(
   lintr::lint(file, linters = list(any_duplicated_linter(), any_is_na_linter(), matrix_apply_linter())),
-  tinylint::lint(file, linters = c("any_duplicated", "any_na", "matrix_apply"), open = FALSE),
+  flint::lint(file, linters = c("any_duplicated", "any_na", "matrix_apply"), open = FALSE),
   check = FALSE
 )
 #> Warning: Some expressions had a GC in every iteration; so filtering is
@@ -58,11 +57,11 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression                            min  median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>                        <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl>
-#> 1 "lintr::lint(file, linters = lis…   3.29s   3.29s     0.304  314.34MB     8.81
-#> 2 "tinylint::lint(file, linters = … 50.06ms 70.61ms    14.8      6.64MB     1.85
+#> 1 "lintr::lint(file, linters = lis…   3.01s   3.01s     0.332  314.34MB     9.63
+#> 2 "flint::lint(file, linters = c(\… 59.82ms 69.06ms    13.5      6.61MB     1.93
 ```
 
-One can also experiment with `tinylint::lint_text()`:
+One can also experiment with `flint::lint_text()`:
 
 ``` r
 lint_text("

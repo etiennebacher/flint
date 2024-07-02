@@ -3,7 +3,7 @@ expect_lint <- function(x, message, linter) {
     linter <- list_linters()
   }
   withr::with_envvar(
-    new = c("TINYLINT_TESTING" = TRUE),
+    new = c("FLINT_TESTING" = TRUE),
     out <- lint_text(x, linters = linter)
   )
   if (is.null(message)) {

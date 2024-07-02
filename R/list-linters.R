@@ -8,6 +8,7 @@ list_linters <- function() {
     "equal_assignment",
     "equals_na",
     "ifelse_pmin_pmax",
+    "is_numeric",
     "implicit_assignment",
     "matrix_apply",
     "right_assignment",

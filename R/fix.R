@@ -6,15 +6,13 @@ fix <- function(path = ".") { # TODO: add a "linter" arg
 #' @export
 fix_text <- function(text) {
   lints <- lint_text(text, return_nodes = TRUE)
+  lints <- Filter(Negate(is.null), lints)
   args <- append(
     list(x = astgrepr:::add_rulelist_class(lints[[1]])),
     rep(attributes(lints[[1]])$other_info$fix, length(lints[[1]]))
   )
   names(args)[2:length(args)] <- names(lints[[1]])
-  replacement2 <- rlang::call2(
-    astgrepr::node_replace,
-    !!!args
-  ) |> rlang::eval_bare()
+  replacement2 <- as.call(append(astgrepr::node_replace, args)) |> eval()
 
   root <- astgrepr::tree_new(text) |>
     astgrepr::tree_root()
@@ -24,7 +22,3 @@ fix_text <- function(text) {
   attr(out, "original") <- text
   out
 }
-
-# TODO: this errors because the first replacement doesn't shift the indices before
-# applying the second one:
-# fix_text("any(duplicated(x)); any(duplicated(y))")

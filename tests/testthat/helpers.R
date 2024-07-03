@@ -14,3 +14,11 @@ expect_lint <- function(x, message, linter) {
     )
   }
 }
+
+expect_fix <- function(x, replacement) {
+  withr::with_envvar(
+    new = c("TINYLINT_TESTING" = TRUE),
+    out <- fix_text(x)
+  )
+  testthat::expect_equal(as.character(out), replacement)
+}

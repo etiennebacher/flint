@@ -7,7 +7,7 @@ expect_lint <- function(x, message, linter) {
     testthat::expect_true(length(out) == 0)
   } else {
     testthat::expect_true(
-      nrow(out) > 0 && any(message == out$message | grepl(message, out$message, perl = TRUE))
+      nrow(out) > 0 && any(message == out$message | grepl(message, out$message, fixed = TRUE))
     )
   }
 }

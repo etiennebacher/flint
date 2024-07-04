@@ -1,103 +1,71 @@
-lint_message <- "anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...)."
-
 test_that("any_duplicated_linter skips allowed usages", {
-  linter <- NULL
+  linter <- any_duplicated_linter()
 
   expect_lint("x <- any(y)", NULL, linter)
   expect_lint("y <- duplicated(z)", NULL, linter)
 })
 
 test_that("any_duplicated_linter blocks simple disallowed usages", {
-  linter <- NULL
+  linter <- any_duplicated_linter()
+  lint_msg <- "anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...)."
 
-  expect_lint(
-    "any(duplicated(x))",
-    lint_message,
-    NULL
-  )
+  expect_lint("any(duplicated(x))", lint_msg, NULL)
+  expect_lint("any(duplicated(foo(x)))", lint_msg, NULL)
 
-  expect_lint(
-    "any(duplicated(foo(x)))",
-    lint_message,
-    NULL
-  )
-
-  expect_lint("any(duplicated(y), b)", lint_message, linter)
-  expect_lint("any(b, duplicated(y))", lint_message, linter)
+  expect_lint("any(duplicated(y), b)", lint_msg, linter)
+  expect_lint("any(b, duplicated(y))", lint_msg, linter)
 
   # na.rm doesn't really matter for this since duplicated can't return NA
-  expect_lint(
-    "any(duplicated(x), na.rm = TRUE)",
-    lint_message,
-    NULL
-  )
+  expect_lint("any(duplicated(x), na.rm = TRUE)", lint_msg, NULL)
 
   # also catch nested usage
-  expect_lint(
-    "foo(any(duplicated(x)))",
-    lint_message,
-    NULL
-  )
+  expect_lint("foo(any(duplicated(x)))", lint_msg, NULL)
 })
 
-lint_message <- "anyDuplicated(x) == 0L is better than length(unique(x)) == length(x)."
-
 test_that("any_duplicated_linter catches length(unique()) equivalencies too", {
+  linter <- any_duplicated_linter()
+  lint_msg_x <- "anyDuplicated(x) == 0L is better than length(unique(x)) == length(x)."
+  lint_msg_df <- "anyDuplicated(DF$col) == 0L is better than length(unique(DF$col)) == nrow(DF)"
+  lint_msg_df2 <- "anyDuplicated(DF[[\"col\"]]) == 0L is better than length(unique(DF[[\"col\"]])) == nrow(DF)"
+
   # non-matches
   ## different variable
-  expect_lint("length(unique(x)) == length(y)", NULL, NULL)
+  expect_lint("length(unique(x)) == length(y)", NULL, linter)
   ## different table
-  expect_lint("length(unique(DF$x)) == nrow(DT)", NULL, NULL)
-  expect_lint("length(unique(l1$DF$x)) == nrow(l2$DF)", NULL, NULL)
+  expect_lint("length(unique(DF$x)) == nrow(DT)", NULL, linter)
+  expect_lint("length(unique(l1$DF$x)) == nrow(l2$DF)", NULL, linter)
 
   # lintable usage
-  expect_lint(
-    "length(unique(x)) == length(x)",
-    lint_message,
-    NULL
-  )
+  expect_lint("length(unique(x)) == length(x)", lint_msg_x, linter)
   # argument order doesn't matter
-  expect_lint(
-    "length(x) == length(unique(x))",
-    lint_message,
-    NULL
-  )
-  # TODO:
-  # # nrow-style equivalency
-  # expect_lint(
-  #   "nrow(DF) == length(unique(DF$col))",
-  #   rex::rex("anyDuplicated(DF$col) == 0L is better than length(unique(DF$col)) == nrow(DF)"),
-  #   NULL
-  # )
-  # expect_lint(
-  #   "nrow(DF) == length(unique(DF[['col']]))",
-  #   rex::rex("anyDuplicated(DF$col) == 0L is better than length(unique(DF$col)) == nrow(DF)"),
-  #   NULL
-  # )
-  # # match with nesting too
+  expect_lint("length(x) == length(unique(x))", lint_msg_x, linter)
+
+  # nrow-style equivalency
+  expect_lint("nrow(DF) == length(unique(DF$col))", lint_msg_df, linter)
+  expect_lint("length(unique(DF$col)) == nrow(DF)", lint_msg_df, linter)
+  expect_lint("nrow(DF) == length(unique(DF[['col']]))", lint_msg_df2, linter)
+  expect_lint("length(unique(DF[['col']])) == nrow(DF)", lint_msg_df2, linter)
+
+  # TODO: match with nesting too
   # expect_lint(
   #   "nrow(l$DF) == length(unique(l$DF[['col']]))",
-  #   rex::rex("anyDuplicated(DF$col) == 0L is better than length(unique(DF$col)) == nrow(DF)"),
-  #   NULL
+  #   lint_msg_df,
+  #   linter
   # )
 
   # !=, <, and > usages are all alternative ways of writing a test for dupes
   #   technically, the direction of > / < matter, but writing
   #   length(unique(x)) > length(x) doesn't seem like it would ever happen.
-  expect_lint(
-    "length(unique(x)) != length(x)",
-    rex::rex("Use anyDuplicated(x) != 0"),
-    NULL
-  )
+  expect_lint("length(unique(x)) != length(x)", "Use anyDuplicated(x) != 0", linter)
   # expect_lint(
   #   "length(unique(x)) < length(x)",
   #   rex::rex("anyDuplicated(x) == 0L is better than length(unique(x)) == length(x)"),
-  #   NULL
+  #   linter
   # )
   # expect_lint(
   #   "length(x) > length(unique(x))",
   #   rex::rex("anyDuplicated(x) == 0L is better than length(unique(x)) == length(x)"),
-  #   NULL
+  #   linter
   # )
 
   # TODO(michaelchirico): try and match data.table- and dplyr-specific versions of

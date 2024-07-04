@@ -19,10 +19,16 @@
 #'
 #' @export
 
-lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linter" arg
+lint <- function(
+    path = ".",
+    linters = NULL,
+    exclude_path = NULL,
+    exclude_linters = NULL,
+    open = TRUE
+) {
 
-  linters <- resolve_linters(linters)
-  r_files <- resolve_path(path)
+  linters <- resolve_linters(linters, exclude_linters)
+  r_files <- resolve_path(path, exclude_path)
   rule_files <- fs::path(system.file(package = "flint"), "rules/", paste0(linters, ".yml"))
   lints <- list()
 

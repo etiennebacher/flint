@@ -3,12 +3,27 @@
 \name{fix}
 \alias{fix}
 \alias{fix_text}
-\title{Hi there}
+\title{Automatically replace lints}
 \usage{
-fix(path = ".", linters = NULL, open = TRUE)
+fix(
+  path = ".",
+  linters = NULL,
+  exclude_path = NULL,
+  exclude_linters = NULL,
+  open = TRUE
+)
 
 fix_text(text, linters = NULL)
 }
+\arguments{
+\item{path}{A valid path to a file or a directory. Relative paths are accepted.}
+
+\item{linters}{A character vector with the names of the rules to apply. See
+the entire list of rules with \code{list_linters()}.}
+
+\item{open}{If \code{TRUE} (default) and if this is used in the RStudio IDE, lints
+will be shown with markers.}
+}
 \description{
-Hi there
+Automatically replace lints
 }

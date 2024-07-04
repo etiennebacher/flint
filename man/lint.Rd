@@ -7,7 +7,13 @@
 \alias{lint_text}
 \title{List all lints in a file or a directory}
 \usage{
-lint(path = ".", linters = NULL, open = TRUE)
+lint(
+  path = ".",
+  linters = NULL,
+  exclude_path = NULL,
+  exclude_linters = NULL,
+  open = TRUE
+)
 
 lint_dir(path = ".", linters = NULL, open = TRUE)
 

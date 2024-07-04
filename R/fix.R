@@ -1,10 +1,18 @@
-#' Hi there
+#' Automatically replace lints
+#'
+#' @inheritParams lint
 #'
 #' @export
-fix <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linter" arg
+fix <- function(
+    path = ".",
+    linters = NULL,
+    exclude_path = NULL,
+    exclude_linters = NULL,
+    open = TRUE
+) {
 
-  linters <- resolve_linters(linters)
-  r_files <- resolve_path(path)
+  linters <- resolve_linters(linters, exclude_linters)
+  r_files <- resolve_path(path, exclude_path)
   rule_files <- fs::path(system.file(package = "flint"), "rules/", paste0(linters, ".yml"))
   fixes <- list()
 
@@ -19,6 +27,7 @@ fix <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linter
     }
 
     lints <- Filter(Negate(is.null), lints_raw)
+    lints <- Filter(function(x) length(attributes(x)$other_info$fix) > 0, lints)
     args <- append(
       list(x = astgrepr:::add_rulelist_class(lints)),
       vapply(lints, function(x) attributes(x)$other_info$fix, character(1))
@@ -29,7 +38,7 @@ fix <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linter
     fixes[[i]] <- astgrepr::tree_rewrite(root, replacement2)
     writeLines(text = fixes[[i]], i)
   }
-  fixes
+  invisible(fixes)
 }
 
 #' @rdname fix

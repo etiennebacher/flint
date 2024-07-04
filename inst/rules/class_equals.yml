@@ -10,7 +10,7 @@ rule:
   not:
     inside:
       kind: argument
-fix: inherits($VAR, $CLASSNAME)
+fix: inherits(~~VAR~~, ~~CLASSNAME~~)
 message: Instead of comparing class(x) with ==, use inherits(x, 'class-name') or is.<class> or is(x, 'class')
 
 ---
@@ -23,5 +23,5 @@ rule:
     - pattern: $CLASSNAME %in% class($VAR)
     - pattern: class($VAR) %in% '$CLASSNAME'
     - pattern: class($VAR) %in% "$CLASSNAME"
-fix: inherits($VAR, $CLASSNAME)
+fix: inherits(~~VAR~~, ~~CLASSNAME~~)
 message: Instead of comparing class(x) with %in%, use inherits(x, 'class-name') or is.<class> or is(x, 'class')

@@ -45,18 +45,20 @@ get_tests_from_lintr <- function(name) {
   download.file(url, destfile = paste0("tests/testthat/test-", name, ".R"))
 }
 
-resolve_linters <- function(linters) {
+resolve_linters <- function(linters, exclude_linters) {
   if (!is.null(linters) && !all(linters %in% list_linters())) {
     stop(paste0("Unknown linters: ", toString(setdiff(linters, list_linters()))))
   } else if (is.null(linters)) {
     linters <- list_linters()
   }
-  linters
+  setdiff(linters, exclude_linters)
 }
 
-resolve_path <- function(path) {
+resolve_path <- function(path, exclude_path) {
   if (all(fs::is_dir(path))) {
     r_files <- list.files(path, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
+    excluded <- file.path(path, exclude_path)
+    r_files <- setdiff(r_files, excluded)
   } else {
     r_files <- path
   }

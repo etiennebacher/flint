@@ -3,7 +3,7 @@ language: r
 severity: warning
 rule:
   pattern: ifelse($X < $Y, $X, $Y)
-fix: pmin($X, $Y)
+fix: pmin(~~X~~, ~~Y~~)
 message: pmin(x, y) is preferable to ifelse(x < y, x, y).
 
 # ---

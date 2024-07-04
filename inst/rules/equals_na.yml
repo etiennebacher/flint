@@ -13,7 +13,7 @@ rule:
     - pattern: NA_real_ == $MYVAR
     - pattern: NA_complex_ == $MYVAR
     - pattern: NA_character_ == $MYVAR
-fix: is.na($MYVAR)
+fix: is.na(~~MYVAR~~)
 message: Use is.na for comparisons to NA (not == or !=).
 
 ---
@@ -33,5 +33,5 @@ rule:
     - pattern: NA_real_ != $MYVAR
     - pattern: NA_complex_ != $MYVAR
     - pattern: NA_character_ != $MYVAR
-fix: is.na($MYVAR)
+fix: is.na(~~MYVAR~~)
 message: Use is.na for comparisons to NA (not == or !=).

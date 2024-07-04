@@ -59,8 +59,8 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression                            min  median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>                        <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl>
-#> 1 "lintr::lint(file, linters = lis…   2.61s   2.61s     0.383  314.34MB    11.1 
-#> 2 "flint::lint(file, linters = c(\… 59.61ms 79.32ms    12.8      6.61MB     1.83
+#> 1 "lintr::lint(file, linters = lis…   3.29s   3.29s     0.304  314.34MB     8.81
+#> 2 "flint::lint(file, linters = … 50.06ms 70.61ms    14.8      6.64MB     1.85
 ```
 
 One can also experiment with `flint::lint_text()`:

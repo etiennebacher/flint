@@ -112,3 +112,30 @@ test_that("any_duplicated_linter catches expression with two types of lint", {
     NULL
   )
 })
+
+test_that("fixes for any_duplicated rules", {
+  # basic
+  expect_fix("any(duplicated(x))", "anyDuplicated(x) > 0")
+  expect_fix("any(duplicated(any(x)))", "anyDuplicated(any(x)) > 0")
+  expect_fix("any(duplicated(var(x)))", "anyDuplicated(var(x)) > 0")
+
+  # multiline
+  expect_fix("any(\nduplicated(\nvar(x)\n)\n)", "anyDuplicated(var(x)) > 0")
+
+  # other args
+  expect_fix("any(duplicated(x), na.rm = TRUE)", "anyDuplicated(x) > 0")
+  expect_fix("any(na.rm = TRUE, duplicated(x))", "anyDuplicated(x) > 0")
+
+  # multiple fixes
+  expect_fix(
+    "any(duplicated(x)); 1 + 1; any(duplicated(y))",
+    "anyDuplicated(x) > 0; 1 + 1; anyDuplicated(y) > 0"
+  )
+  expect_fix(
+    "any(duplicated(x))\n1 + 1\n  any(duplicated(y))",
+    "anyDuplicated(x) > 0\n1 + 1\n  anyDuplicated(y) > 0"
+  )
+
+  expect_fix("length(unique(x)) != length(x)", "anyDuplicated(x) != 0L")
+  expect_fix("length(unique(x)) == length(x)", "anyDuplicated(x) == 0L")
+})

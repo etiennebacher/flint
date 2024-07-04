@@ -5,9 +5,9 @@
 \alias{fix_text}
 \title{Hi there}
 \usage{
-fix(path = ".")
+fix(path = ".", linters = NULL, open = TRUE)
 
-fix_text(text)
+fix_text(text, linters = NULL)
 }
 \description{
 Hi there

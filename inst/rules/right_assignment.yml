@@ -6,5 +6,5 @@ rule:
   has:
     field: rhs
     kind: identifier
-fix: $LHS <- $RHS
+fix: ~~LHS~~<- ~~RHS~~
 message: Use <-, not ->, for assignment.

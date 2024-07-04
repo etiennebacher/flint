@@ -21,17 +21,8 @@
 
 lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linter" arg
 
-  if (!is.null(linters) && !all(linters %in% list_linters())) {
-    stop(paste0("Unknown linters: ", toString(setdiff(linters, list_linters()))))
-  } else if (is.null(linters)) {
-    linters <- list_linters()
-  }
-
-  if (all(fs::is_dir(path))) {
-    r_files <- list.files(path, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
-  } else {
-    r_files <- path
-  }
+  linters <- resolve_linters(linters)
+  r_files <- resolve_path(path)
   rule_files <- fs::path(system.file(package = "flint"), "rules/", paste0(linters, ".yml"))
   lints <- list()
 
@@ -48,7 +39,7 @@ lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linte
     lints[[i]] <- clean_lints(lints_raw, file = i)
   }
 
-  lints <- data.table::rbindlist(lints, fill = TRUE)
+  lints <- data.table::rbindlist(lints, use.names = TRUE)
 
   if (isTRUE(open) &&
       requireNamespace("rstudioapi", quietly = TRUE) &&
@@ -99,6 +90,6 @@ lint_text <- function(text, linters = NULL) {
     return(invisible())
   }
 
-  class(out) <- c("flint", class(out))
+  class(out) <- c("flint_lint", class(out))
   out
 }

@@ -21,13 +21,11 @@ navbar:
     - github
 
 reference:
-- title: Find lints
-  contents:
-  - lint
-
-- title: Fix lints
+- title: Find and fix lints
   contents:
   - fix
+  - lint
+  - list_linters
 
 - title: Setup `flint`
   contents:

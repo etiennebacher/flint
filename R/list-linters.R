@@ -1,3 +1,10 @@
+#' Get the list of linters in `flint`
+#'
+#' @return A character vector
+#' @export
+#'
+#' @examples
+#' list_linters()
 list_linters <- function() {
 
   c(

@@ -1,5 +1,5 @@
 test_that("T_and_F_symbol_linter skips allowed usages", {
-  linter <- NULL
+  linter <- T_and_F_symbol_linter()
 
   expect_lint("FALSE", NULL, linter)
   expect_lint("TRUE", NULL, linter)
@@ -7,7 +7,7 @@ test_that("T_and_F_symbol_linter skips allowed usages", {
 })
 
 test_that("T_and_F_symbol_linter blocks disallowed usages", {
-  linter <- NULL
+  linter <- T_and_F_symbol_linter()
   msg_true <- "Use TRUE instead of the symbol T."
   msg_false <- "Use FALSE instead of the symbol F."
   msg_variable_true <- "Don't use T as a variable name, as it can break code relying on T being TRUE."

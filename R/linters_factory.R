@@ -99,12 +99,12 @@ makeActiveBinding('right_assignment_linter', function() { function() 'right_assi
 
 
 
-#' sapply_length
-#' @usage sapply_length_linter
-#' @name sapply_length_linter
+#' lengths
+#' @usage lengths_linter
+#' @name lengths_linter
 #' @export
 NULL
-makeActiveBinding('sapply_length_linter', function() { function() 'sapply_length' }, env = environment())
+makeActiveBinding('lengths_linter', function() { function() 'lengths' }, env = environment())
 
 
 

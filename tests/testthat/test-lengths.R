@@ -1,5 +1,5 @@
 test_that("NULL skips allowed usages", {
-  linter <- NULL
+  linter <- lengths_linter()
 
   expect_lint("length(x)", NULL, linter)
   expect_lint("function(x) length(x) + 1L", NULL, linter)
@@ -8,8 +8,8 @@ test_that("NULL skips allowed usages", {
 })
 
 test_that("NULL blocks simple disallowed base usages", {
-  linter <- NULL
-  lint_msg <- rex::rex("Use lengths() to find the length of each element in a list.")
+  linter <- lengths_linter()
+  lint_msg <- "Use lengths() to find the length of each element in a list."
 
   expect_lint("sapply(x, length)", lint_msg, linter)
   expect_lint("sapply(x, FUN = length)", lint_msg, linter)
@@ -19,8 +19,8 @@ test_that("NULL blocks simple disallowed base usages", {
 })
 
 test_that("NULL blocks simple disallowed purrr usages", {
-  linter <- NULL
-  lint_msg <- rex::rex("Use lengths() to find the length of each element in a list.")
+  linter <- lengths_linter()
+  lint_msg <- "Use lengths() to find the length of each element in a list."
 
   expect_lint("purrr::map_dbl(x, length)", lint_msg, linter)
   expect_lint("map_dbl(x, .f = length)", lint_msg, linter)
@@ -29,13 +29,15 @@ test_that("NULL blocks simple disallowed purrr usages", {
 })
 
 test_that("NULL blocks simple disallowed usages with pipes", {
-  linter <- NULL
-  lint_msg <- rex::rex("Use lengths() to find the length of each element in a list.")
+  linter <- lengths_linter()
+  lint_msg <- "Use lengths() to find the length of each element in a list."
 
   expect_lint("x |> sapply(length)", lint_msg, linter)
   expect_lint("x %>% sapply(length)", lint_msg, linter)
 
-  # TODO:
-  # expect_lint("x |> map_int(length)", lint_msg, linter)
-  # expect_lint("x %>% map_int(length)", lint_msg, linter)
+  expect_lint("x |> map_int(length)", lint_msg, linter)
+  expect_lint("x %>% map_int(length)", lint_msg, linter)
+
+  expect_lint("x |> purrr::map_int(length)", lint_msg, linter)
+  expect_lint("x %>% purrr::map_int(length)", lint_msg, linter)
 })

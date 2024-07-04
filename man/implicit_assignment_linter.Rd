@@ -4,7 +4,7 @@
 \alias{implicit_assignment_linter}
 \title{implicit_assignment}
 \usage{
-implicit_assignment
+implicit_assignment_linter
 }
 \description{
 implicit_assignment

@@ -4,7 +4,7 @@
 \alias{equal_assignment_linter}
 \title{equal_assignment}
 \usage{
-equal_assignment
+equal_assignment_linter
 }
 \description{
 equal_assignment

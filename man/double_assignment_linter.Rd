@@ -4,7 +4,7 @@
 \alias{double_assignment_linter}
 \title{double_assignment}
 \usage{
-double_assignment
+double_assignment_linter
 }
 \description{
 double_assignment

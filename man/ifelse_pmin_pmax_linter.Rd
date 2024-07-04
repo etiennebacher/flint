@@ -4,7 +4,7 @@
 \alias{ifelse_pmin_pmax_linter}
 \title{ifelse_pmin_pmax}
 \usage{
-ifelse_pmin_pmax
+ifelse_pmin_pmax_linter
 }
 \description{
 ifelse_pmin_pmax

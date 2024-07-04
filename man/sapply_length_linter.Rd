@@ -4,7 +4,7 @@
 \alias{sapply_length_linter}
 \title{sapply_length}
 \usage{
-sapply_length
+sapply_length_linter
 }
 \description{
 sapply_length

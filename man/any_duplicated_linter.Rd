@@ -4,7 +4,7 @@
 \alias{any_duplicated_linter}
 \title{any_duplicated}
 \usage{
-any_duplicated
+any_duplicated_linter
 }
 \description{
 any_duplicated

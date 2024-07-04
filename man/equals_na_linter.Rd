@@ -4,7 +4,7 @@
 \alias{equals_na_linter}
 \title{equals_na}
 \usage{
-equals_na
+equals_na_linter
 }
 \description{
 equals_na

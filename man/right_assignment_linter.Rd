@@ -4,7 +4,7 @@
 \alias{right_assignment_linter}
 \title{right_assignment}
 \usage{
-right_assignment
+right_assignment_linter
 }
 \description{
 right_assignment

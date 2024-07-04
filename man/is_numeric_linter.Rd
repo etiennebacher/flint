@@ -4,7 +4,7 @@
 \alias{is_numeric_linter}
 \title{is_numeric}
 \usage{
-is_numeric
+is_numeric_linter
 }
 \description{
 is_numeric

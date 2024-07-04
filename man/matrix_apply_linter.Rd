@@ -4,7 +4,7 @@
 \alias{matrix_apply_linter}
 \title{matrix_apply}
 \usage{
-matrix_apply
+matrix_apply_linter
 }
 \description{
 matrix_apply

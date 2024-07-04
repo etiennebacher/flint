@@ -25,11 +25,11 @@ list_linters <- function() {
 #'     sprintf(
 #' "\n
 #' #' %s
-#' #' @usage %s
+#' #' @usage %s_linter
 #' #' @name %s_linter
 #' #' @export
 #' NULL
-#' makeActiveBinding('%s', function() { function() '%s' }, env = environment())\n
+#' makeActiveBinding('%s_linter', function() { function() '%s' }, env = environment())\n
 #' ",
 #'     i, i, i, i, i
 #'     ),

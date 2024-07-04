@@ -4,7 +4,7 @@
 \alias{class_equals_linter}
 \title{class_equals}
 \usage{
-class_equals
+class_equals_linter
 }
 \description{
 class_equals

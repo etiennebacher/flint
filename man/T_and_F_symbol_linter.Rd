@@ -4,7 +4,7 @@
 \alias{T_and_F_symbol_linter}
 \title{T_and_F_symbol}
 \usage{
-T_and_F_symbol
+T_and_F_symbol_linter
 }
 \description{
 T_and_F_symbol

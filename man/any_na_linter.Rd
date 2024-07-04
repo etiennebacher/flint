@@ -4,7 +4,7 @@
 \alias{any_na_linter}
 \title{any_na}
 \usage{
-any_na
+any_na_linter
 }
 \description{
 any_na

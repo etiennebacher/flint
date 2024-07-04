@@ -19,19 +19,10 @@
 #'
 #' @export
 
-lint <- function(path = ".", linters = NULL, open = TRUE, return_nodes = FALSE) { # TODO: add a "linter" arg
+lint <- function(path = ".", linters = NULL, open = TRUE) { # TODO: add a "linter" arg
 
-  if (!is.null(linters) && !all(linters %in% list_linters())) {
-    stop(paste0("Unknown linters: ", toString(setdiff(linters, list_linters()))))
-  } else if (is.null(linters)) {
-    linters <- list_linters()
-  }
-
-  if (all(fs::is_dir(path))) {
-    r_files <- list.files(path, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
-  } else {
-    r_files <- path
-  }
+  linters <- resolve_linters(linters)
+  r_files <- resolve_path(path)
   rule_files <- fs::path(system.file(package = "flint"), "rules/", paste0(linters, ".yml"))
   lints <- list()
 
@@ -45,26 +36,10 @@ lint <- function(path = ".", linters = NULL, open = TRUE, return_nodes = FALSE) 
       next
     }
 
-    if (isTRUE(return_nodes)) {
-      lints_raw <- lapply(lints_raw, function(x) {
-        if (!is.null(x)) {
-          attr(x, "root_node") <- root
-        }
-        x
-      })
-      lints[[i]] <- lints_raw
-    } else {
-      lints[[i]] <- clean_lints(lints_raw, file = i)
-    }
+    lints[[i]] <- clean_lints(lints_raw, file = i)
   }
 
-  if (isTRUE(return_nodes)) {
-    out <- unlist(lints, recursive = FALSE, use.names = FALSE)
-    names(out) <- names(lints[[1]])
-    return(out)
-  } else {
-    lints <- data.table::rbindlist(lints, use.names = TRUE)
-  }
+  lints <- data.table::rbindlist(lints, use.names = TRUE)
 
   if (isTRUE(open) &&
       requireNamespace("rstudioapi", quietly = TRUE) &&
@@ -101,7 +76,7 @@ lint_package <- function(path = ".", linters = NULL, open = TRUE) {
 #' @rdname lint
 #' @export
 
-lint_text <- function(text, linters = NULL, return_nodes = FALSE) {
+lint_text <- function(text, linters = NULL) {
   tmp <- tempfile(fileext = ".R")
   text <- trimws(text)
   cat(text, file = tmp)
@@ -110,7 +85,7 @@ lint_text <- function(text, linters = NULL, return_nodes = FALSE) {
   # output that is used in the custom print method. It's also easier to have a
   # dataframe output in tests.
   # We're only parsing a small text in general so passing twice is not an issue.
-  out <- lint(tmp, linters = linters, open = FALSE, return_nodes = return_nodes)
+  out <- lint(tmp, linters = linters, open = FALSE)
   if (length(out) == 0) {
     return(invisible())
   }

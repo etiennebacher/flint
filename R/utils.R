@@ -44,3 +44,21 @@ get_tests_from_lintr <- function(name) {
   url <- paste0("https://raw.githubusercontent.com/r-lib/lintr/main/tests/testthat/test-", name, "_linter.R")
   download.file(url, destfile = paste0("tests/testthat/test-", name, ".R"))
 }
+
+resolve_linters <- function(linters) {
+  if (!is.null(linters) && !all(linters %in% list_linters())) {
+    stop(paste0("Unknown linters: ", toString(setdiff(linters, list_linters()))))
+  } else if (is.null(linters)) {
+    linters <- list_linters()
+  }
+  linters
+}
+
+resolve_path <- function(path) {
+  if (all(fs::is_dir(path))) {
+    r_files <- list.files(path, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
+  } else {
+    r_files <- path
+  }
+  r_files
+}

@@ -3,8 +3,7 @@
 
 # flint
 
-`flint` is a small R package to detect lints in R code and optionally
-replace them.
+`flint` is a small R package to find and replace linters in R code.
 
 - Lint detections with `lint()`
 - Automatic replacement of lints with `fix()`
@@ -19,14 +18,16 @@ itself built on the Rust crate
 
 ## Usage
 
-Start by setting up `flint` with `flint::setup_flint()`. This
-stores a set of rules in `inst/flint/rules`. You can then extend
-those rules if you want more control.
+Start by setting up `flint` with `flint::setup_flint()`. This stores a
+set of rules in `inst/flint/rules`. You can then extend those rules if
+you want more control.
 
 `flint` provides two families of functions:
 
-- those for linting: `lint()`, `lint_text()`.
-- those for replacing lints: `fix()`, `fix_text()`
+- those for linting: `lint()` applies rules on R files, `lint_text()`
+  does the same on code as text input.
+- those for replacing lints: `fix()` and `fix_text()` apply rules and
+  automatically replace matches by the provided replacements.
 
 ## Comparison with existing tools
 
@@ -38,8 +39,8 @@ lints.
 `styler` is a package to clean code by fixing indentation and other
 things, but doesn’t perform code replacement based on lints.
 
-`flint` is extremely performant. This is a small benchmark on 3.5k
-lines of code with only three linters:
+`flint` is extremely performant. This is a small benchmark on 3.5k lines
+of code with only three linters:
 
 ``` r
 library(bench)

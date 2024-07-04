@@ -15,8 +15,7 @@ knitr::opts_chunk$set(
 
 # flint
 
-`flint` is a small R package to detect lints in R code and optionally
-replace them.
+`flint` is a small R package to find and replace linters in R code.
 
 * Lint detections with `lint()`
 * Automatic replacement of lints with `fix()`
@@ -36,8 +35,10 @@ want more control.
 
 `flint` provides two families of functions: 
 
-* those for linting: `lint()`, `lint_text()`. 
-* those for replacing lints: `fix()`, `fix_text()`
+* those for linting: `lint()` applies rules on R files, `lint_text()` does the
+  same on code as text input. 
+* those for replacing lints: `fix()` and `fix_text()` apply rules and 
+  automatically replace matches by the provided replacements.
 
 
 ## Comparison with existing tools

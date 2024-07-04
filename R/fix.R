@@ -1,3 +1,5 @@
+#' Hi there
+#'
 #' @export
 fix <- function(path = ".", linters = NULL, open = TRUE, return_nodes = FALSE) { # TODO: add a "linter" arg
 
@@ -39,6 +41,7 @@ fix <- function(path = ".", linters = NULL, open = TRUE, return_nodes = FALSE) {
 
 }
 
+#' @rdname fix
 #' @export
 fix_text <- function(text) {
   lints <- lint_text(text, return_nodes = TRUE)

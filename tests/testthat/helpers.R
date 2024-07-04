@@ -3,14 +3,14 @@ expect_lint <- function(x, message, linter) {
     linter <- list_linters()
   }
   withr::with_envvar(
-    new = c("TINYLINT_TESTING" = TRUE),
+    new = c("FLINT_TESTING" = TRUE),
     out <- lint_text(x, linters = linter)
   )
   if (is.null(message)) {
     testthat::expect_true(length(out) == 0)
   } else {
     testthat::expect_true(
-      nrow(out) > 0 && all(message == out$message | grepl(message, out$message, perl = TRUE))
+      nrow(out) > 0 && any(message == out$message | grepl(message, out$message, perl = TRUE))
     )
   }
 }

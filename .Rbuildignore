@@ -5,3 +5,4 @@
 # flint files
 ^inst/rules
 sgconfig.yml
+^LICENSE\.md$

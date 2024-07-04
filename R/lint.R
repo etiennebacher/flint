@@ -46,6 +46,12 @@ lint <- function(path = ".", linters = NULL, open = TRUE, return_nodes = FALSE) 
     }
 
     if (isTRUE(return_nodes)) {
+      lints_raw <- lapply(lints_raw, function(x) {
+        if (!is.null(x)) {
+          attr(x, "root_node") <- root
+        }
+        x
+      })
       lints[[i]] <- lints_raw
     } else {
       lints[[i]] <- clean_lints(lints_raw, file = i)
@@ -53,7 +59,9 @@ lint <- function(path = ".", linters = NULL, open = TRUE, return_nodes = FALSE) 
   }
 
   if (isTRUE(return_nodes)) {
-    return(unlist(lints, recursive = FALSE, use.names = FALSE))
+    out <- unlist(lints, recursive = FALSE, use.names = FALSE)
+    names(out) <- names(lints[[1]])
+    return(out)
   } else {
     lints <- data.table::rbindlist(lints, use.names = TRUE)
   }

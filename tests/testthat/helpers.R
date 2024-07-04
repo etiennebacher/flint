@@ -22,3 +22,19 @@ expect_fix <- function(x, replacement) {
   )
   testthat::expect_equal(as.character(out), replacement)
 }
+
+trim_some <- function(x, num = NULL) {
+  x <- rex::re_substitutes(
+    x,
+    rex::rex(list(start, any_blanks, newline) %or% list(newline, any_blanks, end)),
+    replacement = "",
+    global = TRUE
+  )
+
+  if (is.null(num)) {
+    ms <- rex::re_matches(x, "^\\s+", locations = TRUE, global = TRUE, options = "multi-line")[[1L]]
+    num <- min(ms$end - ms$start) + 1L
+  }
+
+  rex::re_substitutes(x, rex::rex(start, n_times(any, num)), "", global = TRUE, options = "multi-line")
+}

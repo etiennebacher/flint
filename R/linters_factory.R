@@ -72,6 +72,15 @@ makeActiveBinding('is_numeric_linter', function() { function() 'is_numeric' }, e
 
 
 
+#' library_call
+#' @usage library_call_linter
+#' @name library_call_linter
+#' @export
+NULL
+makeActiveBinding('library_call_linter', function() { function() 'library_call' }, env = environment())
+
+
+
 #' implicit_assignment
 #' @usage implicit_assignment_linter
 #' @name implicit_assignment_linter

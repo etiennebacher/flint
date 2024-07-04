@@ -16,6 +16,7 @@ list_linters <- function() {
     "equals_na",
     "ifelse_pmin_pmax",
     "is_numeric",
+    "library_call",
     "implicit_assignment",
     "matrix_apply",
     "right_assignment",

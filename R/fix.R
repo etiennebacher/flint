@@ -29,7 +29,7 @@ fix <- function(
     }
     args <- append(
       list(x = astgrepr:::add_rulelist_class(lints)),
-      vapply(lints, function(x) attributes(x)$other_info$fix, character(1))
+      vapply(lints, function(x) as.character(attributes(x)$other_info$fix), character(1))
     )
     names(args)[2:length(args)] <- names(lints)
     replacement2 <- as.call(append(astgrepr::node_replace_all, args)) |> eval()

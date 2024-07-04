@@ -38,5 +38,5 @@ rule:
     - pattern: purrr::map_int($MYVAR, length)
     - pattern: purrr::map_int($MYVAR, .f = length)
     - pattern: purrr::map_int(.f = length, $MYVAR)
-fix: lengths($MYVAR)
+fix: lengths(~~MYVAR~~)
 message: Use lengths() to find the length of each element in a list.

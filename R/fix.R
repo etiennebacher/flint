@@ -22,12 +22,11 @@ fix <- function(
 
     lints_raw <- astgrepr::node_find_all(root, files = rule_files)
 
-    if (all(lengths(lints_raw) == 0)) {
-      next
-    }
-
     lints <- Filter(Negate(is.null), lints_raw)
     lints <- Filter(function(x) length(attributes(x)$other_info$fix) > 0, lints)
+    if (length(lints) == 0) {
+      next
+    }
     args <- append(
       list(x = astgrepr:::add_rulelist_class(lints)),
       vapply(lints, function(x) attributes(x)$other_info$fix, character(1))

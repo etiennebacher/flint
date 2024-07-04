@@ -38,7 +38,7 @@ lint <- function(path = ".", linters = NULL, open = TRUE, return_nodes = FALSE) 
     root <- astgrepr::tree_new(file = i) |>
       astgrepr::tree_root()
 
-    files <- fs::path(system.file(package = "tinylint"), "rules/", paste0(linters, ".yml"))
+    files <- fs::path(system.file(package = "flint"), "rules/", paste0(linters, ".yml"))
     lints_raw <- astgrepr::node_find_all(root, files = files)
 
     if (all(lengths(lints_raw) == 0)) {
@@ -104,6 +104,6 @@ lint_text <- function(text, linters = NULL, return_nodes = FALSE) {
     return(invisible())
   }
 
-  class(out) <- c("tinylint_lint", class(out))
+  class(out) <- c("flint_lint", class(out))
   out
 }

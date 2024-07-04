@@ -18,7 +18,7 @@ fix <- function(path = ".", linters = NULL, open = TRUE, return_nodes = FALSE) {
     root <- astgrepr::tree_new(file = i) |>
       astgrepr::tree_root()
 
-    files <- fs::path(system.file(package = "tinylint"), "rules/", paste0(linters, ".yml"))
+    files <- fs::path(system.file(package = "flint"), "rules/", paste0(linters, ".yml"))
     lints_raw <- astgrepr::node_find_all(root, files = files)
 
     if (all(lengths(lints_raw) == 0)) {
@@ -54,7 +54,7 @@ fix_text <- function(text) {
     astgrepr::tree_root()
 
   out <- astgrepr::tree_rewrite(root, replacement2)
-  class(out) <- c("tinylint_fix", class(out))
+  class(out) <- c("flint_fix", class(out))
   attr(out, "original") <- text
   out
 }

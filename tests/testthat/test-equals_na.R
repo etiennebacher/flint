@@ -1,5 +1,5 @@
 test_that("equals_na_linter skips allowed usages", {
-  linter <- NULL
+  linter <- equals_na_linter()
 
   expect_lint("blah", NULL, linter)
   expect_lint("  blah", NULL, linter)
@@ -25,7 +25,7 @@ patrick::with_parameters_test_that(
   "equals_na_linter blocks disallowed usages for all combinations of operators and types of NAs",
   expect_lint(
     paste("x", operation, type_na),
-    rex::rex("Use is.na for comparisons to NA (not == or !=)"),
+    "Use is.na for comparisons to NA (not == or !=)",
     NULL
   ),
   .cases = tibble::tribble(
@@ -44,8 +44,8 @@ patrick::with_parameters_test_that(
 )
 
 test_that("equals_na_linter blocks disallowed usages in edge cases", {
-  linter <- NULL
-  lint_msg <- rex::rex("Use is.na for comparisons to NA (not == or !=)")
+  linter <- equals_na_linter()
+  lint_msg <- "Use is.na for comparisons to NA (not == or !=)"
 
   # missing spaces around operators
   expect_lint("x==NA", lint_msg, linter)

@@ -20,9 +20,9 @@ test_that("assignment_linter blocks disallowed usages", {
 })
 
 test_that("arguments handle <<- and ->/->> correctly", {
-  expect_lint("1 -> blah", rex::rex("Use <-, not ->, for assignment."), NULL)
-  expect_lint("1 ->> blah", rex::rex("->> can have hard-to-predict behavior;"), NULL)
-  expect_lint("blah <<- blah", rex::rex("<<- can have hard-to-predict behavior;"), NULL)
+  expect_lint("1 -> blah", "Use <-, not ->, for assignment.", NULL)
+  expect_lint("1 ->> blah", "->> can have hard-to-predict behavior;", NULL)
+  expect_lint("blah <<- blah", "<<- can have hard-to-predict behavior;", NULL)
 
   # <<- is only blocked optionally
   # expect_lint("1 <<- blah", NULL, NULL)

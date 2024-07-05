@@ -30,7 +30,7 @@ lint <- function(
 
   linters <- resolve_linters(linters, exclude_linters)
   r_files <- resolve_path(path, exclude_path)
-  rule_files <- fs::path(system.file(package = "flint"), "flint/rules/", paste0(linters, ".yml"))
+  rule_files <- resolve_rules(linters, path)
   lints <- list()
   hashes <- readRDS("inst/flint/cache_file_state.rds")
 

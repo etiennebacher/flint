@@ -1,12 +1,14 @@
 #' List all lints in a file or a directory
 #'
-#' `lint()`, `lint_text()` and `lint_diff()` all produce a data.frame containing
+#' `lint()`, `lint_text()` and `lint_dir()` all produce a data.frame containing
 #' the lints, their location, and potential fixes. The only difference is in the
 #' input they take:
 #' * `lint()` takes path to files or directories
 #' * `lint_text()` takes some text input
-#' * `lint_diff()` takes a path to a directory but only looks at files that have
-#' changed since the last commit.
+#' * `lint_dir()` takes a path to one directory
+#' * `lint_package()` takes a path to the root of a package and looks at the
+#'   following list of folders: `R`, `tests`, `inst`, `vignettes`, `data-raw`,
+#'   `demo`, `exec`.
 #'
 #' @param path A valid path to a file or a directory. Relative paths are
 #'   accepted.

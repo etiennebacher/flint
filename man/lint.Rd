@@ -49,14 +49,16 @@ location (both the position in the text and the file in which it was found)
 and the severity.
 }
 \description{
-\code{lint()}, \code{lint_text()} and \code{lint_diff()} all produce a data.frame containing
+\code{lint()}, \code{lint_text()} and \code{lint_dir()} all produce a data.frame containing
 the lints, their location, and potential fixes. The only difference is in the
 input they take:
 \itemize{
 \item \code{lint()} takes path to files or directories
 \item \code{lint_text()} takes some text input
-\item \code{lint_diff()} takes a path to a directory but only looks at files that have
-changed since the last commit.
+\item \code{lint_dir()} takes a path to one directory
+\item \code{lint_package()} takes a path to the root of a package and looks at the
+following list of folders: \code{R}, \code{tests}, \code{inst}, \code{vignettes}, \code{data-raw},
+\code{demo}, \code{exec}.
 }
 }
 \examples{

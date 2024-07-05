@@ -8,11 +8,12 @@
 #' value in R.
 #' @export
 
-setup_flint <- function() {
-  if (fs::dir_exists("flint") && length(list.files("flint", recursive = TRUE)) > 0) {
+setup_flint <- function(path = ".") {
+  flint_dir <- file.path(path, "flint")
+  if (fs::dir_exists(flint_dir) && length(list.files(flint_dir, recursive = TRUE)) > 0) {
     stop("Folder `flint` already exists and is not empty.")
-  } else if (!fs::dir_exists("flint")) {
-    fs::dir_create("flint")
+  } else if (!fs::dir_exists(flint_dir)) {
+    fs::dir_create(flint_dir)
   }
   if (fs::file_exists(".Rbuildignore")) {
     already_in <- any(grepl("flint", readLines(".Rbuildignore", warn = FALSE)))
@@ -28,7 +29,7 @@ setup_flint <- function() {
     )
   }
   invisible(
-    fs::dir_copy(system.file("flint/rules", package = "flint"), "flint")
+    fs::dir_copy(system.file("rules", package = "flint"), flint_dir)
   )
   if (!fs::file_exists("inst/flint/cache_file_state.rds")) {
     saveRDS(NULL, "inst/flint/cache_file_state.rds")
@@ -55,13 +56,14 @@ setup_flint <- function() {
 #' \dontrun{
 #'   update_flint()
 #' }
-update_flint <- function() {
-  existing_rules <- list.files("flint/rules", pattern = "\\.yml$")
+update_flint <- function(path = ".") {
+  flint_dir <- file.path(path, "flint")
+  existing_rules <- list.files(file.path(flint_dir, "rules"), pattern = "\\.yml$")
   built_in_rules <- list.files(system.file("rules", package = "flint"), pattern = "\\.yml$")
   new_built_in_rules <- system.file(
     paste0("rules/", setdiff(built_in_rules, existing_rules)),
     package = "flint"
   )
   cat("New rules:\n", paste0("- ", basename(new_built_in_rules), "\n"))
-  fs::file_copy(new_built_in_rules, paste0("flint/rules/", basename(new_built_in_rules)))
+  fs::file_copy(new_built_in_rules, paste0(flint_dir, "/rules/", basename(new_built_in_rules)))
 }

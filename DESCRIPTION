@@ -25,7 +25,9 @@ Suggests:
     rmarkdown,
     rstudioapi,
     testthat (>= 3.0.0),
-    tibble
+    tibble,
+    usethis,
+    withr
 Remotes:
     etiennebacher/astgrepr
 License: MIT + file LICENSE

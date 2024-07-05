@@ -32,7 +32,7 @@ lint <- function(
   r_files <- resolve_path(path, exclude_path)
   rule_files <- resolve_rules(linters, path)
   lints <- list()
-  hashes <- readRDS("inst/flint/cache_file_state.rds")
+  hashes <- readRDS(file.path(path, "flint/cache_file_state.rds"))
 
   for (i in r_files) {
 
@@ -64,7 +64,7 @@ lint <- function(
   }
 
   if (use_cache) {
-    saveRDS(hashes, "inst/flint/cache_file_state.rds")
+    saveRDS(hashes, file.path(path, "flint/cache_file_state.rds"))
   }
   lints <- data.table::rbindlist(lints, use.names = TRUE, fill = TRUE)
 

@@ -31,8 +31,8 @@ setup_flint <- function(path = ".") {
   invisible(
     fs::dir_copy(system.file("rules", package = "flint"), flint_dir)
   )
-  if (!fs::file_exists("inst/flint/cache_file_state.rds")) {
-    saveRDS(NULL, "inst/flint/cache_file_state.rds")
+  if (!fs::file_exists(file.path(flint_dir, "cache_file_state.rds"))) {
+    saveRDS(NULL, file.path(flint_dir, "cache_file_state.rds"))
   }
 }
 

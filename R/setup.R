@@ -31,3 +31,15 @@ setup_flint <- function() {
     fs::dir_copy(system.file("flint/rules", package = "flint"), "flint")
   )
 }
+
+#' @export
+update_flint <- function() {
+  existing_rules <- list.files("flint/rules", pattern = "\\.yml$")
+  built_in_rules <- list.files(system.file("rules", package = "flint"), pattern = "\\.yml$")
+  new_built_in_rules <- system.file(
+    paste0("rules/", setdiff(built_in_rules, existing_rules)),
+    package = "flint"
+  )
+  cat("New rules:\n", paste0("- ", basename(new_built_in_rules), "\n"))
+  fs::file_copy(new_built_in_rules, paste0("flint/rules/", basename(new_built_in_rules)))
+}

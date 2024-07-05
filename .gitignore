@@ -41,3 +41,4 @@ inst/doc
 .venv
 .Rdata
 .quarto
+^docs$

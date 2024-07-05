@@ -12,7 +12,8 @@ lint(
   linters = NULL,
   exclude_path = NULL,
   exclude_linters = NULL,
-  open = TRUE
+  open = TRUE,
+  use_cache = TRUE
 )
 
 lint_dir(path = ".", linters = NULL, open = TRUE)
@@ -22,13 +23,25 @@ lint_package(path = ".", linters = NULL, open = TRUE)
 lint_text(text, linters = NULL)
 }
 \arguments{
-\item{path}{A valid path to a file or a directory. Relative paths are accepted.}
+\item{path}{A valid path to a file or a directory. Relative paths are
+accepted.}
 
 \item{linters}{A character vector with the names of the rules to apply. See
 the entire list of rules with \code{list_linters()}.}
 
+\item{exclude_path}{One or several paths that will be ignored from the \code{path}
+selection.}
+
+\item{exclude_linters}{One or several linters that will not be checked.
+Values can be the names of linters (such as \code{"any_is_na"}) or its
+associated function, such as \code{any_is_na_linter()} (this is mostly for
+compatibility with \code{lintr}).}
+
 \item{open}{If \code{TRUE} (default) and if this is used in the RStudio IDE, lints
 will be shown with markers.}
+
+\item{use_cache}{Do not re-parse files that haven't changed since the last
+time this function ran.}
 }
 \value{
 A dataframe where each row is a lint. The columns show the text, its
@@ -36,12 +49,39 @@ location (both the position in the text and the file in which it was found)
 and the severity.
 }
 \description{
-\code{lint()}, \code{lint_text()} and \code{lint_diff()} all produce a list of lints. The
-only difference is in the input they take:
+\code{lint()}, \code{lint_text()} and \code{lint_diff()} all produce a data.frame containing
+the lints, their location, and potential fixes. The only difference is in the
+input they take:
 \itemize{
 \item \code{lint()} takes path to files or directories
 \item \code{lint_text()} takes some text input
 \item \code{lint_diff()} takes a path to a directory but only looks at files that have
 changed since the last commit.
 }
+}
+\examples{
+# `lint_text()` is convenient to explore with a small example
+lint_text("any(duplicated(rnorm(5)))")
+
+lint_text("any(duplicated(rnorm(5)))
+any(is.na(x))
+")
+
+# Setup for the example with `lint()`
+destfile <- tempfile()
+cat("
+x = c(1, 2, 3)
+any(duplicated(x), na.rm = TRUE)
+
+any(duplicated(x))
+
+if (any(is.na(x))) {
+  TRUE
+}
+
+any(
+  duplicated(x)
+)", file = destfile)
+
+lint(destfile)
 }

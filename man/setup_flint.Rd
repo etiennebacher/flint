@@ -4,7 +4,7 @@
 \alias{setup_flint}
 \title{Setup flint}
 \usage{
-setup_flint()
+setup_flint(path = ".")
 }
 \value{
 Imports files necessary for \code{flint} to work but doesn't return any

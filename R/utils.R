@@ -76,6 +76,14 @@ resolve_rules <- function(linters, path) {
   }
 }
 
+resolve_hashes <- function() {
+  if (is_flint_package() || identical(Sys.getenv("TESTTHAT"), "true")) {
+    readRDS(file.path(getwd(), "inst/cache_file_state.rds"))
+  } else {
+    readRDS(file.path(getwd(), "flint/cache_file_state.rds"))
+  }
+}
+
 is_flint_package <- function() {
   if (!fs::file_exists("DESCRIPTION")) {
     return(FALSE)

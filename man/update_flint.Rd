@@ -4,7 +4,7 @@
 \alias{update_flint}
 \title{Update the \code{flint} setup}
 \usage{
-update_flint()
+update_flint(path = ".")
 }
 \value{
 Can add new files in the \code{flint/rules} folder, doesn't return anything.

@@ -15,9 +15,9 @@ knitr::opts_chunk$set(
 
 # flint
 
-`flint` is a small R package to find and replace linters in R code.
+`flint` is a small R package to find and replace lints in R code.
 
-* Lint detections with `lint()`
+* Lints detection with `lint()`
 * Automatic replacement of lints with `fix()`
 * Compatibility with `{lintr}` rules
 * Extremely fast
@@ -31,7 +31,7 @@ which is itself built on the Rust crate [`ast-grep`](https://ast-grep.github.io/
 
 Mandatory setup:
 
-* `setup_lint()`: creates the folder `flint` and populates it with built-in rules
+* `setup_flint()`: creates the folder `flint` and populates it with built-in rules
   as well as a cache file. You can modify those rules or add new ones if you
   want more control.
   

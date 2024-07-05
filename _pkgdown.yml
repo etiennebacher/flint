@@ -30,6 +30,7 @@ reference:
 - title: Setup `flint`
   contents:
   - setup_flint
+  - update_flint
 
 - title: Linters
   contents:

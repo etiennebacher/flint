@@ -32,7 +32,26 @@ setup_flint <- function() {
   )
 }
 
+#' Update the `flint` setup
+#'
+#' @description
+#'
+#' When `flint` is updated, it can ship new built-in rules. `update_flint()` will
+#' automatically add those new rules in the `flint/rules` folder. New rules are
+#' only determined by their names and rules that already exist in `flint/rules`
+#' are not affected.
+#'
+#' For instance, if you added a custom rule `use_paste.yml`, then it will never
+#' be removed by `update_flint()`, even if `flint` later adds a built-in rule
+#' also named `use_paste.yml`.
+#'
+#' @return Can add new files in the `flint/rules` folder, doesn't return anything.
 #' @export
+#'
+#' @examples
+#' \dontrun{
+#'   update_flint()
+#' }
 update_flint <- function() {
   existing_rules <- list.files("flint/rules", pattern = "\\.yml$")
   built_in_rules <- list.files(system.file("rules", package = "flint"), pattern = "\\.yml$")

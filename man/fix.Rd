@@ -2,16 +2,16 @@
 % Please edit documentation in R/fix.R
 \name{fix}
 \alias{fix}
+\alias{fix_dir}
+\alias{fix_package}
 \alias{fix_text}
 \title{Automatically replace lints}
 \usage{
-fix(
-  path = ".",
-  linters = NULL,
-  exclude_path = NULL,
-  exclude_linters = NULL,
-  open = TRUE
-)
+fix(path = ".", linters = NULL, exclude_path = NULL, exclude_linters = NULL)
+
+fix_dir(path = ".", linters = NULL)
+
+fix_package(path = ".", linters = NULL)
 
 fix_text(text, linters = NULL)
 }
@@ -29,9 +29,6 @@ selection.}
 Values can be the names of linters (such as \code{"any_is_na"}) or its
 associated function, such as \code{any_is_na_linter()} (this is mostly for
 compatibility with \code{lintr}).}
-
-\item{open}{If \code{TRUE} (default) and if this is used in the RStudio IDE, lints
-will be shown with markers.}
 }
 \description{
 Automatically replace lints

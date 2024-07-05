@@ -7,8 +7,7 @@ fix <- function(
     path = ".",
     linters = NULL,
     exclude_path = NULL,
-    exclude_linters = NULL,
-    open = TRUE
+    exclude_linters = NULL
 ) {
 
   linters <- resolve_linters(linters, exclude_linters)
@@ -42,11 +41,33 @@ fix <- function(
 
 #' @rdname fix
 #' @export
+
+fix_dir <- function(path = ".", linters = NULL) {
+  if (!fs::is_dir(path)) {
+    stop("`path` must be a directory.")
+  }
+  fix(path, linters = linters)
+}
+
+#' @rdname fix
+#' @export
+
+fix_package <- function(path = ".", linters = NULL) {
+  if (!fs::is_dir(path)) {
+    stop("`path` must be a directory.")
+  }
+  paths <- fs::path(path, c("R", "tests", "inst", "vignettes", "data-raw", "demo", "exec"))
+  paths <- paths[fs::dir_exists(paths)]
+  fix(path, linters = linters)
+}
+
+#' @rdname fix
+#' @export
 fix_text <- function(text, linters = NULL) {
   tmp <- tempfile(fileext = ".R")
   text <- trimws(text)
   cat(text, file = tmp)
-  out <- fix(tmp, linters = linters, open = FALSE)
+  out <- fix(tmp, linters = linters)
   if (length(out) == 0) {
     return(invisible())
   }

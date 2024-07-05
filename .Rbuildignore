@@ -2,7 +2,7 @@
 ^\.Rproj\.user$
 ^src/\.cargo$
 ^README\.Rmd$
-# flint files
-^inst/rules
-sgconfig.yml
 ^LICENSE\.md$
+
+# flint files
+^inst/flint

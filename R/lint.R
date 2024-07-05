@@ -24,28 +24,49 @@ lint <- function(
     linters = NULL,
     exclude_path = NULL,
     exclude_linters = NULL,
-    open = TRUE
+    open = TRUE,
+    use_cache = TRUE
 ) {
 
   linters <- resolve_linters(linters, exclude_linters)
   r_files <- resolve_path(path, exclude_path)
-  rule_files <- fs::path(system.file(package = "flint"), "rules/", paste0(linters, ".yml"))
+  rule_files <- fs::path(system.file(package = "flint"), "flint/rules/", paste0(linters, ".yml"))
   lints <- list()
+  hashes <- get_hashes()
 
   for (i in r_files) {
-    root <- astgrepr::tree_new(file = i) |>
-      astgrepr::tree_root()
 
-    lints_raw <- astgrepr::node_find_all(root, files = rule_files)
-
-    if (all(lengths(lints_raw) == 0)) {
-      next
+    if (use_cache) {
+      current_hash <- digest::digest(readLines(i, warn = FALSE))
+      if (!is.null(names(hashes)) && i %in% names(hashes)) {
+        stored_info <- hashes[[i]]
+        if (current_hash == stored_info[["hash"]]) {
+          lints[[i]] <- stored_info[["lints"]]
+          next
+        }
+      }
     }
 
-    lints[[i]] <- clean_lints(lints_raw, file = i)
+    lints_raw <- astgrepr::tree_new(file = i) |>
+      astgrepr::tree_root()|>
+      astgrepr::node_find_all(files = rule_files)
+
+    if (all(lengths(lints_raw) == 0)) {
+      lints[[i]] <- data.table()
+    } else {
+      lints[[i]] <- clean_lints(lints_raw, file = i)
+    }
+
+    if (use_cache) {
+      hashes[[i]][["hash"]] <- current_hash
+      hashes[[i]][["lints"]] <- lints[[i]]
+    }
   }
 
-  lints <- data.table::rbindlist(lints, use.names = TRUE)
+  if (use_cache) {
+    saveRDS(hashes, "inst/flint/cache_file_state.rds")
+  }
+  lints <- data.table::rbindlist(lints, use.names = TRUE, fill = TRUE)
 
   if (isTRUE(open) &&
       requireNamespace("rstudioapi", quietly = TRUE) &&

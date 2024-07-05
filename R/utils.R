@@ -70,7 +70,7 @@ resolve_path <- function(path, exclude_path) {
 
 resolve_rules <- function(linters, path) {
   if (is_flint_package() || identical(Sys.getenv("TESTTHAT"), "true")) {
-    fs::path(system.file(package = "flint"), "flint/rules/", paste0(linters, ".yml"))
+    fs::path(system.file(package = "flint"), "rules/", paste0(linters, ".yml"))
   } else {
     fs::path("flint/rules/", paste0(linters, ".yml"))
   }

@@ -9,20 +9,25 @@
 #' @export
 
 setup_flint <- function() {
+  if (fs::dir_exists("flint") && length(list.files("flint", recursive = TRUE)) > 0) {
+    stop("Folder `flint` already exists and is not empty.")
+  } else if (!fs::dir_exists("flint")) {
+    fs::dir_create("flint")
+  }
   if (fs::file_exists(".Rbuildignore")) {
-    already_in <- any(grepl("inst/flint", readLines(".Rbuildignore", warn = FALSE)))
+    already_in <- any(grepl("flint", readLines(".Rbuildignore", warn = FALSE)))
   } else {
     already_in <- FALSE
   }
   if (!already_in) {
     cat(
       "# flint files
-^inst/flint",
+^flint$",
       file = ".Rbuildignore",
       append = TRUE
     )
   }
   invisible(
-    fs::dir_copy(system.file("flint/rules", package = "flint"), "inst/flint/rules")
+    fs::dir_copy(system.file("flint/rules", package = "flint"), "flint")
   )
 }

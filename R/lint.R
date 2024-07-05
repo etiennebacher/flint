@@ -29,7 +29,7 @@ lint <- function(
 
   linters <- resolve_linters(linters, exclude_linters)
   r_files <- resolve_path(path, exclude_path)
-  rule_files <- fs::path(system.file(package = "flint"), "rules/", paste0(linters, ".yml"))
+  rule_files <- resolve_rules(linters, path)
   lints <- list()
 
   for (i in r_files) {
@@ -45,7 +45,7 @@ lint <- function(
     lints[[i]] <- clean_lints(lints_raw, file = i)
   }
 
-  lints <- data.table::rbindlist(lints, use.names = TRUE)
+  lints <- data.table::rbindlist(lints, use.names = TRUE, fill = TRUE)
 
   if (isTRUE(open) &&
       requireNamespace("rstudioapi", quietly = TRUE) &&

@@ -67,3 +67,18 @@ resolve_path <- function(path, exclude_path) {
   }
   r_files
 }
+
+resolve_rules <- function(linters, path) {
+  if (is_flint_package() || identical(Sys.getenv("TESTTHAT"), "true")) {
+    fs::path(system.file(package = "flint"), "rules/", paste0(linters, ".yml"))
+  } else {
+    fs::path("flint/rules/", paste0(linters, ".yml"))
+  }
+}
+
+is_flint_package <- function() {
+  if (!fs::file_exists("DESCRIPTION")) {
+    return(FALSE)
+  }
+  read.dcf("DESCRIPTION")[, "Package"] == "flint"
+}

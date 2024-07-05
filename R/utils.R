@@ -66,9 +66,11 @@ resolve_path <- function(path, exclude_path) {
 }
 
 get_hashes <- function() {
-  if (!fs::file_exists("inst/flint/cache_file_state.rds")) {
-    saveRDS(NULL, "inst/flint/cache_file_state.rds")
+  path <- "inst/flint/cache_file_state.rds"
+  if (!fs::file_exists(path)) {
+    message("Creating ", path)
+    saveRDS(NULL, path)
     return(NULL)
   }
-  readRDS("inst/flint/cache_file_state.rds")
+  readRDS(path)
 }

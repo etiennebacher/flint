@@ -16,6 +16,7 @@ Imports:
     astgrepr,
     crayon,
     data.table,
+    digest,
     fs
 Suggests:
     knitr,

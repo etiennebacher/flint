@@ -36,8 +36,8 @@ We need three things to start experimenting with new rules:
   For instance we can already run `lint_text("is.numeric(y) || is.integer(y)")`. 
   This doesn't return anything since we haven't implemented the rule yet.
   
-* a rule: this requires storing a new YAML file in `inst/rules`. We can call this
-  one `is_numeric.yml`.
+* a rule: this requires storing a new YAML file in `flint/rules`. We can call 
+  this one `is_numeric.yml`.
   
 * store the rule name (`"is_numeric"`) in `list_linters()`.
   

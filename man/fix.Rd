@@ -16,10 +16,19 @@ fix(
 fix_text(text, linters = NULL)
 }
 \arguments{
-\item{path}{A valid path to a file or a directory. Relative paths are accepted.}
+\item{path}{A valid path to a file or a directory. Relative paths are
+accepted.}
 
 \item{linters}{A character vector with the names of the rules to apply. See
 the entire list of rules with \code{list_linters()}.}
+
+\item{exclude_path}{One or several paths that will be ignored from the \code{path}
+selection.}
+
+\item{exclude_linters}{One or several linters that will not be checked.
+Values can be the names of linters (such as \code{"any_is_na"}) or its
+associated function, such as \code{any_is_na_linter()} (this is mostly for
+compatibility with \code{lintr}).}
 
 \item{open}{If \code{TRUE} (default) and if this is used in the RStudio IDE, lints
 will be shown with markers.}

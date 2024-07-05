@@ -78,9 +78,9 @@ resolve_rules <- function(linters, path) {
 
 resolve_hashes <- function() {
   if (is_flint_package() || identical(Sys.getenv("TESTTHAT"), "true")) {
-    readRDS(file.path(getwd(), "inst/cache_file_state.rds"))
+    readRDS(file.path("inst/cache_file_state.rds"))
   } else {
-    readRDS(file.path(getwd(), "flint/cache_file_state.rds"))
+    readRDS(file.path("flint/cache_file_state.rds"))
   }
 }
 

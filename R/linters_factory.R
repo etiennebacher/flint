@@ -9,12 +9,12 @@ makeActiveBinding('any_duplicated_linter', function() { function() 'any_duplicat
 
 
 
-#' any_na
-#' @usage any_na_linter
-#' @name any_na_linter
+#' any_is_na
+#' @usage any_is_na_linter
+#' @name any_is_na_linter
 #' @export
 NULL
-makeActiveBinding('any_na_linter', function() { function() 'any_na' }, env = environment())
+makeActiveBinding('any_is_na_linter', function() { function() 'any_is_na' }, env = environment())
 
 
 

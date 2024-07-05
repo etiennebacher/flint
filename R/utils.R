@@ -50,6 +50,9 @@ resolve_linters <- function(linters, exclude_linters) {
     stop(paste0("Unknown linters: ", toString(setdiff(linters, list_linters()))))
   } else if (is.null(linters)) {
     linters <- list_linters()
+  } else if (is.list(linters)) {
+    # for compat with lintr
+    linters <- unlist(linters)
   }
   setdiff(linters, exclude_linters)
 }

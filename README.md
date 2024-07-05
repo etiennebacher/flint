@@ -18,16 +18,46 @@ itself built on the Rust crate
 
 ## Usage
 
-Start by setting up `flint` with `flint::setup_flint()`. This stores a
-set of rules in `inst/flint/rules`. You can then extend those rules if
-you want more control.
+Mandatory setup:
 
-`flint` provides two families of functions:
+- `setup_lint()`: creates the folder `flint` and populates it with
+  built-in rules as well as a cache file. You can modify those rules or
+  add new ones if you want more control.
 
-- those for linting: `lint()` applies rules on R files, `lint_text()`
-  does the same on code as text input.
-- those for replacing lints: `fix()` and `fix_text()` apply rules and
-  automatically replace matches by the provided replacements.
+The everyday usage consists of two functions:
+
+- `lint()` looks for lints in R files;
+- `fix()` looks for lints in R files and automatically applies their
+  replacement (if any).
+
+One can also experiment with `flint::lint_text()` and
+`flint::fix_text()`:
+
+``` r
+flint::lint_text("
+any(is.na(x))
+any(duplicated(y))
+")
+#> Original code: any(is.na(x)) 
+#> Suggestion: anyNA(x) is better than any(is.na(x)). 
+#> 
+#> Original code: any(duplicated(y)) 
+#> Suggestion: anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...).
+```
+
+``` r
+flint::fix_text("
+any(is.na(x))
+any(duplicated(y))
+")
+#> Old code:
+#> any(is.na(x))
+#> any(duplicated(y))
+#> 
+#> New code:
+#> anyNA(x)
+#> anyDuplicated(y) > 0
+```
 
 ## Comparison with existing tools
 
@@ -43,36 +73,25 @@ things, but doesn’t perform code replacement based on lints.
 of code with only three linters:
 
 ``` r
-library(bench)
-library(lintr)
-library(flint, warn.conflicts = FALSE)
-
 file <- system.file("bench/test.R", package = "flint")
 
 bench::mark(
-  lintr::lint(file, linters = list(any_duplicated_linter(), any_is_na_linter(), matrix_apply_linter())),
-  flint::lint(file, linters = c("any_duplicated", "any_na", "matrix_apply"), open = FALSE),
+  lintr = lintr::lint(
+    file, linters = list(lintr::any_duplicated_linter(), lintr::any_is_na_linter(),
+                         lintr::matrix_apply_linter())
+  ),
+  flint = flint::lint(
+    file, linters = list(flint::any_duplicated_linter(), flint::any_is_na_linter(),
+                         flint::matrix_apply_linter()), 
+    open = FALSE
+  ),
   check = FALSE
 )
 #> Warning: Some expressions had a GC in every iteration; so filtering is
 #> disabled.
 #> # A tibble: 2 × 6
-#>   expression                            min  median `itr/sec` mem_alloc `gc/sec`
-#>   <bch:expr>                        <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl>
-#> 1 "lintr::lint(file, linters = lis…   3.29s   3.29s     0.304  314.34MB     8.81
-#> 2 "flint::lint(file, linters = … 50.06ms 70.61ms    14.8      6.64MB     1.85
-```
-
-One can also experiment with `flint::lint_text()`:
-
-``` r
-lint_text("
-any(is.na(x))
-any(duplicated(y))
-")
-#> Original code: any(is.na(x)) 
-#> Suggestion: anyNA(x) is better than any(is.na(x)). 
-#> 
-#> Original code: any(duplicated(y)) 
-#> Suggestion: anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...).
+#>   expression      min   median `itr/sec` mem_alloc `gc/sec`
+#>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
+#> 1 lintr         2.73s    2.73s     0.366     319MB    12.1 
+#> 2 flint       47.67ms  59.73ms    15.9       875KB     3.97
 ```

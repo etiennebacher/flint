@@ -9,7 +9,7 @@ list_linters <- function() {
 
   c(
     "any_duplicated",
-    "any_na",
+    "any_is_na",
     "class_equals",
     "double_assignment",
     "equal_assignment",

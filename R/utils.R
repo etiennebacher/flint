@@ -65,29 +65,6 @@ resolve_path <- function(path, exclude_path) {
   r_files
 }
 
-
-has_changed <- function(file) {
-  if (!fs::file_exists("inst/flint/cache_file_state.rds")) {
-    saveRDS(NULL, "inst/flint/cache_file_state.rds")
-    return(TRUE)
-  }
-  hashes <- readRDS("inst/flint/cache_file_state.rds")
-  existing_hash <- hashes[[file]]
-  current_hash <- digest::digest(readLines(file, warn = FALSE))
-  different <- existing_hash != current_hash
-  if (different) {
-    hashes[[file]] <- current_hash
-    saveRDS("inst/flint/cache_file_state.rds")
-  }
-  different
-}
-
-get_from_cache <- function(file) {
-  hashes <- readRDS("inst/flint/cache_file_state.rds")
-  current_hash <- digest::digest(readLines(file, warn = FALSE))
-  hashes[[current_hash]]
-}
-
 get_hashes <- function() {
   if (!fs::file_exists("inst/flint/cache_file_state.rds")) {
     saveRDS(NULL, "inst/flint/cache_file_state.rds")

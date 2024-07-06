@@ -69,20 +69,20 @@ resolve_path <- function(path, exclude_path) {
 }
 
 resolve_rules <- function(linters, path) {
-  if (is_flint_package()
-      || identical(Sys.getenv("TESTTHAT"), "true")
-      || !uses_flint(path)) {
+  if (is_flint_package()) {
+    fs::path("inst/rules/", paste0(linters, ".yml"))
+  } else if (identical(Sys.getenv("TESTTHAT"), "true") || !uses_flint(path)) {
     fs::path(system.file(package = "flint"), "rules/", paste0(linters, ".yml"))
   } else {
     fs::path("flint/rules/", paste0(linters, ".yml"))
   }
 }
 
-resolve_hashes <- function(path) {
-  if (is_flint_package() || identical(Sys.getenv("TESTTHAT"), "true")) {
-    readRDS(file.path("inst/cache_file_state.rds"))
-  } else if (!uses_flint(path)) {
+resolve_hashes <- function(path, use_cache) {
+  if (!use_cache || !uses_flint(path)) {
     NULL
+  } else if (is_flint_package() || identical(Sys.getenv("TESTTHAT"), "true")) {
+    readRDS(file.path("inst/cache_file_state.rds"))
   } else {
     readRDS(file.path("flint/cache_file_state.rds"))
   }

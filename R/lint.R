@@ -65,11 +65,15 @@ lint <- function(
     use_cache = TRUE
 ) {
 
+  if (identical(Sys.getenv("TESTTHAT"), "true")) {
+    use_cache <- FALSE
+  }
+
   linters <- resolve_linters(linters, exclude_linters)
   r_files <- resolve_path(path, exclude_path)
   rule_files <- resolve_rules(linters, path)
   lints <- list()
-  hashes <- resolve_hashes(path)
+  hashes <- resolve_hashes(path, use_cache)
 
   for (i in r_files) {
 

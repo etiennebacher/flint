@@ -54,15 +54,6 @@ makeActiveBinding('equals_na_linter', function() { function() 'equals_na' }, env
 
 
 
-#' ifelse_pmin_pmax
-#' @usage ifelse_pmin_pmax_linter
-#' @name ifelse_pmin_pmax_linter
-#' @export
-NULL
-makeActiveBinding('ifelse_pmin_pmax_linter', function() { function() 'ifelse_pmin_pmax' }, env = environment())
-
-
-
 #' is_numeric
 #' @usage is_numeric_linter
 #' @name is_numeric_linter

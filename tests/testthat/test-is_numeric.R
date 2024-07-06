@@ -1,5 +1,5 @@
 test_that("is_numeric_linter skips allowed usages involving ||", {
-  linter <- "is_numeric"
+  linter <- is_numeric_linter()
 
   expect_lint("is.numeric(x) || is.integer(y)", NULL, linter)
   # x is used, but not identically
@@ -9,7 +9,7 @@ test_that("is_numeric_linter skips allowed usages involving ||", {
 })
 
 test_that("is_numeric_linter skips allowed usages involving %in%", {
-  linter <- "is_numeric"
+  linter <- is_numeric_linter()
 
   # false positives for class(x) %in% c('integer', 'numeric') style
   expect_lint("class(x) %in% 1:10", NULL, linter)
@@ -19,8 +19,8 @@ test_that("is_numeric_linter skips allowed usages involving %in%", {
 })
 
 test_that("is_numeric_linter blocks disallowed usages involving ||", {
-  linter <- "is_numeric"
-  lint_msg <- "can be simplified to is\\.numeric"
+  linter <- is_numeric_linter()
+  lint_msg <- "can be simplified to is.numeric"
 
   expect_lint("is.numeric(x) || is.integer(x)", lint_msg, linter)
 
@@ -47,7 +47,7 @@ test_that("is_numeric_linter blocks disallowed usages involving ||", {
 })
 
 test_that("is_numeric_linter blocks disallowed usages involving %in%", {
-  linter <- "is_numeric"
+  linter <- is_numeric_linter()
   lint_msg <- "can be simplified to is.numeric"
 
   expect_lint("class(x) %in% c('integer', 'numeric')", lint_msg, linter)
@@ -57,7 +57,7 @@ test_that("is_numeric_linter blocks disallowed usages involving %in%", {
 test_that("raw strings are handled properly when testing in class", {
   skip_if(getRversion() < "4.0.0")
 
-  linter <- "is_numeric"
+  linter <- is_numeric_linter()
   lint_msg <- "can be simplified to is.numeric"
 
   expect_lint("class(x) %in% c(R'(numeric)', 'integer', 'factor')", NULL, linter)

@@ -90,6 +90,15 @@ makeActiveBinding('matrix_apply_linter', function() { function() 'matrix_apply' 
 
 
 
+#' paste
+#' @usage paste_linter
+#' @name paste_linter
+#' @export
+NULL
+makeActiveBinding('paste_linter', function() { function() 'paste' }, env = environment())
+
+
+
 #' right_assignment
 #' @usage right_assignment_linter
 #' @name right_assignment_linter

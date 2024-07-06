@@ -18,6 +18,7 @@ list_linters <- function() {
     "library_call",
     "implicit_assignment",
     "matrix_apply",
+    "paste",
     "right_assignment",
     "lengths",
     "T_and_F_symbol"

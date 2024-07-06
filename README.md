@@ -18,11 +18,15 @@ itself built on the Rust crate
 
 ## Usage
 
-Mandatory setup:
+Optional setup:
 
 - `setup_flint()`: creates the folder `flint` and populates it with
   built-in rules as well as a cache file. You can modify those rules or
   add new ones if you want more control.
+
+You can use `flint` as-is, without any setup. However, running
+`setup_flint()` enables the use of caching, meaning that the subsequent
+runs will be faster.
 
 The everyday usage consists of two functions:
 
@@ -92,6 +96,6 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 lintr         4.23s    4.23s     0.237     319MB     7.81
-#> 2 flint      118.01ms 137.14ms     6.78      875KB     1.69
+#> 1 lintr         2.65s    2.65s     0.377   318.4MB     7.93
+#> 2 flint       20.36ms   24.2ms    29.7      1.27MB     0
 ```

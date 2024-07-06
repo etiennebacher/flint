@@ -69,7 +69,7 @@ lint <- function(
   r_files <- resolve_path(path, exclude_path)
   rule_files <- resolve_rules(linters, path)
   lints <- list()
-  hashes <- resolve_hashes()
+  hashes <- resolve_hashes(path)
 
   for (i in r_files) {
 
@@ -103,7 +103,7 @@ lint <- function(
   if (use_cache) {
     if (is_flint_package() || identical(Sys.getenv("TESTTHAT"), "true")) {
       saveRDS(hashes, file.path(getwd(), "inst/cache_file_state.rds"))
-    } else {
+    } else if (uses_flint(path)) {
       saveRDS(hashes, file.path(getwd(), "flint/cache_file_state.rds"))
     }
   }

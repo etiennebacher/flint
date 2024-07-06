@@ -29,11 +29,14 @@ which is itself built on the Rust crate [`ast-grep`](https://ast-grep.github.io/
 
 ## Usage
 
-Mandatory setup:
+Optional setup:
 
 * `setup_flint()`: creates the folder `flint` and populates it with built-in rules
   as well as a cache file. You can modify those rules or add new ones if you
   want more control.
+  
+You can use `flint` as-is, without any setup. However, running `setup_flint()`
+enables the use of caching, meaning that the subsequent runs will be faster.
   
 The everyday usage consists of two functions:
 

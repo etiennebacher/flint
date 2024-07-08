@@ -13,7 +13,7 @@ fix_dir(path = ".", linters = NULL)
 
 fix_package(path = ".", linters = NULL)
 
-fix_text(text, linters = NULL)
+fix_text(text, linters = NULL, exclude_linters = NULL)
 }
 \arguments{
 \item{path}{A valid path to a file or a directory. Relative paths are

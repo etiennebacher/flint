@@ -2,11 +2,11 @@ library(fs)
 library(usethis)
 library(withr)
 
-expect_lint <- function(x, message, linter) {
+expect_lint <- function(x, message, linter, ...) {
   if (is.null(linter)) {
     linter <- list_linters()
   }
-  out <- lint_text(x, linters = linter)
+  out <- lint_text(x, linters = linter, ...)
   if (is.null(message)) {
     testthat::expect_true(length(out) == 0)
   } else {
@@ -16,8 +16,8 @@ expect_lint <- function(x, message, linter) {
   }
 }
 
-expect_fix <- function(x, replacement) {
-  out <- fix_text(x)
+expect_fix <- function(x, replacement, ...) {
+  out <- fix_text(x, ...)
   testthat::expect_equal(as.character(out), replacement)
 }
 

@@ -64,11 +64,11 @@ fix_package <- function(path = ".", linters = NULL) {
 
 #' @rdname fix
 #' @export
-fix_text <- function(text, linters = NULL) {
+fix_text <- function(text, linters = NULL, exclude_linters = NULL) {
   tmp <- tempfile(fileext = ".R")
   text <- trimws(text)
   cat(text, file = tmp)
-  out <- fix(tmp, linters = linters)
+  out <- fix(tmp, linters = linters, exclude_linters = exclude_linters)
   if (length(out) == 0) {
     return(invisible())
   }

@@ -9,17 +9,17 @@ test_that("any_duplicated_linter blocks simple disallowed usages", {
   linter <- any_duplicated_linter()
   lint_msg <- "anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...)."
 
-  expect_lint("any(duplicated(x))", lint_msg, NULL)
-  expect_lint("any(duplicated(foo(x)))", lint_msg, NULL)
+  expect_lint("any(duplicated(x))", lint_msg, linter)
+  expect_lint("any(duplicated(foo(x)))", lint_msg, linter)
 
   expect_lint("any(duplicated(y), b)", lint_msg, linter)
   expect_lint("any(b, duplicated(y))", lint_msg, linter)
 
   # na.rm doesn't really matter for this since duplicated can't return NA
-  expect_lint("any(duplicated(x), na.rm = TRUE)", lint_msg, NULL)
+  expect_lint("any(duplicated(x), na.rm = TRUE)", lint_msg, linter)
 
   # also catch nested usage
-  expect_lint("foo(any(duplicated(x)))", lint_msg, NULL)
+  expect_lint("foo(any(duplicated(x)))", lint_msg, linter)
 })
 
 test_that("any_duplicated_linter catches length(unique()) equivalencies too", {

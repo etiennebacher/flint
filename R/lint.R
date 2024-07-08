@@ -177,7 +177,7 @@ lint_package <- function(path = ".", linters = NULL, open = TRUE) {
 #' @rdname lint
 #' @export
 
-lint_text <- function(text, linters = NULL) {
+lint_text <- function(text, linters = NULL, exclude_linters = NULL) {
   tmp <- tempfile(fileext = ".R")
   text <- trimws(text)
   cat(text, file = tmp)
@@ -186,7 +186,7 @@ lint_text <- function(text, linters = NULL) {
   # output that is used in the custom print method. It's also easier to have a
   # dataframe output in tests.
   # We're only parsing a small text in general so passing twice is not an issue.
-  out <- lint(tmp, linters = linters, open = FALSE)
+  out <- lint(tmp, linters = linters, exclude_linters = exclude_linters, open = FALSE)
   if (length(out) == 0) {
     return(invisible())
   }

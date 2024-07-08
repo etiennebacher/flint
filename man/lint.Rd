@@ -20,7 +20,7 @@ lint_dir(path = ".", linters = NULL, open = TRUE)
 
 lint_package(path = ".", linters = NULL, open = TRUE)
 
-lint_text(text, linters = NULL)
+lint_text(text, linters = NULL, exclude_linters = NULL)
 }
 \arguments{
 \item{path}{A valid path to a file or a directory. Relative paths are

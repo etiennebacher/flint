@@ -15,6 +15,11 @@ knitr::opts_chunk$set(
 
 # flint
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/etiennebacher/flint/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/etiennebacher/flint/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+
 `flint` is a small R package to find and replace lints in R code.
 
 * Lints detection with `lint()`

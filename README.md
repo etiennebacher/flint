@@ -3,6 +3,11 @@
 
 # flint
 
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/etiennebacher/flint/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/etiennebacher/flint/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 `flint` is a small R package to find and replace lints in R code.
 
 - Lints detection with `lint()`
@@ -94,6 +99,6 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 lintr         1.96s    1.96s     0.510  318.44MB    16.8 
-#> 2 flint       56.69ms  65.02ms    15.2      1.09MB     3.81
+#> 1 lintr         2.26s    2.26s     0.442  318.44MB    14.6 
+#> 2 flint       58.18ms  65.65ms    15.2      1.09MB     3.80
 ```

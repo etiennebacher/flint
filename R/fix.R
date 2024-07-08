@@ -62,6 +62,8 @@ fix_package <- function(path = ".", linters = NULL) {
   fix(path, linters = linters)
 }
 
+#' @param text Text to analyze (and to fix if necessary).
+#'
 #' @rdname fix
 #' @export
 fix_text <- function(text, linters = NULL, exclude_linters = NULL) {

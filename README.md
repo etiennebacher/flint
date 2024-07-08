@@ -7,8 +7,8 @@
 
 - Lints detection with `lint()`
 - Automatic replacement of lints with `fix()`
-- Compatibility with `{lintr}` rules
-- Extremely fast
+- Compatibility with (some) `{lintr}` rules
+- Fast
 - Low-dependency
 
 `flint` is powered by
@@ -48,9 +48,6 @@ any(duplicated(y))
 #> 
 #> Original code: any(duplicated(y)) 
 #> Suggestion: anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...).
-```
-
-``` r
 flint::fix_text("
 any(is.na(x))
 any(duplicated(y))
@@ -97,6 +94,6 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 lintr         2.32s    2.32s     0.431  318.44MB    14.2 
-#> 2 flint       64.29ms  69.82ms    13.8      1.07MB     3.44
+#> 1 lintr          2.2s     2.2s     0.455  318.44MB    15.0 
+#> 2 flint        57.2ms   63.3ms    15.4      1.09MB     3.85
 ```

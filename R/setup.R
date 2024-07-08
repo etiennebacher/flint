@@ -4,6 +4,8 @@
 #' imports `sgconfig.yml` that is used by `ast-grep`. This file must live at the
 #' root of the project and cannot be renamed.
 #'
+#' @param path Path to package or project root.
+#'
 #' @return Imports files necessary for `flint` to work but doesn't return any
 #' value in R.
 #' @export
@@ -48,6 +50,8 @@ setup_flint <- function(path = ".") {
 #' For instance, if you added a custom rule `use_paste.yml`, then it will never
 #' be removed by `update_flint()`, even if `flint` later adds a built-in rule
 #' also named `use_paste.yml`.
+#'
+#' @inheritParams setup_flint
 #'
 #' @return Can add new files in the `flint/rules` folder, doesn't return anything.
 #' @export

@@ -19,8 +19,8 @@ knitr::opts_chunk$set(
 
 * Lints detection with `lint()`
 * Automatic replacement of lints with `fix()`
-* Compatibility with `{lintr}` rules
-* Extremely fast
+* Compatibility with (some) `{lintr}` rules
+* Fast
 * Low-dependency
 
 `flint` is powered by [`astgrepr`](https://github.com/etiennebacher/astgrepr/),

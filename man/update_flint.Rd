@@ -6,6 +6,9 @@
 \usage{
 update_flint(path = ".")
 }
+\arguments{
+\item{path}{Path to package or project root.}
+}
 \value{
 Can add new files in the \code{flint/rules} folder, doesn't return anything.
 }

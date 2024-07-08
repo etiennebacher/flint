@@ -175,6 +175,8 @@ lint_package <- function(path = ".", linters = NULL, open = TRUE) {
   lint(path, linters = linters, open = open)
 }
 
+#' @param text Text to analyze.
+#'
 #' @rdname lint
 #' @export
 

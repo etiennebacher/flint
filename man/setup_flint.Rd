@@ -6,6 +6,9 @@
 \usage{
 setup_flint(path = ".")
 }
+\arguments{
+\item{path}{Path to package or project root.}
+}
 \value{
 Imports files necessary for \code{flint} to work but doesn't return any
 value in R.

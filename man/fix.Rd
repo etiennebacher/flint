@@ -29,6 +29,8 @@ selection.}
 Values can be the names of linters (such as \code{"any_is_na"}) or its
 associated function, such as \code{any_is_na_linter()} (this is mostly for
 compatibility with \code{lintr}).}
+
+\item{text}{Text to analyze (and to fix if necessary).}
 }
 \description{
 Automatically replace lints

@@ -42,6 +42,8 @@ will be shown with markers.}
 
 \item{use_cache}{Do not re-parse files that haven't changed since the last
 time this function ran.}
+
+\item{text}{Text to analyze.}
 }
 \value{
 A dataframe where each row is a lint. The columns show the text, its

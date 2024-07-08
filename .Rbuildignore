@@ -6,3 +6,4 @@
 
 # flint files
 ^inst/flint
+^docs$

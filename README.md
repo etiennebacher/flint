@@ -21,6 +21,26 @@
 itself built on the Rust crate
 [`ast-grep`](https://ast-grep.github.io/).
 
+## Installation
+
+### Windows or macOS
+
+``` r
+install.packages(
+  'flint', 
+  repos = c('https://etiennebacher.r-universe.dev', getOption("repos"))
+)
+```
+
+### Linux
+
+``` r
+install.packages(
+  'flint', 
+  repos = c('https://etiennebacher.r-universe.dev/bin/linux/jammy/4.3', getOption("repos"))
+)
+```
+
 ## Usage
 
 Optional setup:
@@ -99,6 +119,6 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 lintr         2.26s    2.26s     0.442  318.44MB    14.6 
-#> 2 flint       58.18ms  65.65ms    15.2      1.09MB     3.80
+#> 1 lintr         3.01s    3.01s     0.333  318.44MB    11.0 
+#> 2 flint       64.13ms  73.24ms    13.3      1.09MB     1.90
 ```

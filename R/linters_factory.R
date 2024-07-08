@@ -63,6 +63,15 @@ makeActiveBinding('is_numeric_linter', function() { function() 'is_numeric' }, e
 
 
 
+#' length_levels
+#' @usage length_levels_linter
+#' @name length_levels_linter
+#' @export
+NULL
+makeActiveBinding('length_levels_linter', function() { function() 'length_levels' }, env = environment())
+
+
+
 #' length_test
 #' @usage length_test_linter
 #' @name length_test_linter

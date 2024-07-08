@@ -68,20 +68,29 @@ resolve_path <- function(path, exclude_path) {
   r_files
 }
 
-resolve_rules <- function(linters, path) {
+resolve_rules <- function(linters_is_null, linters, path) {
   if (is_flint_package()) {
     fs::path("inst/rules/", paste0(linters, ".yml"))
-  } else if (identical(Sys.getenv("TESTTHAT"), "true") || !uses_flint(path)) {
+  } else if (is_testing() || !uses_flint(path)) {
     fs::path(system.file(package = "flint"), "rules/", paste0(linters, ".yml"))
   } else {
-    fs::path("flint/rules/", paste0(linters, ".yml"))
+    # If the user didn't specify linters, then we use all of them, including the
+    # custom ones.
+    # However, if the user made a selection in linters, we only respect their
+    # choice.
+    if (linters_is_null) {
+      rules <- fs::path("flint/rules/", list.files("flint/rules", pattern = "\\.yml$"))
+    } else {
+      rules <- fs::path("flint/rules/", paste0(linters, ".yml"))
+    }
+    return(rules)
   }
 }
 
 resolve_hashes <- function(path, use_cache) {
   if (!use_cache || !uses_flint(path)) {
     NULL
-  } else if (is_flint_package() || identical(Sys.getenv("TESTTHAT"), "true")) {
+  } else if (is_flint_package() || is_testing()) {
     readRDS(file.path("inst/cache_file_state.rds"))
   } else {
     readRDS(file.path("flint/cache_file_state.rds"))
@@ -98,4 +107,8 @@ is_flint_package <- function() {
 uses_flint <- function(path = ".") {
   flint_dir <- file.path(path, "flint")
   fs::dir_exists(flint_dir) && length(list.files(flint_dir)) > 0
+}
+
+is_testing <- function() {
+  identical(Sys.getenv("TESTTHAT"), "true")
 }

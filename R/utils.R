@@ -115,3 +115,14 @@ uses_flint <- function(path = ".") {
 is_testing <- function() {
   identical(Sys.getenv("TESTTHAT"), "true")
 }
+
+new_rule <- function(name) {
+  cat("id: ...
+language: r
+severity: warning
+rule:
+  pattern: ...
+fix: ...
+message: ...
+", file = paste0("inst/rules/", name, ".yml"))
+}

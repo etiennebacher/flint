@@ -11,6 +11,7 @@ Lints are code patterns that are not optimal because they are inefficient, forge
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://flint.etiennebacher.com}
   \item \url{https://github.com/etiennebacher/flint}
   \item Report bugs at \url{https://github.com/etiennebacher/flint/issues}
 }

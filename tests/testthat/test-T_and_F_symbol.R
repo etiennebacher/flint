@@ -69,3 +69,9 @@ test_that("T_and_F_symbol_linter blocks disallowed usages", {
     linter
   )
 })
+
+test_that("T_and_F_symbol_linter doesn't block variables called T or F", {
+  linter <- T_and_F_symbol_linter()
+  expect_lint("mtcars$F", NULL, linter)
+  expect_lint("mtcars$T", NULL, linter)
+})

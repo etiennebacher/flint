@@ -5,10 +5,13 @@ rule:
   pattern: T
   kind: identifier
   not:
-    precedes:
-      any:
-        - pattern: <-
-        - pattern: =
+    any:
+      - precedes:
+        any:
+          - pattern: <-
+          - pattern: =
+      - follows:
+          pattern: $
 fix: TRUE
 message: Use TRUE instead of the symbol T.
 
@@ -21,10 +24,13 @@ rule:
   pattern: F
   kind: identifier
   not:
-    precedes:
-      any:
-        - pattern: <-
-        - pattern: =
+    any:
+      - precedes:
+        any:
+          - pattern: <-
+          - pattern: =
+      - follows:
+          pattern: $
 fix: FALSE
 message: Use FALSE instead of the symbol F.
 

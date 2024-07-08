@@ -1,0 +1,99 @@
+id: seq_1
+language: r
+severity: warning
+rule:
+  pattern: seq(length($VAR))
+fix: seq_along(~~VAR~~)
+message: |
+  seq(length(...)) is likely to be wrong in the empty edge case. Use seq_along(...) instead.
+
+---
+
+id: seq_2
+language: r
+severity: warning
+rule:
+  any:
+    - pattern: 1:nrow($VAR)
+    - pattern: 1L:nrow($VAR)
+fix: seq_len(nrow(~~VAR~~))
+message: |
+  1:nrow(...) is likely to be wrong in the empty edge case. Use seq_len(nrow(...)) instead.
+
+---
+
+id: seq_3
+language: r
+severity: warning
+rule:
+  any:
+    - pattern: 1:n()
+    - pattern: 1L:n()
+fix: seq_len(n())
+message: |
+  1:n() is likely to be wrong in the empty edge case. Use seq_len(n()) instead.
+
+---
+
+id: seq_4
+language: r
+severity: warning
+rule:
+  pattern: seq(nrow($VAR))
+fix: seq_len(nrow(~~VAR~~))
+message: |
+  seq(nrow(...)) is likely to be wrong in the empty edge case. Use seq_len(nrow(...)) instead.
+
+---
+
+id: seq_5
+language: r
+severity: warning
+rule:
+  any:
+    - pattern: 1:length($VAR)
+    - pattern: 1L:length($VAR)
+fix: seq_along(~~VAR~~)
+message: |
+  1:length(...) is likely to be wrong in the empty edge case. Use seq_along(...) instead.
+
+---
+
+id: seq_6
+language: r
+severity: warning
+rule:
+  any:
+    - pattern: 1:ncol($VAR)
+    - pattern: 1L:ncol($VAR)
+fix: seq_len(ncol(~~VAR~~))
+message: |
+  1:ncol(...) is likely to be wrong in the empty edge case. Use seq_len(ncol(...)) instead.
+
+---
+
+id: seq_7
+language: r
+severity: warning
+rule:
+  any:
+    - pattern: 1:NCOL($VAR)
+    - pattern: 1L:NCOL($VAR)
+fix: seq_len(NCOL(~~VAR~~))
+message: |
+  1:NCOL(...) is likely to be wrong in the empty edge case. Use seq_len(NCOL(...)) instead.
+
+---
+
+id: seq_8
+language: r
+severity: warning
+rule:
+  any:
+    - pattern: 1:NROW($VAR)
+    - pattern: 1L:NROW($VAR)
+fix: seq_len(NROW(~~VAR~~))
+message: |
+  1:NROW(...) is likely to be wrong in the empty edge case. Use seq_len(NROW(...)) instead.
+
+

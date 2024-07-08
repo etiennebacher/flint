@@ -17,12 +17,13 @@ list_linters <- function() {
     "is_numeric",
     "length_levels",
     "length_test",
+    "lengths",
     "library_call",
     "implicit_assignment",
     "matrix_apply",
     "paste",
     "right_assignment",
-    "lengths",
+    "seq",
     "T_and_F_symbol"
   )
 

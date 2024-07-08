@@ -81,6 +81,15 @@ makeActiveBinding('length_test_linter', function() { function() 'length_test' },
 
 
 
+#' lengths
+#' @usage lengths_linter
+#' @name lengths_linter
+#' @export
+NULL
+makeActiveBinding('lengths_linter', function() { function() 'lengths' }, env = environment())
+
+
+
 #' library_call
 #' @usage library_call_linter
 #' @name library_call_linter
@@ -126,12 +135,12 @@ makeActiveBinding('right_assignment_linter', function() { function() 'right_assi
 
 
 
-#' lengths
-#' @usage lengths_linter
-#' @name lengths_linter
+#' seq
+#' @usage seq_linter
+#' @name seq_linter
 #' @export
 NULL
-makeActiveBinding('lengths_linter', function() { function() 'lengths' }, env = environment())
+makeActiveBinding('seq_linter', function() { function() 'seq' }, env = environment())
 
 
 

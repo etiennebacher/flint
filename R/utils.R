@@ -2,6 +2,9 @@ clean_lints <- function(lints_raw, file) {
   locs <- astgrepr::node_range_all(lints_raw)
   txts <- astgrepr::node_text_all(lints_raw)
 
+  # for data.table NOTE on undefined objects
+  line_start <- NULL
+
   locs_reorg <- lapply(seq_along(locs), function(x) {
     dat <- locs[[x]]
     res <- data.table::rbindlist(lapply(dat, function(y) {
@@ -42,7 +45,7 @@ clean_lints <- function(lints_raw, file) {
 
 get_tests_from_lintr <- function(name) {
   url <- paste0("https://raw.githubusercontent.com/r-lib/lintr/main/tests/testthat/test-", name, "_linter.R")
-  download.file(url, destfile = paste0("tests/testthat/test-", name, ".R"))
+  utils::download.file(url, destfile = paste0("tests/testthat/test-", name, ".R"))
 }
 
 resolve_linters <- function(linters, exclude_linters) {

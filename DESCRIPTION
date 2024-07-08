@@ -27,6 +27,7 @@ Suggests:
     testthat (>= 3.0.0),
     tibble,
     usethis,
+    utils,
     withr
 Remotes:
     etiennebacher/astgrepr

@@ -1,6 +1,7 @@
 #' Automatically replace lints
 #'
 #' @inheritParams lint
+#' @inheritSection lint Ignoring lines
 #'
 #' @export
 fix <- function(
@@ -16,7 +17,7 @@ fix <- function(
   fixes <- list()
 
   for (i in r_files) {
-    root <- astgrepr::tree_new(file = i) |>
+    root <- astgrepr::tree_new(file = i, ignore_tags = "flint-ignore") |>
       astgrepr::tree_root()
 
     lints_raw <- astgrepr::node_find_all(root, files = rule_files)

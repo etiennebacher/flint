@@ -7,8 +7,8 @@
 #' * `lint_text()` takes some text input
 #' * `lint_dir()` takes a path to one directory
 #' * `lint_package()` takes a path to the root of a package and looks at the
-#'   following list of folders: `R`, `tests`, `inst`, `vignettes`, `data-raw`,
-#'   `demo`, `exec`.
+#' following list of folders: `R`, `tests`, `inst`, `vignettes`, `data-raw`,
+#' `demo`, `exec`.
 #'
 #' @param path A valid path to a file or a directory. Relative paths are
 #'   accepted.
@@ -24,6 +24,22 @@
 #'   will be shown with markers.
 #' @param use_cache Do not re-parse files that haven't changed since the last
 #'   time this function ran.
+#'
+#' @section Ignoring lines: Currently, `flint` supports ignoring single lines of
+#'   code with `# flint-ignore`. For example, this will not warn:
+#'
+#' ```r
+#' # flint-ignore
+#' any(duplicated(x))
+#' ```
+#'
+#' However, this will warn for the second `any(duplicated())`:
+#'
+#' ```r
+#' # flint-ignore
+#' any(duplicated(x))
+#' any(duplicated(y))
+#' ```
 #'
 #' @return A dataframe where each row is a lint. The columns show the text, its
 #'   location (both the position in the text and the file in which it was found)
@@ -88,7 +104,7 @@ lint <- function(
       }
     }
 
-    lints_raw <- astgrepr::tree_new(file = i) |>
+    lints_raw <- astgrepr::tree_new(file = i, ignore_tags = "flint-ignore") |>
       astgrepr::tree_root()|>
       astgrepr::node_find_all(files = rule_files)
 

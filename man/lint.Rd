@@ -61,6 +61,22 @@ following list of folders: \code{R}, \code{tests}, \code{inst}, \code{vignettes}
 \code{demo}, \code{exec}.
 }
 }
+\section{Ignoring lines}{
+ Currently, \code{flint} supports ignoring single lines of
+code with \verb{# flint-ignore}. For example, this will not warn:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# flint-ignore
+any(duplicated(x))
+}\if{html}{\out{</div>}}
+
+However, this will warn for the second \code{any(duplicated())}:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# flint-ignore
+any(duplicated(x))
+any(duplicated(y))
+}\if{html}{\out{</div>}}
+}
+
 \examples{
 # `lint_text()` is convenient to explore with a small example
 lint_text("any(duplicated(rnorm(5)))")

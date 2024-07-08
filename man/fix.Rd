@@ -33,3 +33,19 @@ compatibility with \code{lintr}).}
 \description{
 Automatically replace lints
 }
+\section{Ignoring lines}{
+ Currently, \code{flint} supports ignoring single lines of
+code with \verb{# flint-ignore}. For example, this will not warn:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# flint-ignore
+any(duplicated(x))
+}\if{html}{\out{</div>}}
+
+However, this will warn for the second \code{any(duplicated())}:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# flint-ignore
+any(duplicated(x))
+any(duplicated(y))
+}\if{html}{\out{</div>}}
+}
+

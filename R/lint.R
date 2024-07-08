@@ -25,8 +25,10 @@
 #' @param use_cache Do not re-parse files that haven't changed since the last
 #'   time this function ran.
 #'
-#' @section Ignoring lines: Currently, `flint` supports ignoring single lines of
-#'   code with `# flint-ignore`. For example, this will not warn:
+#' @section Ignoring lines:
+#'
+#' `flint` supports ignoring single lines of code with `# flint-ignore`. For
+#' example, this will not warn:
 #'
 #' ```r
 #' # flint-ignore
@@ -40,6 +42,17 @@
 #' any(duplicated(x))
 #' any(duplicated(y))
 #' ```
+#'
+#' To ignore more than one line of code, use `# flint-ignore-start` and
+#' `# flint-ignore-end`:
+#'
+#' ```r
+#' # flint-ignore-start
+#' any(duplicated(x))
+#' any(duplicated(y))
+#' # flint-ignore-end
+#' ```
+#'
 #'
 #' @return A dataframe where each row is a lint. The columns show the text, its
 #'   location (both the position in the text and the file in which it was found)

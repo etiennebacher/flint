@@ -62,8 +62,10 @@ following list of folders: \code{R}, \code{tests}, \code{inst}, \code{vignettes}
 }
 }
 \section{Ignoring lines}{
- Currently, \code{flint} supports ignoring single lines of
-code with \verb{# flint-ignore}. For example, this will not warn:
+
+
+\code{flint} supports ignoring single lines of code with \verb{# flint-ignore}. For
+example, this will not warn:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# flint-ignore
 any(duplicated(x))
@@ -74,6 +76,15 @@ However, this will warn for the second \code{any(duplicated())}:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# flint-ignore
 any(duplicated(x))
 any(duplicated(y))
+}\if{html}{\out{</div>}}
+
+To ignore more than one line of code, use \verb{# flint-ignore-start} and
+\verb{# flint-ignore-end}:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# flint-ignore-start
+any(duplicated(x))
+any(duplicated(y))
+# flint-ignore-end
 }\if{html}{\out{</div>}}
 }
 

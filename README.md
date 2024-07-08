@@ -26,7 +26,8 @@ Optional setup:
 
 You can use `flint` as-is, without any setup. However, running
 `setup_flint()` enables the use of caching, meaning that the subsequent
-runs will be faster.
+runs will be faster. It is also the place where you can store custom
+rules.
 
 The everyday usage consists of two functions:
 
@@ -96,6 +97,6 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 lintr         2.65s    2.65s     0.377   318.4MB     7.93
-#> 2 flint       20.36ms   24.2ms    29.7      1.27MB     0
+#> 1 lintr         2.32s    2.32s     0.431  318.44MB    14.2 
+#> 2 flint       64.29ms  69.82ms    13.8      1.07MB     3.44
 ```

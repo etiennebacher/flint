@@ -4,10 +4,10 @@ severity: warning
 rule:
   any:
     - pattern: length($VAR == $VAR2)
-    - pattern: length($VAR >= $VAR2)
-    - pattern: length($VAR <= $VAR2)
-    - pattern: length($VAR > $VAR2)
-    - pattern: length($VAR < $VAR2)
-    - pattern: length($VAR != $VAR2)
+    # - pattern: length($VAR >= $VAR2)
+    # - pattern: length($VAR <= $VAR2)
+    # - pattern: length($VAR > $VAR2)
+    # - pattern: length($VAR < $VAR2)
+    # - pattern: length($VAR != $VAR2)
 fix: length(~~VAR~~) == ~~VAR2~~
 message: Checking the length of a logical vector is likely a mistake.

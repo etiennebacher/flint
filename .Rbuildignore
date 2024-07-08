@@ -7,3 +7,5 @@
 # flint files
 ^inst/flint
 ^docs$
+^pkgdown$
+^_pkgdown\.yml$

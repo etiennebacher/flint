@@ -37,7 +37,8 @@ Optional setup:
   
 You can use `flint` as-is, without any setup. However, running `setup_flint()`
 enables the use of caching, meaning that the subsequent runs will be faster. It
-is also the place where you can store custom rules.
+is also gives you a place where you can store custom rules for your 
+project/package.
   
 The everyday usage consists of two functions:
 

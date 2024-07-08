@@ -41,3 +41,9 @@ test_that("setup_flint works for projects", {
     "anyDuplicated(x) > 0"
   )
 })
+
+test_that("flint can work without setup", {
+  create_local_package()
+  expect_no_error(lint())
+  expect_no_error(fix())
+})

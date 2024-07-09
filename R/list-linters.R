@@ -10,6 +10,7 @@ list_linters <- function() {
   c(
     "any_duplicated",
     "any_is_na",
+    "browser",
     "class_equals",
     "double_assignment",
     "equal_assignment",

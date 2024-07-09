@@ -18,6 +18,15 @@ makeActiveBinding('any_is_na_linter', function() { function() 'any_is_na' }, env
 
 
 
+#' browser
+#' @usage browser_linter
+#' @name browser_linter
+#' @export
+NULL
+makeActiveBinding('browser_linter', function() { function() 'browser' }, env = environment())
+
+
+
 #' class_equals
 #' @usage class_equals_linter
 #' @name class_equals_linter

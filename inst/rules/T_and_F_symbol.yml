@@ -7,9 +7,9 @@ rule:
   not:
     any:
       - precedes:
-        any:
-          - pattern: <-
-          - pattern: =
+          any:
+            - pattern: <-
+            - pattern: =
       - follows:
           pattern: $
 fix: TRUE
@@ -26,9 +26,9 @@ rule:
   not:
     any:
       - precedes:
-        any:
-          - pattern: <-
-          - pattern: =
+          any:
+            - pattern: <-
+            - pattern: =
       - follows:
           pattern: $
 fix: FALSE
@@ -46,7 +46,6 @@ rule:
     any:
       - pattern: <-
       - pattern: =
-fix: TRUE
 message: Don't use T as a variable name, as it can break code relying on T being TRUE.
 
 ---
@@ -61,5 +60,4 @@ rule:
     any:
       - pattern: <-
       - pattern: =
-fix: FALSE
 message: Don't use F as a variable name, as it can break code relying on F being FALSE.

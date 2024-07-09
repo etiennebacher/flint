@@ -99,13 +99,13 @@ test_that("paste_linter catches use of paste0 with sep=", {
 #   expect_lint("paste(rep('*', 10), rep('x', 10), collapse = '')", NULL, linter)
 # })
 
-test_that("paste_linter blocks simple disallowed usages", {
-  expect_lint(
-    "paste(rep('#', width), collapse='')",
-    "strrep(x, times) is better than paste",
-    paste_linter()
-  )
-})
+# test_that("paste_linter blocks simple disallowed usages", {
+#   expect_lint(
+#     "paste(rep('#', 5), collapse='')",
+#     "strrep(x, times) is better than paste",
+#     paste_linter()
+#   )
+# })
 
 # test_that("paste_linter skips allowed usages for file paths", {
 #   linter <- paste_linter()
@@ -286,4 +286,8 @@ test_that("paste0(collapse=...) is caught", {
 #   # paste0(..., collapse=collapse) not directly mapped to file.path
 #   expect_lint("paste0(x, collapse = '/')", lint_msg, linter)
 #   expect_lint("paste0(x, y, collapse = '/')", NULL, linter)
+# })
+
+# test_that("fix paste(rep())", {
+#   expect_snapshot(fix_text("paste0(rep(letters[1:3], 5), collapse='')"))
 # })

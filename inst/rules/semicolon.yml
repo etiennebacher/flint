@@ -1,0 +1,6 @@
+id: semicolon_1
+language: r
+severity: warning
+rule:
+  regex: ;$
+message: Trailing semicolons are not needed.

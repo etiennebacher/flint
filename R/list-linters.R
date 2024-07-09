@@ -23,6 +23,7 @@ list_linters <- function() {
     "matrix_apply",
     "paste",
     "right_assignment",
+    "semicolon",
     "seq",
     "T_and_F_symbol"
   )

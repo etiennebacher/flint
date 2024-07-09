@@ -135,6 +135,15 @@ makeActiveBinding('right_assignment_linter', function() { function() 'right_assi
 
 
 
+#' semicolon
+#' @usage semicolon_linter
+#' @name semicolon_linter
+#' @export
+NULL
+makeActiveBinding('semicolon_linter', function() { function() 'semicolon' }, env = environment())
+
+
+
 #' seq
 #' @usage seq_linter
 #' @name seq_linter

@@ -12,6 +12,8 @@ rule:
             - pattern: =
       - follows:
           pattern: $
+      - inside:
+          kind: parameter
 fix: TRUE
 message: Use TRUE instead of the symbol T.
 
@@ -31,6 +33,8 @@ rule:
             - pattern: =
       - follows:
           pattern: $
+      - inside:
+          kind: parameter
 fix: FALSE
 message: Use FALSE instead of the symbol F.
 

@@ -76,6 +76,12 @@ test_that("T_and_F_symbol_linter doesn't block variables called T or F", {
   expect_lint("mtcars$T", NULL, linter)
 })
 
+test_that("do not block parameters named T/F", {
+  linter <- T_and_F_symbol_linter()
+  expect_lint("myfun <- function(T) {}", NULL, linter)
+  expect_lint("myfun <- function(F) {}", NULL, linter)
+})
+
 test_that("don't replace T/F when they receive the assignment", {
   expect_snapshot(fix_text("T <- N/G"))
   expect_snapshot(fix_text("F <- N/G"))

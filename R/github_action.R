@@ -7,6 +7,9 @@
 setup_flint_gha <- function(path = ".") {
   src <- system.file("gha/flint.yaml", package = "flint")
   tar <- file.path(path, ".github/workflows/flint.yaml")
+  if (!fs::dir_exists(dirname(tar))) {
+    fs::dir_create(dirname(tar))
+  }
   fs::file_copy(src, tar)
   message("Created `.github/workflows/flint.yaml.")
 }

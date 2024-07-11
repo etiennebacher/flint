@@ -30,13 +30,10 @@ jobs:
       - name: Bootstrap
         run: ./run.sh bootstrap
 
-      - name: Install r-polars on Ubuntu
-        run: install.packages("astgrepr", repos = "https://rpolars.r-universe.dev/bin/linux/noble/4.4")
+      - name: Install flint
+        run: install.packages("flint", repos = "https://rpolars.r-universe.dev/bin/linux/noble/4.4")
         shell: Rscript {0}
 
-      - name: Dependencies
-        run: ./run.sh install_all
-
-      - name: Build site
+      - name: Run flint
         run: flint::lint()
         shell: Rscript {0}

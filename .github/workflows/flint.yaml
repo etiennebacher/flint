@@ -9,14 +9,14 @@ on:
     types: [published]
   workflow_dispatch:
 
-name: altdoc
+name: flint
 
 jobs:
-  altdoc:
+  flint:
     runs-on: ubuntu-latest
     # Only restrict concurrency for non-PR jobs
     concurrency:
-      group: altdoc-${{ github.event_name != 'pull_request' || github.run_id }}
+      group: flint-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     permissions:

@@ -30,6 +30,7 @@ reference:
 - title: Setup `flint`
   contents:
   - setup_flint
+  - setup_flint_gha
   - update_flint
 
 - title: Linters

@@ -1,0 +1,23 @@
+# print for lint works fine with single-line code
+
+    Code
+      lint_text("suppressPackageStartupMessages(library(dplyr))", linters = temp_rule)
+    Output
+      Original code: suppressPackageStartupMessages(library(dplyr)) 
+      Suggestion: foo 
+
+# print for lint works fine with multi-line code
+
+    Code
+      lint_text(
+        "suppressPackageStartupMessages({\n  library(dplyr)\n  library(knitr)\n})",
+        linters = temp_rule)
+    Output
+      Original code:
+      suppressPackageStartupMessages({
+        library(dplyr)
+        library(knitr)
+      })
+      Suggestion:foo
+      
+

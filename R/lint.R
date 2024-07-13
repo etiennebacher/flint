@@ -117,7 +117,6 @@ lint <- function(
       }
     }
 
-
     lints_raw <- astgrepr::tree_new(file = i, ignore_tags = "flint-ignore") |>
       astgrepr::tree_root()|>
       astgrepr::node_find_all(files = rule_files)

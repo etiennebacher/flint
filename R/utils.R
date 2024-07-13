@@ -49,8 +49,25 @@ get_tests_from_lintr <- function(name) {
 }
 
 resolve_linters <- function(linters, exclude_linters) {
-  if (!is.null(linters) && !all(linters %in% list_linters())) {
-    stop(paste0("Unknown linters: ", toString(setdiff(linters, list_linters()))))
+  if (!is.null(linters)) {
+    if (!all(linters %in% list_linters())) {
+      custom <- setdiff(linters, list_linters())
+      custom <- vapply(custom, function(x) {
+        if (fs::is_absolute_path(x)) {
+          return(x)
+        } else if (is_flint_package()) {
+          fs::path("inst/rules/", paste0(x, ".yml"))
+        } else if (is_testing() || !uses_flint(path)) {
+          fs::path(system.file(package = "flint"), "rules/", paste0(x, ".yml"))
+        } else {
+          file.path("flint/rules", paste0(x, ".yml"))
+        }
+      }, FUN.VALUE = character(1))
+      if (!all(fs::file_exists(custom))) {
+        stop(paste0("Unknown linters: ", toString(custom[!fs::file_exists(custom)])))
+      }
+      linters <- custom
+    }
   } else if (is.null(linters)) {
     linters <- list_linters()
   } else if (is.list(linters)) {
@@ -73,9 +90,21 @@ resolve_path <- function(path, exclude_path) {
 
 resolve_rules <- function(linters_is_null, linters, path) {
   if (is_flint_package()) {
-    fs::path("inst/rules/", paste0(linters, ".yml"))
+    vapply(linters, function(x) {
+      if (fs::is_absolute_path(x)) {
+        x
+      } else {
+        fs::path("inst/rules/", paste0(x, ".yml"))
+      }
+    }, FUN.VALUE = character(1))
   } else if (is_testing() || !uses_flint(path)) {
-    fs::path(system.file(package = "flint"), "rules/", paste0(linters, ".yml"))
+    vapply(linters, function(x) {
+      if (fs::is_absolute_path(x)) {
+        x
+      } else {
+        fs::path(system.file(package = "flint"), "rules/", paste0(x, ".yml"))
+      }
+    }, FUN.VALUE = character(1))
   } else {
     # If the user didn't specify linters, then we use all of them, including the
     # custom ones.

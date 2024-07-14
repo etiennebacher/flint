@@ -21,3 +21,29 @@
       Suggestion:foo
       
 
+---
+
+    Code
+      fix_text("unique(length(x))", linters = temp_rule)
+    Output
+      Old code: unique(length(x)) 
+      New code:
+      length(
+        unique(x)
+      )
+
+---
+
+    Code
+      fix_text("unique(\n  length(x)\n)", linters = temp_rule)
+    Output
+      Old code:
+      unique(
+        length(x)
+      )
+      
+      New code:
+      length(
+        unique(x)
+      )
+

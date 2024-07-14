@@ -63,6 +63,15 @@ makeActiveBinding('equals_na_linter', function() { function() 'equals_na' }, env
 
 
 
+#' expect_named
+#' @usage expect_named_linter
+#' @name expect_named_linter
+#' @export
+NULL
+makeActiveBinding('expect_named_linter', function() { function() 'expect_named' }, env = environment())
+
+
+
 #' is_numeric
 #' @usage is_numeric_linter
 #' @name is_numeric_linter

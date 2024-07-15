@@ -12,11 +12,15 @@
 
 setup_flint <- function(path = ".") {
   flint_dir <- file.path(path, "flint")
+
+  ### Check dir
   if (fs::dir_exists(flint_dir) && length(list.files(flint_dir, recursive = TRUE)) > 0) {
     stop("Folder `flint` already exists and is not empty.")
   } else if (!fs::dir_exists(flint_dir)) {
     fs::dir_create(flint_dir)
   }
+
+  ### Check buildignore
   if (fs::file_exists(".Rbuildignore")) {
     already_in <- any(grepl("flint", readLines(".Rbuildignore", warn = FALSE)))
   } else {
@@ -30,12 +34,19 @@ setup_flint <- function(path = ".") {
       append = TRUE
     )
   }
+
+  ### Files
   invisible(
     fs::dir_copy(system.file("rules", package = "flint"), flint_dir)
   )
   if (!fs::file_exists(file.path(flint_dir, "cache_file_state.rds"))) {
     saveRDS(NULL, file.path(flint_dir, "cache_file_state.rds"))
   }
+  config_content <- paste0(
+    "keep:\n",
+    paste("  -", list_linters(), collapse = "\n")
+  )
+  writeLines(config_content, file.path(flint_dir, "config.yml"))
 }
 
 #' Update the `flint` setup

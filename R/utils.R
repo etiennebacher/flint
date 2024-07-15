@@ -45,11 +45,17 @@ clean_lints <- function(lints_raw, file) {
 
 get_tests_from_lintr <- function(name) {
   url <- paste0("https://raw.githubusercontent.com/r-lib/lintr/main/tests/testthat/test-", name, "_linter.R")
-  utils::download.file(url, destfile = paste0("tests/testthat/test-", name, ".R"))
+  dest <- paste0("tests/testthat/test-", name, ".R")
+  utils::download.file(url, destfile = dest)
+  rstudioapi::documentOpen(dest)
 }
 
-resolve_linters <- function(linters, exclude_linters) {
+resolve_linters <- function(path, linters, exclude_linters) {
   if (!is.null(linters)) {
+    if (is.list(linters)) {
+      # for compat with lintr
+      linters <- unlist(linters)
+    }
     if (!all(linters %in% list_linters())) {
       custom <- setdiff(linters, list_linters())
       custom <- vapply(custom, function(x) {
@@ -68,11 +74,17 @@ resolve_linters <- function(linters, exclude_linters) {
       }
       linters <- custom
     }
-  } else if (is.null(linters)) {
-    linters <- list_linters()
-  } else if (is.list(linters)) {
-    # for compat with lintr
-    linters <- unlist(linters)
+  } else {
+    if (is_flint_package(path)) {
+      config_file <- file.path(path, "inst/config.yml")
+    } else {
+      config_file <- file.path(path, "flint/config.yml")
+    }
+    if (fs::file_exists(config_file)) {
+      linters <- yaml::read_yaml(config_file)[["keep"]]
+    } else {
+      linters <- list_linters()
+    }
   }
   setdiff(linters, exclude_linters)
 }
@@ -146,6 +158,7 @@ is_testing <- function() {
 }
 
 new_rule <- function(name) {
+  dest <- paste0("inst/rules/", name, ".yml")
   cat("id: ...
 language: r
 severity: warning
@@ -153,5 +166,6 @@ rule:
   pattern: ...
 fix: ...
 message: ...
-", file = paste0("inst/rules/", name, ".yml"))
+", file = dest)
+  rstudioapi::documentOpen(dest)
 }

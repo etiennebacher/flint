@@ -1,0 +1,22 @@
+keep:
+  - any_duplicated
+  - any_is_na
+  - browser
+  - class_equals
+  - double_assignment
+  - equal_assignment
+  - equals_na
+  - expect_named
+  - is_numeric
+  - length_levels
+  - length_test
+  - lengths
+  - library_call
+  - implicit_assignment
+  - matrix_apply
+  - paste
+  - right_assignment
+  - scalar_in
+  - semicolon
+  - seq
+  - T_and_F_symbol

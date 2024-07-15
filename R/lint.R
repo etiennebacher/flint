@@ -98,7 +98,7 @@ lint <- function(
     use_cache <- FALSE
   }
 
-  linters2 <- resolve_linters(linters, exclude_linters)
+  linters2 <- resolve_linters(path, linters, exclude_linters)
   r_files <- resolve_path(path, exclude_path)
   rule_files <- resolve_rules(linters_is_null = is.null(linters), linters2, path)
   lints <- list()

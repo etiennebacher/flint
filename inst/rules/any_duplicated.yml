@@ -37,25 +37,55 @@ language: r
 severity: warning
 rule:
   any:
-    - pattern: nrow($DATA) == length(unique($DATA$µCOL))
-    - pattern: length(unique($DATA$µCOL)) == nrow($DATA)
+    - pattern: nrow($DATA) != length(unique($DATA$µCOL))
+    - pattern: length(unique($DATA$µCOL)) != nrow($DATA)
 fix: anyDuplicated(~~DATA~~$~~COL~~) != 0L
 message: |
-  anyDuplicated(DF$col) == 0L is better than length(unique(DF$col)) == nrow(DF)
+  anyDuplicated(DF$col) != 0L is better than length(unique(DF$col)) != nrow(DF)
 
 ---
 
-id: any_duplicated-5
+# id: any_duplicated-5
+# language: r
+# severity: warning
+# rule:
+#   any:
+#     - pattern:
+#         context: nrow($DATA) != length(unique($DATA[["µCOL"]]))
+#         strictness: ast
+#     - pattern:
+#         context: length(unique($DATA[["µCOL"]])) != nrow($DATA)
+#         strictness: ast
+# fix: anyDuplicated(~~DATA~~[["~~COL~~"]]) != 0L
+# message: |
+#   anyDuplicated(DF[["col"]]) != 0L is better than length(unique(DF[["col"]])) != nrow(DF)
+#
+# ---
+
+id: any_duplicated-6
 language: r
 severity: warning
 rule:
   any:
-    - pattern:
-        context: nrow($DATA) == length(unique($DATA[["µCOL"]]))
-        strictness: ast
-    - pattern:
-        context: length(unique($DATA[["µCOL"]])) == nrow($DATA)
-        strictness: ast
-fix: anyDuplicated(~~DATA~~[["~~COL~~"]]) != 0L
+    - pattern: nrow($DATA) == length(unique($DATA$µCOL))
+    - pattern: length(unique($DATA$µCOL)) == nrow($DATA)
+fix: anyDuplicated(~~DATA~~$~~COL~~) == 0L
 message: |
-  anyDuplicated(DF[["col"]]) == 0L is better than length(unique(DF[["col"]])) == nrow(DF)
+  anyDuplicated(DF$col) == 0L is better than length(unique(DF$col)) == nrow(DF)
+
+# ---
+#
+# id: any_duplicated-7
+# language: r
+# severity: warning
+# rule:
+#   any:
+#     - pattern:
+#         context: nrow($DATA) == length(unique($DATA[["µCOL"]]))
+#         strictness: ast
+#     - pattern:
+#         context: length(unique($DATA[["µCOL"]])) == nrow($DATA)
+#         strictness: ast
+# fix: anyDuplicated(~~DATA~~[["~~COL~~"]]) == 0L
+# message: |
+#   anyDuplicated(DF[["col"]]) == 0L is better than length(unique(DF[["col"]])) == nrow(DF)

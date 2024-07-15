@@ -155,23 +155,51 @@ lint <- function(
 #' @rdname lint
 #' @export
 
-lint_dir <- function(path = ".", linters = NULL, open = TRUE) {
+lint_dir <- function(
+    path = ".",
+    linters = NULL,
+    open = TRUE,
+    exclude_path = NULL,
+    exclude_linters = NULL,
+    use_cache = TRUE
+) {
   if (!fs::is_dir(path)) {
     stop("`path` must be a directory.")
   }
-  lint(path, linters = linters, open = open)
+  lint(
+    path,
+    linters = linters,
+    open = open,
+    exclude_path = exclude_path,
+    exclude_linters = exclude_linters,
+    use_cache = use_cache
+  )
 }
 
 #' @rdname lint
 #' @export
 
-lint_package <- function(path = ".", linters = NULL, open = TRUE) {
+lint_package <- function(
+    path = ".",
+    linters = NULL,
+    open = TRUE,
+    exclude_path = NULL,
+    exclude_linters = NULL,
+    use_cache = TRUE
+) {
   if (!fs::is_dir(path)) {
     stop("`path` must be a directory.")
   }
   paths <- fs::path(path, c("R", "tests", "inst", "vignettes", "data-raw", "demo", "exec"))
   paths <- paths[fs::dir_exists(paths)]
-  lint(path, linters = linters, open = open)
+  lint(
+    path,
+    linters = linters,
+    open = open,
+    exclude_path = exclude_path,
+    exclude_linters = exclude_linters,
+    use_cache = use_cache
+  )
 }
 
 #' @param text Text to analyze.

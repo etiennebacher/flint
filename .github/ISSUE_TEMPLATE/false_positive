@@ -1,8 +1,0 @@
----
-name: Bug: false positive
-about: Some code was wrongly marked as "lint"
-title: ''
-labels: false-positive
-assignees: ''
-
----

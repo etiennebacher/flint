@@ -153,6 +153,15 @@ makeActiveBinding('right_assignment_linter', function() { function() 'right_assi
 
 
 
+#' scalar_in
+#' @usage scalar_in_linter
+#' @name scalar_in_linter
+#' @export
+NULL
+makeActiveBinding('scalar_in_linter', function() { function() 'scalar_in' }, env = environment())
+
+
+
 #' semicolon
 #' @usage semicolon_linter
 #' @name semicolon_linter

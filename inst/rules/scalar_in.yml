@@ -1,0 +1,49 @@
+id: scalar_in-1
+language: r
+severity: warning
+rule:
+  any:
+    - pattern: $VAR %notin% $SCALAR
+    - pattern: ! $VAR %in% $SCALAR
+constraints:
+  SCALAR:
+    any:
+      - kind: string
+      - kind: float
+fix: ~~VAR~~ != ~~SCALAR~~
+message: |
+  Use != or == to match length-1 scalars, not %in%. Note that
+  == and != preserves NA where %in% does not.
+
+---
+
+id: scalar_in-2
+language: r
+severity: warning
+rule:
+  pattern: $VAR %in% $SCALAR
+constraints:
+  SCALAR:
+    any:
+      - kind: string
+      - kind: float
+fix: ~~VAR~~ == ~~SCALAR~~
+message: |
+  Use != or == to match length-1 scalars, not %in%. Note that
+  == and != preserves NA where %in% does not.
+
+---
+
+id: scalar_in-3
+language: r
+severity: warning
+rule:
+  pattern: $VAR %chin% $SCALAR
+constraints:
+  SCALAR:
+    any:
+      - kind: string
+fix: ~~VAR~~ == ~~SCALAR~~
+message: |
+  Use != or == to match length-1 scalars, not %in%. Note that
+  == and != preserves NA where %in% does not.

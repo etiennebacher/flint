@@ -82,6 +82,9 @@ resolve_linters <- function(path, linters, exclude_linters) {
     }
     if (fs::file_exists(config_file)) {
       linters <- yaml::read_yaml(config_file, readLines.warn = FALSE)[["keep"]]
+      if (length(linters) == 0) {
+        stop("`", config_file, "` exists but doesn't contain any rule.")
+      }
     } else {
       linters <- list_linters()
     }

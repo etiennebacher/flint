@@ -3,6 +3,7 @@ test_that("setup_flint works for packages", {
   expect_no_error(setup_flint())
 
   expect_true(fs::file_exists("flint/cache_file_state.rds"))
+  expect_true(fs::file_exists("flint/config.yml"))
   expect_true(fs::dir_exists("flint/rules"))
 
   # lint
@@ -12,7 +13,7 @@ test_that("setup_flint works for packages", {
     expect_equal(nrow(lint()), 1)
   )
 
-  fix
+  # fix
   fix()
   expect_equal(
     readLines("R/foo.R", warn = FALSE),
@@ -25,6 +26,7 @@ test_that("setup_flint works for projects", {
   expect_no_error(setup_flint())
 
   expect_true(fs::file_exists("flint/cache_file_state.rds"))
+  expect_true(fs::file_exists("flint/config.yml"))
   expect_true(fs::dir_exists("flint/rules"))
 
   # lint

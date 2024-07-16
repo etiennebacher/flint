@@ -134,7 +134,7 @@ lint <- function(
   }
 
   if (use_cache) {
-    if (is_flint_package() || is_testing()) {
+    if (is_flint_package(path) || is_testing()) {
       saveRDS(hashes, file.path(getwd(), "inst/cache_file_state.rds"))
     } else if (uses_flint(path)) {
       saveRDS(hashes, file.path(getwd(), "flint/cache_file_state.rds"))

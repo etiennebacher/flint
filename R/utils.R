@@ -61,7 +61,7 @@ resolve_linters <- function(path, linters, exclude_linters) {
       custom <- vapply(custom, function(x) {
         if (fs::is_absolute_path(x)) {
           return(x)
-        } else if (is_flint_package()) {
+        } else if (is_flint_package(path)) {
           fs::path("inst/rules/", paste0(x, ".yml"))
         } else if (is_testing() || !uses_flint(path)) {
           fs::path(system.file(package = "flint"), "rules/", paste0(x, ".yml"))
@@ -81,7 +81,7 @@ resolve_linters <- function(path, linters, exclude_linters) {
       config_file <- file.path(path, "flint/config.yml")
     }
     if (fs::file_exists(config_file)) {
-      linters <- yaml::read_yaml(config_file)[["keep"]]
+      linters <- yaml::read_yaml(config_file, readLines.warn = FALSE)[["keep"]]
     } else {
       linters <- list_linters()
     }
@@ -101,7 +101,7 @@ resolve_path <- function(path, exclude_path) {
 }
 
 resolve_rules <- function(linters_is_null, linters, path) {
-  if (is_flint_package()) {
+  if (is_flint_package(path)) {
     vapply(linters, function(x) {
       if (fs::is_absolute_path(x)) {
         x
@@ -134,18 +134,19 @@ resolve_rules <- function(linters_is_null, linters, path) {
 resolve_hashes <- function(path, use_cache) {
   if (!use_cache || !uses_flint(path)) {
     NULL
-  } else if (is_flint_package() || is_testing()) {
+  } else if (is_flint_package(path) || is_testing()) {
     readRDS(file.path("inst/cache_file_state.rds"))
   } else {
     readRDS(file.path("flint/cache_file_state.rds"))
   }
 }
 
-is_flint_package <- function() {
-  if (!fs::file_exists("DESCRIPTION")) {
+is_flint_package <- function(path) {
+  path <- file.path(path, "DESCRIPTION")
+  if (!fs::file_exists(path)) {
     return(FALSE)
   }
-  read.dcf("DESCRIPTION")[, "Package"] == "flint"
+  read.dcf(path)[, "Package"] == "flint"
 }
 
 uses_flint <- function(path = ".") {

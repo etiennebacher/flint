@@ -9,9 +9,19 @@
 \usage{
 fix(path = ".", linters = NULL, exclude_path = NULL, exclude_linters = NULL)
 
-fix_dir(path = ".", linters = NULL)
+fix_dir(
+  path = ".",
+  linters = NULL,
+  exclude_path = NULL,
+  exclude_linters = NULL
+)
 
-fix_package(path = ".", linters = NULL)
+fix_package(
+  path = ".",
+  linters = NULL,
+  exclude_path = NULL,
+  exclude_linters = NULL
+)
 
 fix_text(text, linters = NULL, exclude_linters = NULL)
 }

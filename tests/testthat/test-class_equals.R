@@ -9,6 +9,13 @@ test_that("class_equals_linter skips allowed usages", {
   expect_lint("is_lm <- inherits(x, 'lm')", NULL, linter)
 })
 
+# https://github.com/vincentarelbundock/marginaleffects/pull/1171#issuecomment-2228497287
+# inherits() returns TRUE if any of the classes match
+test_that("all(inherits()) not the same as all(x %in% y)", {
+  linter <- class_equals_linter()
+  expect_lint("isTRUE(all(sup %in% class(model)))", NULL, linter)
+})
+
 test_that("class_equals_linter blocks simple disallowed usages", {
   linter <- class_equals_linter()
   lint_msg <- "use inherits"

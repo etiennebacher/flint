@@ -43,23 +43,43 @@ fix <- function(
 #' @rdname fix
 #' @export
 
-fix_dir <- function(path = ".", linters = NULL) {
+fix_dir <- function(
+    path = ".",
+    linters = NULL,
+    exclude_path = NULL,
+    exclude_linters = NULL
+) {
   if (!fs::is_dir(path)) {
     stop("`path` must be a directory.")
   }
-  fix(path, linters = linters)
+  fix(
+    path,
+    linters = linters,
+    exclude_path = exclude_path,
+    exclude_linters = exclude_linters
+  )
 }
 
 #' @rdname fix
 #' @export
 
-fix_package <- function(path = ".", linters = NULL) {
+fix_package <- function(
+    path = ".",
+    linters = NULL,
+    exclude_path = NULL,
+    exclude_linters = NULL
+) {
   if (!fs::is_dir(path)) {
     stop("`path` must be a directory.")
   }
   paths <- fs::path(path, c("R", "tests", "inst", "vignettes", "data-raw", "demo", "exec"))
   paths <- paths[fs::dir_exists(paths)]
-  fix(path, linters = linters)
+  fix(
+    path,
+    linters = linters,
+    exclude_path = exclude_path,
+    exclude_linters = exclude_linters
+  )
 }
 
 #' @param text Text to analyze (and to fix if necessary).

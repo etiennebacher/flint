@@ -16,9 +16,23 @@ lint(
   use_cache = TRUE
 )
 
-lint_dir(path = ".", linters = NULL, open = TRUE)
+lint_dir(
+  path = ".",
+  linters = NULL,
+  open = TRUE,
+  exclude_path = NULL,
+  exclude_linters = NULL,
+  use_cache = TRUE
+)
 
-lint_package(path = ".", linters = NULL, open = TRUE)
+lint_package(
+  path = ".",
+  linters = NULL,
+  open = TRUE,
+  exclude_path = NULL,
+  exclude_linters = NULL,
+  use_cache = TRUE
+)
 
 lint_text(text, linters = NULL, exclude_linters = NULL)
 }

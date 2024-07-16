@@ -51,3 +51,10 @@ list_linters <- function() {
 #'     append = TRUE
 #'   )
 #' }
+#' cat(
+#'   paste0(
+#'     "keep:\n",
+#'     paste("  -", list_linters(), collapse = "\n")
+#'   ),
+#'   file = "inst/config.yml"
+#' )

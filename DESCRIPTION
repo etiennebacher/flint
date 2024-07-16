@@ -17,7 +17,8 @@ Imports:
     crayon,
     data.table,
     digest,
-    fs
+    fs,
+    yaml
 Suggests:
     knitr,
     patrick,

@@ -45,17 +45,23 @@ clean_lints <- function(lints_raw, file) {
 
 get_tests_from_lintr <- function(name) {
   url <- paste0("https://raw.githubusercontent.com/r-lib/lintr/main/tests/testthat/test-", name, "_linter.R")
-  utils::download.file(url, destfile = paste0("tests/testthat/test-", name, ".R"))
+  dest <- paste0("tests/testthat/test-", name, ".R")
+  utils::download.file(url, destfile = dest)
+  rstudioapi::documentOpen(dest)
 }
 
-resolve_linters <- function(linters, exclude_linters) {
+resolve_linters <- function(path, linters, exclude_linters) {
   if (!is.null(linters)) {
+    if (is.list(linters)) {
+      # for compat with lintr
+      linters <- unlist(linters)
+    }
     if (!all(linters %in% list_linters())) {
       custom <- setdiff(linters, list_linters())
       custom <- vapply(custom, function(x) {
         if (fs::is_absolute_path(x)) {
           return(x)
-        } else if (is_flint_package()) {
+        } else if (is_flint_package(path)) {
           fs::path("inst/rules/", paste0(x, ".yml"))
         } else if (is_testing() || !uses_flint(path)) {
           fs::path(system.file(package = "flint"), "rules/", paste0(x, ".yml"))
@@ -68,11 +74,26 @@ resolve_linters <- function(linters, exclude_linters) {
       }
       linters <- custom
     }
-  } else if (is.null(linters)) {
-    linters <- list_linters()
-  } else if (is.list(linters)) {
-    # for compat with lintr
-    linters <- unlist(linters)
+  } else {
+    if (is_flint_package(path)) {
+      config_file <- file.path(path, "inst/config.yml")
+    } else {
+      config_file <- file.path(path, "flint/config.yml")
+    }
+    if (fs::file_exists(config_file)) {
+      linters <- yaml::read_yaml(config_file, readLines.warn = FALSE)[["keep"]]
+      if (length(linters) == 0) {
+        stop("`", config_file, "` exists but doesn't contain any rule.")
+      }
+      if (anyDuplicated(linters) > 0) {
+        stop(
+          "In `", config_file, "`, the following linters are duplicated: ",
+          toString(linters[duplicated(linters)])
+        )
+      }
+    } else {
+      linters <- list_linters()
+    }
   }
   setdiff(linters, exclude_linters)
 }
@@ -89,8 +110,8 @@ resolve_path <- function(path, exclude_path) {
 }
 
 resolve_rules <- function(linters_is_null, linters, path) {
-  if (is_flint_package()) {
-    vapply(linters, function(x) {
+  if (is_flint_package(path)) {
+    rules <- vapply(linters, function(x) {
       if (fs::is_absolute_path(x)) {
         x
       } else {
@@ -98,7 +119,7 @@ resolve_rules <- function(linters_is_null, linters, path) {
       }
     }, FUN.VALUE = character(1))
   } else if (is_testing() || !uses_flint(path)) {
-    vapply(linters, function(x) {
+    rules <- vapply(linters, function(x) {
       if (fs::is_absolute_path(x)) {
         x
       } else {
@@ -115,25 +136,32 @@ resolve_rules <- function(linters_is_null, linters, path) {
     } else {
       rules <- fs::path("flint/rules/", paste0(linters, ".yml"))
     }
-    return(rules)
   }
+
+  inexistent_rules <- basename(rules[!fs::file_exists(rules)])
+  if (length(inexistent_rules) > 0) {
+    stop("The following rules are passed but do not exist: ", toString(inexistent_rules))
+  }
+
+  rules
 }
 
 resolve_hashes <- function(path, use_cache) {
   if (!use_cache || !uses_flint(path)) {
     NULL
-  } else if (is_flint_package() || is_testing()) {
+  } else if (is_flint_package(path) || is_testing()) {
     readRDS(file.path("inst/cache_file_state.rds"))
   } else {
     readRDS(file.path("flint/cache_file_state.rds"))
   }
 }
 
-is_flint_package <- function() {
-  if (!fs::file_exists("DESCRIPTION")) {
+is_flint_package <- function(path) {
+  path <- file.path(path, "DESCRIPTION")
+  if (!fs::file_exists(path)) {
     return(FALSE)
   }
-  read.dcf("DESCRIPTION")[, "Package"] == "flint"
+  read.dcf(path)[, "Package"] == "flint"
 }
 
 uses_flint <- function(path = ".") {
@@ -146,6 +174,7 @@ is_testing <- function() {
 }
 
 new_rule <- function(name) {
+  dest <- paste0("inst/rules/", name, ".yml")
   cat("id: ...
 language: r
 severity: warning
@@ -153,5 +182,6 @@ rule:
   pattern: ...
 fix: ...
 message: ...
-", file = paste0("inst/rules/", name, ".yml"))
+", file = dest)
+  rstudioapi::documentOpen(dest)
 }

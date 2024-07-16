@@ -85,6 +85,12 @@ resolve_linters <- function(path, linters, exclude_linters) {
       if (length(linters) == 0) {
         stop("`", config_file, "` exists but doesn't contain any rule.")
       }
+      if (anyDuplicated(linters) > 0) {
+        stop(
+          "In `", config_file, "`, the following linters are duplicated: ",
+          toString(linters[duplicated(linters)])
+        )
+      }
     } else {
       linters <- list_linters()
     }

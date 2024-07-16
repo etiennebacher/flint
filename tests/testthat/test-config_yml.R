@@ -26,3 +26,11 @@ test_that("config.yml errors when it doesn't contain any rule", {
   cat("keep:\n#  - equal_assignment", file = "flint/config.yml")
   expect_error(lint(), "doesn't contain any rule")
 })
+
+test_that("config.yml errors when it contains unknown rules", {
+  create_local_package()
+  setup_flint()
+
+  cat("keep:\n  - equal_assignment\n  - foo\n  - bar", file = "flint/config.yml")
+  expect_error(lint(), "The following rules are passed but do not exist: foo.yml, bar.yml")
+})

@@ -105,7 +105,7 @@ resolve_path <- function(path, exclude_path) {
 
 resolve_rules <- function(linters_is_null, linters, path) {
   if (is_flint_package(path)) {
-    vapply(linters, function(x) {
+    rules <- vapply(linters, function(x) {
       if (fs::is_absolute_path(x)) {
         x
       } else {
@@ -113,7 +113,7 @@ resolve_rules <- function(linters_is_null, linters, path) {
       }
     }, FUN.VALUE = character(1))
   } else if (is_testing() || !uses_flint(path)) {
-    vapply(linters, function(x) {
+    rules <- vapply(linters, function(x) {
       if (fs::is_absolute_path(x)) {
         x
       } else {
@@ -130,8 +130,14 @@ resolve_rules <- function(linters_is_null, linters, path) {
     } else {
       rules <- fs::path("flint/rules/", paste0(linters, ".yml"))
     }
-    return(rules)
   }
+
+  inexistent_rules <- basename(rules[!fs::file_exists(rules)])
+  if (length(inexistent_rules) > 0) {
+    stop("The following rules are passed but do not exist: ", toString(inexistent_rules))
+  }
+
+  rules
 }
 
 resolve_hashes <- function(path, use_cache) {

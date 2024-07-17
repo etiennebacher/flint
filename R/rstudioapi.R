@@ -14,7 +14,7 @@ rstudio_source_markers <- function(lints) {
   # generate the markers
   markers <- lints[, c("severity", "file", "line_start", "col_start", "message")]
   names(markers) <- c("type", "file", "line", "column", "message")
-  markers <- split(markers, seq(nrow(markers)))
+  markers <- split(markers, seq_len(nrow(markers)))
   markers <- lapply(markers, as.list)
   markers <- unname(markers)
 

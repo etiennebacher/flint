@@ -25,6 +25,7 @@ list_linters <- function() {
     "matrix_apply",
     "numeric_leading_zero",
     "paste",
+    "redundant_ifelse",
     "right_assignment",
     "semicolon",
     "seq",

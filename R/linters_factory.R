@@ -153,6 +153,15 @@ makeActiveBinding('paste_linter', function() { function() 'paste' }, env = envir
 
 
 
+#' redundant_ifelse
+#' @usage redundant_ifelse_linter
+#' @name redundant_ifelse_linter
+#' @export
+NULL
+makeActiveBinding('redundant_ifelse_linter', function() { function() 'redundant_ifelse' }, env = environment())
+
+
+
 #' right_assignment
 #' @usage right_assignment_linter
 #' @name right_assignment_linter

@@ -23,6 +23,7 @@ list_linters <- function() {
     "library_call",
     "implicit_assignment",
     "matrix_apply",
+    "numeric_leading_zero",
     "paste",
     "right_assignment",
     "semicolon",

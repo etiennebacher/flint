@@ -14,9 +14,9 @@ keep:
   - library_call
   - implicit_assignment
   - matrix_apply
+  - numeric_leading_zero
   - paste
   - right_assignment
-  - scalar_in
   - semicolon
   - seq
   - T_and_F_symbol

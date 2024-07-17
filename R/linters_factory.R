@@ -135,6 +135,15 @@ makeActiveBinding('matrix_apply_linter', function() { function() 'matrix_apply' 
 
 
 
+#' numeric_leading_zero
+#' @usage numeric_leading_zero_linter
+#' @name numeric_leading_zero_linter
+#' @export
+NULL
+makeActiveBinding('numeric_leading_zero_linter', function() { function() 'numeric_leading_zero' }, env = environment())
+
+
+
 #' paste
 #' @usage paste_linter
 #' @name paste_linter

@@ -1,16 +1,12 @@
 #' @export
 print.flint_lint <- function(x, ...) {
-  if (in_github_actions()) {
-    github_actions_log_lints(x)
-  } else {
-    for (i in seq_along(x$text)) {
-      if (grepl("\\n", x$text[i])) {
-        cat(paste0("Original code:\n", crayon::red(x$text[i]), "\n"))
-        cat(paste0("Suggestion:", crayon::green(x$message[i]), "\n\n"))
-      } else {
-        cat("Original code:", crayon::red(x$text[i]), "\n")
-        cat("Suggestion:", crayon::green(x$message[i]), "\n")
-      }
+  for (i in seq_along(x$text)) {
+    if (grepl("\\n", x$text[i])) {
+      cat(paste0("Original code:\n", crayon::red(x$text[i]), "\n"))
+      cat(paste0("Suggestion:", crayon::green(x$message[i]), "\n\n"))
+    } else {
+      cat("Original code:", crayon::red(x$text[i]), "\n")
+      cat("Suggestion:", crayon::green(x$message[i]), "\n")
     }
   }
 }

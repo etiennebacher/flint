@@ -27,16 +27,14 @@ in_github_actions <- function() {
 
 # Output logging commands for any lints found
 github_actions_log_lints <- function(lints, project_dir = "") {
-  for (x in lints) {
-    if (nzchar(project_dir)) {
-      x$filename <- file.path(project_dir, x$filename)
-    }
-    file_line_col <- sprintf(
-      "file=%s,line=%s,col=%s", x$file, x$line_start, x$col_start
-    )
-    cat(sprintf(
-      "::warning %s::%s,[%s] %s\n",
-      file_line_col, file_line_col, x$text, x$message
-    ), sep = "")
+  if (nzchar(project_dir)) {
+    x$filename <- file.path(project_dir, x$filename)
   }
+  file_line_col <- sprintf(
+    "file=%s,line=%s,col=%s", x$file, x$line_start, x$col_start
+  )
+  cat(sprintf(
+    "::warning %s::%s,[%s] %s\n",
+    file_line_col, file_line_col, x$text, x$message
+  ), sep = "")
 }

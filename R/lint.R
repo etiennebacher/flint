@@ -147,8 +147,6 @@ lint <- function(
       rstudioapi::isAvailable()) {
     rstudio_source_markers(lints)
     return(invisible(lints))
-  } else if (in_github_actions()) {
-    github_actions_log_lints(lints)
   } else {
     lints
   }

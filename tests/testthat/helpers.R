@@ -2,6 +2,9 @@ library(fs)
 library(usethis)
 library(withr)
 
+# Just because it's annoying to remove them
+trim_some <- function(x) x
+
 expect_lint <- function(x, message, linter, ...) {
   if (is.null(linter)) {
     linter <- list_linters()

@@ -41,6 +41,7 @@ clean_lints <- function(lints_raw, file) {
   lints <- cbind(txts2, locs2)
   lints <- merge(lints, other_info, by = "id", all.x = TRUE)
   lints[["file"]] <- file
+  lints <- unique(lints)
 
   lints[order(line_start)]
 }

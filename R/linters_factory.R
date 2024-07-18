@@ -196,3 +196,12 @@ makeActiveBinding('seq_linter', function() { function() 'seq' }, env = environme
 NULL
 makeActiveBinding('T_and_F_symbol_linter', function() { function() 'T_and_F_symbol' }, env = environment())
 
+
+
+#' unreachable_code
+#' @usage unreachable_code_linter
+#' @name unreachable_code_linter
+#' @export
+NULL
+makeActiveBinding('unreachable_code_linter', function() { function() 'unreachable_code' }, env = environment())
+

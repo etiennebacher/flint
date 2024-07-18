@@ -21,3 +21,4 @@ keep:
   - semicolon
   - seq
   - T_and_F_symbol
+  - unreachable_code

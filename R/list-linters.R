@@ -29,7 +29,8 @@ list_linters <- function() {
     "right_assignment",
     "semicolon",
     "seq",
-    "T_and_F_symbol"
+    "T_and_F_symbol",
+    "unreachable_code"
   )
 
 }

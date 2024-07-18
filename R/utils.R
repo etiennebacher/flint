@@ -29,6 +29,9 @@ clean_lints <- function(lints_raw, file) {
   other_info <- lapply(seq_along(lints_raw), function(x) {
     res <- attributes(lints_raw[[x]])[["other_info"]]
     res[["language"]] <- NULL
+    # If there are several constraints, then the output (including the message)
+    # will be duplicated. Constraints are not actually needed in the output.
+    res[["constraints"]] <- NULL
     res[["id"]] <- names(lints_raw)[x]
     res
   })

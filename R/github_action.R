@@ -26,7 +26,7 @@ in_github_actions <- function() {
 }
 
 # Output logging commands for any lints found
-github_actions_log_lints <- function(lints, project_dir = "") {
+github_actions_log_lints <- function(x, project_dir = "") {
   if (nzchar(project_dir)) {
     x$filename <- file.path(project_dir, x$filename)
   }

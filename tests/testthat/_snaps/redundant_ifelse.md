@@ -52,7 +52,7 @@
       fix_text("ifelse(x > 5, 0, 1L)")
     Output
       Old code: ifelse(x > 5, 0, 1L) 
-      New code: as.integer(!x > 5) 
+      New code: as.integer(!(x > 5)) 
 
 ---
 
@@ -60,7 +60,7 @@
       fix_text("if_else(x > 5, 0, 1L)")
     Output
       Old code: if_else(x > 5, 0, 1L) 
-      New code: as.integer(!x > 5) 
+      New code: as.integer(!(x > 5)) 
 
 ---
 
@@ -68,7 +68,7 @@
       fix_text("fifelse(x > 5, 0, 1L)")
     Output
       Old code: fifelse(x > 5, 0, 1L) 
-      New code: as.integer(!x > 5) 
+      New code: as.integer(!(x > 5)) 
 
 ---
 

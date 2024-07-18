@@ -15,24 +15,24 @@ test_that("redundant_ifelse_linter blocks simple disallowed usages", {
 
   expect_lint(
     "ifelse(x > 5, TRUE, FALSE)",
-    "Just use the logical condition (or its negation) directly",
+    "Use x > 5",
     linter
   )
   expect_lint(
     "ifelse(x > 5, FALSE, TRUE)",
-    "Just use the logical condition (or its negation) directly",
+    "!(x > 5)",
     linter
   )
 
   # other ifelse equivalents from common packages
   expect_lint(
     "if_else(x > 5, TRUE, FALSE)",
-    "Just use the logical condition (or its negation) directly",
+    "Use x > 5 directly instead of calling if_else(x > 5, TRUE, FALSE).",
     linter
   )
   expect_lint(
     "fifelse(x > 5, FALSE, TRUE)",
-    "Just use the logical condition (or its negation) directly",
+    "Use !(x > 5) directly instead of calling fifelse(x > 5, FALSE, TRUE).",
     linter
   )
 })
@@ -42,12 +42,12 @@ test_that("redundant_ifelse_linter blocks usages equivalent to as.numeric, optio
 
   expect_lint(
     "ifelse(x > 5, 1L, 0L)",
-    "Prefer as.integer(x) to ifelse(x, 1L, 0L)",
+    "Prefer as.integer(x > 5) to ifelse(x > 5, 1L, 0L)",
     linter
   )
   expect_lint(
     "ifelse(x > 5, 0L, 1L)",
-    "Prefer as.integer(!x) to ifelse(x, 0L, 1L)",
+    "Prefer as.integer(!(x > 5)) to ifelse(x > 5, 0L, 1L)",
     linter
   )
 
@@ -65,22 +65,22 @@ test_that("redundant_ifelse_linter blocks usages equivalent to as.numeric, optio
   # mixing int and num
   expect_lint(
     "ifelse(x > 5, 0, 1L)",
-    "Prefer as.integer(!x) to ifelse(x, 0L, 1L)",
+    "Prefer as.integer(!(x > 5)) to ifelse(x > 5, 0, 1L)",
     linter
   )
   expect_lint(
     "ifelse(x > 5, 0L, 1)",
-    "Prefer as.integer(!x) to ifelse(x, 0L, 1L)",
+    "Prefer as.integer(!(x > 5)) to ifelse(x > 5, 0L, 1)",
     linter
   )
   expect_lint(
     "ifelse(x > 5, 1, 0L)",
-    "Prefer as.integer(x) to ifelse(x, 1L, 0L)",
+    "Prefer as.integer(x > 5) to ifelse(x > 5, 1, 0L)",
     linter
   )
   expect_lint(
     "ifelse(x > 5, 1L, 0)",
-    "Prefer as.integer(x) to ifelse(x, 1L, 0L)",
+    "Prefer as.integer(x > 5) to ifelse(x > 5, 1L, 0)",
     linter
   )
 

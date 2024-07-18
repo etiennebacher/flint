@@ -2,19 +2,17 @@ id: redundant_ifelse_1
 language: r
 severity: warning
 rule:
-  any:
-    - pattern: ifelse($COND, $VAL1, $VAL2)
-    - pattern: if_else($COND, $VAL1, $VAL2)
-    - pattern: fifelse($COND, $VAL1, $VAL2)
+  pattern: $FUN($COND, $VAL1, $VAL2)
 constraints:
   VAL1:
     regex: ^TRUE$
   VAL2:
     regex: ^FALSE$
+  FUN:
+    regex: ^(ifelse|fifelse|if_else)$
 fix: ~~COND~~
 message: |
-  Just use the logical condition (or its negation) directly instead
-  of calling ifelse(x, TRUE, FALSE).
+  Use ~~COND~~ directly instead of calling ~~FUN~~(~~COND~~, TRUE, FALSE).
 
 ---
 
@@ -22,19 +20,17 @@ id: redundant_ifelse_2
 language: r
 severity: warning
 rule:
-  any:
-    - pattern: ifelse($COND, $VAL1, $VAL2)
-    - pattern: if_else($COND, $VAL1, $VAL2)
-    - pattern: fifelse($COND, $VAL1, $VAL2)
+  pattern: $FUN($COND, $VAL1, $VAL2)
 constraints:
   VAL1:
     regex: ^FALSE$
   VAL2:
     regex: ^TRUE$
-fix: !~~COND~~
+  FUN:
+    regex: ^(ifelse|fifelse|if_else)$
+fix: !(~~COND~~)
 message: |
-  Just use the logical condition (or its negation) directly instead
-  of calling ifelse(x, TRUE, FALSE).
+  Use !(~~COND~~) directly instead of calling ~~FUN~~(~~COND~~, FALSE, TRUE).
 
 ---
 
@@ -42,17 +38,16 @@ id: redundant_ifelse_3
 language: r
 severity: warning
 rule:
-  any:
-    - pattern: ifelse($COND, $VAL1, $VAL2)
-    - pattern: if_else($COND, $VAL1, $VAL2)
-    - pattern: fifelse($COND, $VAL1, $VAL2)
+  pattern: $FUN($COND, $VAL1, $VAL2)
 constraints:
   VAL1:
     regex: ^(1|1L)$
   VAL2:
     regex: ^(0|0L)$
+  FUN:
+    regex: ^(ifelse|fifelse|if_else)$
 fix: as.integer(~~COND~~)
-message: Prefer as.integer(x) to ifelse(x, 1L, 0L) if really needed.
+message: Prefer as.integer(~~COND~~) to ~~FUN~~(~~COND~~, ~~VAL1~~, ~~VAL2~~).
 
 ---
 
@@ -60,14 +55,13 @@ id: redundant_ifelse_4
 language: r
 severity: warning
 rule:
-  any:
-    - pattern: ifelse($COND, $VAL1, $VAL2)
-    - pattern: if_else($COND, $VAL1, $VAL2)
-    - pattern: fifelse($COND, $VAL1, $VAL2)
+  pattern: $FUN($COND, $VAL1, $VAL2)
 constraints:
   VAL1:
     regex: ^(0|0L)$
   VAL2:
     regex: ^(1|1L)$
-fix: as.integer(!~~COND~~)
-message: Prefer as.integer(!x) to ifelse(x, 0L, 1L) if really needed.
+  FUN:
+    regex: ^(ifelse|fifelse|if_else)$
+fix: as.integer(!(~~COND~~))
+message: Prefer as.integer(!(~~COND~~)) to ~~FUN~~(~~COND~~, ~~VAL1~~, ~~VAL2~~).

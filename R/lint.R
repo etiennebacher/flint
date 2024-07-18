@@ -148,7 +148,8 @@ lint <- function(
     rstudio_source_markers(lints)
     return(invisible(lints))
   } else if (in_github_actions()) {
-    github_actions_log_lints(x)
+    print("here")
+    github_actions_log_lints(lints)
   } else {
     lints
   }

@@ -10,7 +10,6 @@ list_linters <- function() {
   c(
     "any_duplicated",
     "any_is_na",
-    "browser",
     "class_equals",
     "double_assignment",
     "equal_assignment",
@@ -31,6 +30,7 @@ list_linters <- function() {
     "semicolon",
     "seq",
     "T_and_F_symbol",
+    "undesirable_function",
     "unreachable_code"
   )
 

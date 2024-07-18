@@ -18,7 +18,7 @@
         library(dplyr)
         library(knitr)
       })
-      Suggestion:foo
+      Suggestion: foo
       
 
 ---

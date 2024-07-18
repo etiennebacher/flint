@@ -145,12 +145,14 @@ lint <- function(
   if (isTRUE(open) &&
       requireNamespace("rstudioapi", quietly = TRUE) &&
       rstudioapi::isAvailable()) {
+    print("here 1")
     rstudio_source_markers(lints)
     return(invisible(lints))
   } else if (in_github_actions()) {
-    print("here")
+    print("here 2")
     github_actions_log_lints(lints)
   } else {
+    print("here 3")
     lints
   }
 }

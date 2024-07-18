@@ -144,6 +144,15 @@ makeActiveBinding('numeric_leading_zero_linter', function() { function() 'numeri
 
 
 
+#' outer_negation
+#' @usage outer_negation_linter
+#' @name outer_negation_linter
+#' @export
+NULL
+makeActiveBinding('outer_negation_linter', function() { function() 'outer_negation' }, env = environment())
+
+
+
 #' paste
 #' @usage paste_linter
 #' @name paste_linter

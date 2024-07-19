@@ -41,6 +41,56 @@
 ---
 
     Code
+      fix_text("2:length(x)")
+
+---
+
+    Code
+      fix_text("2:nrow(x)")
+
+---
+
+    Code
+      fix_text("2:ncol(x)")
+
+---
+
+    Code
+      fix_text("2:NROW(x)")
+
+---
+
+    Code
+      fix_text("2:NCOL(x)")
+
+---
+
+    Code
+      fix_text("2L:length(x)")
+
+---
+
+    Code
+      fix_text("2L:nrow(x)")
+
+---
+
+    Code
+      fix_text("2L:ncol(x)")
+
+---
+
+    Code
+      fix_text("2L:NROW(x)")
+
+---
+
+    Code
+      fix_text("2L:NCOL(x)")
+
+---
+
+    Code
       fix_text("mutate(x, .id = 1:n())")
     Output
       Old code: mutate(x, .id = 1:n()) 

@@ -10,7 +10,6 @@
 <url><loc>https://flint.etiennebacher.com/reference/T_and_F_symbol_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/any_duplicated_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/any_is_na_linter.html</loc></url>
-<url><loc>https://flint.etiennebacher.com/reference/browser_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/class_equals_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/double_assignment_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/equal_assignment_linter.html</loc></url>
@@ -28,12 +27,17 @@
 <url><loc>https://flint.etiennebacher.com/reference/lint.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/list_linters.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/matrix_apply_linter.html</loc></url>
+<url><loc>https://flint.etiennebacher.com/reference/numeric_leading_zero_linter.html</loc></url>
+<url><loc>https://flint.etiennebacher.com/reference/outer_negation_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/paste_linter.html</loc></url>
+<url><loc>https://flint.etiennebacher.com/reference/redundant_ifelse_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/right_assignment_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/semicolon_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/seq_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/setup_flint.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/setup_flint_gha.html</loc></url>
+<url><loc>https://flint.etiennebacher.com/reference/undesirable_function_linter.html</loc></url>
+<url><loc>https://flint.etiennebacher.com/reference/unreachable_code_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/update_flint.html</loc></url>
 </urlset>
 

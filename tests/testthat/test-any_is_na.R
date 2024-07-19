@@ -1,7 +1,7 @@
 lint_message <- "anyNA(x) is better than any(is.na(x))."
 
 test_that("any_is_na_linter skips allowed usages", {
-  linter <- NULL
+  linter <- any_is_na_linter()
 
   expect_lint("x <- any(y)", NULL, linter)
   expect_lint("y <- is.na(z)", NULL, linter)
@@ -13,7 +13,7 @@ test_that("any_is_na_linter skips allowed usages", {
 
 test_that("any_is_na_linter blocks disallowed usages", {
   # linter <- any_is_na_linter()
-  linter <- NULL
+  linter <- any_is_na_linter()
 
   expect_lint("any(is.na(x))", lint_message, linter)
   expect_lint("any(is.na(foo(x)))", lint_message, linter)

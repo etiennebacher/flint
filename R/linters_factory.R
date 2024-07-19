@@ -108,6 +108,15 @@ makeActiveBinding('library_call_linter', function() { function() 'library_call' 
 
 
 
+#' literal_coercion
+#' @usage literal_coercion_linter
+#' @name literal_coercion_linter
+#' @export
+NULL
+makeActiveBinding('literal_coercion_linter', function() { function() 'literal_coercion' }, env = environment())
+
+
+
 #' implicit_assignment
 #' @usage implicit_assignment_linter
 #' @name implicit_assignment_linter

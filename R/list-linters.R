@@ -20,6 +20,7 @@ list_linters <- function() {
     "length_test",
     "lengths",
     "library_call",
+    "literal_coercion",
     "implicit_assignment",
     "matrix_apply",
     "numeric_leading_zero",
@@ -62,3 +63,4 @@ list_linters <- function() {
 #'   ),
 #'   file = "inst/config.yml"
 #' )
+

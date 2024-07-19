@@ -3,6 +3,10 @@ language: r
 severity: warning
 rule:
   pattern: all(!$VAR)
+constraints:
+  VAR:
+    not:
+      regex: '^!'
 fix: '!any(~~VAR~~)'
 message: |
   !any(x) is better than all(!x). The former applies negation only once after
@@ -15,6 +19,10 @@ language: r
 severity: warning
 rule:
   pattern: any(! $VAR)
+constraints:
+  VAR:
+    not:
+      regex: '^!'
 fix: '!all(~~VAR~~)'
 message: |
   !all(x) is better than any(!x). The former applies negation only once after

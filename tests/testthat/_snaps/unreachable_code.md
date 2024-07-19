@@ -5,6 +5,7 @@
     Output
       Original code: # Test comment 
       Suggestion: Code and comments coming after a return() or stop() should be removed. 
+      
       Original code:
       while (bar) {
                 return(bar)
@@ -19,6 +20,7 @@
       
       Original code: 5 + 3 
       Suggestion: Code and comments coming after a return() or stop() should be removed. 
+      
       Original code:
       repeat {
                   return(bar)
@@ -29,12 +31,16 @@
       
       Original code: # Test comment 
       Suggestion: Code and comments coming after a return() or stop() should be removed. 
+      
       Original code: 1 + 1 
       Suggestion: Code and comments coming after a return() or stop() should be removed. 
+      
       Original code: # Test 2 
       Suggestion: Code and comments coming after a return() or stop() should be removed. 
+      
       Original code: # Test comment 
       Suggestion: Code and comments coming after a return() or stop() should be removed. 
+      
       Original code:
       for(i in 1:3) {
                 return(bar)
@@ -44,8 +50,10 @@
       
       Original code: 5 + 4 
       Suggestion: Code and comments coming after a return() or stop() should be removed. 
+      
       Original code: 5 + 1 
       Suggestion: Code and comments coming after a return() or stop() should be removed. 
+      
 
 ---
 
@@ -54,14 +62,19 @@
     Output
       Original code: x <- 2 
       Suggestion: Code and comments coming after a return() or stop() should be removed. 
+      
       Original code: x <- 3 
       Suggestion: Code and comments coming after a return() or stop() should be removed. 
+      
       Original code: 5 + 3 
       Suggestion: Code and comments coming after a return() or stop() should be removed. 
+      
       Original code: test() 
       Suggestion: Code and comments coming after a return() or stop() should be removed. 
+      
       Original code: 5 + 4 
       Suggestion: Code and comments coming after a return() or stop() should be removed. 
+      
 
 # unreachable_code_linter works with next and break in sub expressions
 
@@ -70,6 +83,7 @@
     Output
       Original code: # Test comment 
       Suggestion: Remove code and comments coming after `next` or `break` 
+      
       Original code:
       while (bar) {
                 break
@@ -83,6 +97,7 @@
       
       Original code: 5 + 3 
       Suggestion: Remove code and comments coming after `next` or `break` 
+      
       Original code:
       repeat {
                   next
@@ -92,8 +107,10 @@
       
       Original code: # Test comment 
       Suggestion: Remove code and comments coming after `next` or `break` 
+      
       Original code: # test 
       Suggestion: Remove code and comments coming after `next` or `break` 
+      
       Original code:
       for(i in 1:3) {
                 break
@@ -103,6 +120,7 @@
       
       Original code: 5 + 4 
       Suggestion: Remove code and comments coming after `next` or `break` 
+      
 
 ---
 
@@ -111,12 +129,17 @@
     Output
       Original code: x <- 2 
       Suggestion: Remove code and comments coming after `next` or `break` 
+      
       Original code: x <- 3 
       Suggestion: Remove code and comments coming after `next` or `break` 
+      
       Original code: 5 + 3 
       Suggestion: Remove code and comments coming after `next` or `break` 
+      
       Original code: test() 
       Suggestion: Remove code and comments coming after `next` or `break` 
+      
       Original code: 5 + 4 
       Suggestion: Remove code and comments coming after `next` or `break` 
+      
 

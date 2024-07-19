@@ -135,6 +135,15 @@ makeActiveBinding('matrix_apply_linter', function() { function() 'matrix_apply' 
 
 
 
+#' nested_ifelse
+#' @usage nested_ifelse_linter
+#' @name nested_ifelse_linter
+#' @export
+NULL
+makeActiveBinding('nested_ifelse_linter', function() { function() 'nested_ifelse' }, env = environment())
+
+
+
 #' numeric_leading_zero
 #' @usage numeric_leading_zero_linter
 #' @name numeric_leading_zero_linter

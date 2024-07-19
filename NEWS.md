@@ -1,4 +1,4 @@
-# flint (development version)
+# flint 0.0.2
 
 ## New features
 

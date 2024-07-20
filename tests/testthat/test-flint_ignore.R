@@ -3,6 +3,11 @@ test_that("flint-ignore works for a single line", {
   expect_fix("# flint-ignore\nany(duplicated(x))", character(0))
 })
 
+test_that("also ignore lines that have # nolint for compatibility", {
+  expect_lint("# nolint\nany(duplicated(x))", NULL, NULL)
+  expect_fix("# nolint\nany(duplicated(x))", character(0))
+})
+
 test_that("flint-ignore doesn't ignore more than one line", {
   expect_lint(
     "# flint-ignore\nany(duplicated(x))\nany(duplicated(y))",

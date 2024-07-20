@@ -17,7 +17,7 @@ fix <- function(
   fixes <- list()
 
   for (i in r_files) {
-    root <- astgrepr::tree_new(file = i, ignore_tags = "flint-ignore") |>
+    root <- astgrepr::tree_new(file = i, ignore_tags = c("flint-ignore", "nolint")) |>
       astgrepr::tree_root()
 
     lints_raw <- astgrepr::node_find_all(root, files = rule_files)

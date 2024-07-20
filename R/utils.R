@@ -189,3 +189,7 @@ message: ...
 ", file = dest)
   rstudioapi::documentOpen(dest)
 }
+
+uses_git <- function() {
+  fs::dir_exists(".git")
+}

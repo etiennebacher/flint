@@ -16,6 +16,17 @@ fix <- function(
   rule_files <- resolve_rules(linters_is_null = is.null(linters), linters2, path)
   fixes <- list()
 
+  if (length(r_files) > 1 && !uses_git()) {
+    if (interactive()) {
+      utils::menu(
+        title = "This will run `fix()` on several R files. It seems that you are not using Git, which will make it difficult to see the changes in code. Do you want to continue?",
+        choices = c("Yes", "No")
+      )
+    } else {
+      stop("It seems that you are not using Git, but `fix()` will be applied on several R files. This will make it difficult to see the changes in code. Therefore, this operation is not allowed in a non-interactive setting.")
+    }
+  }
+
   for (i in r_files) {
     root <- astgrepr::tree_new(file = i, ignore_tags = c("flint-ignore", "nolint")) |>
       astgrepr::tree_root()

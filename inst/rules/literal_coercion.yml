@@ -23,7 +23,7 @@ id: literal_coercion-2
 language: r
 severity: warning
 rule:
-  regex: '^as\.character\(NA\)$'
+  pattern: as.character(NA)
 fix: NA_character_
 message: |
   Use NA_character_ instead of as.character(NA), i.e., use literals directly

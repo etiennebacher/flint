@@ -18,15 +18,6 @@ makeActiveBinding('any_is_na_linter', function() { function() 'any_is_na' }, env
 
 
 
-#' browser
-#' @usage browser_linter
-#' @name browser_linter
-#' @export
-NULL
-makeActiveBinding('browser_linter', function() { function() 'browser' }, env = environment())
-
-
-
 #' class_equals
 #' @usage class_equals_linter
 #' @name class_equals_linter
@@ -117,6 +108,15 @@ makeActiveBinding('library_call_linter', function() { function() 'library_call' 
 
 
 
+#' literal_coercion
+#' @usage literal_coercion_linter
+#' @name literal_coercion_linter
+#' @export
+NULL
+makeActiveBinding('literal_coercion_linter', function() { function() 'literal_coercion' }, env = environment())
+
+
+
 #' implicit_assignment
 #' @usage implicit_assignment_linter
 #' @name implicit_assignment_linter
@@ -135,12 +135,30 @@ makeActiveBinding('matrix_apply_linter', function() { function() 'matrix_apply' 
 
 
 
+#' nested_ifelse
+#' @usage nested_ifelse_linter
+#' @name nested_ifelse_linter
+#' @export
+NULL
+makeActiveBinding('nested_ifelse_linter', function() { function() 'nested_ifelse' }, env = environment())
+
+
+
 #' numeric_leading_zero
 #' @usage numeric_leading_zero_linter
 #' @name numeric_leading_zero_linter
 #' @export
 NULL
 makeActiveBinding('numeric_leading_zero_linter', function() { function() 'numeric_leading_zero' }, env = environment())
+
+
+
+#' outer_negation
+#' @usage outer_negation_linter
+#' @name outer_negation_linter
+#' @export
+NULL
+makeActiveBinding('outer_negation_linter', function() { function() 'outer_negation' }, env = environment())
 
 
 
@@ -195,6 +213,15 @@ makeActiveBinding('seq_linter', function() { function() 'seq' }, env = environme
 #' @export
 NULL
 makeActiveBinding('T_and_F_symbol_linter', function() { function() 'T_and_F_symbol' }, env = environment())
+
+
+
+#' undesirable_function
+#' @usage undesirable_function_linter
+#' @name undesirable_function_linter
+#' @export
+NULL
+makeActiveBinding('undesirable_function_linter', function() { function() 'undesirable_function' }, env = environment())
 
 
 

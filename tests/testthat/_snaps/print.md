@@ -5,6 +5,7 @@
     Output
       Original code: suppressPackageStartupMessages(library(dplyr)) 
       Suggestion: foo 
+      
 
 # print for lint works fine with multi-line code
 

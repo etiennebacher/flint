@@ -10,7 +10,6 @@ list_linters <- function() {
   c(
     "any_duplicated",
     "any_is_na",
-    "browser",
     "class_equals",
     "double_assignment",
     "equal_assignment",
@@ -21,15 +20,19 @@ list_linters <- function() {
     "length_test",
     "lengths",
     "library_call",
+    "literal_coercion",
     "implicit_assignment",
     "matrix_apply",
+    "nested_ifelse",
     "numeric_leading_zero",
+    "outer_negation",
     "paste",
     "redundant_ifelse",
     "right_assignment",
     "semicolon",
     "seq",
     "T_and_F_symbol",
+    "undesirable_function",
     "unreachable_code"
   )
 
@@ -61,3 +64,4 @@ list_linters <- function() {
 #'   ),
 #'   file = "inst/config.yml"
 #' )
+

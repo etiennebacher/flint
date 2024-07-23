@@ -16,6 +16,7 @@ rule:
   any:
     - pattern: 1:nrow($VAR)
     - pattern: 1L:nrow($VAR)
+  regex: ^1
 fix: seq_len(nrow(~~VAR~~))
 message: |
   1:nrow(...) is likely to be wrong in the empty edge case. Use seq_len(nrow(...)) instead.
@@ -29,6 +30,7 @@ rule:
   any:
     - pattern: 1:n()
     - pattern: 1L:n()
+  regex: ^1
 fix: seq_len(n())
 message: |
   1:n() is likely to be wrong in the empty edge case. Use seq_len(n()) instead.
@@ -53,6 +55,7 @@ rule:
   any:
     - pattern: 1:length($VAR)
     - pattern: 1L:length($VAR)
+  regex: ^1
 fix: seq_along(~~VAR~~)
 message: |
   1:length(...) is likely to be wrong in the empty edge case. Use seq_along(...) instead.
@@ -66,6 +69,7 @@ rule:
   any:
     - pattern: 1:ncol($VAR)
     - pattern: 1L:ncol($VAR)
+  regex: ^1
 fix: seq_len(ncol(~~VAR~~))
 message: |
   1:ncol(...) is likely to be wrong in the empty edge case. Use seq_len(ncol(...)) instead.
@@ -79,6 +83,7 @@ rule:
   any:
     - pattern: 1:NCOL($VAR)
     - pattern: 1L:NCOL($VAR)
+  regex: ^1
 fix: seq_len(NCOL(~~VAR~~))
 message: |
   1:NCOL(...) is likely to be wrong in the empty edge case. Use seq_len(NCOL(...)) instead.
@@ -92,6 +97,7 @@ rule:
   any:
     - pattern: 1:NROW($VAR)
     - pattern: 1L:NROW($VAR)
+  regex: ^1
 fix: seq_len(NROW(~~VAR~~))
 message: |
   1:NROW(...) is likely to be wrong in the empty edge case. Use seq_len(NROW(...)) instead.

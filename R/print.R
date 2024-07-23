@@ -6,7 +6,7 @@ print.flint_lint <- function(x, ...) {
       cat(paste0("Suggestion: ", crayon::green(x$message[i]), "\n\n"))
     } else {
       cat("Original code:", crayon::red(x$text[i]), "\n")
-      cat("Suggestion:", crayon::green(x$message[i]), "\n")
+      cat("Suggestion:", crayon::green(x$message[i]), "\n\n")
     }
   }
 }

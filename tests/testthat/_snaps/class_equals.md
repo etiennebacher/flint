@@ -59,5 +59,5 @@
       fix_text("!('character' %in% class(x))")
     Output
       Old code: !('character' %in% class(x)) 
-      New code: !inherits(x, 'character') 
+      New code: !(inherits(x, 'character')) 
 

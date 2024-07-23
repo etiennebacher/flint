@@ -34,9 +34,7 @@ severity: warning
 rule:
   any:
     - pattern: $CLASSNAME %in% class($VAR)
-    - pattern: ($CLASSNAME %in% class($VAR))
     - pattern: class($VAR) %in% $CLASSNAME
-    - pattern: (class($VAR) %in% $CLASSNAME)
 constraints:
   CLASSNAME:
     kind: string

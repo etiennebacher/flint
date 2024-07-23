@@ -1,7 +1,0 @@
-id: browser
-language: r
-severity: warning
-rule:
-  pattern: browser()
-  kind: call
-message: Probably a forgotten debugging call?

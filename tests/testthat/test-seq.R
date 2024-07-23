@@ -3,6 +3,7 @@ test_that("other : expressions are fine", {
   expect_lint("1:10", NULL, linter)
   expect_lint("2:length(x)", NULL, linter)
   expect_lint("1:(length(x) || 1)", NULL, linter)
+  expect_lint("2L:length(x)", NULL, linter)
 })
 
 test_that("seq_len(...) or seq_along(...) expressions are fine", {
@@ -59,24 +60,28 @@ test_that("finds 1:length(...) expressions", {
     lint_msg("seq_len(nrow(...))", "1:nrow(...)"),
     linter
   )
+  expect_lint("2:nrow(x)", NULL, linter)
 
   expect_lint(
     "1:ncol(x)",
     lint_msg("seq_len(ncol(...))", "1:ncol(...)"),
     linter
   )
+  expect_lint("2:ncol(x)", NULL, linter)
 
   expect_lint(
     "1:NROW(x)",
     lint_msg("seq_len(NROW(...))", "1:NROW(...)"),
     linter
   )
+  expect_lint("2:NROW(x)", NULL, linter)
 
   expect_lint(
     "1:NCOL(x)",
     lint_msg("seq_len(NCOL(...))", "1:NCOL(...)"),
     linter
   )
+  expect_lint("2:NCOL(x)", NULL, linter)
 
   # expect_lint(
   #   "1:dim(x)[1L]",
@@ -139,6 +144,18 @@ test_that("fix 1:length(...) expressions", {
   expect_snapshot(fix_text("1:ncol(x)"))
   expect_snapshot(fix_text("1:NROW(x)"))
   expect_snapshot(fix_text("1:NCOL(x)"))
+
+  expect_snapshot(fix_text("2:length(x)"))
+  expect_snapshot(fix_text("2:nrow(x)"))
+  expect_snapshot(fix_text("2:ncol(x)"))
+  expect_snapshot(fix_text("2:NROW(x)"))
+  expect_snapshot(fix_text("2:NCOL(x)"))
+
+  expect_snapshot(fix_text("2L:length(x)"))
+  expect_snapshot(fix_text("2L:nrow(x)"))
+  expect_snapshot(fix_text("2L:ncol(x)"))
+  expect_snapshot(fix_text("2L:NROW(x)"))
+  expect_snapshot(fix_text("2L:NCOL(x)"))
 
   # expect_lint(
   #   "1:dim(x)[1L]",

@@ -96,13 +96,18 @@ lint <- function(
 
   if (is_testing()) {
     use_cache <- FALSE
+    projroot <- getwd()
+  } else {
+    projroot <- here::here()
   }
 
-  linters2 <- resolve_linters(path, linters, exclude_linters)
+  print(projroot)
+
   r_files <- resolve_path(path, exclude_path)
-  rule_files <- resolve_rules(linters_is_null = is.null(linters), linters2, path)
+  linters2 <- resolve_linters(projroot, linters, exclude_linters)
+  rule_files <- resolve_rules(use_default_linters = is.null(linters), linters2, projroot)
   lints <- list()
-  hashes <- resolve_hashes(path, use_cache)
+  hashes <- resolve_hashes(projroot, use_cache)
 
   for (i in r_files) {
 
@@ -134,10 +139,10 @@ lint <- function(
   }
 
   if (use_cache) {
-    if (is_flint_package(path) || is_testing()) {
-      saveRDS(hashes, file.path(getwd(), "inst/cache_file_state.rds"))
+    if (is_flint_package(projroot) || is_testing()) {
+      saveRDS(hashes, file.path(projroot, "inst/cache_file_state.rds"))
     } else if (uses_flint(path)) {
-      saveRDS(hashes, file.path(getwd(), "flint/cache_file_state.rds"))
+      saveRDS(hashes, file.path(projroot, "flint/cache_file_state.rds"))
     }
   }
   lints <- data.table::rbindlist(lints, use.names = TRUE, fill = TRUE)

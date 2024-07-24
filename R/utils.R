@@ -54,7 +54,7 @@ get_tests_from_lintr <- function(name) {
   rstudioapi::documentOpen(dest)
 }
 
-resolve_linters <- function(path, linters, exclude_linters) {
+resolve_linters <- function(projroot, linters, exclude_linters) {
   if (!is.null(linters)) {
     if (is.list(linters)) {
       # for compat with lintr
@@ -65,7 +65,7 @@ resolve_linters <- function(path, linters, exclude_linters) {
       custom <- vapply(custom, function(x) {
         if (fs::is_absolute_path(x)) {
           return(x)
-        } else if (is_flint_package(path)) {
+        } else if (is_flint_package(projroot)) {
           fs::path("inst/rules/", paste0(x, ".yml"))
         } else if (is_testing() || !uses_flint(path)) {
           fs::path(system.file(package = "flint"), "rules/", paste0(x, ".yml"))
@@ -79,10 +79,10 @@ resolve_linters <- function(path, linters, exclude_linters) {
       linters <- custom
     }
   } else {
-    if (is_flint_package(path)) {
-      config_file <- file.path(path, "inst/config.yml")
+    if (is_flint_package(projroot)) {
+      config_file <- file.path(projroot, "inst/config.yml")
     } else {
-      config_file <- file.path(path, "flint/config.yml")
+      config_file <- file.path(projroot, "flint/config.yml")
     }
     if (fs::file_exists(config_file)) {
       linters <- yaml::read_yaml(config_file, readLines.warn = FALSE)[["keep"]]
@@ -103,26 +103,62 @@ resolve_linters <- function(path, linters, exclude_linters) {
 }
 
 resolve_path <- function(path, exclude_path) {
-  if (all(fs::is_dir(path))) {
-    r_files <- list.files(path, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
-    excluded <- file.path(path, exclude_path)
-    r_files <- setdiff(r_files, excluded)
-  } else {
-    r_files <- path
+  paths <- lapply(path, function(x) {
+    if (fs::is_dir(x)) {
+      list.files(x, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
+    } else {
+      x
+    }
+  }) |>
+    unlist()
+
+  excluded_paths <- lapply(exclude_path, function(x) {
+    if (fs::is_dir(x)) {
+      list.files(x, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
+    } else {
+      x
+    }
+  }) |>
+    unlist()
+
+  files <- setdiff(paths, excluded_paths)
+
+  not_r_files <- !fs::path_ext(files) %in% c("R", "r")
+  if (any(not_r_files)) {
+    msg <- "Files must have a .r or .R extension.\nThe following files are problematic"
+    if (length(not_r_files) > 3) {
+      msg <- paste0(msg, " (only first 3 shown): ", toString(basename(files[not_r_files])[1:3]))
+    } else {
+      msg <- paste0(msg, ": ", toString(basename(files[not_r_files])))
+    }
+    stop(msg, call. = FALSE)
   }
-  r_files
+
+  dont_exist <- !fs::file_exists(files)
+  if (any(dont_exist)) {
+    msg <- "The following files don't exist"
+    if (length(dont_exist) > 3) {
+      msg <- paste0(msg, " (only first 3 shown): ", toString(basename(files[dont_exist])[1:3]))
+    } else {
+      msg <- paste0(msg, ": ", toString(basename(files[dont_exist])))
+    }
+    stop(msg, call. = FALSE)
+  }
+
+  files
 }
 
-resolve_rules <- function(linters_is_null, linters, path) {
-  if (is_flint_package(path)) {
+
+resolve_rules <- function(use_default_linters, linters, projroot) {
+  if (is_flint_package(projroot)) {
     rules <- vapply(linters, function(x) {
       if (fs::is_absolute_path(x)) {
         x
       } else {
-        fs::path("inst/rules/", paste0(x, ".yml"))
+        fs::path(projroot, "inst/rules/", paste0(x, ".yml"))
       }
     }, FUN.VALUE = character(1))
-  } else if (is_testing() || !uses_flint(path)) {
+  } else if (is_testing() || !uses_flint(projroot)) {
     rules <- vapply(linters, function(x) {
       if (fs::is_absolute_path(x)) {
         x
@@ -135,7 +171,7 @@ resolve_rules <- function(linters_is_null, linters, path) {
     # custom ones.
     # However, if the user made a selection in linters, we only respect their
     # choice.
-    if (linters_is_null) {
+    if (use_default_linters) {
       rules <- fs::path("flint/rules/", list.files("flint/rules", pattern = "\\.yml$"))
     } else {
       rules <- fs::path("flint/rules/", paste0(linters, ".yml"))
@@ -150,10 +186,10 @@ resolve_rules <- function(linters_is_null, linters, path) {
   rules
 }
 
-resolve_hashes <- function(path, use_cache) {
-  if (!use_cache || !uses_flint(path)) {
+resolve_hashes <- function(projroot, use_cache) {
+  if (!use_cache || !uses_flint(projroot)) {
     NULL
-  } else if (is_flint_package(path) || is_testing()) {
+  } else if (is_flint_package(projroot) || is_testing()) {
     readRDS(file.path("inst/cache_file_state.rds"))
   } else {
     readRDS(file.path("flint/cache_file_state.rds"))
@@ -161,7 +197,7 @@ resolve_hashes <- function(path, use_cache) {
 }
 
 is_flint_package <- function(path) {
-  path <- file.path(path, "DESCRIPTION")
+  path <- fs::path(path, "DESCRIPTION")
   if (!fs::file_exists(path)) {
     return(FALSE)
   }

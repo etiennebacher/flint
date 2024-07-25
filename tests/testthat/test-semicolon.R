@@ -11,6 +11,7 @@ test_that("Lint all semicolons", {
   expect_lint("function() {a <- \"foo;bar\"}", NULL, linter)
   expect_lint("a <- FALSE # ok; cool!", NULL, linter)
   expect_lint("function() {\na <- FALSE # ok; cool!\n}", NULL, linter)
+  expect_lint("'hi there;'", NULL, linter)
 
   # Trailing semicolons
   expect_lint("a <- 1;", trail_msg, linter)

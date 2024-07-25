@@ -62,7 +62,7 @@ test_that("paste_linter blocks simple disallowed usages for collapse=', '", {
 # })
 
 test_that("paste_linter works for raw strings", {
-  skip_if(getRversion() < "4.0.0")
+  skip_if_not_r_version("4.0.0")
   expect_lint("paste(a, b, sep = R'(xyz)')", NULL, paste_linter())
   # expect_lint(
   #   'paste(a, b, sep = R"---[]---")',

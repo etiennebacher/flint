@@ -63,6 +63,15 @@ makeActiveBinding('expect_named_linter', function() { function() 'expect_named' 
 
 
 
+#' implicit_assignment
+#' @usage implicit_assignment_linter
+#' @name implicit_assignment_linter
+#' @export
+NULL
+makeActiveBinding('implicit_assignment_linter', function() { function() 'implicit_assignment' }, env = environment())
+
+
+
 #' is_numeric
 #' @usage is_numeric_linter
 #' @name is_numeric_linter

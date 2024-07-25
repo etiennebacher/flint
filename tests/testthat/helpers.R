@@ -24,6 +24,11 @@ expect_fix <- function(x, replacement, ...) {
   testthat::expect_equal(as.character(out), replacement)
 }
 
+skip_if_not_r_version <- function(min_version) {
+  if (getRversion() < min_version) {
+    testthat::skip(paste("R version at least", min_version, "is required"))
+  }
+}
 
 ### Taken from {usethis} (file "R/project.R")
 

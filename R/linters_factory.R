@@ -117,15 +117,6 @@ makeActiveBinding('literal_coercion_linter', function() { function() 'literal_co
 
 
 
-#' implicit_assignment
-#' @usage implicit_assignment_linter
-#' @name implicit_assignment_linter
-#' @export
-NULL
-makeActiveBinding('implicit_assignment_linter', function() { function() 'implicit_assignment' }, env = environment())
-
-
-
 #' matrix_apply
 #' @usage matrix_apply_linter
 #' @name matrix_apply_linter

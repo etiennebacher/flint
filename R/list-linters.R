@@ -21,7 +21,6 @@ list_linters <- function() {
     "lengths",
     "library_call",
     "literal_coercion",
-    "implicit_assignment",
     "matrix_apply",
     "nested_ifelse",
     "numeric_leading_zero",

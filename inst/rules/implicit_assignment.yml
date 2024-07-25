@@ -1,7 +1,0 @@
-id: implicit_assignment
-language: r
-severity: hint
-rule:
-  pattern: =
-  inside:
-    kind: if_statement

@@ -6,6 +6,7 @@ keep:
   - equal_assignment
   - equals_na
   - expect_named
+  - expect_true_false
   - expect_type
   - implicit_assignment
   - is_numeric

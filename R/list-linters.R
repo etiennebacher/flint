@@ -16,6 +16,7 @@ list_linters <- function() {
     "equals_na",
     "expect_length",
     "expect_named",
+    "expect_not",
     "expect_null",
     "expect_true_false",
     "expect_type",

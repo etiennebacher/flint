@@ -72,6 +72,15 @@ makeActiveBinding('expect_named_linter', function() { function() 'expect_named' 
 
 
 
+#' expect_not
+#' @usage expect_not_linter
+#' @name expect_not_linter
+#' @export
+NULL
+makeActiveBinding('expect_not_linter', function() { function() 'expect_not' }, env = environment())
+
+
+
 #' expect_null
 #' @usage expect_null_linter
 #' @name expect_null_linter

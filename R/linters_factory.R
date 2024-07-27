@@ -54,6 +54,15 @@ makeActiveBinding('equals_na_linter', function() { function() 'equals_na' }, env
 
 
 
+#' expect_length
+#' @usage expect_length_linter
+#' @name expect_length_linter
+#' @export
+NULL
+makeActiveBinding('expect_length_linter', function() { function() 'expect_length' }, env = environment())
+
+
+
 #' expect_named
 #' @usage expect_named_linter
 #' @name expect_named_linter

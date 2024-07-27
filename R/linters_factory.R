@@ -252,6 +252,15 @@ makeActiveBinding('seq_linter', function() { function() 'seq' }, env = environme
 
 
 
+#' sort
+#' @usage sort_linter
+#' @name sort_linter
+#' @export
+NULL
+makeActiveBinding('sort_linter', function() { function() 'sort' }, env = environment())
+
+
+
 #' T_and_F_symbol
 #' @usage T_and_F_symbol_linter
 #' @name T_and_F_symbol_linter

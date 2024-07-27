@@ -36,6 +36,7 @@ list_linters <- function() {
     "right_assignment",
     "semicolon",
     "seq",
+    "sort",
     "T_and_F_symbol",
     "undesirable_function",
     "unreachable_code"

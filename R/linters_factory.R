@@ -36,6 +36,15 @@ makeActiveBinding('double_assignment_linter', function() { function() 'double_as
 
 
 
+#' empty_assignment
+#' @usage empty_assignment_linter
+#' @name empty_assignment_linter
+#' @export
+NULL
+makeActiveBinding('empty_assignment_linter', function() { function() 'empty_assignment' }, env = environment())
+
+
+
 #' equal_assignment
 #' @usage equal_assignment_linter
 #' @name equal_assignment_linter

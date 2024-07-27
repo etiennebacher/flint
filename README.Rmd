@@ -112,3 +112,17 @@ bench::mark(
   check = FALSE
 )
 ```
+
+## Contributing
+
+Did you find some bugs or some errors in the documentation? Do you want
+`flint` to support more rules?
+
+Take a look at the [contributing
+guide](https://flint.etiennebacher.com/CONTRIBUTING.html) for
+instructions on bug report and pull requests.
+
+## Acknowledgements
+
+The website theme was heavily inspired by Matthew Kay’s `ggblend`
+package: <https://mjskay.github.io/ggblend/>.

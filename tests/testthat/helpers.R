@@ -50,7 +50,7 @@ create_local_package <- function(
     dir = fs::file_temp(pattern = "testpkg"),
     env = parent.frame(),
     rstudio = TRUE) {
-  suppressMessages(create_local_thing(dir, env, rstudio, "package"))
+  create_local_thing(dir, env, rstudio, "package")
 }
 
 
@@ -58,7 +58,7 @@ create_local_project <- function(
     dir = fs::file_temp(pattern = "testproj"),
     env = parent.frame(),
     rstudio = FALSE) {
-  suppressMessages(create_local_thing(dir, env, rstudio, "project"))
+  create_local_thing(dir, env, rstudio, "project")
 }
 
 
@@ -88,8 +88,8 @@ create_local_thing <- function(
     )
   )
 
-  suppressMessages({
-    defer(proj_set(old_project, force = TRUE), envir = env)
+  usethis::ui_silence({
+    defer(ui_silence(proj_set(old_project, force = TRUE)), envir = env)
     proj_set(dir)
   })
 
@@ -101,7 +101,7 @@ create_local_thing <- function(
   )
   setwd(proj_get())
 
-  invisible(proj_get())
+  proj_get()
 }
 
 

@@ -43,7 +43,18 @@ compatibility with \code{lintr}).}
 \item{text}{Text to analyze (and to fix if necessary).}
 }
 \description{
-Automatically replace lints
+\code{fix()}, \code{fix_package()}, and \code{fix_dir()} all replace lints in files. The
+only difference is in the input they take:
+\itemize{
+\item \code{fix()} takes path to files or directories
+\item \code{fix_dir()} takes a path to one directory
+\item \code{fix_package()} takes a path to the root of a package and looks at the
+following list of folders: \code{R}, \code{tests}, \code{inst}, \code{vignettes}, \code{data-raw},
+\code{demo}, \code{exec}.
+}
+
+\code{fix_text()} takes some text input. Its main interest is to be able to
+quickly experiment with some lints and fixes.
 }
 \section{Ignoring lines}{
 
@@ -62,8 +73,7 @@ any(duplicated(x))
 any(duplicated(y))
 }\if{html}{\out{</div>}}
 
-To ignore more than one line of code, use \verb{# flint-ignore-start} and
-\verb{# flint-ignore-end}:
+To ignore more than one line of code, use \verb{# flint-ignore-start} and \verb{# flint-ignore-end}:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# flint-ignore-start
 any(duplicated(x))
@@ -72,3 +82,30 @@ any(duplicated(y))
 }\if{html}{\out{</div>}}
 }
 
+\examples{
+# `fix_text()` is convenient to explore with a small example
+fix_text("any(duplicated(rnorm(5)))")
+
+fix_text("any(duplicated(rnorm(5)))
+any(is.na(x))
+")
+
+# Setup for the example with `fix()`
+destfile <- tempfile()
+cat("
+x = c(1, 2, 3)
+any(duplicated(x), na.rm = TRUE)
+
+any(duplicated(x))
+
+if (any(is.na(x))) {
+  TRUE
+}
+
+any(
+  duplicated(x)
+)", file = destfile)
+
+fix(destfile)
+cat(paste(readLines(destfile), collapse = "\n"))
+}

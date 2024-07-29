@@ -94,7 +94,8 @@ any(duplicated(x))
 any(duplicated(y))
 }\if{html}{\out{</div>}}
 
-To ignore more than one line of code, use \verb{# flint-ignore-start} and \verb{# flint-ignore-end}:
+To ignore more than one line of code, use \verb{# flint-ignore-start} and
+\verb{# flint-ignore-end}:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# flint-ignore-start
 any(duplicated(x))

@@ -43,8 +43,9 @@
 #' any(duplicated(y))
 #' ```
 #'
-#'   To ignore more than one line of code, use `# flint-ignore-start` and `#
-#'   flint-ignore-end`:
+#'
+#'   To ignore more than one line of code, use `# flint-ignore-start` and
+#'   `# flint-ignore-end`:
 #'
 #' ```r
 #' # flint-ignore-start

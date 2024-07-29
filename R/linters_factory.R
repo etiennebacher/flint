@@ -297,6 +297,15 @@ makeActiveBinding('undesirable_function_linter', function() { function() 'undesi
 
 
 
+#' undesirable_operator
+#' @usage undesirable_operator_linter
+#' @name undesirable_operator_linter
+#' @export
+NULL
+makeActiveBinding('undesirable_operator_linter', function() { function() 'undesirable_operator' }, env = environment())
+
+
+
 #' unreachable_code
 #' @usage unreachable_code_linter
 #' @name unreachable_code_linter

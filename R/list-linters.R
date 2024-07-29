@@ -41,6 +41,7 @@ list_linters <- function() {
     "sort",
     "T_and_F_symbol",
     "undesirable_function",
+    "undesirable_operator",
     "unreachable_code"
   )
 

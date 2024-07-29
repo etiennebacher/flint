@@ -30,6 +30,9 @@ skip_if_not_r_version <- function(min_version) {
   }
 }
 
+single_quote <- function(x) paste0("'", x, "'")
+double_quote <- function(x) paste0('"', x, '"')
+
 ### Taken from {usethis} (file "R/project.R")
 
 proj <- new.env(parent = emptyenv())

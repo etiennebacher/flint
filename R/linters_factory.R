@@ -1,5 +1,14 @@
 
 
+#' absolute_path
+#' @usage absolute_path_linter
+#' @name absolute_path_linter
+#' @export
+NULL
+makeActiveBinding('absolute_path_linter', function() { function() 'absolute_path' }, env = environment())
+
+
+
 #' any_duplicated
 #' @usage any_duplicated_linter
 #' @name any_duplicated_linter

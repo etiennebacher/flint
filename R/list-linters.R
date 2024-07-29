@@ -8,6 +8,7 @@
 list_linters <- function() {
 
   c(
+    "absolute_path",
     "any_duplicated",
     "any_is_na",
     "class_equals",

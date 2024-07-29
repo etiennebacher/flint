@@ -3,6 +3,7 @@
 S3method(print,flint_fix)
 S3method(print,flint_lint)
 export(T_and_F_symbol_linter)
+export(absolute_path_linter)
 export(any_duplicated_linter)
 export(any_is_na_linter)
 export(class_equals_linter)

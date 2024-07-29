@@ -11,9 +11,15 @@ fix <- function(
     exclude_linters = NULL
 ) {
 
-  linters2 <- resolve_linters(path, linters, exclude_linters)
+  if (is_testing()) {
+    projroot <- getwd()
+  } else {
+    projroot <- here::here()
+  }
+
   r_files <- resolve_path(path, exclude_path)
-  rule_files <- resolve_rules(linters_is_null = is.null(linters), linters2, path)
+  linters2 <- resolve_linters(projroot, linters, exclude_linters)
+  rule_files <- resolve_rules(use_default_linters = is.null(linters), linters2, projroot)
   fixes <- list()
 
   if (length(r_files) > 1 && !uses_git()) {

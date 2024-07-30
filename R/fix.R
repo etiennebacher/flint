@@ -1,9 +1,47 @@
 #' Automatically replace lints
 #'
+#' @description
+#' `fix()`, `fix_package()`, and `fix_dir()` all replace lints in files. The
+#' only difference is in the input they take:
+#' * `fix()` takes path to files or directories
+#' * `fix_dir()` takes a path to one directory
+#' * `fix_package()` takes a path to the root of a package and looks at the
+#' following list of folders: `R`, `tests`, `inst`, `vignettes`, `data-raw`,
+#' `demo`, `exec`.
+#'
+#' `fix_text()` takes some text input. Its main interest is to be able to
+#' quickly experiment with some lints and fixes.
+#'
 #' @inheritParams lint
 #' @inheritSection lint Ignoring lines
 #'
 #' @export
+#' @examples
+#' # `fix_text()` is convenient to explore with a small example
+#' fix_text("any(duplicated(rnorm(5)))")
+#'
+#' fix_text("any(duplicated(rnorm(5)))
+#' any(is.na(x))
+#' ")
+#'
+#' # Setup for the example with `fix()`
+#' destfile <- tempfile()
+#' cat("
+#' x = c(1, 2, 3)
+#' any(duplicated(x), na.rm = TRUE)
+#'
+#' any(duplicated(x))
+#'
+#' if (any(is.na(x))) {
+#'   TRUE
+#' }
+#'
+#' any(
+#'   duplicated(x)
+#' )", file = destfile)
+#'
+#' fix(destfile)
+#' cat(paste(readLines(destfile), collapse = "\n"))
 fix <- function(
     path = ".",
     linters = NULL,

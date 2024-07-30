@@ -65,9 +65,9 @@ location (both the position in the text and the file in which it was found)
 and the severity.
 }
 \description{
-\code{lint()}, \code{lint_text()} and \code{lint_dir()} all produce a data.frame containing
-the lints, their location, and potential fixes. The only difference is in the
-input they take:
+\code{lint()}, \code{lint_text()}, \code{lint_package()}, and \code{lint_dir()} all produce a
+data.frame containing the lints, their location, and potential fixes. The
+only difference is in the input they take:
 \itemize{
 \item \code{lint()} takes path to files or directories
 \item \code{lint_text()} takes some text input

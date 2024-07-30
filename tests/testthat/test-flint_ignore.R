@@ -3,6 +3,17 @@ test_that("flint-ignore works for a single line", {
   expect_fix("# flint-ignore\nany(duplicated(x))", character(0))
 })
 
+test_that("flint-ignore: specific rules work", {
+  expect_lint("# flint-ignore: any_duplicated\nany(duplicated(x))", NULL, NULL)
+  expect_fix("# flint-ignore: any_duplicated\nany(duplicated(x))", character(0))
+
+  expect_lint(
+    "# flint-ignore: any_na\nany(duplicated(x))",
+    "anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...).",
+    NULL
+  )
+})
+
 test_that("also ignore lines that have # nolint for compatibility", {
   expect_lint("# nolint\nany(duplicated(x))", NULL, NULL)
   expect_fix("# nolint\nany(duplicated(x))", character(0))
@@ -29,6 +40,24 @@ test_that("flint-ignore-start and end work", {
   expect_fix(
     "# flint-ignore-start\nany(duplicated(x))\nany(duplicated(y))\n# flint-ignore-end",
     character(0)
+  )
+})
+
+test_that("flint-ignore-start and end work with specific rule", {
+  expect_lint(
+    "# flint-ignore-start: any_duplicated\nany(duplicated(x))\nany(duplicated(y))\n# flint-ignore-end",
+    NULL,
+    NULL
+  )
+  expect_fix(
+    "# flint-ignore-start: any_duplicated\nany(duplicated(x))\nany(duplicated(y))\n# flint-ignore-end",
+    character(0)
+  )
+
+  expect_lint(
+    "# flint-ignore-start: any_na\nany(duplicated(x))\nany(duplicated(y))\n# flint-ignore-end",
+    "anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...).",
+    NULL
   )
 })
 

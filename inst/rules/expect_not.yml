@@ -1,0 +1,31 @@
+id: expect_not-1
+language: r
+severity: warning
+rule:
+  pattern: expect_true(! $COND)
+# constraints:
+#   COND:
+#     kind: argument
+#     has:
+#       kind: unary_operator
+#       has:
+#         pattern: '!'
+fix: expect_false(~~COND~~)
+message: expect_false(x) is better than expect_true(!x), and vice versa.
+
+---
+
+id: expect_not-2
+language: r
+severity: warning
+rule:
+  pattern: expect_false(! $COND)
+# constraints:
+#   COND:
+#     kind: argument
+#     has:
+#       kind: unary_operator
+#       has:
+#         pattern: '!'
+fix: expect_true(~~COND~~)
+message: expect_false(x) is better than expect_true(!x), and vice versa.

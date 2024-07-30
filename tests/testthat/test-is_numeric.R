@@ -55,8 +55,7 @@ test_that("is_numeric_linter blocks disallowed usages involving %in%", {
 })
 
 test_that("raw strings are handled properly when testing in class", {
-  skip_if(getRversion() < "4.0.0")
-
+  skip_if_not_r_version("4.0.0")
   linter <- is_numeric_linter()
   lint_msg <- "can be simplified to is.numeric"
 

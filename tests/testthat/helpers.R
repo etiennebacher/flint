@@ -24,22 +24,14 @@ expect_fix <- function(x, replacement, ...) {
   testthat::expect_equal(as.character(out), replacement)
 }
 
-trim_some <- function(x, num = NULL) {
-  x <- rex::re_substitutes(
-    x,
-    rex::rex(list(start, any_blanks, newline) %or% list(newline, any_blanks, end)),
-    replacement = "",
-    global = TRUE
-  )
-
-  if (is.null(num)) {
-    ms <- rex::re_matches(x, "^\\s+", locations = TRUE, global = TRUE, options = "multi-line")[[1L]]
-    num <- min(ms$end - ms$start) + 1L
+skip_if_not_r_version <- function(min_version) {
+  if (getRversion() < min_version) {
+    testthat::skip(paste("R version at least", min_version, "is required"))
   }
-
-  rex::re_substitutes(x, rex::rex(start, n_times(any, num)), "", global = TRUE, options = "multi-line")
 }
 
+single_quote <- function(x) paste0("'", x, "'")
+double_quote <- function(x) paste0('"', x, '"')
 
 ### Taken from {usethis} (file "R/project.R")
 
@@ -61,7 +53,7 @@ create_local_package <- function(
     dir = fs::file_temp(pattern = "testpkg"),
     env = parent.frame(),
     rstudio = TRUE) {
-  suppressMessages(create_local_thing(dir, env, rstudio, "package"))
+  create_local_thing(dir, env, rstudio, "package")
 }
 
 
@@ -69,7 +61,7 @@ create_local_project <- function(
     dir = fs::file_temp(pattern = "testproj"),
     env = parent.frame(),
     rstudio = FALSE) {
-  suppressMessages(create_local_thing(dir, env, rstudio, "project"))
+  create_local_thing(dir, env, rstudio, "project")
 }
 
 
@@ -99,8 +91,8 @@ create_local_thing <- function(
     )
   )
 
-  suppressMessages({
-    defer(proj_set(old_project, force = TRUE), envir = env)
+  usethis::ui_silence({
+    defer(ui_silence(proj_set(old_project, force = TRUE)), envir = env)
     proj_set(dir)
   })
 
@@ -112,7 +104,7 @@ create_local_thing <- function(
   )
   setwd(proj_get())
 
-  invisible(proj_get())
+  proj_get()
 }
 
 

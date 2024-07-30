@@ -1,8 +1,8 @@
 #' List all lints in a file or a directory
 #'
-#' `lint()`, `lint_text()` and `lint_dir()` all produce a data.frame containing
-#' the lints, their location, and potential fixes. The only difference is in the
-#' input they take:
+#' `lint()`, `lint_text()`, `lint_package()`, and `lint_dir()` all produce a
+#' data.frame containing the lints, their location, and potential fixes. The
+#' only difference is in the input they take:
 #' * `lint()` takes path to files or directories
 #' * `lint_text()` takes some text input
 #' * `lint_dir()` takes a path to one directory
@@ -27,15 +27,15 @@
 #'
 #' @section Ignoring lines:
 #'
-#' `flint` supports ignoring single lines of code with `# flint-ignore`. For
-#' example, this will not warn:
+#'   `flint` supports ignoring single lines of code with `# flint-ignore`. For
+#'   example, this will not warn:
 #'
 #' ```r
 #' # flint-ignore
 #' any(duplicated(x))
 #' ```
 #'
-#' However, this will warn for the second `any(duplicated())`:
+#'   However, this will warn for the second `any(duplicated())`:
 #'
 #' ```r
 #' # flint-ignore
@@ -43,8 +43,9 @@
 #' any(duplicated(y))
 #' ```
 #'
-#' To ignore more than one line of code, use `# flint-ignore-start` and
-#' `# flint-ignore-end`:
+#'
+#'   To ignore more than one line of code, use `# flint-ignore-start` and
+#'   `# flint-ignore-end`:
 #'
 #' ```r
 #' # flint-ignore-start

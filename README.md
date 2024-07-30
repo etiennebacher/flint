@@ -119,6 +119,20 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 lintr         1.92s    1.92s     0.520   318.5MB     9.89
-#> 2 flint       74.11ms  82.31ms    10.6       1.2MB     3.53
+#> 1 lintr         1.98s    1.98s     0.505  318.54MB    15.1 
+#> 2 flint       64.05ms  76.21ms    13.3      1.22MB     5.68
 ```
+
+## Contributing
+
+Did you find some bugs or some errors in the documentation? Do you want
+`flint` to support more rules?
+
+Take a look at the [contributing
+guide](https://flint.etiennebacher.com/CONTRIBUTING.html) for
+instructions on bug report and pull requests.
+
+## Acknowledgements
+
+The website theme was heavily inspired by Matthew Kay’s `ggblend`
+package: <https://mjskay.github.io/ggblend/>.

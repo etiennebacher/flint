@@ -1,3 +1,28 @@
+# flint (development)
+
+## Bug fixes
+
+* Allow usage of `T` and `F` in formulas (#33).
+
+# flint 0.0.3
+
+## New features
+
+* New linters: `absolute_path`, `duplicate_argument`, `empty_assignment`, 
+  `expect_length`, `expect_not`, `expect_null`, `expect_true_false`, 
+  `expect_type`, `literal_coercion`, `nested_ifelse`, `sort`, 
+  `undesirable_operator`.
+* Added a contributing guide.
+* Better docs for `fix()` and its variants.
+* Using `fix()` on several files without using Git now opens an interactive
+  menu so that the user confirms they want to run `fix()`. In case of 
+  non-interactive use, this errors.
+* Ignore lines following `# nolint` for compatibility with `lintr`.
+
+## Bug fixes
+
+* Fix a few false positives (#23, #24, #27).
+
 # flint 0.0.2
 
 ## New features

@@ -6,6 +6,15 @@ test_that("T_and_F_symbol_linter skips allowed usages", {
   expect_lint("x <- \"TRUE a vs FALSE b\"", NULL, linter)
 })
 
+test_that("T_and_F_symbol_linter skips usage in formulas", {
+  linter <- T_and_F_symbol_linter()
+
+  expect_lint("lm(weight ~ T, data)", NULL, linter)
+  expect_lint("lm(weight ~ T + var, data)", NULL, linter)
+  expect_lint("lm(weight ~ var + var2 + T, data)", NULL, linter)
+  expect_lint("lm(T ~ weight, data)", NULL, linter)
+})
+
 test_that("T_and_F_symbol_linter blocks disallowed usages", {
   linter <- T_and_F_symbol_linter()
   msg_true <- "Use TRUE instead of the symbol T."

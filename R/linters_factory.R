@@ -1,5 +1,14 @@
 
 
+#' absolute_path
+#' @usage absolute_path_linter
+#' @name absolute_path_linter
+#' @export
+NULL
+makeActiveBinding('absolute_path_linter', function() { function() 'absolute_path' }, env = environment())
+
+
+
 #' any_duplicated
 #' @usage any_duplicated_linter
 #' @name any_duplicated_linter
@@ -36,6 +45,24 @@ makeActiveBinding('double_assignment_linter', function() { function() 'double_as
 
 
 
+#' duplicate_argument
+#' @usage duplicate_argument_linter
+#' @name duplicate_argument_linter
+#' @export
+NULL
+makeActiveBinding('duplicate_argument_linter', function() { function() 'duplicate_argument' }, env = environment())
+
+
+
+#' empty_assignment
+#' @usage empty_assignment_linter
+#' @name empty_assignment_linter
+#' @export
+NULL
+makeActiveBinding('empty_assignment_linter', function() { function() 'empty_assignment' }, env = environment())
+
+
+
 #' equal_assignment
 #' @usage equal_assignment_linter
 #' @name equal_assignment_linter
@@ -54,12 +81,66 @@ makeActiveBinding('equals_na_linter', function() { function() 'equals_na' }, env
 
 
 
+#' expect_length
+#' @usage expect_length_linter
+#' @name expect_length_linter
+#' @export
+NULL
+makeActiveBinding('expect_length_linter', function() { function() 'expect_length' }, env = environment())
+
+
+
 #' expect_named
 #' @usage expect_named_linter
 #' @name expect_named_linter
 #' @export
 NULL
 makeActiveBinding('expect_named_linter', function() { function() 'expect_named' }, env = environment())
+
+
+
+#' expect_not
+#' @usage expect_not_linter
+#' @name expect_not_linter
+#' @export
+NULL
+makeActiveBinding('expect_not_linter', function() { function() 'expect_not' }, env = environment())
+
+
+
+#' expect_null
+#' @usage expect_null_linter
+#' @name expect_null_linter
+#' @export
+NULL
+makeActiveBinding('expect_null_linter', function() { function() 'expect_null' }, env = environment())
+
+
+
+#' expect_true_false
+#' @usage expect_true_false_linter
+#' @name expect_true_false_linter
+#' @export
+NULL
+makeActiveBinding('expect_true_false_linter', function() { function() 'expect_true_false' }, env = environment())
+
+
+
+#' expect_type
+#' @usage expect_type_linter
+#' @name expect_type_linter
+#' @export
+NULL
+makeActiveBinding('expect_type_linter', function() { function() 'expect_type' }, env = environment())
+
+
+
+#' implicit_assignment
+#' @usage implicit_assignment_linter
+#' @name implicit_assignment_linter
+#' @export
+NULL
+makeActiveBinding('implicit_assignment_linter', function() { function() 'implicit_assignment' }, env = environment())
 
 
 
@@ -114,15 +195,6 @@ makeActiveBinding('library_call_linter', function() { function() 'library_call' 
 #' @export
 NULL
 makeActiveBinding('literal_coercion_linter', function() { function() 'literal_coercion' }, env = environment())
-
-
-
-#' implicit_assignment
-#' @usage implicit_assignment_linter
-#' @name implicit_assignment_linter
-#' @export
-NULL
-makeActiveBinding('implicit_assignment_linter', function() { function() 'implicit_assignment' }, env = environment())
 
 
 
@@ -207,6 +279,15 @@ makeActiveBinding('seq_linter', function() { function() 'seq' }, env = environme
 
 
 
+#' sort
+#' @usage sort_linter
+#' @name sort_linter
+#' @export
+NULL
+makeActiveBinding('sort_linter', function() { function() 'sort' }, env = environment())
+
+
+
 #' T_and_F_symbol
 #' @usage T_and_F_symbol_linter
 #' @name T_and_F_symbol_linter
@@ -222,6 +303,15 @@ makeActiveBinding('T_and_F_symbol_linter', function() { function() 'T_and_F_symb
 #' @export
 NULL
 makeActiveBinding('undesirable_function_linter', function() { function() 'undesirable_function' }, env = environment())
+
+
+
+#' undesirable_operator
+#' @usage undesirable_operator_linter
+#' @name undesirable_operator_linter
+#' @export
+NULL
+makeActiveBinding('undesirable_operator_linter', function() { function() 'undesirable_operator' }, env = environment())
 
 
 

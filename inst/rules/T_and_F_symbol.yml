@@ -10,10 +10,18 @@ rule:
           any:
             - pattern: <-
             - pattern: =
+            - regex: ^~$
       - follows:
-          pattern: $
+          any:
+            - pattern: $
+            - regex: ^~$
       - inside:
-          kind: parameter
+          any:
+            - kind: parameter
+            - kind: binary_operator
+              follows:
+                regex: ^~$
+                stopBy: end
 fix: TRUE
 message: Use TRUE instead of the symbol T.
 

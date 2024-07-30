@@ -8,20 +8,28 @@
 list_linters <- function() {
 
   c(
+    "absolute_path",
     "any_duplicated",
     "any_is_na",
     "class_equals",
     "double_assignment",
+    "duplicate_argument",
+    "empty_assignment",
     "equal_assignment",
     "equals_na",
+    "expect_length",
     "expect_named",
+    "expect_not",
+    "expect_null",
+    "expect_true_false",
+    "expect_type",
+    "implicit_assignment",
     "is_numeric",
     "length_levels",
     "length_test",
     "lengths",
     "library_call",
     "literal_coercion",
-    "implicit_assignment",
     "matrix_apply",
     "nested_ifelse",
     "numeric_leading_zero",
@@ -31,8 +39,10 @@ list_linters <- function() {
     "right_assignment",
     "semicolon",
     "seq",
+    "sort",
     "T_and_F_symbol",
     "undesirable_function",
+    "undesirable_operator",
     "unreachable_code"
   )
 

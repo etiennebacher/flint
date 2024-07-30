@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flint</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,9 +33,24 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/etiennebacher/flint/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/etiennebacher/flint/blob/v0.0.3/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.3" id="flint-003">flint 0.0.3<a class="anchor" aria-label="anchor" href="#flint-003"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-0-3">New features<a class="anchor" aria-label="anchor" href="#new-features-0-0-3"></a></h3>
+<ul><li>New linters: <code>absolute_path</code>, <code>duplicate_argument</code>, <code>empty_assignment</code>, <code>expect_length</code>, <code>expect_not</code>, <code>expect_null</code>, <code>expect_true_false</code>, <code>expect_type</code>, <code>literal_coercion</code>, <code>nested_ifelse</code>, <code>sort</code>, <code>undesirable_operator</code>.</li>
+<li>Added a contributing guide.</li>
+<li>Better docs for <code><a href="../reference/fix.html">fix()</a></code> and its variants.</li>
+<li>Using <code><a href="../reference/fix.html">fix()</a></code> on several files without using Git now opens an interactive menu so that the user confirms they want to run <code><a href="../reference/fix.html">fix()</a></code>. In case of non-interactive use, this errors.</li>
+<li>Ignore lines following <code># nolint</code> for compatibility with <code>lintr</code>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-0-0-3">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-3"></a></h3>
+<ul><li>Fix a few false positives (<a href="https://github.com/etiennebacher/flint/issues/23" class="external-link">#23</a>, <a href="https://github.com/etiennebacher/flint/issues/24" class="external-link">#24</a>, <a href="https://github.com/etiennebacher/flint/issues/27" class="external-link">#27</a>).</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.2" id="flint-002">flint 0.0.2<a class="anchor" aria-label="anchor" href="#flint-002"></a></h2>
 <div class="section level3">

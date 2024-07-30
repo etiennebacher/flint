@@ -1,3 +1,9 @@
+# flint (development)
+
+## Bug fixes
+
+* Allow usage of `T` and `F` in formulas (#33).
+
 # flint 0.0.3
 
 ## New features

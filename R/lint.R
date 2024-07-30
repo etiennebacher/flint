@@ -148,6 +148,8 @@ lint <- function(
       rstudioapi::isAvailable()) {
     rstudio_source_markers(lints)
     return(invisible(lints))
+  } else if (in_github_actions() && !is_testing()) {
+    github_actions_log_lints(lints)
   } else {
     lints
   }

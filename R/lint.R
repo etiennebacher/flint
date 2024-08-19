@@ -24,6 +24,7 @@
 #'   will be shown with markers.
 #' @param use_cache Do not re-parse files that haven't changed since the last
 #'   time this function ran.
+#' @param verbose Show messages.
 #'
 #' @section Ignoring lines:
 #'
@@ -92,8 +93,13 @@ lint <- function(
     exclude_path = NULL,
     exclude_linters = NULL,
     open = TRUE,
-    use_cache = TRUE
+    use_cache = TRUE,
+    verbose = TRUE
 ) {
+
+  if (isFALSE(verbose) | is_testing()) {
+    withr::local_options(cli.default_handler = function(...) { })
+  }
 
   if (is_testing()) {
     use_cache <- FALSE
@@ -105,34 +111,44 @@ lint <- function(
   lints <- list()
   hashes <- resolve_hashes(path, use_cache)
 
-  for (i in r_files) {
+  cli::cli_alert_info("Going to check {length(r_files)} file{?s}.")
+  i <- 0
+  cli::cli_progress_bar(format = "{cli::pb_spin} Checking: {i}/{length(r_files)}")
+
+  for (i in seq_along(r_files)) {
+
+    file <- r_files[i]
 
     if (use_cache) {
-      current_hash <- digest::digest(readLines(i, warn = FALSE))
-      if (!is.null(names(hashes)) && i %in% names(hashes)) {
-        stored_info <- hashes[[i]]
+      current_hash <- digest::digest(readLines(file, warn = FALSE))
+      if (!is.null(names(hashes)) && file %in% names(hashes)) {
+        stored_info <- hashes[[file]]
         if (current_hash == stored_info[["hash"]]) {
-          lints[[i]] <- stored_info[["lints"]]
+          lints[[file]] <- stored_info[["lints"]]
           next
         }
       }
     }
 
-    lints_raw <- astgrepr::tree_new(file = i, ignore_tags = c("flint-ignore", "nolint")) |>
+    lints_raw <- astgrepr::tree_new(file = file, ignore_tags = c("flint-ignore", "nolint")) |>
       astgrepr::tree_root()|>
       astgrepr::node_find_all(files = rule_files)
 
     if (all(lengths(lints_raw) == 0)) {
-      lints[[i]] <- data.table()
+      lints[[file]] <- data.table()
     } else {
-      lints[[i]] <- clean_lints(lints_raw, file = i)
+      lints[[file]] <- clean_lints(lints_raw, file = file)
     }
 
     if (use_cache) {
-      hashes[[i]][["hash"]] <- current_hash
-      hashes[[i]][["lints"]] <- lints[[i]]
+      hashes[[file]][["hash"]] <- current_hash
+      hashes[[file]][["lints"]] <- lints[[file]]
     }
+
+    cli::cli_progress_update()
   }
+
+  cli::cli_progress_done()
 
   if (use_cache) {
     if (is_flint_package(path) || is_testing()) {
@@ -145,6 +161,8 @@ lint <- function(
 
   if (nrow(lints) == 0) {
     cli::cli_alert_success("No lints detected.")
+  } else {
+    cli::cli_alert_success("Found lints in {length(unique(lints$file))} file{?s}.")
   }
 
   if (isTRUE(open) &&

@@ -7,7 +7,14 @@
 \alias{fix_text}
 \title{Automatically replace lints}
 \usage{
-fix(path = ".", linters = NULL, exclude_path = NULL, exclude_linters = NULL)
+fix(
+  path = ".",
+  linters = NULL,
+  exclude_path = NULL,
+  exclude_linters = NULL,
+  force = FALSE,
+  verbose = TRUE
+)
 
 fix_dir(
   path = ".",
@@ -39,6 +46,12 @@ selection.}
 Values can be the names of linters (such as \code{"any_is_na"}) or its
 associated function, such as \code{any_is_na_linter()} (this is mostly for
 compatibility with \code{lintr}).}
+
+\item{force}{Force the application of fixes on the files. This is used only
+in the case where Git is not detected, several files will be modified, and the
+code is run in a non-interactive setting.}
+
+\item{verbose}{Show messages.}
 
 \item{text}{Text to analyze (and to fix if necessary).}
 }

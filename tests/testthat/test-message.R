@@ -1,11 +1,43 @@
-test_that("lint success message works", {
+test_that("no lints found message works", {
+  skip_if_not_installed("withr")
+  withr::local_envvar(list(TESTTHAT = "false"))
   dest <- tempfile(fileext = ".R")
   cat("1 + 1", file = dest)
-  expect_message(lint(dest), "No lints detected.")
+  expect_snapshot(invisible(lint(dest)))
 })
 
-test_that("fix success message works", {
+test_that("found lint message works", {
+  skip_if_not_installed("withr")
+  withr::local_envvar(list(TESTTHAT = "false"))
+  temp_dir <- withr::local_tempdir()
+  dest <- withr::local_tempfile(fileext = ".R", tmpdir = temp_dir)
+  cat("1 + 1\nany(is.na(1))", file = dest)
+  expect_snapshot(invisible(lint(temp_dir)))
+
+  dest2 <- withr::local_tempfile(fileext = ".R", tmpdir = temp_dir)
+  cat("1 + 1\nany(is.na(1))", file = dest)
+  cat("any(duplicated(x))", file = dest2)
+  expect_snapshot(invisible(lint(temp_dir)))
+})
+
+test_that("no fixes needed message works", {
+  skip_if_not_installed("withr")
+  withr::local_envvar(list(TESTTHAT = "false"))
   dest <- tempfile(fileext = ".R")
   cat("1 + 1", file = dest)
-  expect_message(fix(dest), "No fixes needed.")
+  expect_snapshot(fix(dest))
+})
+
+test_that("fix needed message works", {
+  skip_if_not_installed("withr")
+  withr::local_envvar(list(TESTTHAT = "false"))
+  temp_dir <- withr::local_tempdir()
+  dest <- withr::local_tempfile(fileext = ".R", tmpdir = temp_dir)
+  cat("1 + 1\nany(is.na(1))", file = dest)
+  expect_snapshot(fix(temp_dir))
+
+  dest2 <- withr::local_tempfile(fileext = ".R", tmpdir = temp_dir)
+  cat("1 + 1\nany(is.na(1))", file = dest)
+  cat("any(duplicated(x))", file = dest2)
+  expect_snapshot(fix(temp_dir, force = TRUE))
 })

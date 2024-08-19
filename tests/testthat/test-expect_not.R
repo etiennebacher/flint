@@ -7,6 +7,13 @@ test_that("expect_not_linter skips allowed usages", {
   expect_lint("expect_true(!x || !y)", NULL, expect_not_linter())
 })
 
+test_that("expect_not_linter doesn't block rlang bang-bang", {
+  expect_lint("expect_true(!!x)", NULL, expect_not_linter())
+  expect_lint("expect_true(!!!x)", NULL, expect_not_linter())
+  expect_lint("expect_false(!!x)", NULL, expect_not_linter())
+  expect_lint("expect_false(!!!x)", NULL, expect_not_linter())
+})
+
 test_that("expect_not_linter blocks simple disallowed usages", {
   linter <- expect_not_linter()
   lint_msg <- "expect_false(x) is better than expect_true(!x), and vice versa."

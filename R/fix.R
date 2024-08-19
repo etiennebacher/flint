@@ -166,7 +166,7 @@ fix_text <- function(text, linters = NULL, exclude_linters = NULL) {
   tmp <- tempfile(fileext = ".R")
   text <- trimws(text)
   cat(text, file = tmp)
-  out <- fix(tmp, linters = linters, exclude_linters = exclude_linters)
+  out <- fix(tmp, linters = linters, exclude_linters = exclude_linters, verbose = FALSE)
   if (length(out) == 0) {
     return(invisible())
   }

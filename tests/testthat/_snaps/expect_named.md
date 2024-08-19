@@ -46,3 +46,11 @@
       Old code: testthat::expect_equal('a', names(x)) 
       New code: testthat::expect_named(x, 'a') 
 
+---
+
+    Code
+      fix_text("expect_identical(names(xs), NULL)")
+    Output
+      Old code: expect_identical(names(xs), NULL) 
+      New code: expect_null(names(xs)) 
+

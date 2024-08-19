@@ -6,12 +6,10 @@ rule:
     - pattern: sapply($MYVAR, length)
     - pattern: sapply(FUN = length, $MYVAR)
     - pattern: sapply($MYVAR, FUN = length)
-    - pattern: lapply($MYVAR, length)
     - pattern: vapply($MYVAR, length $$$)
 
     - pattern: $MYVAR |> sapply(length)
     - pattern: $MYVAR |> sapply(FUN = length)
-    - pattern: $MYVAR |> lapply(length)
     - pattern: $MYVAR |> vapply(length $$$)
     - pattern: $MYVAR |> map_int(length)
     - pattern: $MYVAR |> map_int(length $$$)
@@ -20,7 +18,6 @@ rule:
 
     - pattern: $MYVAR %>% sapply(length)
     - pattern: $MYVAR %>% sapply(FUN = length)
-    - pattern: $MYVAR %>% lapply(length)
     - pattern: $MYVAR %>% vapply(length $$$)
     - pattern: $MYVAR %>% map_int(length)
     - pattern: $MYVAR %>% map_int(length $$$)

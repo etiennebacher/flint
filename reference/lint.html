@@ -176,8 +176,6 @@ example, this will not warn:</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># `lint_text()` is convenient to explore with a small example</span></span></span>
 <span class="r-in"><span><span class="fu">lint_text</span><span class="op">(</span><span class="st">"any(duplicated(rnorm(5)))"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Going to check 1 file.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Found lints in 1 file.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Original code: <span style="color: #BB0000;">any(duplicated(rnorm(5)))</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Suggestion: <span style="color: #00BB00;">anyDuplicated(x, ...) &gt; 0 is better than any(duplicated(x), ...).</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -185,8 +183,6 @@ example, this will not warn:</p>
 <span class="r-in"><span><span class="fu">lint_text</span><span class="op">(</span><span class="st">"any(duplicated(rnorm(5)))</span></span></span>
 <span class="r-in"><span><span class="st">any(is.na(x))</span></span></span>
 <span class="r-in"><span><span class="st">"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Going to check 1 file.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Found lints in 1 file.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Original code: <span style="color: #BB0000;">any(duplicated(rnorm(5)))</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Suggestion: <span style="color: #00BB00;">anyDuplicated(x, ...) &gt; 0 is better than any(duplicated(x), ...).</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -236,11 +232,11 @@ example, this will not warn:</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5: anyDuplicated(x, ...) &gt; 0 is better than any(duplicated(x), ...).</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                file</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                              &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: /tmp/RtmpLKiPcM/file172715a1c3c4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2: /tmp/RtmpLKiPcM/file172715a1c3c4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3: /tmp/RtmpLKiPcM/file172715a1c3c4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4: /tmp/RtmpLKiPcM/file172715a1c3c4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5: /tmp/RtmpLKiPcM/file172715a1c3c4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: /tmp/Rtmp4WwVoU/file171a54c1f3da</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2: /tmp/Rtmp4WwVoU/file171a54c1f3da</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3: /tmp/Rtmp4WwVoU/file171a54c1f3da</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4: /tmp/Rtmp4WwVoU/file171a54c1f3da</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5: /tmp/Rtmp4WwVoU/file171a54c1f3da</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

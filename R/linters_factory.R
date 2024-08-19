@@ -135,6 +135,15 @@ makeActiveBinding('expect_type_linter', function() { function() 'expect_type' },
 
 
 
+#' for_loop_index
+#' @usage for_loop_index_linter
+#' @name for_loop_index_linter
+#' @export
+NULL
+makeActiveBinding('for_loop_index_linter', function() { function() 'for_loop_index' }, env = environment())
+
+
+
 #' implicit_assignment
 #' @usage implicit_assignment_linter
 #' @name implicit_assignment_linter

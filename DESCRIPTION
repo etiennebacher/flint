@@ -14,6 +14,7 @@ Description: Lints are code patterns that are not optimal because they are
     parse and navigate R code.
 Imports:
     astgrepr,
+    cli,
     crayon,
     data.table,
     digest,

@@ -143,6 +143,10 @@ lint <- function(
   }
   lints <- data.table::rbindlist(lints, use.names = TRUE, fill = TRUE)
 
+  if (nrow(lints) == 0) {
+    cli::cli_alert_success("No lints detected.")
+  }
+
   if (isTRUE(open) &&
       requireNamespace("rstudioapi", quietly = TRUE) &&
       rstudioapi::isAvailable()) {

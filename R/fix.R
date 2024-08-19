@@ -65,7 +65,10 @@ fix <- function(
     }
   }
 
+  needed_fixing <- vector("list", length(r_files))
+
   for (i in r_files) {
+    needed_fixing[[i]] <- TRUE
     root <- astgrepr::tree_new(file = i, ignore_tags = c("flint-ignore", "nolint")) |>
       astgrepr::tree_root()
 
@@ -74,6 +77,7 @@ fix <- function(
     lints <- Filter(Negate(is.null), lints_raw)
     lints <- Filter(function(x) length(attributes(x)$other_info$fix) > 0, lints)
     if (length(lints) == 0) {
+      needed_fixing[[i]] <- FALSE
       next
     }
     args <- append(
@@ -85,6 +89,10 @@ fix <- function(
 
     fixes[[i]] <- astgrepr::tree_rewrite(root, replacement2)
     writeLines(text = fixes[[i]], i)
+  }
+
+  if (!any(unlist(needed_fixing))) {
+    cli::cli_alert_success("No fixes needed.")
   }
   invisible(fixes)
 }

@@ -32,6 +32,7 @@ list_linters <- function() {
     "library_call",
     "literal_coercion",
     "matrix_apply",
+    "missing_argument",
     "nested_ifelse",
     "numeric_leading_zero",
     "outer_negation",

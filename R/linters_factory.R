@@ -216,6 +216,15 @@ makeActiveBinding('matrix_apply_linter', function() { function() 'matrix_apply' 
 
 
 
+#' missing_argument
+#' @usage missing_argument_linter
+#' @name missing_argument_linter
+#' @export
+NULL
+makeActiveBinding('missing_argument_linter', function() { function() 'missing_argument' }, env = environment())
+
+
+
 #' nested_ifelse
 #' @usage nested_ifelse_linter
 #' @name nested_ifelse_linter

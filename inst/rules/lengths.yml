@@ -24,9 +24,6 @@ rule:
     - pattern: $MYVAR %>% purrr::map_int(length)
     - pattern: $MYVAR %>% purrr::map_int(length $$$)
 
-    - pattern: map($MYVAR, length)
-    - pattern: map($MYVAR, .f = length)
-    - pattern: map(.f = length, $MYVAR)
     - pattern: map_dbl($MYVAR, length)
     - pattern: map_dbl($MYVAR, .f = length)
     - pattern: map_dbl(.f = length, $MYVAR)
@@ -34,9 +31,6 @@ rule:
     - pattern: map_int($MYVAR, .f = length)
     - pattern: map_int(.f = length, $MYVAR)
 
-    - pattern: purrr::map($MYVAR, length)
-    - pattern: purrr::map($MYVAR, .f = length)
-    - pattern: purrr::map(.f = length, $MYVAR)
     - pattern: purrr::map_dbl($MYVAR, length)
     - pattern: purrr::map_dbl($MYVAR, .f = length)
     - pattern: purrr::map_dbl(.f = length, $MYVAR)

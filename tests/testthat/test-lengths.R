@@ -6,6 +6,7 @@ test_that("NULL skips allowed usages", {
   expect_lint("vapply(x, fun, integer(length(y)))", NULL, linter)
   expect_lint("sapply(x, sqrt, simplify = length(x))", NULL, linter)
   expect_lint("lapply(x, length)", NULL, linter)
+  expect_lint("map(x, length)", NULL, linter)
 })
 
 test_that("NULL blocks simple disallowed base usages", {

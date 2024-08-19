@@ -3,6 +3,8 @@ test_that("T_and_F_symbol_linter skips allowed usages", {
 
   expect_lint("FALSE", NULL, linter)
   expect_lint("TRUE", NULL, linter)
+  expect_lint("F()", NULL, linter)
+  expect_lint("T()", NULL, linter)
   expect_lint("x <- \"TRUE a vs FALSE b\"", NULL, linter)
 })
 
@@ -10,6 +12,7 @@ test_that("T_and_F_symbol_linter is correct in formulas", {
   linter <- T_and_F_symbol_linter()
 
   expect_lint("lm(weight ~ T, data)", NULL, linter)
+  expect_lint("lm(weight ~ F, data)", NULL, linter)
   expect_lint("lm(weight ~ T + var, data)", NULL, linter)
   expect_lint("lm(weight ~ var + var2 + T, data)", NULL, linter)
   expect_lint("lm(T ~ weight, data)", NULL, linter)

@@ -12,6 +12,8 @@ Description: Lints are code patterns that are not optimal because they are
     small set of functions to detect those lints and automatically fix them.
     It builds on 'astgrepr', which itself uses the Rust crate 'ast-grep' to
     parse and navigate R code.
+Depends:
+    R (>= 4.2)
 Imports:
     astgrepr,
     cli,

@@ -1,4 +1,4 @@
-id: any_duplicated
+id: any_duplicated-1
 language: r
 severity: warning
 rule:

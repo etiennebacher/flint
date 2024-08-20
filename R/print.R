@@ -3,10 +3,12 @@ print.flint_lint <- function(x, ...) {
   for (i in seq_along(x$text)) {
     if (grepl("\\n", x$text[i])) {
       cat(paste0("Original code:\n", crayon::red(x$text[i]), "\n"))
-      cat(paste0("Suggestion: ", crayon::green(x$message[i]), "\n\n"))
+      cat(paste0("Suggestion: ", crayon::green(x$message[i]), "\n"))
+      cat(crayon::silver(paste0("Rule ID: ", x$id[i]), "\n\n"))
     } else {
       cat("Original code:", crayon::red(x$text[i]), "\n")
-      cat("Suggestion:", crayon::green(x$message[i]), "\n\n")
+      cat("Suggestion:", crayon::green(x$message[i]), "\n")
+      cat(crayon::silver(paste0("Rule ID: ", x$id[i]), "\n\n"))
     }
   }
 }

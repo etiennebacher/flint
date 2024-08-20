@@ -43,3 +43,16 @@ test_that("NULL blocks simple disallowed usages with pipes", {
   expect_lint("x |> purrr::map_int(length)", lint_msg, linter)
   expect_lint("x %>% purrr::map_int(length)", lint_msg, linter)
 })
+
+test_that("fix works", {
+  linter <- lengths_linter()
+
+  expect_snapshot(fix_text("x |> sapply(length)", linters = linter))
+  expect_snapshot(fix_text("x %>% sapply(length)", linters = linter))
+
+  expect_snapshot(fix_text("x |> map_int(length)", linters = linter))
+  expect_snapshot(fix_text("x %>% map_int(length)", linters = linter))
+
+  expect_snapshot(fix_text("x |> purrr::map_int(length)", linters = linter))
+  expect_snapshot(fix_text("x %>% purrr::map_int(length)", linters = linter))
+})

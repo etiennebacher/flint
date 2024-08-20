@@ -1,4 +1,15 @@
-# flint (development)
+# flint 0.0.4
+
+## New features
+
+* New linters: `for_loop_index`,`missing_argument`.
+* `fix()` has a new argument `force` (`FALSE` by default). This is useful if Git
+  was not detected, `fix()` would modify several files, and it is run in a 
+  non-interactive context. In this situation, set `force = TRUE` to apply the 
+  fixes anyway.
+* Add `cli` messages informing how many files are checked, and how many contain
+  lints (for `lint_*` functions) or were modified (for `fix_*` functions).
+* Better coverage of the `length_test` linter.
 
 ## Bug fixes
 

@@ -333,6 +333,15 @@ makeActiveBinding('undesirable_operator_linter', function() { function() 'undesi
 
 
 
+#' unnecessary_nesting
+#' @usage unnecessary_nesting_linter
+#' @name unnecessary_nesting_linter
+#' @export
+NULL
+makeActiveBinding('unnecessary_nesting_linter', function() { function() 'unnecessary_nesting' }, env = environment())
+
+
+
 #' unreachable_code
 #' @usage unreachable_code_linter
 #' @name unreachable_code_linter

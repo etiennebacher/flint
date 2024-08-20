@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flint</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,9 +33,24 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/etiennebacher/flint/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/etiennebacher/flint/blob/v0.0.4/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.4" id="flint-004">flint 0.0.4<a class="anchor" aria-label="anchor" href="#flint-004"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-0-4">New features<a class="anchor" aria-label="anchor" href="#new-features-0-0-4"></a></h3>
+<ul><li>New linters: <code>for_loop_index</code>,<code>missing_argument</code>.</li>
+<li>
+<code><a href="../reference/fix.html">fix()</a></code> has a new argument <code>force</code> (<code>FALSE</code> by default). This is useful if Git was not detected, <code><a href="../reference/fix.html">fix()</a></code> would modify several files, and it is run in a non-interactive context. In this situation, set <code>force = TRUE</code> to apply the fixes anyway.</li>
+<li>Add <code>cli</code> messages informing how many files are checked, and how many contain lints (for <code>lint_*</code> functions) or were modified (for <code>fix_*</code> functions).</li>
+<li>Better coverage of the <code>length_test</code> linter.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-0-0-4">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-4"></a></h3>
+<ul><li>Allow usage of <code>T</code> and <code>F</code> in formulas (<a href="https://github.com/etiennebacher/flint/issues/33" class="external-link">#33</a>).</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.3" id="flint-003">flint 0.0.3<a class="anchor" aria-label="anchor" href="#flint-003"></a></h2>
 <div class="section level3">

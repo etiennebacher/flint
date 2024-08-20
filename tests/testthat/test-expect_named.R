@@ -15,6 +15,17 @@ test_that("expect_named_linter skips allowed usages", {
   expect_lint("expect_equal(colnames(x), names(y))", NULL, linter)
 })
 
+test_that("expect_equal(names(x), NULL) lints with expect_null, not expect_named", {
+  linter_named <- expect_named_linter()
+  linter_null <- expect_null_linter()
+
+  expect_lint("expect_equal(names(xs), NULL)", NULL, linter_named)
+  expect_lint("expect_identical(names(xs), NULL)", NULL, linter_named)
+
+  expect_lint("expect_equal(names(xs), NULL)", "expect_null(x) is better", linter_null)
+  expect_lint("expect_identical(names(xs), NULL)", "expect_null(x) is better", linter_null)
+})
+
 test_that("expect_named_linter blocks simple disallowed usages", {
   linter <- expect_named_linter()
   lint_msg <- "expect_named(x, n) is better than expect_equal(names(x), n)"
@@ -45,4 +56,7 @@ test_that("fix works for expect_named", {
 
   # with testthat::
   expect_snapshot(fix_text("testthat::expect_equal('a', names(x))"))
+
+  # only fix with expect_null(), not expect_named()
+  expect_snapshot(fix_text("expect_identical(names(xs), NULL)"))
 })

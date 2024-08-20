@@ -14,6 +14,7 @@ keep:
   - expect_null
   - expect_true_false
   - expect_type
+  - for_loop_index
   - implicit_assignment
   - is_numeric
   - length_levels
@@ -22,6 +23,7 @@ keep:
   - library_call
   - literal_coercion
   - matrix_apply
+  - missing_argument
   - nested_ifelse
   - numeric_leading_zero
   - outer_negation

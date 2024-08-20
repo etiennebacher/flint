@@ -135,6 +135,15 @@ makeActiveBinding('expect_type_linter', function() { function() 'expect_type' },
 
 
 
+#' for_loop_index
+#' @usage for_loop_index_linter
+#' @name for_loop_index_linter
+#' @export
+NULL
+makeActiveBinding('for_loop_index_linter', function() { function() 'for_loop_index' }, env = environment())
+
+
+
 #' implicit_assignment
 #' @usage implicit_assignment_linter
 #' @name implicit_assignment_linter
@@ -204,6 +213,15 @@ makeActiveBinding('literal_coercion_linter', function() { function() 'literal_co
 #' @export
 NULL
 makeActiveBinding('matrix_apply_linter', function() { function() 'matrix_apply' }, env = environment())
+
+
+
+#' missing_argument
+#' @usage missing_argument_linter
+#' @name missing_argument_linter
+#' @export
+NULL
+makeActiveBinding('missing_argument_linter', function() { function() 'missing_argument' }, env = environment())
 
 
 

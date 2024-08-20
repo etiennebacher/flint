@@ -4,13 +4,15 @@ severity: warning
 rule:
   # Look for a function argument...
   kind: argument
-  has:
-    stopBy: end
-    any:
-      - kind: identifier
+  any:
+    - has:
+        kind: identifier
+        field: name
         pattern: $OBJ
-      - kind: string_content
+    - has:
+        kind: string_content
         pattern: $OBJ
+        stopBy: end
 
   # ... that follows other argument(s) with the same name...
   follows:
@@ -18,11 +20,9 @@ rule:
     stopBy: end
     has:
       stopBy: end
-      any:
-        - kind: identifier
-          pattern: $OBJ
-        - kind: string_content
-          pattern: $OBJ
+      kind: identifier
+      field: name
+      pattern: $OBJ
 
   # ... inside a function call (or a subset environment for data.table)...
   inside:

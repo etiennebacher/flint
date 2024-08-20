@@ -13,6 +13,9 @@
 #' quickly experiment with some lints and fixes.
 #'
 #' @inheritParams lint
+#' @param force Force the application of fixes on the files. This is used only
+#' in the case where Git is not detected, several files will be modified, and the
+#' code is run in a non-interactive setting.
 #' @inheritSection lint Ignoring lines
 #'
 #' @export
@@ -46,8 +49,14 @@ fix <- function(
     path = ".",
     linters = NULL,
     exclude_path = NULL,
-    exclude_linters = NULL
+    exclude_linters = NULL,
+    force = FALSE,
+    verbose = TRUE
 ) {
+
+  if (isFALSE(verbose) | is_testing()) {
+    withr::local_options(cli.default_handler = function(...) { })
+  }
 
   linters2 <- resolve_linters(path, linters, exclude_linters)
   r_files <- resolve_path(path, exclude_path)
@@ -60,13 +69,21 @@ fix <- function(
         title = "This will run `fix()` on several R files. It seems that you are not using Git, which will make it difficult to see the changes in code. Do you want to continue?",
         choices = c("Yes", "No")
       )
-    } else {
+    } else if (isFALSE(force)) {
       stop("It seems that you are not using Git, but `fix()` will be applied on several R files. This will make it difficult to see the changes in code. Therefore, this operation is not allowed in a non-interactive setting.")
     }
   }
 
-  for (i in r_files) {
-    root <- astgrepr::tree_new(file = i, ignore_tags = c("flint-ignore", "nolint")) |>
+  needed_fixing <- vector("list", length(r_files))
+
+  cli::cli_alert_info("Going to check {length(r_files)} file{?s}.")
+  i <- 0
+  cli::cli_progress_bar(format = "{cli::pb_spin} Checking: {i}/{length(r_files)}")
+
+  for (i in seq_along(r_files)) {
+    file <- r_files[i]
+    needed_fixing[[file]] <- TRUE
+    root <- astgrepr::tree_new(file = file, ignore_tags = c("flint-ignore", "nolint")) |>
       astgrepr::tree_root()
 
     lints_raw <- astgrepr::node_find_all(root, files = rule_files)
@@ -74,6 +91,7 @@ fix <- function(
     lints <- Filter(Negate(is.null), lints_raw)
     lints <- Filter(function(x) length(attributes(x)$other_info$fix) > 0, lints)
     if (length(lints) == 0) {
+      needed_fixing[[file]] <- FALSE
       next
     }
     args <- append(
@@ -83,8 +101,17 @@ fix <- function(
     names(args)[2:length(args)] <- names(lints)
     replacement2 <- as.call(append(astgrepr::node_replace_all, args)) |> eval()
 
-    fixes[[i]] <- astgrepr::tree_rewrite(root, replacement2)
-    writeLines(text = fixes[[i]], i)
+    fixes[[file]] <- astgrepr::tree_rewrite(root, replacement2)
+    writeLines(text = fixes[[file]], file)
+    cli::cli_progress_update()
+  }
+
+  cli::cli_progress_done()
+
+  if (!any(unlist(needed_fixing))) {
+    cli::cli_alert_success("No fixes needed.")
+  } else {
+    cli::cli_alert_success("Fixed {length(Filter(isTRUE, needed_fixing))} file{?s}.")
   }
   invisible(fixes)
 }
@@ -139,7 +166,7 @@ fix_text <- function(text, linters = NULL, exclude_linters = NULL) {
   tmp <- tempfile(fileext = ".R")
   text <- trimws(text)
   cat(text, file = tmp)
-  out <- fix(tmp, linters = linters, exclude_linters = exclude_linters)
+  out <- fix(tmp, linters = linters, exclude_linters = exclude_linters, verbose = FALSE)
   if (length(out) == 0) {
     return(invisible())
   }

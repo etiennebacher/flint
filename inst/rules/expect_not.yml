@@ -2,14 +2,10 @@ id: expect_not-1
 language: r
 severity: warning
 rule:
-  pattern: expect_true(! $COND)
-# constraints:
-#   COND:
-#     kind: argument
-#     has:
-#       kind: unary_operator
-#       has:
-#         pattern: '!'
+  all:
+    - pattern: expect_true(!$COND)
+    - not:
+        regex: '^expect_true\(!!'
 fix: expect_false(~~COND~~)
 message: expect_false(x) is better than expect_true(!x), and vice versa.
 
@@ -19,13 +15,9 @@ id: expect_not-2
 language: r
 severity: warning
 rule:
-  pattern: expect_false(! $COND)
-# constraints:
-#   COND:
-#     kind: argument
-#     has:
-#       kind: unary_operator
-#       has:
-#         pattern: '!'
+  all:
+    - pattern: expect_false(!$COND)
+    - not:
+        regex: '^expect_false\(!!'
 fix: expect_true(~~COND~~)
 message: expect_false(x) is better than expect_true(!x), and vice versa.

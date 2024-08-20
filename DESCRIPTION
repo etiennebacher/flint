@@ -1,7 +1,7 @@
 Package: flint
 Type: Package
 Title: Find and Fix Lints in R Code
-Version: 0.0.3.9000
+Version: 0.0.4.9000
 Authors@R: 
     person(given = "Etienne",
            family = "Bacher",
@@ -14,6 +14,7 @@ Description: Lints are code patterns that are not optimal because they are
     parse and navigate R code.
 Imports:
     astgrepr,
+    cli,
     crayon,
     data.table,
     digest,

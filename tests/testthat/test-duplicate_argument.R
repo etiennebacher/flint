@@ -256,3 +256,10 @@ test_that("lints vectorize", {
     4
   )
 })
+
+test_that("do not block when argument values and argument names are duplicated", {
+  linter <- duplicate_argument_linter()
+
+  expect_lint("fun(arg = x, x = 1)", NULL, linter)
+  expect_lint("intersect(names(a), names(b))", NULL, linter)
+})

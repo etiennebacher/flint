@@ -13,7 +13,8 @@ lint(
   exclude_path = NULL,
   exclude_linters = NULL,
   open = TRUE,
-  use_cache = TRUE
+  use_cache = TRUE,
+  verbose = TRUE
 )
 
 lint_dir(
@@ -56,6 +57,8 @@ will be shown with markers.}
 
 \item{use_cache}{Do not re-parse files that haven't changed since the last
 time this function ran.}
+
+\item{verbose}{Show messages.}
 
 \item{text}{Text to analyze.}
 }

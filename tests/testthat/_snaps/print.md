@@ -5,6 +5,7 @@
     Output
       Original code: suppressPackageStartupMessages(library(dplyr)) 
       Suggestion: foo 
+      Rule ID: rule_1 
       
 
 # print for lint works fine with multi-line code
@@ -20,6 +21,7 @@
         library(knitr)
       })
       Suggestion: foo
+      Rule ID: rule_1 
       
 
 ---

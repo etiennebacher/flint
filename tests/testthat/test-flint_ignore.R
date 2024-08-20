@@ -4,11 +4,11 @@ test_that("flint-ignore works for a single line", {
 })
 
 test_that("flint-ignore: specific rules work", {
-  expect_lint("# flint-ignore: any_duplicated\nany(duplicated(x))", NULL, NULL)
-  expect_fix("# flint-ignore: any_duplicated\nany(duplicated(x))", character(0))
+  expect_lint("# flint-ignore: any_duplicated-1\nany(duplicated(x))", NULL, NULL)
+  expect_fix("# flint-ignore: any_duplicated-1\nany(duplicated(x))", character(0))
 
   expect_lint(
-    "# flint-ignore: any_na\nany(duplicated(x))",
+    "# flint-ignore: any_na-1\nany(duplicated(x))",
     "anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...).",
     NULL
   )
@@ -45,17 +45,17 @@ test_that("flint-ignore-start and end work", {
 
 test_that("flint-ignore-start and end work with specific rule", {
   expect_lint(
-    "# flint-ignore-start: any_duplicated\nany(duplicated(x))\nany(duplicated(y))\n# flint-ignore-end",
+    "# flint-ignore-start: any_duplicated-1\nany(duplicated(x))\nany(duplicated(y))\n# flint-ignore-end",
     NULL,
     NULL
   )
   expect_fix(
-    "# flint-ignore-start: any_duplicated\nany(duplicated(x))\nany(duplicated(y))\n# flint-ignore-end",
+    "# flint-ignore-start: any_duplicated-1\nany(duplicated(x))\nany(duplicated(y))\n# flint-ignore-end",
     character(0)
   )
 
   expect_lint(
-    "# flint-ignore-start: any_na\nany(duplicated(x))\nany(duplicated(y))\n# flint-ignore-end",
+    "# flint-ignore-start: any_na-1\nany(duplicated(x))\nany(duplicated(y))\n# flint-ignore-end",
     "anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...).",
     NULL
   )

@@ -68,6 +68,9 @@ rule:
     any:
       - pattern: <-
       - pattern: =
+  not:
+    inside:
+      kind: argument
 message: Don't use T as a variable name, as it can break code relying on T being TRUE.
 
 ---
@@ -82,4 +85,7 @@ rule:
     any:
       - pattern: <-
       - pattern: =
+  not:
+    inside:
+      kind: argument
 message: Don't use F as a variable name, as it can break code relying on F being FALSE.

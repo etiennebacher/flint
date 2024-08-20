@@ -109,31 +109,31 @@
           <code><a href="T_and_F_symbol_linter.html">T_and_F_symbol_linter</a></code>
 
         </dt>
-        <dd>T_and_F_symbol</dd>
+        <dd><code>T</code> and <code>F</code> symbol linter</dd>
       </dl><dl><dt>
 
           <code><a href="absolute_path_linter.html">absolute_path_linter</a></code>
 
         </dt>
-        <dd>absolute_path</dd>
+        <dd>Absolute path linter</dd>
       </dl><dl><dt>
 
           <code><a href="any_duplicated_linter.html">any_duplicated_linter</a></code>
 
         </dt>
-        <dd>any_duplicated</dd>
+        <dd>Require usage of <code>anyDuplicated(x) &gt; 0</code> over <code>any(duplicated(x))</code></dd>
       </dl><dl><dt>
 
           <code><a href="any_is_na_linter.html">any_is_na_linter</a></code>
 
         </dt>
-        <dd>any_is_na</dd>
+        <dd>Require usage of <code>anyNA(x)</code> over <code>any(is.na(x))</code></dd>
       </dl><dl><dt>
 
           <code><a href="class_equals_linter.html">class_equals_linter</a></code>
 
         </dt>
-        <dd>class_equals</dd>
+        <dd>Block comparison of class with <code>==</code></dd>
       </dl><dl><dt>
 
           <code><a href="double_assignment_linter.html">double_assignment_linter</a></code>
@@ -145,7 +145,7 @@
           <code><a href="duplicate_argument_linter.html">duplicate_argument_linter</a></code>
 
         </dt>
-        <dd>duplicate_argument</dd>
+        <dd>Duplicate argument linter</dd>
       </dl><dl><dt>
 
           <code><a href="empty_assignment_linter.html">empty_assignment_linter</a></code>
@@ -163,49 +163,49 @@
           <code><a href="equals_na_linter.html">equals_na_linter</a></code>
 
         </dt>
-        <dd>equals_na</dd>
+        <dd>Equality check with NA linter</dd>
       </dl><dl><dt>
 
           <code><a href="expect_length_linter.html">expect_length_linter</a></code>
 
         </dt>
-        <dd>expect_length</dd>
+        <dd>Require usage of <code>expect_length(x, n)</code> over <code>expect_equal(length(x), n)</code></dd>
       </dl><dl><dt>
 
           <code><a href="expect_named_linter.html">expect_named_linter</a></code>
 
         </dt>
-        <dd>expect_named</dd>
+        <dd>Require usage of <code>expect_named(x, n)</code> over <code>expect_equal(names(x), n)</code></dd>
       </dl><dl><dt>
 
           <code><a href="expect_not_linter.html">expect_not_linter</a></code>
 
         </dt>
-        <dd>expect_not</dd>
+        <dd>Require usage of <code>expect_false(x)</code> over <code>expect_true(!x)</code></dd>
       </dl><dl><dt>
 
           <code><a href="expect_null_linter.html">expect_null_linter</a></code>
 
         </dt>
-        <dd>expect_null</dd>
+        <dd>Require usage of <code>expect_null</code> for checking <code>NULL</code></dd>
       </dl><dl><dt>
 
           <code><a href="expect_true_false_linter.html">expect_true_false_linter</a></code>
 
         </dt>
-        <dd>expect_true_false</dd>
+        <dd>Require usage of <code>expect_true(x)</code> over <code>expect_equal(x, TRUE)</code></dd>
       </dl><dl><dt>
 
           <code><a href="expect_type_linter.html">expect_type_linter</a></code>
 
         </dt>
-        <dd>expect_type</dd>
+        <dd>Require usage of <code>expect_type(x, type)</code> over <code>expect_equal(typeof(x), type)</code></dd>
       </dl><dl><dt>
 
           <code><a href="for_loop_index_linter.html">for_loop_index_linter</a></code>
 
         </dt>
-        <dd>for_loop_index</dd>
+        <dd>Block usage of for loops directly overwriting the indexing variable</dd>
       </dl><dl><dt>
 
           <code><a href="implicit_assignment_linter.html">implicit_assignment_linter</a></code>
@@ -217,79 +217,79 @@
           <code><a href="is_numeric_linter.html">is_numeric_linter</a></code>
 
         </dt>
-        <dd>is_numeric</dd>
+        <dd>Redirect <code>is.numeric(x) || is.integer(x)</code> to just use <code>is.numeric(x)</code></dd>
       </dl><dl><dt>
 
           <code><a href="length_levels_linter.html">length_levels_linter</a></code>
 
         </dt>
-        <dd>length_levels</dd>
+        <dd>Require usage of nlevels over length(levels(.))</dd>
       </dl><dl><dt>
 
           <code><a href="length_test_linter.html">length_test_linter</a></code>
 
         </dt>
-        <dd>length_test</dd>
+        <dd>Check for a common mistake where length is applied in the wrong place</dd>
       </dl><dl><dt>
 
           <code><a href="lengths_linter.html">lengths_linter</a></code>
 
         </dt>
-        <dd>lengths</dd>
+        <dd>Require usage of <code><a href="https://rdrr.io/r/base/lengths.html" class="external-link">lengths()</a></code> where possible</dd>
       </dl><dl><dt>
 
           <code><a href="library_call_linter.html">library_call_linter</a></code>
 
         </dt>
-        <dd>library_call</dd>
+        <dd>Library call linter</dd>
       </dl><dl><dt>
 
           <code><a href="literal_coercion_linter.html">literal_coercion_linter</a></code>
 
         </dt>
-        <dd>literal_coercion</dd>
+        <dd>Require usage of correctly-typed literals over literal coercions</dd>
       </dl><dl><dt>
 
           <code><a href="matrix_apply_linter.html">matrix_apply_linter</a></code>
 
         </dt>
-        <dd>matrix_apply</dd>
+        <dd>Require usage of <code>colSums(x)</code> or <code>rowSums(x)</code> over <code>apply(x, ., sum)</code></dd>
       </dl><dl><dt>
 
           <code><a href="missing_argument_linter.html">missing_argument_linter</a></code>
 
         </dt>
-        <dd>missing_argument</dd>
+        <dd>Missing argument linter</dd>
       </dl><dl><dt>
 
           <code><a href="nested_ifelse_linter.html">nested_ifelse_linter</a></code>
 
         </dt>
-        <dd>nested_ifelse</dd>
+        <dd>Block usage of nested <code><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse()</a></code> calls</dd>
       </dl><dl><dt>
 
           <code><a href="numeric_leading_zero_linter.html">numeric_leading_zero_linter</a></code>
 
         </dt>
-        <dd>numeric_leading_zero</dd>
+        <dd>Require usage of a leading zero in all fractional numerics</dd>
       </dl><dl><dt>
 
           <code><a href="outer_negation_linter.html">outer_negation_linter</a></code>
 
         </dt>
-        <dd>outer_negation</dd>
+        <dd>Require usage of <code>!any(x)</code> over <code>all(!x)</code>, <code>!all(x)</code> over <code>any(!x)</code></dd>
       </dl><dl><dt>
 
           <code><a href="paste_linter.html">paste_linter</a></code>
 
         </dt>
-        <dd>paste</dd>
+        <dd>Raise lints for several common poor usages of <code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste()</a></code></dd>
       </dl><dl><dt>
 
           <code><a href="redundant_ifelse_linter.html">redundant_ifelse_linter</a></code>
 
         </dt>
-        <dd>redundant_ifelse</dd>
+        <dd>Prevent <code><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse()</a></code> from being used to produce <code>TRUE</code>/<code>FALSE</code> or <code>1</code>/<code>0</code></dd>
       </dl><dl><dt>
 
           <code><a href="right_assignment_linter.html">right_assignment_linter</a></code>
@@ -301,43 +301,43 @@
           <code><a href="semicolon_linter.html">semicolon_linter</a></code>
 
         </dt>
-        <dd>semicolon</dd>
+        <dd>Semicolon linter</dd>
       </dl><dl><dt>
 
           <code><a href="seq_linter.html">seq_linter</a></code>
 
         </dt>
-        <dd>seq</dd>
+        <dd>Sequence linter</dd>
       </dl><dl><dt>
 
           <code><a href="sort_linter.html">sort_linter</a></code>
 
         </dt>
-        <dd>sort</dd>
+        <dd>Check for common mistakes around sorting vectors</dd>
       </dl><dl><dt>
 
           <code><a href="undesirable_function_linter.html">undesirable_function_linter</a></code>
 
         </dt>
-        <dd>undesirable_function</dd>
+        <dd>Undesirable function linter</dd>
       </dl><dl><dt>
 
           <code><a href="undesirable_operator_linter.html">undesirable_operator_linter</a></code>
 
         </dt>
-        <dd>undesirable_operator</dd>
+        <dd>Undesirable operator linter</dd>
       </dl><dl><dt>
 
           <code><a href="unnecessary_nesting_linter.html">unnecessary_nesting_linter</a></code>
 
         </dt>
-        <dd>unnecessary_nesting</dd>
+        <dd>Block instances of unnecessary nesting</dd>
       </dl><dl><dt>
 
           <code><a href="unreachable_code_linter.html">unreachable_code_linter</a></code>
 
         </dt>
-        <dd>unreachable_code</dd>
+        <dd>Block unreachable code and comments following return statements</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

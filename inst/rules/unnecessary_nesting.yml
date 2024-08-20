@@ -11,8 +11,11 @@ rule:
           kind: if_statement
           stopBy: neighbor
         not:
-          has:
-            nthChild: 2
+          any:
+            - has:
+                nthChild: 2
+            - precedes:
+                regex: "^else$"
     - has:
         kind: if_statement
         field: consequence

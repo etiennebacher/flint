@@ -194,21 +194,21 @@ test_that("parallels in further nesting are skipped", {
 #     linter
 #   )
 # })
-#
-# test_that("unnecessary_nesting_linter skips one-expression if and else clauses", {
-#   expect_lint(
-#     trim_some("
-#       if (TRUE) {
-#         x
-#       } else {
-#         y
-#       }
-#     "),
-#     NULL,
-#     unnecessary_nesting_linter()
-#   )
-# })
-#
+
+test_that("unnecessary_nesting_linter skips one-expression if and else clauses", {
+  expect_lint(
+    trim_some("
+      if (TRUE) {
+        x
+      } else {
+        y
+      }
+    "),
+    NULL,
+    unnecessary_nesting_linter()
+  )
+})
+
 # test_that("unnecessary_nesting_linter skips one-expression while loops", {
 #   expect_lint(
 #     trim_some("
@@ -376,195 +376,195 @@ test_that("parallels in further nesting are skipped", {
 #     unnecessary_nesting_linter()
 #   )
 # })
-#
-# test_that("unnecessary_nesting_linter skips allowed usages", {
-#   linter <- unnecessary_nesting_linter()
-#
-#   expect_lint(
-#     trim_some("
-#       if (x && y) {
-#         1L
-#       }
-#     "),
-#     NULL,
-#     linter
-#   )
-#
-#   expect_lint(
-#     trim_some("
-#       for (x in 1:3) {
-#         if (x && y) {
-#           1L
-#         }
-#       }
-#     "),
-#     NULL,
-#     linter
-#   )
-#
-#   expect_lint(
-#     trim_some("
-#       if (x) {
-#         1L
-#       } else if (y) {
-#         2L
-#       }
-#     "),
-#     NULL,
-#     linter
-#   )
-#
-#   expect_lint(
-#     trim_some("
-#       if (x) {
-#         1L
-#       } else {
-#         2L
-#         if (y) {
-#           3L
-#         }
-#       }
-#     "),
-#     NULL,
-#     linter
-#   )
-#
-#   expect_lint(
-#     trim_some("
-#       if (if (x) TRUE else FALSE) {
-#         1L
-#       }
-#     "),
-#     NULL,
-#     linter
-#   )
-#
-#   expect_lint(
-#     trim_some("
-#       if (x) {
-#         y <- x + 1L
-#         if (y) {
-#           1L
-#         }
-#       }
-#     "),
-#     NULL,
-#     linter
-#   )
-#
-#   expect_lint(
-#     trim_some("
-#       if ((x && y) || (if (x) TRUE else FALSE)) {
-#         1L
-#       }
-#     "),
-#     NULL,
-#     linter
-#   )
-#
-#   # if there is any additional code between the inner and outer scopes, no lint
-#   expect_lint(
-#     trim_some("
-#       if (x && a) {
-#         y <- x + 1L
-#         if (y || b) {
-#           1L
-#         }
-#       }
-#     "),
-#     NULL,
-#     linter
-#   )
-#
-#   expect_lint(
-#     trim_some("
-#       if (x) {
-#         if (y) {
-#           1L
-#         }
-#         y <- x + 1L
-#       }
-#     "),
-#     NULL,
-#     linter
-#   )
-#
-#   expect_lint(
-#     trim_some("
-#       if (x) {
-#         y <- x + 1L
-#         if (y) {
-#           1L
-#         }
-#         y <- x
-#       }
-#     "),
-#     NULL,
-#     linter
-#   )
-#
-#   expect_lint(
-#     trim_some("
-#       if (x) {
-#         y <- x + 1L
-#         {
-#           if (y) {
-#             1L
-#           }
-#         }
-#       }
-#     "),
-#     NULL,
-#     linter
-#   )
-#
-#   expect_lint(
-#     trim_some("
-#       if (x) {
-#         {
-#            y <- x + 1L
-#            if (y) {
-#              1L
-#            }
-#         }
-#       }
-#     "),
-#     NULL,
-#     linter
-#   )
-#
-#   expect_lint(
-#     trim_some("
-#       if (x) {
-#         {
-#           if (y) {
-#             1L
-#           }
-#         }
-#         y <- x + 1L
-#       }
-#     "),
-#     NULL,
-#     linter
-#   )
-#
-#   expect_lint(
-#     trim_some("
-#       if (x) {
-#         {
-#           y <- x + 1L
-#           {
-#             if (y) {
-#               1L
-#             }
-#           }
-#         }
-#       }
-#     "),
-#     NULL,
-#     linter
-#   )
-# })
+
+test_that("unnecessary_nesting_linter skips allowed usages", {
+  linter <- unnecessary_nesting_linter()
+
+  expect_lint(
+    trim_some("
+      if (x && y) {
+        1L
+      }
+    "),
+    NULL,
+    linter
+  )
+
+  expect_lint(
+    trim_some("
+      for (x in 1:3) {
+        if (x && y) {
+          1L
+        }
+      }
+    "),
+    NULL,
+    linter
+  )
+
+  expect_lint(
+    trim_some("
+      if (x) {
+        1L
+      } else if (y) {
+        2L
+      }
+    "),
+    NULL,
+    linter
+  )
+
+  expect_lint(
+    trim_some("
+      if (x) {
+        1L
+      } else {
+        2L
+        if (y) {
+          3L
+        }
+      }
+    "),
+    NULL,
+    linter
+  )
+
+  expect_lint(
+    trim_some("
+      if (if (x) TRUE else FALSE) {
+        1L
+      }
+    "),
+    NULL,
+    linter
+  )
+
+  expect_lint(
+    trim_some("
+      if (x) {
+        y <- x + 1L
+        if (y) {
+          1L
+        }
+      }
+    "),
+    NULL,
+    linter
+  )
+
+  expect_lint(
+    trim_some("
+      if ((x && y) || (if (x) TRUE else FALSE)) {
+        1L
+      }
+    "),
+    NULL,
+    linter
+  )
+
+  # if there is any additional code between the inner and outer scopes, no lint
+  expect_lint(
+    trim_some("
+      if (x && a) {
+        y <- x + 1L
+        if (y || b) {
+          1L
+        }
+      }
+    "),
+    NULL,
+    linter
+  )
+
+  expect_lint(
+    trim_some("
+      if (x) {
+        if (y) {
+          1L
+        }
+        y <- x + 1L
+      }
+    "),
+    NULL,
+    linter
+  )
+
+  expect_lint(
+    trim_some("
+      if (x) {
+        y <- x + 1L
+        if (y) {
+          1L
+        }
+        y <- x
+      }
+    "),
+    NULL,
+    linter
+  )
+
+  expect_lint(
+    trim_some("
+      if (x) {
+        y <- x + 1L
+        {
+          if (y) {
+            1L
+          }
+        }
+      }
+    "),
+    NULL,
+    linter
+  )
+
+  expect_lint(
+    trim_some("
+      if (x) {
+        {
+           y <- x + 1L
+           if (y) {
+             1L
+           }
+        }
+      }
+    "),
+    NULL,
+    linter
+  )
+
+  expect_lint(
+    trim_some("
+      if (x) {
+        {
+          if (y) {
+            1L
+          }
+        }
+        y <- x + 1L
+      }
+    "),
+    NULL,
+    linter
+  )
+
+  expect_lint(
+    trim_some("
+      if (x) {
+        {
+          y <- x + 1L
+          {
+            if (y) {
+              1L
+            }
+          }
+        }
+      }
+    "),
+    NULL,
+    linter
+  )
+})
 
 test_that("unnecessary_nesting_linter blocks disallowed usages", {
   lint_message <- "Don't use nested `if` statements"

@@ -167,6 +167,7 @@ lint <- function(
 
   if (isTRUE(open) &&
       requireNamespace("rstudioapi", quietly = TRUE) &&
+      interactive() &&
       rstudioapi::isAvailable()) {
     rstudio_source_markers(lints)
     return(invisible(lints))

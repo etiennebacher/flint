@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{literal_coercion_linter}
 \alias{literal_coercion_linter}
-\title{literal_coercion}
+\title{Require usage of correctly-typed literals over literal coercions}
 \usage{
 literal_coercion_linter
 }
 \description{
-literal_coercion
+See \url{https://lintr.r-lib.org/reference/literal_coercion_linter}.
 }

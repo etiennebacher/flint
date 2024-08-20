@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{paste_linter}
 \alias{paste_linter}
-\title{paste}
+\title{Raise lints for several common poor usages of \code{paste()}}
 \usage{
 paste_linter
 }
 \description{
-paste
+See \url{https://lintr.r-lib.org/reference/paste_linter}.
 }

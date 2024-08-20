@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{T_and_F_symbol_linter}
 \alias{T_and_F_symbol_linter}
-\title{T_and_F_symbol}
+\title{\code{T} and \code{F} symbol linter}
 \usage{
 T_and_F_symbol_linter
 }
 \description{
-T_and_F_symbol
+See \url{https://lintr.r-lib.org/reference/T_and_F_symbol_linter}.
 }

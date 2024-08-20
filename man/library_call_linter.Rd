@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{library_call_linter}
 \alias{library_call_linter}
-\title{library_call}
+\title{Library call linter}
 \usage{
 library_call_linter
 }
 \description{
-library_call
+See \url{https://lintr.r-lib.org/reference/library_call_linter}.
 }

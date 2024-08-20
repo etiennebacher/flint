@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{undesirable_operator_linter}
 \alias{undesirable_operator_linter}
-\title{undesirable_operator}
+\title{Undesirable operator linter}
 \usage{
 undesirable_operator_linter
 }
 \description{
-undesirable_operator
+See \url{https://lintr.r-lib.org/reference/undesirable_operator_linter}.
 }

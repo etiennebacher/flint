@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{redundant_ifelse_linter}
 \alias{redundant_ifelse_linter}
-\title{redundant_ifelse}
+\title{Prevent \code{ifelse()} from being used to produce \code{TRUE}/\code{FALSE} or \code{1}/\code{0}}
 \usage{
 redundant_ifelse_linter
 }
 \description{
-redundant_ifelse
+See \url{https://lintr.r-lib.org/reference/redundant_ifelse_linter}.
 }

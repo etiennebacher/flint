@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{matrix_apply_linter}
 \alias{matrix_apply_linter}
-\title{matrix_apply}
+\title{Require usage of \code{colSums(x)} or \code{rowSums(x)} over \code{apply(x, ., sum)}}
 \usage{
 matrix_apply_linter
 }
 \description{
-matrix_apply
+See \url{https://lintr.r-lib.org/reference/matrix_apply_linter}.
 }

@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{expect_length_linter}
 \alias{expect_length_linter}
-\title{expect_length}
+\title{Require usage of \code{expect_length(x, n)} over \code{expect_equal(length(x), n)}}
 \usage{
 expect_length_linter
 }
 \description{
-expect_length
+See \url{https://lintr.r-lib.org/reference/expect_length_linter}.
 }

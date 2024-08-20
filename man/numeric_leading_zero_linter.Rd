@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{numeric_leading_zero_linter}
 \alias{numeric_leading_zero_linter}
-\title{numeric_leading_zero}
+\title{Require usage of a leading zero in all fractional numerics}
 \usage{
 numeric_leading_zero_linter
 }
 \description{
-numeric_leading_zero
+See \url{https://lintr.r-lib.org/reference/numeric_leading_zero_linter}.
 }

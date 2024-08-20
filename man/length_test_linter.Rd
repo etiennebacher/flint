@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{length_test_linter}
 \alias{length_test_linter}
-\title{length_test}
+\title{Check for a common mistake where length is applied in the wrong place}
 \usage{
 length_test_linter
 }
 \description{
-length_test
+See \url{https://lintr.r-lib.org/reference/length_test_linter}.
 }

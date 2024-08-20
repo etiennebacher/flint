@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{expect_not_linter}
 \alias{expect_not_linter}
-\title{expect_not}
+\title{Require usage of \code{expect_false(x)} over \code{expect_true(!x)}}
 \usage{
 expect_not_linter
 }
 \description{
-expect_not
+See \url{https://lintr.r-lib.org/reference/expect_not_linter}.
 }

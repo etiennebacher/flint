@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{for_loop_index_linter}
 \alias{for_loop_index_linter}
-\title{for_loop_index}
+\title{Block usage of for loops directly overwriting the indexing variable}
 \usage{
 for_loop_index_linter
 }
 \description{
-for_loop_index
+See \url{https://lintr.r-lib.org/reference/for_loop_index_linter}.
 }

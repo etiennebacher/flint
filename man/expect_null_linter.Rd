@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{expect_null_linter}
 \alias{expect_null_linter}
-\title{expect_null}
+\title{Require usage of \code{expect_null} for checking \code{NULL}}
 \usage{
 expect_null_linter
 }
 \description{
-expect_null
+See \url{https://lintr.r-lib.org/reference/expect_null_linter}.
 }

@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{semicolon_linter}
 \alias{semicolon_linter}
-\title{semicolon}
+\title{Semicolon linter}
 \usage{
 semicolon_linter
 }
 \description{
-semicolon
+See \url{https://lintr.r-lib.org/reference/semicolon_linter}.
 }

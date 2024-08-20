@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{expect_named_linter}
 \alias{expect_named_linter}
-\title{expect_named}
+\title{Require usage of \code{expect_named(x, n)} over \code{expect_equal(names(x), n)}}
 \usage{
 expect_named_linter
 }
 \description{
-expect_named
+See \url{https://lintr.r-lib.org/reference/expect_named_linter}.
 }

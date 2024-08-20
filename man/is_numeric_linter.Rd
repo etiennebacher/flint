@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{is_numeric_linter}
 \alias{is_numeric_linter}
-\title{is_numeric}
+\title{Redirect \code{is.numeric(x) || is.integer(x)} to just use \code{is.numeric(x)}}
 \usage{
 is_numeric_linter
 }
 \description{
-is_numeric
+See \url{https://lintr.r-lib.org/reference/is_numeric_linter}.
 }

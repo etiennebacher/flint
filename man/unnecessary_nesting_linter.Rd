@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{unnecessary_nesting_linter}
 \alias{unnecessary_nesting_linter}
-\title{unnecessary_nesting}
+\title{Block instances of unnecessary nesting}
 \usage{
 unnecessary_nesting_linter
 }
 \description{
-unnecessary_nesting
+See \url{https://lintr.r-lib.org/reference/unnecessary_nesting_linter}.
 }

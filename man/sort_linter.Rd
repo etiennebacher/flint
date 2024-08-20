@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{sort_linter}
 \alias{sort_linter}
-\title{sort}
+\title{Check for common mistakes around sorting vectors}
 \usage{
 sort_linter
 }
 \description{
-sort
+See \url{https://lintr.r-lib.org/reference/sort_linter}.
 }

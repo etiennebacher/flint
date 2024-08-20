@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{nested_ifelse_linter}
 \alias{nested_ifelse_linter}
-\title{nested_ifelse}
+\title{Block usage of nested \code{ifelse()} calls}
 \usage{
 nested_ifelse_linter
 }
 \description{
-nested_ifelse
+See \url{https://lintr.r-lib.org/reference/nested_ifelse_linter}.
 }

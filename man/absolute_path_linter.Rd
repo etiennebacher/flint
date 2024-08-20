@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{absolute_path_linter}
 \alias{absolute_path_linter}
-\title{absolute_path}
+\title{Absolute path linter}
 \usage{
 absolute_path_linter
 }
 \description{
-absolute_path
+See \url{https://lintr.r-lib.org/reference/absolute_path_linter}.
 }

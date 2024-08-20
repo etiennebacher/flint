@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{unreachable_code_linter}
 \alias{unreachable_code_linter}
-\title{unreachable_code}
+\title{Block unreachable code and comments following return statements}
 \usage{
 unreachable_code_linter
 }
 \description{
-unreachable_code
+See \url{https://lintr.r-lib.org/reference/unreachable_code_linter}.
 }

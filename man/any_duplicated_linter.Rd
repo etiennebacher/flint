@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{any_duplicated_linter}
 \alias{any_duplicated_linter}
-\title{any_duplicated}
+\title{Require usage of \code{anyDuplicated(x) > 0} over \code{any(duplicated(x))}}
 \usage{
 any_duplicated_linter
 }
 \description{
-any_duplicated
+See \url{https://lintr.r-lib.org/reference/any_duplicated_linter}.
 }

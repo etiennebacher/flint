@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{seq_linter}
 \alias{seq_linter}
-\title{seq}
+\title{Sequence linter}
 \usage{
 seq_linter
 }
 \description{
-seq
+See \url{https://lintr.r-lib.org/reference/seq_linter}.
 }

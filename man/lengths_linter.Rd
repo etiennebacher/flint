@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{lengths_linter}
 \alias{lengths_linter}
-\title{lengths}
+\title{Require usage of \code{lengths()} where possible}
 \usage{
 lengths_linter
 }
 \description{
-lengths
+See \url{https://lintr.r-lib.org/reference/lengths_linter}.
 }

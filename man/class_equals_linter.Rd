@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{class_equals_linter}
 \alias{class_equals_linter}
-\title{class_equals}
+\title{Block comparison of class with \code{==}}
 \usage{
 class_equals_linter
 }
 \description{
-class_equals
+See \url{https://lintr.r-lib.org/reference/class_equals_linter}.
 }

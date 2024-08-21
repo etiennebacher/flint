@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{undesirable_function_linter}
 \alias{undesirable_function_linter}
-\title{undesirable_function}
+\title{Undesirable function linter}
 \usage{
 undesirable_function_linter
 }
 \description{
-undesirable_function
+See \url{https://lintr.r-lib.org/reference/undesirable_function_linter}.
 }

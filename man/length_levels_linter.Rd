@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{length_levels_linter}
 \alias{length_levels_linter}
-\title{length_levels}
+\title{Require usage of nlevels over length(levels(.))}
 \usage{
 length_levels_linter
 }
 \description{
-length_levels
+See \url{https://lintr.r-lib.org/reference/length_levels_linter}.
 }

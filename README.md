@@ -70,9 +70,11 @@ any(duplicated(y))
 ")
 #> Original code: any(is.na(x)) 
 #> Suggestion: anyNA(x) is better than any(is.na(x)). 
+#> Rule ID: any_na-1 
 #> 
 #> Original code: any(duplicated(y)) 
-#> Suggestion: anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...).
+#> Suggestion: anyDuplicated(x, ...) > 0 is better than any(duplicated(x), ...). 
+#> Rule ID: any_duplicated-1
 flint::fix_text("
 any(is.na(x))
 any(duplicated(y))
@@ -109,8 +111,8 @@ bench::mark(
   ),
   flint = flint::lint(
     file, linters = list(flint::any_duplicated_linter(), flint::any_is_na_linter(),
-                         flint::matrix_apply_linter()), 
-    open = FALSE
+                         flint::matrix_apply_linter()),
+    verbose = FALSE
   ),
   check = FALSE
 )
@@ -119,8 +121,8 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 lintr         1.98s    1.98s     0.505  318.54MB    15.1 
-#> 2 flint       64.05ms  76.21ms    13.3      1.22MB     5.68
+#> 1 lintr         2.38s    2.38s     0.421   315.4MB     9.68
+#> 2 flint       67.62ms  89.33ms    11.0      1.27MB     3.66
 ```
 
 ## Contributing

@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{any_is_na_linter}
 \alias{any_is_na_linter}
-\title{any_is_na}
+\title{Require usage of \code{anyNA(x)} over \code{any(is.na(x))}}
 \usage{
 any_is_na_linter
 }
 \description{
-any_is_na
+See \url{https://lintr.r-lib.org/reference/any_is_na_linter}.
 }

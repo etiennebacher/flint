@@ -100,6 +100,11 @@ test_that("do not block parameters named T/F", {
   expect_lint("myfun <- function(F) {}", NULL, linter)
 })
 
+test_that("do not block vector names T/F", {
+  linter <- T_and_F_symbol_linter()
+  expect_lint("c(T = 'foo', F = 'foo')", NULL, linter)
+})
+
 test_that("don't replace T/F when they receive the assignment", {
   expect_snapshot(fix_text("T <- N/G"))
   expect_snapshot(fix_text("F <- N/G"))

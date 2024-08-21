@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{missing_argument_linter}
 \alias{missing_argument_linter}
-\title{missing_argument}
+\title{Missing argument linter}
 \usage{
 missing_argument_linter
 }
 \description{
-missing_argument
+See \url{https://lintr.r-lib.org/reference/missing_argument_linter}.
 }

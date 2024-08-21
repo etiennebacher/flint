@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{equals_na_linter}
 \alias{equals_na_linter}
-\title{equals_na}
+\title{Equality check with NA linter}
 \usage{
 equals_na_linter
 }
 \description{
-equals_na
+See \url{https://lintr.r-lib.org/reference/equals_na_linter}.
 }

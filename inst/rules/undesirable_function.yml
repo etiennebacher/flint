@@ -4,6 +4,9 @@ severity: warning
 rule:
   pattern: $FUN
   kind: identifier
+  not:
+    inside:
+      kind: argument
 constraints:
   FUN:
     regex: ^(\.libPaths|attach|browser|debug|debugcall|debugonce|detach|par|setwd|structure|Sys\.setenv|Sys\.setlocale|trace|undebug|untrace)$

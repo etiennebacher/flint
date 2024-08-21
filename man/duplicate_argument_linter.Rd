@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{duplicate_argument_linter}
 \alias{duplicate_argument_linter}
-\title{duplicate_argument}
+\title{Duplicate argument linter}
 \usage{
 duplicate_argument_linter
 }
 \description{
-duplicate_argument
+See \url{https://lintr.r-lib.org/reference/duplicate_argument_linter}.
 }

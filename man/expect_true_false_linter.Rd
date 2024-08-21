@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{expect_true_false_linter}
 \alias{expect_true_false_linter}
-\title{expect_true_false}
+\title{Require usage of \code{expect_true(x)} over \code{expect_equal(x, TRUE)}}
 \usage{
 expect_true_false_linter
 }
 \description{
-expect_true_false
+See \url{https://lintr.r-lib.org/reference/expect_true_false_linter}.
 }

@@ -2,10 +2,10 @@
 % Please edit documentation in R/linters_factory.R
 \name{expect_type_linter}
 \alias{expect_type_linter}
-\title{expect_type}
+\title{Require usage of \code{expect_type(x, type)} over \code{expect_equal(typeof(x), type)}}
 \usage{
 expect_type_linter
 }
 \description{
-expect_type
+See \url{https://lintr.r-lib.org/reference/expect_type_linter}.
 }

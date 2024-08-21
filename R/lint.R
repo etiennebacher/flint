@@ -117,6 +117,8 @@ lint <- function(
 
   for (i in seq_along(r_files)) {
 
+    cli::cli_progress_update()
+
     file <- r_files[i]
 
     if (use_cache) {
@@ -144,8 +146,6 @@ lint <- function(
       hashes[[file]][["hash"]] <- current_hash
       hashes[[file]][["lints"]] <- lints[[file]]
     }
-
-    cli::cli_progress_update()
   }
 
   cli::cli_progress_done()

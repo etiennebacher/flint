@@ -12,7 +12,7 @@
       invisible(lint(temp_dir))
     Message
       i Going to check 1 file.
-      v Found lints in 1 file.
+      v Found 2 lints in 1 file.
 
 ---
 
@@ -20,7 +20,7 @@
       invisible(lint(temp_dir))
     Message
       i Going to check 2 files.
-      v Found lints in 2 files.
+      v Found 2 lints in 2 files.
 
 # no fixes needed message works
 

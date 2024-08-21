@@ -75,6 +75,7 @@ fix <- function(
   }
 
   needed_fixing <- vector("list", length(r_files))
+  n_fixes <- vector("list", length(r_files))
 
   cli::cli_alert_info("Going to check {length(r_files)} file{?s}.")
   i <- 0
@@ -91,6 +92,8 @@ fix <- function(
 
     lints <- Filter(Negate(is.null), lints_raw)
     lints <- Filter(function(x) length(attributes(x)$other_info$fix) > 0, lints)
+    n_fixes[[file]] <- length(lints)
+
     if (length(lints) == 0) {
       needed_fixing[[file]] <- FALSE
       next
@@ -111,7 +114,7 @@ fix <- function(
   if (!any(unlist(needed_fixing))) {
     cli::cli_alert_success("No fixes needed.")
   } else {
-    cli::cli_alert_success("Fixed {length(Filter(isTRUE, needed_fixing))} file{?s}.")
+    cli::cli_alert_success("Fixed {sum(unlist(n_fixes))} lint{?s} in {length(Filter(isTRUE, needed_fixing))} file{?s}.")
   }
   invisible(fixes)
 }

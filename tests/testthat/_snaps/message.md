@@ -36,7 +36,7 @@
       fix(temp_dir)
     Message
       i Going to check 1 file.
-      v Fixed 1 file.
+      v Fixed 2 lints in 1 file.
 
 ---
 
@@ -44,5 +44,5 @@
       fix(temp_dir, force = TRUE)
     Message
       i Going to check 2 files.
-      v Fixed 2 files.
+      v Fixed 2 lints in 2 files.
 

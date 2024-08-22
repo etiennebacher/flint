@@ -1,4 +1,22 @@
-# flint (development version)
+# flint 0.0.5
+
+## New features
+
+* Deactivated `absolute_path_linter` in default use as there are too many false
+  positives.
+* New linter `unnecessary_nesting_linter`.
+* Add messages for `lint()` and `fix()` showing the number of files checked, lints
+  found and/or fixed.
+  
+## Bug fixes
+
+* More robust detection of allowed usage of `T` and `F` in formulas.
+* Use the pipe in the replacement for `lengths_linter` if it was already present
+  in code.
+  
+## Misc
+
+* Add links to `lintr` documentation in the manual pages.
 
 # flint 0.0.4
 

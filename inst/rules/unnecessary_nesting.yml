@@ -20,6 +20,11 @@ rule:
         kind: if_statement
         field: consequence
         stopBy: neighbor
+  # Can be in if(), but not else if()
+  not:
+    inside:
+      field: alternative
+      kind: if_statement
 message: |
   Don't use nested `if` statements, where a single `if` with the combined
   conditional expression will do. For example, instead of `if (x) { if (y) { ... }}`,

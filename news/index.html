@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flint</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,11 +33,26 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/etiennebacher/flint/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/etiennebacher/flint/blob/v0.0.5/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="flint-development-version">flint (development version)<a class="anchor" aria-label="anchor" href="#flint-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.0.5" id="flint-005">flint 0.0.5<a class="anchor" aria-label="anchor" href="#flint-005"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-0-5">New features<a class="anchor" aria-label="anchor" href="#new-features-0-0-5"></a></h3>
+<ul><li>Deactivated <code>absolute_path_linter</code> in default use as there are too many false positives.</li>
+<li>New linter <code>unnecessary_nesting_linter</code>.</li>
+<li>Add messages for <code><a href="../reference/lint.html">lint()</a></code> and <code><a href="../reference/fix.html">fix()</a></code> showing the number of files checked, lints found and/or fixed.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-0-0-5">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-5"></a></h3>
+<ul><li>More robust detection of allowed usage of <code>T</code> and <code>F</code> in formulas.</li>
+<li>Use the pipe in the replacement for <code>lengths_linter</code> if it was already present in code.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="misc-0-0-5">Misc<a class="anchor" aria-label="anchor" href="#misc-0-0-5"></a></h3>
+<ul><li>Add links to <code>lintr</code> documentation in the manual pages.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.4" id="flint-004">flint 0.0.4<a class="anchor" aria-label="anchor" href="#flint-004"></a></h2>

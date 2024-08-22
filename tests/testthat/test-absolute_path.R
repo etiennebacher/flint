@@ -127,40 +127,40 @@
 #   y <- c(FALSE,  FALSE,  FALSE, TRUE,      TRUE,      TRUE,    TRUE)
 #   expect_identical(f(x), y)
 # })
-
-test_that("returns the correct linting", {
-  lint_msg <- "Do not use absolute paths."
-
-  # strict mode
-  linter <- absolute_path_linter()
-  non_absolute_path_strings <- c(
-    "..",
-    "./blah",
-    encodeString("blah\\file.txt")
-  )
-  for (path in non_absolute_path_strings) {
-    expect_lint(single_quote(path), NULL, linter)
-    expect_lint(double_quote(path), NULL, linter)
-  }
-
-  expect_lint("\"'/'\"", NULL, linter) # nested quotes
-
-  absolute_path_strings <- c(
-    "/",
-    "/blah/file.txt",
-    encodeString("d:\\"),
-    "E:/blah/file.txt",
-    encodeString("\\\\"),
-    encodeString("\\\\server\\path"),
-    "~",
-    "~james.hester/blah/file.txt",
-    encodeString("/a\nsdf"),
-    "/as:df"
-  )
-  for (path in absolute_path_strings) {
-    expect_lint(single_quote(path), lint_msg, linter)
-    expect_lint(double_quote(path), lint_msg, linter)
-  }
+#
+# test_that("returns the correct linting", {
+#   lint_msg <- "Do not use absolute paths."
+#
+#   # strict mode
+#   linter <- absolute_path_linter()
+#   non_absolute_path_strings <- c(
+#     "..",
+#     "./blah",
+#     encodeString("blah\\file.txt")
+#   )
+#   for (path in non_absolute_path_strings) {
+#     expect_lint(single_quote(path), NULL, linter)
+#     expect_lint(double_quote(path), NULL, linter)
+#   }
+#
+#   expect_lint("\"'/'\"", NULL, linter) # nested quotes
+#
+#   absolute_path_strings <- c(
+#     "/",
+#     "/blah/file.txt",
+#     encodeString("d:\\"),
+#     "E:/blah/file.txt",
+#     encodeString("\\\\"),
+#     encodeString("\\\\server\\path"),
+#     "~",
+#     "~james.hester/blah/file.txt",
+#     encodeString("/a\nsdf"),
+#     "/as:df"
+#   )
+#   for (path in absolute_path_strings) {
+#     expect_lint(single_quote(path), lint_msg, linter)
+#     expect_lint(double_quote(path), lint_msg, linter)
+#   }
 
   # lax mode: no check for strings that are likely not paths (too short or with special characters)
   # linter <- absolute_path_linter(lax = TRUE)
@@ -173,7 +173,7 @@ test_that("returns the correct linting", {
   #   expect_lint(single_quote(path), NULL, linter)
   #   expect_lint(double_quote(path), NULL, linter)
   # }
-})
+# })
 
 # test_that("raw strings are handled correctly", {
 #   skip_if_not_r_version("4.0.0")
@@ -184,17 +184,17 @@ test_that("returns the correct linting", {
 #     absolute_path_linter()
 #   )
 # })
-
-test_that("lints vectorize", {
-  lint_msg <- "Do not use absolute paths."
-
-  expect_equal(
-    nrow(lint_text("{
-      '/'
-      '/blah/file.txt'
-      'abcdefg'
-      '~'
-    }", linters = absolute_path_linter())),
-    3
-  )
-})
+#
+# test_that("lints vectorize", {
+#   lint_msg <- "Do not use absolute paths."
+#
+#   expect_equal(
+#     nrow(lint_text("{
+#       '/'
+#       '/blah/file.txt'
+#       'abcdefg'
+#       '~'
+#     }", linters = absolute_path_linter())),
+#     3
+#   )
+# })

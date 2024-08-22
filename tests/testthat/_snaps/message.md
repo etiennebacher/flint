@@ -13,6 +13,7 @@
     Message
       i Going to check 1 file.
       v Found 2 lints in 1 file.
+      i 2 of them can be fixed automatically.
 
 ---
 
@@ -21,6 +22,7 @@
     Message
       i Going to check 2 files.
       v Found 2 lints in 2 files.
+      i 2 of them can be fixed automatically.
 
 # no fixes needed message works
 

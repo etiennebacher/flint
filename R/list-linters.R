@@ -8,7 +8,7 @@
 list_linters <- function() {
 
   c(
-    "absolute_path",
+    # "absolute_path", # TODO: really broken, too many false positives, e.g #42
     "any_duplicated",
     "any_is_na",
     "class_equals",

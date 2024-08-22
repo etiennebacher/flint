@@ -1,17 +1,5 @@
 
 
-#' @inherit lintr::absolute_path_linter title
-#' @description
-#' See <https://lintr.r-lib.org/reference/absolute_path_linter>.
-
-#' @usage absolute_path_linter
-#' @name absolute_path_linter
-#' @export
-NULL
-makeActiveBinding('absolute_path_linter', function() { function() 'absolute_path' }, env = environment())
-
-
-
 #' @inherit lintr::any_duplicated_linter title
 #' @description
 #' See <https://lintr.r-lib.org/reference/any_duplicated_linter>.

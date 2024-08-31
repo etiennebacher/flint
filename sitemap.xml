@@ -42,6 +42,7 @@
 <url><loc>https://flint.etiennebacher.com/reference/numeric_leading_zero_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/outer_negation_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/paste_linter.html</loc></url>
+<url><loc>https://flint.etiennebacher.com/reference/redundant_equals_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/redundant_ifelse_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/right_assignment_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/semicolon_linter.html</loc></url>

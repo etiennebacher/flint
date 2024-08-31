@@ -328,6 +328,18 @@ makeActiveBinding('paste_linter', function() { function() 'paste' }, env = envir
 
 
 
+#' @inherit lintr::redundant_equals_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/redundant_equals_linter>.
+
+#' @usage redundant_equals_linter
+#' @name redundant_equals_linter
+#' @export
+NULL
+makeActiveBinding('redundant_equals_linter', function() { function() 'redundant_equals' }, env = environment())
+
+
+
 #' @inherit lintr::redundant_ifelse_linter title
 #' @description
 #' See <https://lintr.r-lib.org/reference/redundant_ifelse_linter>.

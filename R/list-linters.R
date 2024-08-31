@@ -37,6 +37,7 @@ list_linters <- function() {
     "numeric_leading_zero",
     "outer_negation",
     "paste",
+    "redundant_equals",
     "redundant_ifelse",
     "right_assignment",
     "semicolon",

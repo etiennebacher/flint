@@ -1,3 +1,10 @@
+# flint 0.0.6
+
+## New features
+
+* New linter `redundant_equals_linter`.
+* Better support for `matrix_apply_linter`.
+
 # flint 0.0.5
 
 ## New features

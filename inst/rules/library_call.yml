@@ -16,9 +16,11 @@ rule:
         - kind: comment
   not:
     inside:
-      kind: call
-      has:
-        pattern: suppressPackageStartupMessages
-        kind: identifier
+      any:
+        - kind: function_definition
+        - kind: call
+          has:
+            pattern: suppressPackageStartupMessages
+            kind: identifier
 message: Move all library/require calls to the top of the script.
 

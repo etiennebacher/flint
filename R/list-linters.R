@@ -24,6 +24,7 @@ list_linters <- function() {
     "expect_true_false",
     "expect_type",
     "for_loop_index",
+    "function_return",
     "implicit_assignment",
     "is_numeric",
     "length_levels",

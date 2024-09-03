@@ -174,6 +174,18 @@ makeActiveBinding('for_loop_index_linter', function() { function() 'for_loop_ind
 
 
 
+#' @inherit lintr::function_return_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/function_return_linter>.
+
+#' @usage function_return_linter
+#' @name function_return_linter
+#' @export
+NULL
+makeActiveBinding('function_return_linter', function() { function() 'function_return' }, env = environment())
+
+
+
 #' implicit_assignment
 
 #' @usage implicit_assignment_linter

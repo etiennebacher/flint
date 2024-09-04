@@ -5,6 +5,7 @@
 * Set up the Github Actions workflow for `flint` (#22).
 * New linters `function_return_linter` and `todo_comment_linter`.
 * Better support for `library_call_linter`.
+* Add argument `overwrite` to `setup_flint_gha()`.
 
 # flint 0.0.6
 

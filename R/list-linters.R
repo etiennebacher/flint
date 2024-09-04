@@ -45,6 +45,7 @@ list_linters <- function() {
     "seq",
     "sort",
     "T_and_F_symbol",
+    "todo_comment",
     "undesirable_function",
     "undesirable_operator",
     "unnecessary_nesting",

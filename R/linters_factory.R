@@ -422,6 +422,18 @@ makeActiveBinding('T_and_F_symbol_linter', function() { function() 'T_and_F_symb
 
 
 
+#' @inherit lintr::todo_comment_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/todo_comment_linter>.
+
+#' @usage todo_comment_linter
+#' @name todo_comment_linter
+#' @export
+NULL
+makeActiveBinding('todo_comment_linter', function() { function() 'todo_comment' }, env = environment())
+
+
+
 #' @inherit lintr::undesirable_function_linter title
 #' @description
 #' See <https://lintr.r-lib.org/reference/undesirable_function_linter>.

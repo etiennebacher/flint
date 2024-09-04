@@ -1,3 +1,11 @@
+# flint 0.0.7
+
+## New features
+
+* Set up the Github Actions workflow for `flint` (#22).
+* New linters `function_return_linter` and `todo_comment_linter`.
+* Better support for `library_call_linter`.
+
 # flint 0.0.6
 
 ## New features

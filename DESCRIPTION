@@ -23,6 +23,7 @@ Imports:
     fs,
     yaml
 Suggests:
+    glue,
     knitr,
     patrick,
     rex,

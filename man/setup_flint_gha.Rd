@@ -4,10 +4,13 @@
 \alias{setup_flint_gha}
 \title{Create a Github Actions workflow for \code{flint}}
 \usage{
-setup_flint_gha(path = ".")
+setup_flint_gha(path = ".", overwrite = FALSE)
 }
 \arguments{
 \item{path}{Root path to the package.}
+
+\item{overwrite}{Whether to overwrite \code{.github/workflows/flint.yaml} if it
+already exists.}
 }
 \value{
 Creates \code{.github/workflows/flint.yaml} but doesn't return any value.

@@ -117,6 +117,8 @@ lint <- function(
 
   for (i in seq_along(r_files)) {
 
+    cli::cli_progress_update()
+
     file <- r_files[i]
 
     if (use_cache) {
@@ -144,8 +146,6 @@ lint <- function(
       hashes[[file]][["hash"]] <- current_hash
       hashes[[file]][["lints"]] <- lints[[file]]
     }
-
-    cli::cli_progress_update()
   }
 
   cli::cli_progress_done()
@@ -162,7 +162,13 @@ lint <- function(
   if (nrow(lints) == 0) {
     cli::cli_alert_success("No lints detected.")
   } else {
-    cli::cli_alert_success("Found lints in {length(unique(lints$file))} file{?s}.")
+    if ("fix" %in% names(lints)) {
+      can_be_fixed <- lints[!is.na(fix)]
+    } else {
+      can_be_fixed <- 0
+    }
+    cli::cli_alert_success("Found {nrow(lints)} lint{?s} in {length(unique(lints$file))} file{?s}.")
+    cli::cli_alert_info("{nrow(can_be_fixed)} of them can be fixed automatically.")
   }
 
   if (isTRUE(open) &&

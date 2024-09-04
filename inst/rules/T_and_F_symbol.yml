@@ -23,6 +23,9 @@ rule:
               follows:
                 regex: ^~$
                 stopBy: end
+          stopBy:
+            kind:
+              argument
 fix: TRUE
 message: Use TRUE instead of the symbol T.
 
@@ -53,6 +56,9 @@ rule:
               follows:
                 regex: ^~$
                 stopBy: end
+          stopBy:
+            kind:
+              argument
 fix: FALSE
 message: Use FALSE instead of the symbol F.
 

@@ -1,17 +1,5 @@
 
 
-#' @inherit lintr::absolute_path_linter title
-#' @description
-#' See <https://lintr.r-lib.org/reference/absolute_path_linter>.
-
-#' @usage absolute_path_linter
-#' @name absolute_path_linter
-#' @export
-NULL
-makeActiveBinding('absolute_path_linter', function() { function() 'absolute_path' }, env = environment())
-
-
-
 #' @inherit lintr::any_duplicated_linter title
 #' @description
 #' See <https://lintr.r-lib.org/reference/any_duplicated_linter>.
@@ -186,6 +174,18 @@ makeActiveBinding('for_loop_index_linter', function() { function() 'for_loop_ind
 
 
 
+#' @inherit lintr::function_return_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/function_return_linter>.
+
+#' @usage function_return_linter
+#' @name function_return_linter
+#' @export
+NULL
+makeActiveBinding('function_return_linter', function() { function() 'function_return' }, env = environment())
+
+
+
 #' implicit_assignment
 
 #' @usage implicit_assignment_linter
@@ -340,6 +340,18 @@ makeActiveBinding('paste_linter', function() { function() 'paste' }, env = envir
 
 
 
+#' @inherit lintr::redundant_equals_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/redundant_equals_linter>.
+
+#' @usage redundant_equals_linter
+#' @name redundant_equals_linter
+#' @export
+NULL
+makeActiveBinding('redundant_equals_linter', function() { function() 'redundant_equals' }, env = environment())
+
+
+
 #' @inherit lintr::redundant_ifelse_linter title
 #' @description
 #' See <https://lintr.r-lib.org/reference/redundant_ifelse_linter>.
@@ -407,6 +419,18 @@ makeActiveBinding('sort_linter', function() { function() 'sort' }, env = environ
 #' @export
 NULL
 makeActiveBinding('T_and_F_symbol_linter', function() { function() 'T_and_F_symbol' }, env = environment())
+
+
+
+#' @inherit lintr::todo_comment_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/todo_comment_linter>.
+
+#' @usage todo_comment_linter
+#' @name todo_comment_linter
+#' @export
+NULL
+makeActiveBinding('todo_comment_linter', function() { function() 'todo_comment' }, env = environment())
 
 
 

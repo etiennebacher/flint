@@ -564,6 +564,22 @@ test_that("unnecessary_nesting_linter skips allowed usages", {
     NULL,
     linter
   )
+
+  expect_lint(
+    trim_some("
+      if (A) {
+        foo()
+      } else if (B) {
+        if (C) {
+          bar()
+        } else {
+          buz()
+        }
+      }
+    "),
+    NULL,
+    linter
+  )
 })
 
 test_that("unnecessary_nesting_linter blocks disallowed usages", {

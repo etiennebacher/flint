@@ -8,7 +8,7 @@
 list_linters <- function() {
 
   c(
-    "absolute_path",
+    # "absolute_path", # TODO: really broken, too many false positives, e.g #42
     "any_duplicated",
     "any_is_na",
     "class_equals",
@@ -24,6 +24,7 @@ list_linters <- function() {
     "expect_true_false",
     "expect_type",
     "for_loop_index",
+    "function_return",
     "implicit_assignment",
     "is_numeric",
     "length_levels",
@@ -37,12 +38,14 @@ list_linters <- function() {
     "numeric_leading_zero",
     "outer_negation",
     "paste",
+    "redundant_equals",
     "redundant_ifelse",
     "right_assignment",
     "semicolon",
     "seq",
     "sort",
     "T_and_F_symbol",
+    "todo_comment",
     "undesirable_function",
     "undesirable_operator",
     "unnecessary_nesting",

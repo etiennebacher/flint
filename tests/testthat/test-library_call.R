@@ -96,109 +96,50 @@ test_that("library_call_linter warns on disallowed usages", {
   # )
 })
 
-# test_that("require() treated the same as library()", {
-#   linter <- library_call_linter()
-#   lint_message_library <- "Move all library/require calls to the top of the script."
-#   lint_message_require <- "Move all require calls to the top of the script."
-#
-#   expect_lint(
-#     trim_some("
-#       library(dplyr)
-#       require(tidyr)
-#     "),
-#     NULL,
-#     linter
-#   )
-#
-#   expect_lint(
-#     trim_some("
-#       library(dplyr)
-#       print(letters)
-#       require(tidyr)
-#     "),
-#     list(lint_message_require, line_number = 3L),
-#     linter
-#   )
-#
-#   expect_lint(
-#     trim_some("
-#       library(dplyr)
-#       print(letters)
-#       library(dbplyr)
-#       require(tidyr)
-#     "),
-#     list(
-#       list(lint_message_library, line_number = 3L),
-#       list(lint_message_require, line_number = 4L)
-#     ),
-#     linter
-#   )
-# })
-#
-# test_that("allow_preamble applies as intended", {
-#   linter_preamble <- library_call_linter(allow_preamble = TRUE)
-#   linter_no_preamble <- library_call_linter(allow_preamble = FALSE)
-#   lint_msg <- "Move all library/require calls to the top of the script."
-#
-#   lines <- trim_some("
-#     opts_chunk$set(eval = FALSE)
-#     library(dplyr)
-#     library(knitr)
-#
-#     print(letters)
-#   ")
-#   expect_lint(lines, NULL, linter_preamble)
-#   expect_lint(lines, list(list(line_number = 2L), list(line_number = 3L)), linter_no_preamble)
-#
-#   lines <- trim_some("
-#     opts_chunk$set(eval = FALSE)
-#     suppressPackageStartupMessages({
-#       library(dplyr)
-#       library(knitr)
-#     })
-#
-#     print(letters)
-#   ")
-#   expect_lint(lines, NULL, linter_preamble)
-#   expect_lint(lines, list(list(line_number = 3L), list(line_number = 4L)), linter_no_preamble)
-#
-#   lines <- trim_some("
-#     opts_chunk$set(eval = FALSE)
-#     suppressPackageStartupMessages(library(dplyr))
-#     library(knitr)
-#
-#     print(letters)
-#   ")
-#   expect_lint(lines, NULL, linter_preamble)
-#   expect_lint(lines, list(list(line_number = 2L), list(line_number = 3L)), linter_no_preamble)
-#
-#   lines <- trim_some("
-#     opts_chunk$set(eval = FALSE)
-#     library(dplyr)
-#     suppressPackageStartupMessages(library(knitr))
-#
-#     print(letters)
-#   ")
-#   expect_lint(lines, NULL, linter_preamble)
-#   expect_lint(lines, list(list(line_number = 2L), list(line_number = 3L)), linter_no_preamble)
-#
-#   lines <- trim_some("
-#     fun()
-#     library(moreFun)
-#     oops()
-#   ")
-#   expect_lint(lines, NULL, linter_preamble)
-#   expect_lint(lines, lint_msg, linter_no_preamble)
-# })
-#
-# test_that("skips allowed usages of library()/character.only=TRUE", {
-#   linter <- library_call_linter()
-#
-#   expect_lint("library(data.table)", NULL, linter)
-#   expect_lint("function(pkg) library(pkg, character.only = TRUE)", NULL, linter)
-#   expect_lint("function(pkgs) sapply(pkgs, require, character.only = TRUE)", NULL, linter)
-# })
-#
+test_that("require() treated the same as library()", {
+  linter <- library_call_linter()
+  lint_message_library <- "Move all library/require calls to the top of the script."
+  lint_message_require <- "Move all require calls to the top of the script."
+
+  expect_lint(
+    trim_some("
+      library(dplyr)
+      require(tidyr)
+    "),
+    NULL,
+    linter
+  )
+
+  expect_lint(
+    trim_some("
+      library(dplyr)
+      print(letters)
+      require(tidyr)
+    "),
+    lint_message_library,
+    linter
+  )
+
+  expect_lint(
+    trim_some("
+      library(dplyr)
+      print(letters)
+      library(dbplyr)
+      require(tidyr)
+    "),
+    lint_message_library,
+    linter
+  )
+})
+
+test_that("skips allowed usages of library()/character.only=TRUE", {
+  linter <- library_call_linter()
+
+  expect_lint("library(data.table)", NULL, linter)
+  expect_lint("function(pkg) library(pkg, character.only = TRUE)", NULL, linter)
+  expect_lint("function(pkgs) sapply(pkgs, require, character.only = TRUE)", NULL, linter)
+})
+
 # test_that("blocks disallowed usages of strings in library()/require()", {
 #   linter <- library_call_linter()
 #   char_only_msg <- rex::rex("Use symbols in library calls", anything, "character.only")
@@ -286,44 +227,44 @@ test_that("library_call_linter warns on disallowed usages", {
 #     library_call_linter()
 #   )
 # })
-#
-# patrick::with_parameters_test_that(
-#   "library_call_linter skips allowed usages",
-#   {
-#     linter <- library_call_linter()
-#
-#     expect_lint(sprintf("%s(x)", call), NULL, linter)
-#     expect_lint(sprintf("%s(x, y, z)", call), NULL, linter)
-#
-#     # intervening expression
-#     expect_lint(sprintf("%1$s(x); y; %1$s(z)", call), NULL, linter)
-#
-#     # inline or potentially with gaps don't matter
-#     expect_lint(
-#       trim_some(glue::glue("
-#         {call}(x)
-#         y
-#
-#         stopifnot(z)
-#       ")),
-#       NULL,
-#       linter
-#     )
-#
-#     # only suppressing calls with library()
-#     expect_lint(
-#       trim_some(glue::glue("
-#         {call}(x)
-#         {call}(y)
-#       ")),
-#       NULL,
-#       linter
-#     )
-#   },
-#   .test_name = c("suppressMessages", "suppressPackageStartupMessages"),
-#   call = c("suppressMessages", "suppressPackageStartupMessages")
-# )
-#
+
+patrick::with_parameters_test_that(
+  "library_call_linter skips allowed usages",
+  {
+    linter <- library_call_linter()
+
+    expect_lint(sprintf("%s(x)", call), NULL, linter)
+    expect_lint(sprintf("%s(x, y, z)", call), NULL, linter)
+
+    # intervening expression
+    expect_lint(sprintf("%1$s(x); y; %1$s(z)", call), NULL, linter)
+
+    # inline or potentially with gaps don't matter
+    expect_lint(
+      trim_some(glue::glue("
+        {call}(x)
+        y
+
+        stopifnot(z)
+      ")),
+      NULL,
+      linter
+    )
+
+    # only suppressing calls with library()
+    expect_lint(
+      trim_some(glue::glue("
+        {call}(x)
+        {call}(y)
+      ")),
+      NULL,
+      linter
+    )
+  },
+  .test_name = c("suppressMessages", "suppressPackageStartupMessages"),
+  call = c("suppressMessages", "suppressPackageStartupMessages")
+)
+
 # patrick::with_parameters_test_that(
 #   "library_call_linter blocks simple disallowed usages",
 #   {
@@ -383,41 +324,11 @@ test_that("library_call_linter warns on disallowed usages", {
 #     linter
 #   )
 # })
-#
-# test_that("Consecutive calls to different blocked calls is OK", {
-#   expect_lint(
-#     "suppressPackageStartupMessages(library(x)); suppressMessages(library(y))",
-#     NULL,
-#     library_call_linter()
-#   )
-# })
-#
-# test_that("Multiple violations across different calls are caught", {
-#   linter <- library_call_linter()
-#
-#   expect_lint(
-#     trim_some("
-#       suppressPackageStartupMessages(library(x))
-#       suppressPackageStartupMessages(library(x))
-#       suppressMessages(library(x))
-#       suppressMessages(library(x))
-#     "),
-#     list(
-#       "Unify consecutive calls to suppressPackageStartupMessages",
-#       "Unify consecutive calls to suppressMessages"
-#     ),
-#     linter
-#   )
-#
-#   expect_lint(
-#     trim_some("
-#       suppressMessages(library(A))
-#       suppressPackageStartupMessages(library(A))
-#       suppressMessages(library(A))
-#       suppressPackageStartupMessages(library(A))
-#       suppressPackageStartupMessages(library(A))
-#     "),
-#     list("Unify consecutive calls to suppressPackageStartupMessages", line_number = 4L),
-#     linter
-#   )
-# })
+
+test_that("Consecutive calls to different blocked calls is OK", {
+  expect_lint(
+    "suppressPackageStartupMessages(library(x)); suppressMessages(library(y))",
+    NULL,
+    library_call_linter()
+  )
+})

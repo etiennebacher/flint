@@ -23,22 +23,8 @@ itself built on the Rust crate
 
 ## Installation
 
-### Windows or macOS
-
 ``` r
-install.packages(
-  'flint', 
-  repos = c('https://etiennebacher.r-universe.dev', getOption("repos"))
-)
-```
-
-### Linux
-
-``` r
-install.packages(
-  'flint', 
-  repos = c('https://etiennebacher.r-universe.dev/bin/linux/jammy/4.3', getOption("repos"))
-)
+install.packages('flint', repos = c('https://etiennebacher.r-universe.dev'))
 ```
 
 ## Usage
@@ -121,8 +107,8 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 lintr         2.38s    2.38s     0.421   315.4MB     9.68
-#> 2 flint       67.62ms  89.33ms    11.0      1.27MB     3.66
+#> 1 lintr         2.77s    2.77s     0.361   315.4MB     9.03
+#> 2 flint      150.51ms 155.09ms     6.26     1.45MB     3.13
 ```
 
 ## Contributing

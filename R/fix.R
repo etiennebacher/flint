@@ -75,12 +75,14 @@ fix <- function(
   }
 
   needed_fixing <- vector("list", length(r_files))
+  n_fixes <- vector("list", length(r_files))
 
   cli::cli_alert_info("Going to check {length(r_files)} file{?s}.")
   i <- 0
   cli::cli_progress_bar(format = "{cli::pb_spin} Checking: {i}/{length(r_files)}")
 
   for (i in seq_along(r_files)) {
+    cli::cli_progress_update()
     file <- r_files[i]
     needed_fixing[[file]] <- TRUE
     root <- astgrepr::tree_new(file = file, ignore_tags = c("flint-ignore", "nolint")) |>
@@ -90,6 +92,8 @@ fix <- function(
 
     lints <- Filter(Negate(is.null), lints_raw)
     lints <- Filter(function(x) length(attributes(x)$other_info$fix) > 0, lints)
+    n_fixes[[file]] <- length(lints)
+
     if (length(lints) == 0) {
       needed_fixing[[file]] <- FALSE
       next
@@ -103,7 +107,6 @@ fix <- function(
 
     fixes[[file]] <- astgrepr::tree_rewrite(root, replacement2)
     writeLines(text = fixes[[file]], file)
-    cli::cli_progress_update()
   }
 
   cli::cli_progress_done()
@@ -111,7 +114,7 @@ fix <- function(
   if (!any(unlist(needed_fixing))) {
     cli::cli_alert_success("No fixes needed.")
   } else {
-    cli::cli_alert_success("Fixed {length(Filter(isTRUE, needed_fixing))} file{?s}.")
+    cli::cli_alert_success("Fixed {sum(unlist(n_fixes))} lint{?s} in {length(Filter(isTRUE, needed_fixing))} file{?s}.")
   }
   invisible(fixes)
 }

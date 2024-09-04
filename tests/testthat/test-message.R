@@ -11,7 +11,7 @@ test_that("found lint message works", {
   withr::local_envvar(list(TESTTHAT = "false"))
   temp_dir <- withr::local_tempdir()
   dest <- withr::local_tempfile(fileext = ".R", tmpdir = temp_dir)
-  cat("1 + 1\nany(is.na(1))", file = dest)
+  cat("1 + 1\nany(is.na(1))\nany(duplicated(x))", file = dest)
   expect_snapshot(invisible(lint(temp_dir)))
 
   dest2 <- withr::local_tempfile(fileext = ".R", tmpdir = temp_dir)
@@ -33,7 +33,7 @@ test_that("fix needed message works", {
   withr::local_envvar(list(TESTTHAT = "false"))
   temp_dir <- withr::local_tempdir()
   dest <- withr::local_tempfile(fileext = ".R", tmpdir = temp_dir)
-  cat("1 + 1\nany(is.na(1))", file = dest)
+  cat("1 + 1\nany(is.na(1))\nany(duplicated(x))", file = dest)
   expect_snapshot(fix(temp_dir))
 
   dest2 <- withr::local_tempfile(fileext = ".R", tmpdir = temp_dir)

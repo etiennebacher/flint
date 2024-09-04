@@ -1,5 +1,4 @@
 keep:
-  - absolute_path
   - any_duplicated
   - any_is_na
   - class_equals
@@ -15,6 +14,7 @@ keep:
   - expect_true_false
   - expect_type
   - for_loop_index
+  - function_return
   - implicit_assignment
   - is_numeric
   - length_levels
@@ -28,12 +28,14 @@ keep:
   - numeric_leading_zero
   - outer_negation
   - paste
+  - redundant_equals
   - redundant_ifelse
   - right_assignment
   - semicolon
   - seq
   - sort
   - T_and_F_symbol
+  - todo_comment
   - undesirable_function
   - undesirable_operator
   - unnecessary_nesting

@@ -14,6 +14,8 @@ test_that("T_and_F_symbol_linter is correct in formulas", {
   expect_lint("lm(weight ~ T, data)", NULL, linter)
   expect_lint("lm(weight ~ F, data)", NULL, linter)
   expect_lint("lm(weight ~ T + var, data)", NULL, linter)
+  expect_lint("lm(weight ~ A + T | var, data)", NULL, linter)
+  expect_lint("lm(weight ~ var | A + T, data)", NULL, linter)
   expect_lint("lm(weight ~ var + var2 + T, data)", NULL, linter)
   expect_lint("lm(T ~ weight, data)", NULL, linter)
 

@@ -33,22 +33,8 @@ which is itself built on the Rust crate [`ast-grep`](https://ast-grep.github.io/
 
 ## Installation
 
-### Windows or macOS
-
 ``` r
-install.packages(
-  'flint', 
-  repos = c('https://etiennebacher.r-universe.dev', getOption("repos"))
-)
-```
-
-### Linux
-
-``` r
-install.packages(
-  'flint', 
-  repos = c('https://etiennebacher.r-universe.dev/bin/linux/jammy/4.3', getOption("repos"))
-)
+install.packages('flint', repos = c('https://etiennebacher.r-universe.dev'))
 ```
 
 ## Usage

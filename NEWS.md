@@ -7,6 +7,7 @@
 * Better support for `library_call_linter`.
 * Add argument `overwrite` to `setup_flint_gha()`.
 
+
 # flint 0.0.6
 
 ## New features

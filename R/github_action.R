@@ -38,7 +38,7 @@ github_actions_log_lints <- function(x, project_dir = "") {
     "file=%s,line=%s,col=%s", x$file, x$line_start, x$col_start
   )
   # Otherwise highlighting is only applied on the first part of the message
-  x$text <- gsub("\\\n", " ", x$text)
+  x$message <- gsub("\\\n", " ", x$message)
   cat(sprintf(
     "::warning %s::%s,[%s] %s\n",
     file_line_col, file_line_col, x$text, x$message

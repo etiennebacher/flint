@@ -10,11 +10,11 @@ test_that("setup_flint works for packages", {
   cat("any(duplicated(x))", file = "R/foo.R")
   withr::with_envvar(
     new = c("TESTTHAT" = FALSE),
-    expect_equal(nrow(lint()), 1)
+    expect_equal(nrow(lint(verbose = FALSE)), 1)
   )
 
   # fix
-  fix()
+  fix(verbose = FALSE)
   expect_equal(
     readLines("R/foo.R", warn = FALSE),
     "anyDuplicated(x) > 0"
@@ -33,11 +33,11 @@ test_that("setup_flint works for projects", {
   cat("any(duplicated(x))", file = "R/foo.R")
   withr::with_envvar(
     new = c("TESTTHAT" = FALSE),
-    expect_equal(nrow(lint()), 1)
+    expect_equal(nrow(lint(verbose = FALSE)), 1)
   )
 
   # fix
-  fix()
+  fix(verbose = FALSE)
   expect_equal(
     readLines("R/foo.R", warn = FALSE),
     "anyDuplicated(x) > 0"

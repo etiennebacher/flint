@@ -15,9 +15,9 @@ message: Most likely an error
   withr::with_envvar(
     new = c("TESTTHAT" = FALSE, "GITHUB_ACTIONS" = FALSE),
     {
-      expect_equal(nrow(lint(use_cache = FALSE)), 1)
-      expect_equal(nrow(lint(use_cache = FALSE, linters = list_linters())), 0)
-      fix()
+      expect_equal(nrow(lint(use_cache = FALSE, verbose = FALSE)), 1)
+      expect_equal(nrow(lint(use_cache = FALSE, linters = list_linters(), verbose = FALSE)), 0)
+      fix(verbose = FALSE)
     }
   )
   expect_true(any(grepl("length(unique(x))", readLines("R/foo.R", warn = FALSE), fixed = TRUE)))

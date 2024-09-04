@@ -31,5 +31,5 @@ jobs:
         shell: Rscript {0}
 
       - name: Run flint
-        run: flint::lint()
+        run: flint::lint_package(exclude_path = "inst")
         shell: Rscript {0}

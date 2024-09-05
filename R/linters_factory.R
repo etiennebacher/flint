@@ -480,3 +480,15 @@ makeActiveBinding('unnecessary_nesting_linter', function() { function() 'unneces
 NULL
 makeActiveBinding('unreachable_code_linter', function() { function() 'unreachable_code' }, env = environment())
 
+
+
+#' @inherit lintr::unused_object_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/unused_object_linter>.
+
+#' @usage unused_object_linter
+#' @name unused_object_linter
+#' @export
+NULL
+makeActiveBinding('unused_object_linter', function() { function() 'unused_object' }, env = environment())
+

@@ -40,3 +40,4 @@ keep:
   - undesirable_operator
   - unnecessary_nesting
   - unreachable_code
+  - unused_object

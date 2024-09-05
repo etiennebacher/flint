@@ -1,0 +1,29 @@
+id: unused_object-1
+language: r
+severity: warning
+rule:
+  pattern: $OBJ <- $VALUE
+  has:
+    field: lhs
+    kind: identifier
+  precedes:
+    kind: binary_operator
+    has:
+      kind: call
+      has:
+        pattern: $OBJ
+        stopBy: end
+
+  # not:
+  #   all:
+  #     - precedes:
+  #         pattern: $OBJ
+  #         kind: identifier
+  #         stopBy: end
+  #     - precedes:
+  #         kind: binary_operator
+  #         has:
+  #           pattern: $OBJ
+  #           stopBy: end
+# fix: ...
+message: hello

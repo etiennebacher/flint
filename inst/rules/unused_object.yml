@@ -2,17 +2,25 @@ id: unused_object-1
 language: r
 severity: warning
 rule:
-  pattern: $OBJ <- $VALUE
-  has:
-    field: lhs
-    kind: identifier
-  precedes:
-    kind: binary_operator
-    has:
-      kind: call
-      has:
-        pattern: $OBJ
-        stopBy: end
+  kind: binary_operator
+  regex: '<-'
+  all:
+    - has:
+        field: lhs
+        kind: identifier
+        pattern: $IDENT
+    - not:
+        precedes:
+          stopBy: end
+          has:
+            stopBy: end
+            any:
+              - kind: identifier
+                pattern: $IDENT
+              - has:
+                  kind: identifier
+                  pattern: $IDENT
+                  stopBy: end
 
   # not:
   #   all:

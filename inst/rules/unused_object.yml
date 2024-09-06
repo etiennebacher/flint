@@ -3,7 +3,6 @@ language: r
 severity: warning
 rule:
   kind: binary_operator
-  regex: '<-'
   all:
     - has:
         field: lhs
@@ -12,26 +11,15 @@ rule:
     - not:
         precedes:
           stopBy: end
-          has:
-            stopBy: end
-            any:
-              - kind: identifier
-                pattern: $IDENT
-              - has:
-                  kind: identifier
-                  pattern: $IDENT
-                  stopBy: end
+          kind: identifier
+          pattern: $IDENT
+        # any:
+        #   - kind: identifier
+        #     pattern: $IDENT
+        #   - has:
+        #       stopBy: end
+        #       any:
+        #         - { kind: identifier, pattern: $IDENT }
+        #         - { has: {kind: identifier, pattern: $IDENT, stopBy: end}}
 
-  # not:
-  #   all:
-  #     - precedes:
-  #         pattern: $OBJ
-  #         kind: identifier
-  #         stopBy: end
-  #     - precedes:
-  #         kind: binary_operator
-  #         has:
-  #           pattern: $OBJ
-  #           stopBy: end
-# fix: ...
-message: hello
+message: Object ~~IDENT~~ is unused in the rest of the code.

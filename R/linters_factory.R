@@ -340,6 +340,18 @@ makeActiveBinding('outer_negation_linter', function() { function() 'outer_negati
 
 
 
+#' @inherit lintr::package_hooks_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/package_hooks_linter>.
+
+#' @usage package_hooks_linter
+#' @name package_hooks_linter
+#' @export
+NULL
+makeActiveBinding('package_hooks_linter', function() { function() 'package_hooks' }, env = environment())
+
+
+
 #' @inherit lintr::paste_linter title
 #' @description
 #' See <https://lintr.r-lib.org/reference/paste_linter>.

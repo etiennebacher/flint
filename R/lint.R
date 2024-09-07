@@ -193,7 +193,8 @@ lint_dir <- function(
     open = TRUE,
     exclude_path = NULL,
     exclude_linters = NULL,
-    use_cache = TRUE
+    use_cache = TRUE,
+    verbose = TRUE
 ) {
   if (!fs::is_dir(path)) {
     stop("`path` must be a directory.")
@@ -204,7 +205,8 @@ lint_dir <- function(
     open = open,
     exclude_path = exclude_path,
     exclude_linters = exclude_linters,
-    use_cache = use_cache
+    use_cache = use_cache,
+    verbose = verbose
   )
 }
 
@@ -217,7 +219,8 @@ lint_package <- function(
     open = TRUE,
     exclude_path = NULL,
     exclude_linters = NULL,
-    use_cache = TRUE
+    use_cache = TRUE,
+    verbose = TRUE
 ) {
   if (!fs::is_dir(path)) {
     stop("`path` must be a directory.")
@@ -230,7 +233,8 @@ lint_package <- function(
     open = open,
     exclude_path = exclude_path,
     exclude_linters = exclude_linters,
-    use_cache = use_cache
+    use_cache = use_cache,
+    verbose = verbose
   )
 }
 

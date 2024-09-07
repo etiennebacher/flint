@@ -103,14 +103,29 @@ resolve_linters <- function(path, linters, exclude_linters) {
 }
 
 resolve_path <- function(path, exclude_path) {
-  if (all(fs::is_dir(path))) {
-    r_files <- list.files(path, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
-    excluded <- file.path(path, exclude_path)
-    r_files <- setdiff(r_files, excluded)
-  } else {
-    r_files <- path
-  }
-  r_files
+  paths <- lapply(path, function(x) {
+    if (fs::is_dir(x)) {
+      list.files(x, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
+    } else {
+      x
+    }
+  }) |>
+    unlist() |>
+    unique() |>
+    fs::path_abs()
+
+  excluded <- lapply(exclude_path, function(x) {
+    if (fs::is_dir(x)) {
+      list.files(x, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
+    } else {
+      x
+    }
+  }) |>
+    unlist() |>
+    unique() |>
+    fs::path_abs()
+
+  setdiff(paths, excluded)
 }
 
 resolve_rules <- function(linters_is_null, linters, path) {

@@ -84,8 +84,8 @@ lints.
 `styler` is a package to clean code by fixing indentation and other
 things, but doesn’t perform code replacement based on lints.
 
-`flint` is extremely performant. This is a small benchmark on 3.5k lines
-of code with only three linters:
+`flint` is quite performant. This is a small benchmark on 3.5k lines of
+code with only three linters:
 
 ``` r
 file <- system.file("bench/test.R", package = "flint")
@@ -93,11 +93,15 @@ file <- system.file("bench/test.R", package = "flint")
 bench::mark(
   lintr = lintr::lint(
     file, linters = list(lintr::any_duplicated_linter(), lintr::any_is_na_linter(),
-                         lintr::matrix_apply_linter())
+                         lintr::matrix_apply_linter(), lintr::function_return_linter(),
+                         lintr::lengths_linter(), lintr::T_and_F_symbol_linter(),
+                         lintr::undesirable_function_linter(), lintr::expect_length_linter())
   ),
   flint = flint::lint(
     file, linters = list(flint::any_duplicated_linter(), flint::any_is_na_linter(),
-                         flint::matrix_apply_linter()),
+                         flint::matrix_apply_linter(), flint::function_return_linter(),
+                         flint::lengths_linter(), flint::T_and_F_symbol_linter(),
+                         flint::undesirable_function_linter(), flint::expect_length_linter()),
     verbose = FALSE
   ),
   check = FALSE
@@ -107,8 +111,8 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 lintr         2.77s    2.77s     0.361   315.4MB     9.03
-#> 2 flint      150.51ms 155.09ms     6.26     1.45MB     3.13
+#> 1 lintr         4.06s    4.06s     0.246  317.32MB     7.38
+#> 2 flint      204.91ms 216.56ms     4.55     1.71MB     1.52
 ```
 
 ## Contributing

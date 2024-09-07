@@ -2,7 +2,7 @@ id: semicolon_1
 language: r
 severity: warning
 rule:
-  regex: ;$
+  regex: ;\s+$
   not:
     inside:
       kind: string

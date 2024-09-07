@@ -120,18 +120,22 @@
 </h2>
 <p>The most used tool for lints detection in R is <code>lintr</code>. However, <code>lintr</code>’s performance is not optimal when it is applied on medium to large packages. Also, <code>lintr</code> cannot perform automatic replacement of lints.</p>
 <p><code>styler</code> is a package to clean code by fixing indentation and other things, but doesn’t perform code replacement based on lints.</p>
-<p><code>flint</code> is extremely performant. This is a small benchmark on 3.5k lines of code with only three linters:</p>
+<p><code>flint</code> is quite performant. This is a small benchmark on 3.5k lines of code with only three linters:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"bench/test.R"</span>, package <span class="op">=</span> <span class="st">"flint"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span></span>
 <span>  lintr <span class="op">=</span> <span class="fu">lintr</span><span class="fu">::</span><span class="fu">lint</span><span class="op">(</span></span>
 <span>    <span class="va">file</span>, linters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">lintr</span><span class="fu">::</span><span class="fu">any_duplicated_linter</span><span class="op">(</span><span class="op">)</span>, <span class="fu">lintr</span><span class="fu">::</span><span class="fu">any_is_na_linter</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                         <span class="fu">lintr</span><span class="fu">::</span><span class="fu">matrix_apply_linter</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>                         <span class="fu">lintr</span><span class="fu">::</span><span class="fu">matrix_apply_linter</span><span class="op">(</span><span class="op">)</span>, <span class="fu">lintr</span><span class="fu">::</span><span class="fu">function_return_linter</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                         <span class="fu">lintr</span><span class="fu">::</span><span class="fu">lengths_linter</span><span class="op">(</span><span class="op">)</span>, <span class="fu">lintr</span><span class="fu">::</span><span class="fu">T_and_F_symbol_linter</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                         <span class="fu">lintr</span><span class="fu">::</span><span class="fu">undesirable_function_linter</span><span class="op">(</span><span class="op">)</span>, <span class="fu">lintr</span><span class="fu">::</span><span class="fu">expect_length_linter</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  flint <span class="op">=</span> <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/lint.html">lint</a></span><span class="op">(</span></span>
 <span>    <span class="va">file</span>, linters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/any_duplicated_linter.html">any_duplicated_linter</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/any_is_na_linter.html">any_is_na_linter</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                         <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/matrix_apply_linter.html">matrix_apply_linter</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                         <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/matrix_apply_linter.html">matrix_apply_linter</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/function_return_linter.html">function_return_linter</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                         <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/lengths_linter.html">lengths_linter</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/T_and_F_symbol_linter.html">T_and_F_symbol_linter</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                         <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/undesirable_function_linter.html">undesirable_function_linter</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/expect_length_linter.html">expect_length_linter</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  check <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -141,8 +145,8 @@
 <span><span class="co">#&gt; # A tibble: 2 × 6</span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 lintr         2.77s    2.77s     0.361   315.4MB     9.03</span></span>
-<span><span class="co">#&gt; 2 flint      150.51ms 155.09ms     6.26     1.45MB     3.13</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 lintr         4.06s    4.06s     0.246  317.32MB     7.38</span></span>
+<span><span class="co">#&gt; 2 flint      204.91ms 216.56ms     4.55     1.71MB     1.52</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>

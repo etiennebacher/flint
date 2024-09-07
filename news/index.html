@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flint</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,17 @@
       <small>Source: <a href="https://github.com/etiennebacher/flint/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.8" id="flint-008">flint 0.0.8<a class="anchor" aria-label="anchor" href="#flint-008"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-0-8">New features<a class="anchor" aria-label="anchor" href="#new-features-0-0-8"></a></h3>
+<ul><li>New linters: <code>expect_comparison_linter</code> and <code>package_hooks_linter</code>.</li>
+<li>Add argument <code>verbose</code> to <code><a href="../reference/lint.html">lint_package()</a></code> and <code><a href="../reference/lint.html">lint_dir()</a></code>.</li>
+<li>Better message when no lints can be fixed.</li>
+<li>Add one case in <code>seq_linter</code> where <code>seq_len(x)</code> is faster than <code>seq(1, x)</code>.</li>
+<li>Better handling of <code>exclude_path</code>.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.7" id="flint-007">flint 0.0.7<a class="anchor" aria-label="anchor" href="#flint-007"></a></h2>
 <div class="section level3">

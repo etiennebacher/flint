@@ -3,11 +3,18 @@ language: r
 severity: warning
 rule:
   kind: binary_operator
+  not:
+    has:
+      field: rhs
+      kind: function_definition
   all:
     - has:
         field: lhs
         kind: identifier
         pattern: $IDENT
+    - has:
+        field: operator
+        regex: "<-|="
     - not:
         precedes:
           stopBy: end
@@ -19,5 +26,6 @@ rule:
                 any:
                   - { kind: identifier, pattern: $IDENT }
                   - { has: {kind: identifier, pattern: $IDENT, stopBy: end}}
+                  - { has: {has: {kind: identifier, pattern: $IDENT, stopBy: end}}}
 
 message: Object ~~IDENT~~ is unused in the rest of the code.

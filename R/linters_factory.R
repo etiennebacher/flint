@@ -90,6 +90,18 @@ makeActiveBinding('equals_na_linter', function() { function() 'equals_na' }, env
 
 
 
+#' @inherit lintr::expect_comparison_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/expect_comparison_linter>.
+
+#' @usage expect_comparison_linter
+#' @name expect_comparison_linter
+#' @export
+NULL
+makeActiveBinding('expect_comparison_linter', function() { function() 'expect_comparison' }, env = environment())
+
+
+
 #' @inherit lintr::expect_length_linter title
 #' @description
 #' See <https://lintr.r-lib.org/reference/expect_length_linter>.

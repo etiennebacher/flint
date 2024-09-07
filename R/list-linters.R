@@ -17,6 +17,7 @@ list_linters <- function() {
     "empty_assignment",
     "equal_assignment",
     "equals_na",
+    "expect_comparison",
     "expect_length",
     "expect_named",
     "expect_not",

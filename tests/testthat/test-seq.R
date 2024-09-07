@@ -181,6 +181,21 @@ test_that("fix 1:length(...) expressions", {
 test_that("fix seq(...) expressions", {
   expect_snapshot(fix_text("seq(length(x))"))
   expect_snapshot(fix_text("seq(nrow(x))"))
+  expect_snapshot(fix_text("seq(1, 100)"))
   expect_snapshot(fix_text("rev(seq(length(x)))"))
   expect_snapshot(fix_text("rev(seq(nrow(x)))"))
+})
+
+
+test_that("seq(1, x) is blocked if x > 0", {
+  linter <- seq_linter()
+  msg <- "is more efficient"
+
+  expect_lint("seq(1, NA)", NULL, linter)
+  expect_lint("seq(1, -1)", NULL, linter)
+  expect_lint("seq(1, NA)", NULL, linter)
+  expect_lint("seq(2, 5)", NULL, linter)
+
+  expect_lint("seq(1, 1)", msg, linter)
+  expect_lint("seq(1, 10)", msg, linter)
 })

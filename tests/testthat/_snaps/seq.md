@@ -115,6 +115,14 @@
 ---
 
     Code
+      fix_text("seq(1, 100)")
+    Output
+      Old code: seq(1, 100) 
+      New code: seq_len(100) 
+
+---
+
+    Code
       fix_text("rev(seq(length(x)))")
     Output
       Old code: rev(seq(length(x))) 

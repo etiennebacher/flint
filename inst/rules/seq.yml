@@ -103,3 +103,19 @@ message: |
   1:NROW(...) is likely to be wrong in the empty edge case. Use seq_len(NROW(...)) instead.
 
 
+---
+
+id: seq_9
+language: r
+severity: warning
+rule:
+  pattern: seq(1, $VAL)
+  not:
+    pattern: seq(1, 0)
+constraints:
+  VAL:
+    regex: ^\d+$
+fix: seq_len(~~VAL~~)
+message: seq_len(~~VAL~~) is more efficient than seq(1, ~~VAL~~).
+
+

@@ -1,3 +1,13 @@
+# flint 0.0.8
+
+## New features
+
+* New linters: `expect_comparison_linter` and `package_hooks_linter`.
+* Add argument `verbose` to `lint_package()` and `lint_dir()`.
+* Better message when no lints can be fixed.
+* Add one case in `seq_linter` where `seq_len(x)` is faster than `seq(1, x)`.
+* Better handling of `exclude_path`.
+
 # flint 0.0.7
 
 ## New features

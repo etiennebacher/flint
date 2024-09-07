@@ -9,7 +9,7 @@ test_that("setup_flint works for packages", {
   # lint
   cat("any(duplicated(x))", file = "R/foo.R")
   withr::with_envvar(
-    new = c("TESTTHAT" = FALSE),
+    new = c("TESTTHAT" = FALSE, "GITHUB_ACTIONS" = FALSE),
     expect_equal(nrow(lint(verbose = FALSE)), 1)
   )
 
@@ -32,7 +32,7 @@ test_that("setup_flint works for projects", {
   # lint
   cat("any(duplicated(x))", file = "R/foo.R")
   withr::with_envvar(
-    new = c("TESTTHAT" = FALSE),
+    new = c("TESTTHAT" = FALSE, "GITHUB_ACTIONS" = FALSE),
     expect_equal(nrow(lint(verbose = FALSE)), 1)
   )
 

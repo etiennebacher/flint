@@ -11,15 +11,13 @@ rule:
     - not:
         precedes:
           stopBy: end
-          kind: identifier
-          pattern: $IDENT
-        # any:
-        #   - kind: identifier
-        #     pattern: $IDENT
-        #   - has:
-        #       stopBy: end
-        #       any:
-        #         - { kind: identifier, pattern: $IDENT }
-        #         - { has: {kind: identifier, pattern: $IDENT, stopBy: end}}
+          any:
+            - kind: identifier
+              pattern: $IDENT
+            - has:
+                stopBy: end
+                any:
+                  - { kind: identifier, pattern: $IDENT }
+                  - { has: {kind: identifier, pattern: $IDENT, stopBy: end}}
 
 message: Object ~~IDENT~~ is unused in the rest of the code.

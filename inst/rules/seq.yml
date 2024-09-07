@@ -114,7 +114,7 @@ rule:
     pattern: seq(1, 0)
 constraints:
   VAL:
-    regex: ^\d+$
+    regex: ^\d+(|L)$
 fix: seq_len(~~VAL~~)
 message: seq_len(~~VAL~~) is more efficient than seq(1, ~~VAL~~).
 

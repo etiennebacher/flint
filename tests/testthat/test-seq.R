@@ -197,5 +197,6 @@ test_that("seq(1, x) is blocked if x > 0", {
   expect_lint("seq(2, 5)", NULL, linter)
 
   expect_lint("seq(1, 1)", msg, linter)
+  expect_lint("seq(1, 1L)", msg, linter)
   expect_lint("seq(1, 10)", msg, linter)
 })

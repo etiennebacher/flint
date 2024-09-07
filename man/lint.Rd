@@ -23,7 +23,8 @@ lint_dir(
   open = TRUE,
   exclude_path = NULL,
   exclude_linters = NULL,
-  use_cache = TRUE
+  use_cache = TRUE,
+  verbose = TRUE
 )
 
 lint_package(
@@ -32,7 +33,8 @@ lint_package(
   open = TRUE,
   exclude_path = NULL,
   exclude_linters = NULL,
-  use_cache = TRUE
+  use_cache = TRUE,
+  verbose = TRUE
 )
 
 lint_text(text, linters = NULL, exclude_linters = NULL)

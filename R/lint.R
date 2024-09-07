@@ -162,13 +162,13 @@ lint <- function(
   if (nrow(lints) == 0) {
     cli::cli_alert_success("No lints detected.")
   } else {
+    cli::cli_alert_success("Found {nrow(lints)} lint{?s} in {length(unique(lints$file))} file{?s}.")
     if ("fix" %in% names(lints)) {
       can_be_fixed <- lints[!is.na(fix)]
+      cli::cli_alert_info("{nrow(can_be_fixed)} of them can be fixed automatically.")
     } else {
-      can_be_fixed <- 0
+      cli::cli_alert_info("None of them can be fixed automatically.")
     }
-    cli::cli_alert_success("Found {nrow(lints)} lint{?s} in {length(unique(lints$file))} file{?s}.")
-    cli::cli_alert_info("{nrow(can_be_fixed)} of them can be fixed automatically.")
   }
 
   if (isTRUE(open) &&

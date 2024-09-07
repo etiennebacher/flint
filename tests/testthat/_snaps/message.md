@@ -6,7 +6,16 @@
       i Going to check 1 file.
       v No lints detected.
 
-# found lint message works
+# found lint message works when no lint can be fixed
+
+    Code
+      invisible(lint(temp_dir))
+    Message
+      i Going to check 1 file.
+      v Found 2 lints in 1 file.
+      i None of them can be fixed automatically.
+
+# found lint message works when lint can be fixed
 
     Code
       invisible(lint(temp_dir))

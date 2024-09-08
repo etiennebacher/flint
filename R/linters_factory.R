@@ -102,6 +102,18 @@ makeActiveBinding('expect_comparison_linter', function() { function() 'expect_co
 
 
 
+#' @inherit lintr::expect_identical_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/expect_identical_linter>.
+
+#' @usage expect_identical_linter
+#' @name expect_identical_linter
+#' @export
+NULL
+makeActiveBinding('expect_identical_linter', function() { function() 'expect_identical' }, env = environment())
+
+
+
 #' @inherit lintr::expect_length_linter title
 #' @description
 #' See <https://lintr.r-lib.org/reference/expect_length_linter>.

@@ -34,11 +34,12 @@ test_that("expect_true_false_linter blocks simple disallowed usages", {
 })
 
 test_that("lints vectorize", {
+  linter <- expect_true_false_linter()
   expect_equal(
     nrow(lint_text("{
       expect_equal(x, TRUE)
       expect_equal(x, FALSE)
-    }")),
+    }", linters = linter)),
     2
   )
 })

@@ -71,11 +71,12 @@ local({
 })
 
 test_that("lints vectorize", {
+  linter <- expect_type_linter()
   expect_equal(
     nrow(lint_text("{
       expect_true(is.integer(x))
       expect_equal(typeof(x), 'double')
-    }")),
+    }", linters = linter)),
     2
   )
 })

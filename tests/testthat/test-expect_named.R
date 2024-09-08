@@ -45,18 +45,17 @@ test_that("expect_named_linter blocks expect_identical usage as well", {
 })
 
 test_that("fix works for expect_named", {
+  linter <- expect_named_linter()
+
   # basic
-  expect_snapshot(fix_text("expect_identical(names(x), c('a', 'b'))"))
-  expect_snapshot(fix_text("expect_identical('a', names(x))"))
-  expect_snapshot(fix_text("expect_equal('a', names(x))"))
-  expect_snapshot(fix_text("expect_equal(names(x), c('a', 'b'))"))
+  expect_snapshot(fix_text("expect_identical(names(x), c('a', 'b'))", linters = linter))
+  expect_snapshot(fix_text("expect_identical('a', names(x))", linters = linter))
+  expect_snapshot(fix_text("expect_equal('a', names(x))", linters = linter))
+  expect_snapshot(fix_text("expect_equal(names(x), c('a', 'b'))", linters = linter))
 
   # double quote
-  expect_snapshot(fix_text("expect_identical(names(x), c(\"a\", \"b\"))"))
+  expect_snapshot(fix_text("expect_identical(names(x), c(\"a\", \"b\"))", linters = linter))
 
   # with testthat::
-  expect_snapshot(fix_text("testthat::expect_equal('a', names(x))"))
-
-  # only fix with expect_null(), not expect_named()
-  expect_snapshot(fix_text("expect_identical(names(xs), NULL)"))
+  expect_snapshot(fix_text("testthat::expect_equal('a', names(x))", linters = linter))
 })

@@ -15,7 +15,7 @@ Description: Lints are code patterns that are not optimal because they are
 Depends:
     R (>= 4.2)
 Imports:
-    astgrepr,
+    astgrepr (>= 0.0.7),
     cli,
     crayon,
     data.table,

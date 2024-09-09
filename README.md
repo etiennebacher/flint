@@ -85,7 +85,7 @@ lints.
 things, but doesn’t perform code replacement based on lints.
 
 `flint` is quite performant. This is a small benchmark on 3.5k lines of
-code with only three linters:
+code with a few linters:
 
 ``` r
 file <- system.file("bench/test.R", package = "flint")
@@ -111,8 +111,8 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 lintr         4.06s    4.06s     0.246  317.32MB     7.38
-#> 2 flint      204.91ms 216.56ms     4.55     1.71MB     1.52
+#> 1 lintr          3.6s     3.6s     0.278  317.32MB     8.34
+#> 2 flint       172.7ms  181.7ms     5.04     1.71MB     1.68
 ```
 
 ## Contributing

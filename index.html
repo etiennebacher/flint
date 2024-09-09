@@ -120,7 +120,7 @@
 </h2>
 <p>The most used tool for lints detection in R is <code>lintr</code>. However, <code>lintr</code>’s performance is not optimal when it is applied on medium to large packages. Also, <code>lintr</code> cannot perform automatic replacement of lints.</p>
 <p><code>styler</code> is a package to clean code by fixing indentation and other things, but doesn’t perform code replacement based on lints.</p>
-<p><code>flint</code> is quite performant. This is a small benchmark on 3.5k lines of code with only three linters:</p>
+<p><code>flint</code> is quite performant. This is a small benchmark on 3.5k lines of code with a few linters:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"bench/test.R"</span>, package <span class="op">=</span> <span class="st">"flint"</span><span class="op">)</span></span>
 <span></span>
@@ -145,8 +145,8 @@
 <span><span class="co">#&gt; # A tibble: 2 × 6</span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 lintr         4.06s    4.06s     0.246  317.32MB     7.38</span></span>
-<span><span class="co">#&gt; 2 flint      204.91ms 216.56ms     4.55     1.71MB     1.52</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 lintr          3.6s     3.6s     0.278  317.32MB     8.34</span></span>
+<span><span class="co">#&gt; 2 flint       172.7ms  181.7ms     5.04     1.71MB     1.68</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>

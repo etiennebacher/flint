@@ -16,17 +16,23 @@ rule:
 fix: expect_identical(~~VAL1~~, ~~VAL2~~)
 constraints:
   VAL1:
-    not:
-      has:
-        stopBy: end
-        kind: float
-        regex: \.
+    all:
+      - not:
+          has:
+            stopBy: end
+            kind: float
+            regex: \.
+      - not:
+          pattern: NULL
   VAL2:
-    not:
-      has:
-        stopBy: end
-        kind: float
-        regex: \.
+    all:
+      - not:
+          has:
+            stopBy: end
+            kind: float
+            regex: \.
+      - not:
+          pattern: NULL
 message: |
   Use expect_identical(x, y) by default; resort to expect_equal() only when
   needed, e.g. when setting ignore_attr= or tolerance=.

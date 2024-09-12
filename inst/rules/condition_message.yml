@@ -17,9 +17,9 @@ rule:
             stopBy: end
 constraints:
   FUN:
-    regex: packageStartupMessage|stop|warning
+    regex: "^packageStartupMessage|stop|warning$"
   FUNPASTE:
-    regex: paste|paste0
+    regex: "^paste|paste0$"
 fix: stop(~~MSG~~)
 message: |
   Don't use ~~FUNPASTE~~ to build ~~FUN~~ strings. Instead use the fact that these

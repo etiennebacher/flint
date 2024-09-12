@@ -36,6 +36,18 @@ makeActiveBinding('class_equals_linter', function() { function() 'class_equals' 
 
 
 
+#' @inherit lintr::condition_message_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/condition_message_linter>.
+
+#' @usage condition_message_linter
+#' @name condition_message_linter
+#' @export
+NULL
+makeActiveBinding('condition_message_linter', function() { function() 'condition_message' }, env = environment())
+
+
+
 #' double_assignment
 
 #' @usage double_assignment_linter

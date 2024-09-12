@@ -1,0 +1,28 @@
+id: condition_message-1
+language: r
+severity: warning
+rule:
+  any:
+    - pattern: $FUN($$$ $FUNPASTE($$$MSG) $$$)
+  kind: call
+  not:
+    any:
+      - has:
+          kind: extract_operator
+      - has:
+          stopBy: end
+          kind: argument
+          has:
+            field: name
+            regex: "^collapse|sep$"
+            stopBy: end
+constraints:
+  FUN:
+    regex: packageStartupMessage|stop|warning
+  FUNPASTE:
+    regex: paste|paste0
+fix: stop(~~MSG~~)
+message: |
+  Don't use ~~FUNPASTE~~ to build ~~FUN~~ strings. Instead use the fact that these
+  functions build condition message strings from their input (using "" as a
+  separator). For translatable strings, prefer using gettextf().

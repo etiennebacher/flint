@@ -2,8 +2,7 @@ id: condition_message-1
 language: r
 severity: warning
 rule:
-  any:
-    - pattern: $FUN($$$ $FUNPASTE($$$MSG) $$$)
+  pattern: $FUN($$$ $FUNPASTE($$$MSG) $$$)
   kind: call
   not:
     any:

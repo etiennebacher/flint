@@ -2,7 +2,7 @@ id: condition_message-1
 language: r
 severity: warning
 rule:
-  pattern: $FUN($$$ $FUNPASTE($$$MSG) $$$)
+  pattern: $FUN($$$ paste0($$$MSG) $$$)
   kind: call
   not:
     any:
@@ -13,15 +13,11 @@ rule:
           kind: argument
           has:
             field: name
-            regex: "^collapse|sep$"
+            regex: "^collapse|recycle0$"
             stopBy: end
 constraints:
   FUN:
     regex: "^packageStartupMessage|stop|warning$"
-  FUNPASTE:
-    regex: "^paste|paste0$"
-fix: stop(~~MSG~~)
+fix: ~~FUN~~(~~MSG~~)
 message: |
-  Don't use ~~FUNPASTE~~ to build ~~FUN~~ strings. Instead use the fact that these
-  functions build condition message strings from their input (using "" as a
-  separator). For translatable strings, prefer using gettextf().
+  ~~FUN~~(paste0(...)) can be rewritten as ~~FUN~~(...).

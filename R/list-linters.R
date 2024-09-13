@@ -12,6 +12,7 @@ list_linters <- function() {
     "any_duplicated",
     "any_is_na",
     "class_equals",
+    "condition_message",
     "double_assignment",
     "duplicate_argument",
     "empty_assignment",

@@ -1,0 +1,17 @@
+id: pipe_consistency-1
+language: r
+severity: warning
+rule:
+  kind: program
+  all:
+    - has:
+        stopBy: end
+        # field: operator
+        regex: "^\\|>$"
+    - has:
+        stopBy: end
+        # field: operator
+        regex: "^%>%$"
+message: |
+  Stick to one pipe operator; found at least one instance of %>% 
+  and at least one instance of |>.

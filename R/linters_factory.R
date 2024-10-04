@@ -352,6 +352,18 @@ makeActiveBinding('numeric_leading_zero_linter', function() { function() 'numeri
 
 
 
+#' @inherit lintr::pipe_consistency_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/pipe_consistency_linter>.
+
+#' @usage pipe_consistency_linter
+#' @name pipe_consistency_linter
+#' @export
+NULL
+makeActiveBinding('pipe_consistency_linter', function() { function() 'pipe_consistency' }, env = environment())
+
+
+
 #' @inherit lintr::outer_negation_linter title
 #' @description
 #' See <https://lintr.r-lib.org/reference/outer_negation_linter>.

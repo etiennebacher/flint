@@ -39,6 +39,7 @@ list_linters <- function() {
     "missing_argument",
     "nested_ifelse",
     "numeric_leading_zero",
+    "pipe_consistency",
     "outer_negation",
     "package_hooks",
     "paste",

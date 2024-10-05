@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(flint)
+library(flint, warn.conflicts = FALSE)
 ```
 
 

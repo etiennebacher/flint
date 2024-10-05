@@ -10,6 +10,11 @@ rule:
         has:
           kind: if_statement
           stopBy: neighbor
+          not:
+            has:
+              kind: 'braced_expression'
+              field: alternative
+              stopBy: end
         not:
           any:
             - has:

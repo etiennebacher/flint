@@ -66,11 +66,11 @@ resolve_linters <- function(path, linters, exclude_linters) {
         if (fs::is_absolute_path(x)) {
           return(x)
         } else if (is_flint_package(path)) {
-          fs::path("inst/rules/", paste0(x, ".yml"))
+          fs::path("inst/rules/custom/", paste0(x, ".yml"))
         } else if (is_testing() || !uses_flint(path)) {
-          fs::path(system.file(package = "flint"), "rules/", paste0(x, ".yml"))
+          fs::path(system.file(package = "flint"), "rules/custom/", paste0(x, ".yml"))
         } else {
-          file.path("flint/rules", paste0(x, ".yml"))
+          file.path("flint/rules/custom", paste0(x, ".yml"))
         }
       }, FUN.VALUE = character(1))
       if (!all(fs::file_exists(custom))) {
@@ -134,7 +134,11 @@ resolve_rules <- function(linters_is_null, linters, path) {
       if (fs::is_absolute_path(x)) {
         x
       } else {
-        fs::path("inst/rules/", paste0(x, ".yml"))
+        c(
+          fs::path("inst/rules/builtin/", paste0(x, ".yml")),
+          fs::path("inst/rules/custom/", paste0(x, ".yml"))
+        )
+        
       }
     }, FUN.VALUE = character(1))
   } else if (is_testing() || !uses_flint(path)) {
@@ -142,7 +146,7 @@ resolve_rules <- function(linters_is_null, linters, path) {
       if (fs::is_absolute_path(x)) {
         x
       } else {
-        fs::path(system.file(package = "flint"), "rules/", paste0(x, ".yml"))
+        fs::path(system.file(package = "flint"), "rules/builtin/", paste0(x, ".yml"))
       }
     }, FUN.VALUE = character(1))
   } else {
@@ -151,9 +155,30 @@ resolve_rules <- function(linters_is_null, linters, path) {
     # However, if the user made a selection in linters, we only respect their
     # choice.
     if (linters_is_null) {
-      rules <- fs::path("flint/rules/", list.files("flint/rules", pattern = "\\.yml$"))
+      rules <- c(
+        fs::path("flint/rules/builtin/", list.files("flint/rules/builtin", pattern = "\\.yml$")),
+        fs::path("flint/rules/custom/", list.files("flint/rules/custom", pattern = "\\.yml$"))
+      )
     } else {
-      rules <- fs::path("flint/rules/", paste0(linters, ".yml"))
+      in_builtin <- linters[linters %in% gsub("\\.yml$", "", basename(list.files("flint/rules/builtin/", pattern = "\\.yml$")))]
+      in_custom <- linters[linters %in% gsub("\\.yml$", "", basename(list.files("flint/rules/custom/", pattern = "\\.yml$")))]
+      in_both <- linters[intersect(in_builtin, in_custom)]
+
+      if (length(in_both) > 0) {
+        stop("The following rules appear in both `custom` and `builtin` rules: ", toString(in_both), ".\nRename custom rules.")
+      }
+
+      rules_builtin <- if (length(in_builtin) > 0) {
+        fs::path("flint/rules/builtin/", paste0(in_builtin, ".yml"))
+      } else {
+        NULL
+      }
+      rules_custom <- if (length(in_custom) > 0) {
+        fs::path("flint/rules/custom/", paste0(in_custom, ".yml"))
+      } else {
+        NULL
+      }
+      rules <- c(rules_builtin, rules_custom)
     }
   }
 
@@ -193,7 +218,7 @@ is_testing <- function() {
 }
 
 new_rule <- function(name) {
-  dest <- paste0("inst/rules/", name, ".yml")
+  dest <- paste0("inst/rules/builtin/", name, ".yml")
   cat("id: ...
 language: r
 severity: warning

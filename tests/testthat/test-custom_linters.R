@@ -1,6 +1,7 @@
 test_that("users can define custom linters", {
   create_local_package()
   setup_flint()
+  fs::dir_create("flint/rules/custom")
 
   cat("id: foobar
 language: r
@@ -9,7 +10,7 @@ rule:
   pattern: unique(length($VAR))
 fix: length(unique(~~VAR~~))
 message: Most likely an error
-", file = "flint/rules/AAAAAAAAA.yml")
+", file = "flint/rules/custom/AAAAAAAAA.yml")
 
   cat("x <- function() { \nunique(length(x))\n}", file = "R/foo.R")
   withr::with_envvar(

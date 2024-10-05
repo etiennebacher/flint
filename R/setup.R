@@ -37,7 +37,7 @@ setup_flint <- function(path = ".") {
 
   ### Files
   invisible(
-    fs::dir_copy(system.file("rules", package = "flint"), flint_dir)
+    fs::dir_copy(system.file("rules/builtin", package = "flint"), fs::path(flint_dir, "rules/builtin"))
   )
   if (!fs::file_exists(file.path(flint_dir, "cache_file_state.rds"))) {
     saveRDS(NULL, file.path(flint_dir, "cache_file_state.rds"))
@@ -73,12 +73,12 @@ setup_flint <- function(path = ".") {
 #' }
 update_flint <- function(path = ".") {
   flint_dir <- file.path(path, "flint")
-  existing_rules <- list.files(file.path(flint_dir, "rules"), pattern = "\\.yml$")
-  built_in_rules <- list.files(system.file("rules", package = "flint"), pattern = "\\.yml$")
-  new_built_in_rules <- system.file(
-    paste0("rules/", setdiff(built_in_rules, existing_rules)),
+  built_in_rules <- list.files(fs::path(flint_dir, "rules/builtin"), pattern = "\\.yml$")
+  updated_built_in_rules <- system.file(
+    list.files("rules/builtin", pattern = "\\.yml$"),
     package = "flint"
   )
+  new_built_in_rules <- setdiff(updated_built_in_rules, built_in_rules)
   cat("New rules:\n", paste0("- ", basename(new_built_in_rules), "\n"))
-  fs::file_copy(new_built_in_rules, paste0(flint_dir, "/rules/", basename(new_built_in_rules)))
+  fs::file_copy(new_built_in_rules, paste0(flint_dir, "/rules/builtin/", basename(new_built_in_rules)))
 }

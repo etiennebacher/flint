@@ -4,7 +4,7 @@ test_that("setup_flint works for packages", {
 
   expect_true(fs::file_exists("flint/cache_file_state.rds"))
   expect_true(fs::file_exists("flint/config.yml"))
-  expect_true(fs::dir_exists("flint/rules"))
+  expect_true(fs::dir_exists("flint/rules/builtin"))
 
   # lint
   cat("any(duplicated(x))", file = "R/foo.R")

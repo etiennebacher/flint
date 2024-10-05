@@ -86,25 +86,25 @@ create_local_thing <- function(
   )
   usethis::ui_silence(
     switch(thing,
-           package = create_package(dir, rstudio = rstudio, open = FALSE, check_name = FALSE),
-           project = create_project(dir, rstudio = rstudio, open = FALSE)
+           package = usethis::create_package(dir, rstudio = rstudio, open = FALSE, check_name = FALSE),
+           project = usethis::create_project(dir, rstudio = rstudio, open = FALSE)
     )
   )
 
   usethis::ui_silence({
-    defer(ui_silence(proj_set(old_project, force = TRUE)), envir = env)
-    proj_set(dir)
+    withr::defer(usethis::ui_silence(usethis::proj_set(old_project, force = TRUE)), envir = env)
+    usethis::proj_set(dir)
   })
 
-  defer(
+  withr::defer(
     {
       setwd(old_wd)
     },
     envir = env
   )
-  setwd(proj_get())
+  setwd(usethis::proj_get())
 
-  proj_get()
+  usethis::proj_get()
 }
 
 

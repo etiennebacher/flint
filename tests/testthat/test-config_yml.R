@@ -32,7 +32,7 @@ test_that("config.yml errors when it contains unknown rules", {
   setup_flint()
 
   cat("keep:\n  - equal_assignment\n  - foo\n  - bar", file = "flint/config.yml")
-  expect_error(lint(), "The following rules are passed but do not exist: foo.yml, bar.yml")
+  expect_error(lint(), "Unknown linters: foo, bar")
 })
 
 test_that("config.yml errors when it contains duplicated rules", {

@@ -55,51 +55,118 @@ get_tests_from_lintr <- function(name) {
 }
 
 resolve_linters <- function(path, linters, exclude_linters) {
-  if (!is.null(linters)) {
+
+  if (uses_flint(path)) {
+    path_to_rules <- fs::path("flint/rules")
+  } else if (is_flint_package(path)) {
+    path_to_rules <- fs::path("inst/rules")
+  } else {
+    path_to_rules <- fs::path(system.file(package = "flint"), "rules")
+  }
+
+  has_custom_linters <- fs::dir_exists(fs::path(path_to_rules, "custom")) &&
+    length(list.files(fs::path(path_to_rules, "custom"), pattern = "\\.yml$")) > 0
+
+  # All rule files
+  if (isTRUE(has_custom_linters)) {
+    rules <- c(
+      list.files(fs::path(path_to_rules, "builtin"), pattern = "\\.yml$", full.names = TRUE),
+      list.files(fs::path(path_to_rules, "custom"), pattern = "\\.yml$", full.names = TRUE)
+    )
+  } else {
+    rules <- list.files(fs::path(path_to_rules, "builtin"), pattern = "\\.yml$", full.names = TRUE)
+  }
+
+  rules_basename <- basename(rules)
+  rules_basename_noext <- gsub("\\.yml$", "", rules_basename)
+
+  if (anyDuplicated(rules_basename) > 0) {
+    stop("Some rule files are duplicated: ", toString(rules_basename[duplicated(rules_basename)]))
+  }
+
+  # All linters passed to lint() / fix()
+  if (is.null(exclude_linters) && uses_flint(path)) {
+    exclude_linters <- get_excluded_linters_from_config(path)
+  }
+
+  if (is.null(linters)){
+    if (uses_flint(path)) {
+      linters <- get_linters_from_config(path)
+    } else {
+      linters <- rules_basename_noext
+    }
+  } else {
     if (is.list(linters)) {
       # for compat with lintr
       linters <- unlist(linters)
     }
-    if (!all(linters %in% list_linters())) {
-      custom <- setdiff(linters, list_linters())
-      custom <- vapply(custom, function(x) {
-        if (fs::is_absolute_path(x)) {
-          return(x)
-        } else if (is_flint_package(path)) {
-          fs::path("inst/rules/custom/", paste0(x, ".yml"))
-        } else if (is_testing() || !uses_flint(path)) {
-          fs::path(system.file(package = "flint"), "rules/custom/", paste0(x, ".yml"))
-        } else {
-          file.path("flint/rules/custom", paste0(x, ".yml"))
-        }
-      }, FUN.VALUE = character(1))
-      if (!all(fs::file_exists(custom))) {
-        stop(paste0("Unknown linters: ", toString(custom[!fs::file_exists(custom)])))
-      }
-      linters <- custom
+  }
+
+  linters <- setdiff(linters, exclude_linters)
+  # browser()
+  if (!all(linters %in% rules_basename_noext | linter_is_path_to_yml(linters))) {
+    stop(
+      paste0(
+        "Unknown linters: ", 
+        toString(linters[! linters %in% rules_basename_noext & !linter_is_path_to_yml(linters)])
+      )
+    )
+  }
+
+  paths_to_yaml <- Filter(function(x) linter_is_path_to_yml(x), linters)
+
+  res <- rules[match(linters, rules_basename_noext)]
+  res <- res[!is.na(res)]
+  c(res, paths_to_yaml)
+}
+
+linter_is_path_to_yml <- function(x) {
+  vapply(x, function(y) {
+    fs::is_absolute_path(y) && grepl("\\.yml$", y)
+  }, FUN.VALUE = logical(1L))
+}
+
+get_linters_from_config <- function(path) {
+  if (is_flint_package(path)) {
+    config_file <- file.path(path, "inst/config.yml")
+  } else {
+    config_file <- file.path(path, "flint/config.yml")
+  }
+  if (fs::file_exists(config_file)) {
+    linters <- yaml::read_yaml(config_file, readLines.warn = FALSE)[["keep"]]
+    if (length(linters) == 0) {
+      stop("`", config_file, "` exists but doesn't contain any rule.")
+    }
+    if (anyDuplicated(linters) > 0) {
+      stop(
+        "In `", config_file, "`, the following linters are duplicated: ",
+        toString(linters[duplicated(linters)])
+      )
     }
   } else {
-    if (is_flint_package(path)) {
-      config_file <- file.path(path, "inst/config.yml")
-    } else {
-      config_file <- file.path(path, "flint/config.yml")
+    return(NULL)
+  }
+  linters
+}
+
+get_excluded_linters_from_config <- function(path) {
+  if (is_flint_package(path)) {
+    config_file <- file.path(path, "inst/config.yml")
+  } else {
+    config_file <- file.path(path, "flint/config.yml")
+  }
+  if (fs::file_exists(config_file)) {
+    linters <- yaml::read_yaml(config_file, readLines.warn = FALSE)[["exclude"]]
+    if (length(linters) == 0) {
+      return(NULL)
     }
-    if (fs::file_exists(config_file)) {
-      linters <- yaml::read_yaml(config_file, readLines.warn = FALSE)[["keep"]]
-      if (length(linters) == 0) {
-        stop("`", config_file, "` exists but doesn't contain any rule.")
-      }
-      if (anyDuplicated(linters) > 0) {
-        stop(
-          "In `", config_file, "`, the following linters are duplicated: ",
-          toString(linters[duplicated(linters)])
-        )
-      }
-    } else {
-      linters <- list_linters()
+    if (anyDuplicated(linters) > 0) {
+      stop(
+        "In `", config_file, "`, the following excluded linters are duplicated: ",
+        toString(linters[duplicated(linters)])
+      )
     }
   }
-  setdiff(linters, exclude_linters)
 }
 
 resolve_path <- function(path, exclude_path) {
@@ -128,68 +195,6 @@ resolve_path <- function(path, exclude_path) {
   setdiff(paths, excluded)
 }
 
-resolve_rules <- function(linters_is_null, linters, path) {
-  if (is_flint_package(path)) {
-    rules <- vapply(linters, function(x) {
-      if (fs::is_absolute_path(x)) {
-        x
-      } else {
-        c(
-          fs::path("inst/rules/builtin/", paste0(x, ".yml")),
-          fs::path("inst/rules/custom/", paste0(x, ".yml"))
-        )
-        
-      }
-    }, FUN.VALUE = character(1))
-  } else if (is_testing() || !uses_flint(path)) {
-    rules <- vapply(linters, function(x) {
-      if (fs::is_absolute_path(x)) {
-        x
-      } else {
-        fs::path(system.file(package = "flint"), "rules/builtin/", paste0(x, ".yml"))
-      }
-    }, FUN.VALUE = character(1))
-  } else {
-    # If the user didn't specify linters, then we use all of them, including the
-    # custom ones.
-    # However, if the user made a selection in linters, we only respect their
-    # choice.
-    if (linters_is_null) {
-      rules <- c(
-        fs::path("flint/rules/builtin/", list.files("flint/rules/builtin", pattern = "\\.yml$")),
-        fs::path("flint/rules/custom/", list.files("flint/rules/custom", pattern = "\\.yml$"))
-      )
-    } else {
-      in_builtin <- linters[linters %in% gsub("\\.yml$", "", basename(list.files("flint/rules/builtin/", pattern = "\\.yml$")))]
-      in_custom <- linters[linters %in% gsub("\\.yml$", "", basename(list.files("flint/rules/custom/", pattern = "\\.yml$")))]
-      in_both <- linters[intersect(in_builtin, in_custom)]
-
-      if (length(in_both) > 0) {
-        stop("The following rules appear in both `custom` and `builtin` rules: ", toString(in_both), ".\nRename custom rules.")
-      }
-
-      rules_builtin <- if (length(in_builtin) > 0) {
-        fs::path("flint/rules/builtin/", paste0(in_builtin, ".yml"))
-      } else {
-        NULL
-      }
-      rules_custom <- if (length(in_custom) > 0) {
-        fs::path("flint/rules/custom/", paste0(in_custom, ".yml"))
-      } else {
-        NULL
-      }
-      rules <- c(rules_builtin, rules_custom)
-    }
-  }
-
-  inexistent_rules <- basename(rules[!fs::file_exists(rules)])
-  if (length(inexistent_rules) > 0) {
-    stop("The following rules are passed but do not exist: ", toString(inexistent_rules))
-  }
-
-  rules
-}
-
 resolve_hashes <- function(path, use_cache) {
   if (!use_cache || !uses_flint(path)) {
     NULL
@@ -209,6 +214,9 @@ is_flint_package <- function(path) {
 }
 
 uses_flint <- function(path = ".") {
+  if (fs::is_file(path)) {
+    path <- fs::path_dir(path)
+  }
   flint_dir <- file.path(path, "flint")
   fs::dir_exists(flint_dir) && length(list.files(flint_dir)) > 0
 }

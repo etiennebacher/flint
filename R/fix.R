@@ -58,9 +58,8 @@ fix <- function(
     withr::local_options(cli.default_handler = function(...) { })
   }
 
-  linters2 <- resolve_linters(path, linters, exclude_linters)
+  rule_files <- resolve_linters(path, linters, exclude_linters)
   r_files <- resolve_path(path, exclude_path)
-  rule_files <- resolve_rules(linters_is_null = is.null(linters), linters2, path)
   fixes <- list()
 
   if (length(r_files) > 1 && !uses_git()) {

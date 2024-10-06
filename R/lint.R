@@ -105,9 +105,8 @@ lint <- function(
     use_cache <- FALSE
   }
 
-  linters2 <- resolve_linters(path, linters, exclude_linters)
+  rule_files <- resolve_linters(path, linters, exclude_linters)
   r_files <- resolve_path(path, exclude_path)
-  rule_files <- resolve_rules(linters_is_null = is.null(linters), linters2, path)
   lints <- list()
   hashes <- resolve_hashes(path, use_cache)
 
@@ -244,14 +243,24 @@ lint_package <- function(
 #' @export
 
 lint_text <- function(text, linters = NULL, exclude_linters = NULL) {
-  tmp <- tempfile(fileext = ".R")
+
+  # If the folder "flint" exists, it's possible that there are custom rules.
+  # Creating a proper tempfile in this case would make it impossible to
+  # uses those rules since rules are accessed directly in the package's system
+  # files. Therefore, in this case, the tempfile is created "manually" in the
+  # "flint" folder.
+  if (uses_flint(".")) {
+    tmp <- paste0(paste(sample(letters, 30, replace = TRUE), collapse = ""), ".R")
+    on.exit({
+      fs::file_delete(tmp)
+    })
+  } else {
+    tmp <- tempfile(fileext = ".R")
+  }
+
   text <- trimws(text)
   cat(text, file = tmp)
 
-  # one pass to get a clean dataframe, one pass to get the default ast-grep
-  # output that is used in the custom print method. It's also easier to have a
-  # dataframe output in tests.
-  # We're only parsing a small text in general so passing twice is not an issue.
   out <- lint(tmp, linters = linters, exclude_linters = exclude_linters, open = FALSE, verbose = FALSE)
   if (length(out) == 0) {
     return(invisible())

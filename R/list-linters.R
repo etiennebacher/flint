@@ -58,15 +58,13 @@ list_linters <- function() {
 
 }
 
-
 update_linter_factory <- function() {
   suppressWarnings(file.remove("R/linters_factory.R"))
   for (i in list_linters()) {
     if (grepl("assignment", i)) {
       cat(
         sprintf(
-          "\n
-#' %s",
+          "\n\n#' %s",
           i
         ),
         file = "R/linters_factory.R",
@@ -75,10 +73,7 @@ update_linter_factory <- function() {
     } else {
       cat(
         sprintf(
-          "\n
-#' @inherit lintr::%s_linter title
-#' @description
-#' See <https://lintr.r-lib.org/reference/%s_linter>.",
+          "\n\n#' @inherit lintr::%s_linter title\n#' @description\n#' See <https://lintr.r-lib.org/reference/%s_linter>.",
           i, i
         ),
         file = "R/linters_factory.R",
@@ -87,10 +82,7 @@ update_linter_factory <- function() {
     }
     cat(
       sprintf(
-        "\n
-#' @usage %s_linter
-#' @name %s_linter
-#' @export
+        "\n\n#' @usage %s_linter\n#' @name %s_linter\n#' @export
 NULL
 makeActiveBinding('%s_linter', function() { function() '%s' }, env = environment())\n
 ",

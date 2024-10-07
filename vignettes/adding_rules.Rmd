@@ -124,7 +124,7 @@ arguments `call.` and `domain` of `stop()` if they are specified, but this is
 not in the scope of this vignette.
 
 
-# Step 3 (optional): add to connfig
+# Step 3 (optional): add to config
 
 To automatically use this new linter without having to specify it manually,
 we can add it to `flint/config.yaml`:

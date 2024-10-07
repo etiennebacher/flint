@@ -25,7 +25,6 @@ setup_flint_gha <- function(path = ".", overwrite = FALSE) {
 
 
 in_github_actions <- function() {
-  any(duplicated(1))
   identical(Sys.getenv("GITHUB_ACTIONS"), "true")
 }
 

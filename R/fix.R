@@ -62,6 +62,21 @@ fix <- function(
   r_files <- resolve_path(path, exclude_path)
   fixes <- list()
 
+  if (uses_git()) {
+    unstaged_files <- unlist(git2r::status()$unstaged)
+    if (any(r_files %in% unstaged_files)) {
+      if (interactive()) {
+        utils::menu(
+          title = "It is recommended to commit or discard all modified files before running `fix()`. Do you want to apply fixes anyway?",
+          choices = c("Yes", "No")
+        )
+      } else if (isFALSE(force)) {
+        stop("It is recommended to commit or discard all modified files before running `fix()`. Therefore, this operation is not allowed by default in
+        a non-interactive setting. Use `force = TRUE` to bypass this behavior.")
+      }
+    }    
+  }
+
   if (length(r_files) > 1 && !uses_git()) {
     if (interactive()) {
       utils::menu(
@@ -69,7 +84,7 @@ fix <- function(
         choices = c("Yes", "No")
       )
     } else if (isFALSE(force)) {
-      stop("It seems that you are not using Git, but `fix()` will be applied on several R files. This will make it difficult to see the changes in code. Therefore, this operation is not allowed in a non-interactive setting.")
+      stop("It seems that you are not using Git, but `fix()` will be applied on several R files. This will make it difficult to see the changes in code. Therefore, this operation is not allowed by default in a non-interactive setting. Use `force = TRUE` to bypass this behavior.")
     }
   }
 

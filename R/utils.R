@@ -104,12 +104,7 @@ resolve_linters <- function(path, linters, exclude_linters) {
 
   linters <- setdiff(linters, exclude_linters)
   if (!all(linters %in% rules_basename_noext | linter_is_path_to_yml(linters))) {
-    stop(
-      paste0(
-        "Unknown linters: ", 
-        toString(linters[! linters %in% rules_basename_noext & !linter_is_path_to_yml(linters)])
-      )
-    )
+    stop("Unknown linters: ", toString(linters[! linters %in% rules_basename_noext & !linter_is_path_to_yml(linters)]))
   }
 
   paths_to_yaml <- Filter(function(x) linter_is_path_to_yml(x), linters)

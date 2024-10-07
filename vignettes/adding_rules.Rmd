@@ -124,7 +124,7 @@ arguments `call.` and `domain` of `stop()` if they are specified, but this is
 not in the scope of this vignette.
 
 
-# Step 3 (optional) 
+# Step 3 (optional): add to connfig
 
 To automatically use this new linter without having to specify it manually,
 we can add it to `flint/config.yaml`:
@@ -145,7 +145,7 @@ flint::fix_text('stop("Got ", n, " values instead of 1.")')
 #> New code: rlang::abort(paste0("Got ", n, " values instead of 1.")) 
 ```
 
-# Step 4
+# Step 4: enjoy
 
 The new linter is now set up, you can use `flint` as before to lint or fix
 specific files or entire folders, e.g. `flint::fix_dir("R")`.

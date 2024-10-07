@@ -47,3 +47,4 @@ BugReports: https://github.com/etiennebacher/flint/issues
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
+Config/testthat/parallel: true

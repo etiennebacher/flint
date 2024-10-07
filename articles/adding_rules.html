@@ -69,9 +69,8 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://flint.etiennebacher.com">flint</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><code>flint</code> comes with an extensive set of rules taken from
 <code>lintr</code>, but if necessary one can also extend it relatively
-easily. This will require some knowledge of <code>astgrepr</code> and
-therefore of the Rust crate <code>ast-grep</code>. This crate has great
-documentation on <a href="https://ast-grep.github.io/guide/pattern-syntax.html" class="external-link">creating new
+easily. This will require some knowledge of the Rust crate
+<code>ast-grep</code> to write. This crate has great documentation on <a href="https://ast-grep.github.io/guide/pattern-syntax.html" class="external-link">creating new
 rules</a> so you should start there.</p>
 <p>In this vignette, our objective is to replace calls to
 <code><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop()</a></code> by <code><a href="https://rlang.r-lib.org/reference/abort.html" class="external-link">rlang::abort()</a></code>, for instance because

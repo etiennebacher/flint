@@ -528,3 +528,15 @@ makeActiveBinding('unnecessary_nesting_linter', function() { function() 'unneces
 NULL
 makeActiveBinding('unreachable_code_linter', function() { function() 'unreachable_code' }, env = environment())
 
+
+
+#' @inherit lintr::which_grepl_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/which_grepl_linter>.
+
+#' @usage which_grepl_linter
+#' @name which_grepl_linter
+#' @export
+NULL
+makeActiveBinding('which_grepl_linter', function() { function() 'which_grepl' }, env = environment())
+

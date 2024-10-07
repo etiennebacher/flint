@@ -53,7 +53,8 @@ list_linters <- function() {
     "undesirable_function",
     "undesirable_operator",
     "unnecessary_nesting",
-    "unreachable_code"
+    "unreachable_code",
+    "which_grepl"
   )
 
 }

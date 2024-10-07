@@ -14,7 +14,6 @@
 - Automatic replacement of lints with `fix()`
 - Compatibility with (some) `{lintr}` rules
 - Fast
-- Low-dependency
 
 `flint` is powered by
 [`astgrepr`](https://github.com/etiennebacher/astgrepr/), which is
@@ -124,17 +123,19 @@ bench::mark(
                          flint::matrix_apply_linter(), flint::function_return_linter(),
                          flint::lengths_linter(), flint::T_and_F_symbol_linter(),
                          flint::undesirable_function_linter(), flint::expect_length_linter()),
-    verbose = FALSE
+    verbose = FALSE,
+    open = FALSE
   ),
   check = FALSE
 )
-#> Warning: Some expressions had a GC in every iteration; so filtering is
-#> disabled.
+#> Warning: Some expressions had a GC in every
+#> iteration; so filtering is disabled.
 #> # A tibble: 2 × 6
-#>   expression      min   median `itr/sec` mem_alloc `gc/sec`
-#>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 lintr         5.09s    5.09s     0.197   317.3MB     6.88
-#> 2 flint      251.14ms 253.34ms     3.95     1.71MB     0
+#>   expression      min   median `itr/sec` mem_alloc
+#>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>
+#> 1 lintr         1.89s    1.89s     0.528  308.57MB
+#> 2 flint      101.64ms  102.4ms     9.71     1.67MB
+#> # ℹ 1 more variable: `gc/sec` <dbl>
 ```
 
 ## Contributing

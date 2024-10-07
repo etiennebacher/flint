@@ -111,7 +111,8 @@ bench::mark(
                          flint::matrix_apply_linter(), flint::function_return_linter(),
                          flint::lengths_linter(), flint::T_and_F_symbol_linter(),
                          flint::undesirable_function_linter(), flint::expect_length_linter()),
-    verbose = FALSE
+    verbose = FALSE,
+    open = FALSE
   ),
   check = FALSE
 )

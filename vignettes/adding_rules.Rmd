@@ -33,14 +33,14 @@ stop("this is an error")
 rlang::abort("this is an error")
 ```
 
-## Step 1: setup
+# Step 1: setup
 
 First, we need to set up `flint` using `setup_flint()`. This will create a 
 `flint` folder that contains (among other things) a `rules` folder where all 
 rules are stored. This is divided between `builtin` rules (that shouldn't modified manually) and `custom` rules (where we will store our custom rule).
 
 Then, we can create the structure of a new rule by copying an existing rule, say
-`flint/rules/builtin/any_is_na.yml` for instance. Removing the stuff that is
+`flint/rules/builtin/any_is_na.yml` for instance. After removing the stuff that is
 specific to this rule, we end up with this structure:
 
 ```yaml
@@ -54,7 +54,7 @@ message:
 ```
 
 
-## Step 2: start exploring
+# Step 2: start exploring
 
 When we use `stop()`, we can pass multiple elements, like in `paste0()`:
 

@@ -20,7 +20,7 @@ library(flint, warn.conflicts = FALSE)
 
 `flint` comes with an extensive set of rules taken from `lintr`, but if 
 necessary one can also extend it relatively easily. This will require some
-knowledge of `astgrepr` and therefore of the Rust crate `ast-grep`. This crate
+knowledge of the Rust crate `ast-grep` to write. This crate
 has great documentation on [creating new rules](https://ast-grep.github.io/guide/pattern-syntax.html)
 so you should start there.
 

@@ -87,7 +87,7 @@ fix: rlang::abort(paste0(~~ELEMS~~))
 message: Use `rlang::abort()` instead of `stop()`.
 ```
 
-If we stored this rule in `flint/rules/custom/stop_abort.yml`, then we can
+After storing this rule in `flint/rules/custom/stop_abort.yml`, we can
 call:
 
 ```{r, eval=FALSE}

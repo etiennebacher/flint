@@ -1,3 +1,12 @@
+# flint 0.0.9
+
+## New features
+
+* New linters: `condition_message_linter()` and `expect_identical_linter()`.
+* Rewrote vignette on adding new rules.
+* `setup_flint()` now puts built-in rules in `flint/rules/builtin`.
+
+
 # flint 0.0.8
 
 ## New features

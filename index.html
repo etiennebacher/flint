@@ -65,7 +65,6 @@
 </li>
 <li>Compatibility with (some) <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a> rules</li>
 <li>Fast</li>
-<li>Low-dependency</li>
 </ul>
 <p><code>flint</code> is powered by <a href="https://github.com/etiennebacher/astgrepr/" class="external-link"><code>astgrepr</code></a>, which is itself built on the Rust crate <a href="https://ast-grep.github.io/" class="external-link"><code>ast-grep</code></a>.</p>
 <div class="section level2">
@@ -159,17 +158,19 @@
 <span>                         <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/matrix_apply_linter.html">matrix_apply_linter</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/function_return_linter.html">function_return_linter</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>                         <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/lengths_linter.html">lengths_linter</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/T_and_F_symbol_linter.html">T_and_F_symbol_linter</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>                         <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/undesirable_function_linter.html">undesirable_function_linter</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/expect_length_linter.html">expect_length_linter</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    open <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  check <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Some expressions had a GC in every iteration; so filtering is</span></span>
-<span><span class="co">#&gt; disabled.</span></span>
+<span><span class="co">#&gt; Warning: Some expressions had a GC in every</span></span>
+<span><span class="co">#&gt; iteration; so filtering is disabled.</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 6</span></span>
-<span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
-<span><span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 lintr         5.09s    5.09s     0.197   317.3MB     6.88</span></span>
-<span><span class="co">#&gt; 2 flint      251.14ms 253.34ms     3.95     1.71MB     0</span></span></code></pre></div>
+<span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc</span></span>
+<span><span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;</span></span>
+<span><span class="co">#&gt; 1 lintr         1.89s    1.89s     0.528  308.57MB</span></span>
+<span><span class="co">#&gt; 2 flint      101.64ms  102.4ms     9.71     1.67MB</span></span>
+<span><span class="co">#&gt; # ℹ 1 more variable: `gc/sec` &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>

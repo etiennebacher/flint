@@ -132,8 +132,8 @@ using by wrapping them in <code>~~</code>:</p>
 <span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="at">  </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> stop($$$ELEMS)</span></span>
 <span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="fu">fix</span><span class="kw">:</span><span class="at"> rlang::abort(paste0(~~ELEMS~~))</span></span>
 <span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="fu">message</span><span class="kw">:</span><span class="at"> Use `rlang::abort()` instead of `stop()`.</span></span></code></pre></div>
-<p>If we stored this rule in
-<code>flint/rules/custom/stop_abort.yml</code>, then we can call:</p>
+<p>After storing this rule in
+<code>flint/rules/custom/stop_abort.yml</code>, we can call:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="../reference/lint.html">lint_text</a></span><span class="op">(</span></span>
 <span>  <span class="st">'stop("Got ", n, " values instead of 1.")'</span>, </span>

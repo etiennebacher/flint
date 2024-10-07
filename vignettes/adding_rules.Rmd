@@ -18,161 +18,134 @@ knitr::opts_chunk$set(
 library(flint, warn.conflicts = FALSE)
 ```
 
-
 `flint` comes with an extensive set of rules taken from `lintr`, but if 
 necessary one can also extend it relatively easily. This will require some
 knowledge of `astgrepr` and therefore of the Rust crate `ast-grep`. This crate
 has great documentation on [creating new rules](https://ast-grep.github.io/guide/pattern-syntax.html)
 so you should start there.
 
-The objective for this vignette is to add support for
-[`is_numeric_linter()`](https://lintr.r-lib.org/reference/is_numeric_linter.html).
+In this vignette, our objective is to replace calls to `stop()` by 
+`rlang::abort()`, for instance because we prefer the formatting of the output
+with the latter.
+```{r, error=TRUE}
+stop("this is an error")
+
+rlang::abort("this is an error")
+```
 
 ## Step 1: setup
 
-We need three things to start experimenting with new rules:
+First, we need to set up `flint` using `setup_flint()`. This will create a 
+`flint` folder that contains (among other things) a `rules` folder where all 
+rules are stored. This is divided between `builtin` rules (that shouldn't modified manually) and `custom` rules (where we will store our custom rule).
 
-* an example: this can be taken from `lintr`'s examples for a specific linter. 
-  For instance we can already run `lint_text("is.numeric(y) || is.integer(y)")`. 
-  This doesn't return anything since we haven't implemented the rule yet.
-  
-* a rule: this requires storing a new YAML file in `flint/rules`. We can call 
-  this one `is_numeric.yml`.
-  
-* store the rule name (`"is_numeric"`) in `list_linters()`.
-  
-Additionally, if the rules we want to add are part of `lintr`, we can copy the
-tests stored in [`lintr` test suite](https://github.com/r-lib/lintr/tree/main/tests/testthat) 
-to ensure that our rules cover most corner cases.
+Then, we can create the structure of a new rule by copying an existing rule, say
+`flint/rules/builtin/any_is_na.yml` for instance. Removing the stuff that is
+specific to this rule, we end up with this structure:
+
+```yaml
+id: 
+language: r
+severity: warning
+rule:
+  pattern: 
+fix: 
+message: 
+```
 
 
 ## Step 2: start exploring
 
-In `lintr::is_numeric_linter()`, we want to warn if one uses `is.numeric(y) || is.integer(y)`
-or `is.integer(y) || is.numeric(y)` since this equivalent to `is.numeric(y)`.
+When we use `stop()`, we can pass multiple elements, like in `paste0()`:
 
-In our rule, we can already add those two patterns using `any`:
+```{r, error=TRUE}
+n <- 10
+stop("Got ", n, " values instead of 1.")
+```
 
-```{yaml}
-id: is_numeric_1
+This is not possible with `rlang::abort()`, which needs everything to be in the
+argument `message`, meaning that we need to manually put all those elements in 
+`paste0()`:
+
+```{r, error=TRUE}
+n <- 10
+rlang::abort(paste0("Got ", n, " values instead of 1."))
+```
+
+Therefore, we can look for the pattern `stop(...)` and replace it by 
+`rlang::abort(paste0(...))`. Capturing all elements in a pattern is done with
+`$$$` and those elements can be used in the `fix` or `message` arguments using 
+by wrapping them in `~~`:
+
+```yaml
+id: stop_abort-1
 language: r
 severity: warning
 rule:
-  any:
-    - pattern: is.numeric($VAR) || is.integer($VAR)
-    - pattern: is.integer($VAR) || is.numeric($VAR)
-message: is.numeric(x) is the same as is.numeric(x) || is.integer(x). Use
-    is.double(x) to test for objects stored as 64-bit floating point.
+  pattern: stop($$$ELEMS)
+fix: rlang::abort(paste0(~~ELEMS~~))
+message: Use `rlang::abort()` instead of `stop()`.
 ```
 
-Running our example now shows the message:
+If we stored this rule in `flint/rules/custom/stop_abort.yml`, then we can
+call:
+
+```{r, eval=FALSE}
+flint::lint_text(
+  'stop("Got ", n, " values instead of 1.")', 
+  linters = "stop_abort"
+)
+```
+
+Running our example with `lint_text()` now shows the message:
 
 ```{.r}
-lint_text("is.numeric(y) || is.integer(y)")
-#> Original code: is.numeric(y) || is.integer(y) 
-#> Suggestion: is.numeric(x) || is.integer(x) can be simplified to is.numeric(x). Use is.double(x) to test for objects stored as 64-bit floating point. 
+flint::lint_text(
+  'stop("Got ", n, " values instead of 1.")', 
+  linters = "stop_abort"
+)
+#> Original code: stop("Got ", n, " values instead of 1.") 
+#> Suggestion: Use `rlang::abort()` instead of `stop()`. 
+#> Rule ID: stop_abort-1 
+```
+And `fix_text()` correctly applies the fix:
+
+```{r, eval=FALSE}
+flint::fix_text(
+  'stop("Got ", n, " values instead of 1.")', 
+  linters = "stop_abort"
+)
+#> Old code: stop("Got ", n, " values instead of 1.") 
+#> New code: rlang::abort(paste0("Got ", n, " values instead of 1.")) 
 ```
 
-But we can see from the `lintr::is_numeric_linter()` examples that are more
-cases in which we should warn. For instance, `class(z) %in% c("numeric", "integer")`
-should warn since it is equivalent to `is.numeric(z)`, 
-`class(z) %in% c("numeric", "integer", "factor")` shouldn't.
+Note that there are still some corner cases to address, such as ignoring the
+arguments `call.` and `domain` of `stop()` if they are specified, but this is
+not in the scope of this vignette.
 
-We can add a second rule in our YAML file by adding a separator `---`:
 
-```{yaml}
-id: is_numeric_1
-language: r
-severity: warning
-rule:
-  any:
-    - pattern: is.numeric($VAR) || is.integer($VAR)
-    - pattern: is.integer($VAR) || is.numeric($VAR)
-message: is.numeric(x) || is.integer(x) can be simplified to is.numeric(x). Use
-    is.double(x) to test for objects stored as 64-bit floating point.
+# Step 3 (optional) 
 
----
+To automatically use this new linter without having to specify it manually,
+we can add it to `flint/config.yaml`:
 
-id: is_numeric_2
-language: r
-severity: warning
-rule:
-  any:
-    - pattern: class($VAR) %in% c("numeric", "integer")
-    - pattern: class($VAR) %in% c("integer", "numeric")
-message: class(x) %in% c("numeric", "integer") can be simplified to is.numeric(x). Use
-    is.double(x) to test for objects stored as 64-bit floating point.
+```yaml
+keep:
+  - any_duplicated
+  [...]
+  - unreachable_code
+  - stop_abort
 ```
 
-And this now works as well:
+Running `lint_text()` or `fix_text()` without `linters` now works:
 
-```{.r}
-lint_text('class(z) %in% c("numeric", "integer")')
-#> Original code: class(z) %in% c("numeric", "integer") 
-#> Suggestion: class(x) %in% c("numeric", "integer") can be simplified to is.numeric(x). Use is.double(x) to test for objects stored as 64-bit floating point. 
+```{r, eval=FALSE}
+flint::fix_text('stop("Got ", n, " values instead of 1.")')
+#> Old code: stop("Got ", n, " values instead of 1.") 
+#> New code: rlang::abort(paste0("Got ", n, " values instead of 1.")) 
 ```
 
-```{.r}
-lint_text('class(z) %in% c("numeric", "integer", "factor")')
-```
+# Step 4
 
-
-Notice however that the patterns in our rule use double quotation marks `"`. So
-what happens when the code has single quotation marks `'` instead?
-
-```{.r}
-lint_text("class(z) %in% c('numeric', 'integer')")
-```
-
-Then it doesn't work. To remedy this, we can use the
-[`strictness`](https://ast-grep.github.io/guide/rule-config/atomic-rule.html#strictness) 
-parameter in `ast-grep`, that comes as a sublevel of the `pattern` level. By 
-default, `strictness` is `smart` but we want to ignore quotation so we set it to 
-`ast` (see [here](https://ast-grep.github.io/advanced/match-algorithm.html#strictness-examples) 
-for examples):
-
-```{yaml}
-id: is_numeric_2
-language: r
-severity: warning
-rule:
-  any:
-    - pattern:
-        context: class($VAR) %in% c("numeric", "integer")
-        strictness: ast
-    - pattern:
-        context: class($VAR) %in% c("integer", "numeric")
-        strictness: ast
-message: class(x) %in% c("numeric", "integer") can be simplified to is.numeric(x). Use
-    is.double(x) to test for objects stored as 64-bit floating point.
-```
-
-We now have what we wanted:
-
-```{.r}
-lint_text("class(z) %in% c('numeric', 'integer')")
-#> Original code: class(z) %in% c('numeric', 'integer') 
-#> Suggestion: class(x) %in% c("numeric", "integer") can be simplified to is.numeric(x). Use is.double(x) to test for objects stored as 64-bit floating point. 
-
-lint_text('class(z) %in% c("numeric", "integer")')
-#> Original code: class(z) %in% c('numeric', 'integer') 
-#> Suggestion: class(x) %in% c("numeric", "integer") can be simplified to is.numeric(x). Use is.double(x) to test for objects stored as 64-bit floating point. 
-```
-
-
-## Step 3: corner cases
-
-We want to avoid false positives and false negatives. If the rule exists in 
-`lintr` then we can copy the section of their test suite that tests this rule.
-In this case, it is [this file](https://github.com/r-lib/lintr/blob/main/tests/testthat/test-is_numeric_linter.R).
-
-<!-- ```{r} -->
-<!-- library(treesitter, warn.conflicts = FALSE) -->
-
-<!-- # Language specific grammars come from extension packages -->
-<!-- language <- treesitter.r::language() -->
-<!-- parser <- parser(language) -->
-
-<!-- parser_parse(parser, "class(x)[class(x) == 'foo']") -->
-<!-- ``` -->
-
+The new linter is now set up, you can use `flint` as before to lint or fix
+specific files or entire folders, e.g. `flint::fix_dir("R")`.

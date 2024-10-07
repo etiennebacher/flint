@@ -103,7 +103,6 @@ resolve_linters <- function(path, linters, exclude_linters) {
   }
 
   linters <- setdiff(linters, exclude_linters)
-  # browser()
   if (!all(linters %in% rules_basename_noext | linter_is_path_to_yml(linters))) {
     stop(
       paste0(
@@ -127,6 +126,9 @@ linter_is_path_to_yml <- function(x) {
 }
 
 get_linters_from_config <- function(path) {
+  if (fs::is_file(path)) {
+    path <- fs::path_dir(path)
+  }
   if (is_flint_package(path)) {
     config_file <- file.path(path, "inst/config.yml")
   } else {
@@ -150,6 +152,9 @@ get_linters_from_config <- function(path) {
 }
 
 get_excluded_linters_from_config <- function(path) {
+  if (fs::is_file(path)) {
+    path <- fs::path_dir(path)
+  }
   if (is_flint_package(path)) {
     config_file <- file.path(path, "inst/config.yml")
   } else {

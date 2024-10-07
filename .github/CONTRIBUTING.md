@@ -43,13 +43,13 @@ Adding a rule that exists in `lintr`:
 1. Import the tests from `lintr` with `get_tests_from_lintr("<rule_name>")`, e.g
    `get_tests_from_lintr("expect_length")`.
 1. Add `"<rule_name>"` in the list of linters located in `R/list-linters.R`.
-1. Load the package with `devtools::load_all()`. Uncomment and run the block of 
-   commented code below the `list_linters()` function where you added the rule.
+1. Load the package with `devtools::load_all()`, and then run `update_linter_factory()`.
    This creates a new entry in `R/linters_factory.R`. 
 1. Run `devtools::document()` to register this new entry.
 1. Tweak the `.yml` file so that most tests pass (in some cases, some `lintr` 
    tests can be commented out). 
-1. Add additional snapshot tests for `fix_text()`, e.g.
+1. If the rule comes with a fix, add additional snapshot tests for `fix_text()`,
+   e.g.
 
 ```r
 test_that("fix works", {

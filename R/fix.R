@@ -165,7 +165,19 @@ fix_package <- function(
 #' @rdname fix
 #' @export
 fix_text <- function(text, linters = NULL, exclude_linters = NULL) {
-  tmp <- tempfile(fileext = ".R")
+  # If the folder "flint" exists, it's possible that there are custom rules.
+  # Creating a proper tempfile in this case would make it impossible to
+  # uses those rules since rules are accessed directly in the package's system
+  # files. Therefore, in this case, the tempfile is created "manually" in the
+  # "flint" folder.
+  if (uses_flint(".")) {
+    tmp <- paste0(paste(sample(letters, 30, replace = TRUE), collapse = ""), ".R")
+    on.exit({
+      fs::file_delete(tmp)
+    })
+  } else {
+    tmp <- tempfile(fileext = ".R")
+  }
   text <- trimws(text)
   cat(text, file = tmp)
   out <- fix(tmp, linters = linters, exclude_linters = exclude_linters, verbose = FALSE)

@@ -27,6 +27,7 @@ Suggests:
     knitr,
     patrick,
     rex,
+    rlang,
     rmarkdown,
     rstudioapi,
     testthat (>= 3.0.0),

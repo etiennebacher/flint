@@ -412,6 +412,18 @@ makeActiveBinding('redundant_ifelse_linter', function() { function() 'redundant_
 
 
 
+#' @inherit lintr::rep_len_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/rep_len_linter>.
+
+#' @usage rep_len_linter
+#' @name rep_len_linter
+#' @export
+NULL
+makeActiveBinding('rep_len_linter', function() { function() 'rep_len' }, env = environment())
+
+
+
 #' right_assignment
 
 #' @usage right_assignment_linter

@@ -44,6 +44,7 @@ list_linters <- function() {
     "paste",
     "redundant_equals",
     "redundant_ifelse",
+    "rep_len",
     "right_assignment",
     "semicolon",
     "seq",

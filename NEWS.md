@@ -1,3 +1,13 @@
+# flint 0.1.0
+
+## New features
+
+* New linters: `rep_len_linter()`, `sample_int_linter()` and 
+  `which_grepl_linter()`.
+* Add a menu or an error if `fix()` and its variants would change some unstaged
+  files.
+* `update_flint()` now updates all rules and doesn't only add new rules anymore.
+
 # flint 0.0.9
 
 ## New features

@@ -13,14 +13,10 @@ update_flint(path = ".")
 Can add new files in the \code{flint/rules} folder, doesn't return anything.
 }
 \description{
-When \code{flint} is updated, it can ship new built-in rules. \code{update_flint()} will
-automatically add those new rules in the \code{flint/rules} folder. New rules are
-only determined by their names and rules that already exist in \code{flint/rules}
+When \code{flint} is updated, it can ship new built-in rules or update existing
+ones. \code{update_flint()} will automatically add those new rules to the
+\code{flint/rules/builtin} folder. Custom rules stored in \code{flint/rules/custom}
 are not affected.
-
-For instance, if you added a custom rule \code{use_paste.yml}, then it will never
-be removed by \code{update_flint()}, even if \code{flint} later adds a built-in rule
-also named \code{use_paste.yml}.
 }
 \examples{
 \dontrun{

@@ -53,14 +53,10 @@ setup_flint <- function(path = ".") {
 #'
 #' @description
 #'
-#' When `flint` is updated, it can ship new built-in rules. `update_flint()` will
-#' automatically add those new rules in the `flint/rules` folder. New rules are
-#' only determined by their names and rules that already exist in `flint/rules`
+#' When `flint` is updated, it can ship new built-in rules or update existing 
+#' ones. `update_flint()` will automatically add those new rules to the 
+#' `flint/rules/builtin` folder. Custom rules stored in `flint/rules/custom`
 #' are not affected.
-#'
-#' For instance, if you added a custom rule `use_paste.yml`, then it will never
-#' be removed by `update_flint()`, even if `flint` later adds a built-in rule
-#' also named `use_paste.yml`.
 #'
 #' @inheritParams setup_flint
 #'
@@ -79,6 +75,13 @@ update_flint <- function(path = ".") {
     package = "flint"
   )
   new_built_in_rules <- setdiff(updated_built_in_rules, built_in_rules)
-  cat("New rules:\n", paste0("- ", basename(new_built_in_rules), "\n"))
-  fs::file_copy(new_built_in_rules, paste0(flint_dir, "/rules/builtin/", basename(new_built_in_rules)))
+  
+  # Copy everything so that rules that already exist can also be updated.
+  fs::file_copy(updated_built_in_rules, paste0(flint_dir, "/rules/builtin/", basename(updated_built_in_rules)))
+
+  cli::cli_alert_success("Updated existing rules.")
+  if (length(new_built_in_rules) > 0) {
+    cli::cli_alert_success("Added {length(new_built_in_rules)} rule{?s}: {gsub('\\.yml$', '', basename(new_built_in_rules))}.")
+    cli::cli_alert_info("Don't forget to add them in flint/config.yml to use them.")
+  }
 }

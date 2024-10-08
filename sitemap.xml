@@ -49,7 +49,9 @@
 <url><loc>https://flint.etiennebacher.com/reference/paste_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/redundant_equals_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/redundant_ifelse_linter.html</loc></url>
+<url><loc>https://flint.etiennebacher.com/reference/rep_len_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/right_assignment_linter.html</loc></url>
+<url><loc>https://flint.etiennebacher.com/reference/sample_int_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/semicolon_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/seq_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/setup_flint.html</loc></url>

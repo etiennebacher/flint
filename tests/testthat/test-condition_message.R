@@ -8,6 +8,8 @@ test_that("condition_message_linter skips allowed usages", {
   expect_lint("ctx$stop(paste0('a', 'b'))", NULL, linter)
   expect_lint("ctx@stop(paste0('a', 'b'))", NULL, linter)
 
+  expect_lint("format_warning(paste0('a', 'b'))", NULL, linter)
+
   # sprintf is OK -- gettextf() enforcement is left to other linters
   expect_lint("stop(sprintf('A %s!', 'string'))", NULL, linter)
 

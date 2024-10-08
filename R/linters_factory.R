@@ -434,6 +434,18 @@ makeActiveBinding('right_assignment_linter', function() { function() 'right_assi
 
 
 
+#' @inherit lintr::sample_int_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/sample_int_linter>.
+
+#' @usage sample_int_linter
+#' @name sample_int_linter
+#' @export
+NULL
+makeActiveBinding('sample_int_linter', function() { function() 'sample_int' }, env = environment())
+
+
+
 #' @inherit lintr::semicolon_linter title
 #' @description
 #' See <https://lintr.r-lib.org/reference/semicolon_linter>.

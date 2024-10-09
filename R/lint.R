@@ -227,7 +227,7 @@ lint_package <- function(
   paths <- fs::path(path, c("R", "tests", "inst", "vignettes", "data-raw", "demo", "exec"))
   paths <- paths[fs::dir_exists(paths)]
   lint(
-    path,
+    paths,
     linters = linters,
     open = open,
     exclude_path = exclude_path,

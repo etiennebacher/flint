@@ -13,3 +13,19 @@ test_that("fix() works with multiple paths", {
   expect_true(grepl("x <- 1", readLines("R/foo.R"), fixed = TRUE))
   expect_true(grepl("x <- 1", readLines("R/foo2.R"), fixed = TRUE))
 })
+
+test_that("lint_package() works", {
+  create_local_package()
+  cat("x = 1", file = "R/foo.R")
+  cat("x = 1", file = "R/foo2.R")
+  expect_no_error(lint_package())
+})
+
+test_that("fix_package() works", {
+  create_local_package()
+  cat("x = 1", file = "R/foo.R")
+  cat("x = 1", file = "R/foo2.R")
+  fix_package(force = TRUE)
+  expect_true(grepl("x <- 1", readLines("R/foo.R"), fixed = TRUE))
+  expect_true(grepl("x <- 1", readLines("R/foo2.R"), fixed = TRUE))
+})

@@ -4,6 +4,12 @@
 
 * `fix()` and `lint()` now work correctly when several paths are passed.
 
+* `fix_package()` and `lint_package()` used all R files present from the root 
+  path, even those in folders that are not typical of an R package.
+
+* `fix_dir()` and `fix_package()` now have the arguments `force` and `verbose`,
+  like `fix()`.
+
 # flint 0.1.0
 
 ## New features

@@ -140,7 +140,9 @@ fix_dir <- function(
     path = ".",
     linters = NULL,
     exclude_path = NULL,
-    exclude_linters = NULL
+    exclude_linters = NULL,
+    force = FALSE,
+    verbose = TRUE
 ) {
   if (!fs::is_dir(path)) {
     stop("`path` must be a directory.")
@@ -149,7 +151,9 @@ fix_dir <- function(
     path,
     linters = linters,
     exclude_path = exclude_path,
-    exclude_linters = exclude_linters
+    exclude_linters = exclude_linters,
+    force = force,
+    verbose = verbose
   )
 }
 
@@ -160,7 +164,9 @@ fix_package <- function(
     path = ".",
     linters = NULL,
     exclude_path = NULL,
-    exclude_linters = NULL
+    exclude_linters = NULL,
+    force = FALSE,
+    verbose = TRUE
 ) {
   if (!fs::is_dir(path)) {
     stop("`path` must be a directory.")
@@ -168,10 +174,12 @@ fix_package <- function(
   paths <- fs::path(path, c("R", "tests", "inst", "vignettes", "data-raw", "demo", "exec"))
   paths <- paths[fs::dir_exists(paths)]
   fix(
-    path,
+    paths,
     linters = linters,
     exclude_path = exclude_path,
-    exclude_linters = exclude_linters
+    exclude_linters = exclude_linters,
+    force = force,
+    verbose = verbose
   )
 }
 

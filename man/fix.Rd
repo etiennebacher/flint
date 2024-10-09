@@ -20,14 +20,18 @@ fix_dir(
   path = ".",
   linters = NULL,
   exclude_path = NULL,
-  exclude_linters = NULL
+  exclude_linters = NULL,
+  force = FALSE,
+  verbose = TRUE
 )
 
 fix_package(
   path = ".",
   linters = NULL,
   exclude_path = NULL,
-  exclude_linters = NULL
+  exclude_linters = NULL,
+  force = FALSE,
+  verbose = TRUE
 )
 
 fix_text(text, linters = NULL, exclude_linters = NULL)

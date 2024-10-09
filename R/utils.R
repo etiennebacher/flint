@@ -206,6 +206,12 @@ resolve_hashes <- function(path, use_cache) {
 }
 
 is_flint_package <- function(path) {
+  if (length(path) > 1) {
+    path <- fs::path_common(path)
+  }
+  if (fs::is_file(path)) {
+    path <- fs::path_dir(path)
+  }
   path <- file.path(path, "DESCRIPTION")
   if (!fs::file_exists(path)) {
     return(FALSE)
@@ -214,6 +220,9 @@ is_flint_package <- function(path) {
 }
 
 uses_flint <- function(path = ".") {
+  if (length(path) > 1) {
+    path <- fs::path_common(path)
+  }
   if (fs::is_file(path)) {
     path <- fs::path_dir(path)
   }

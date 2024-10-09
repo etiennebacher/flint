@@ -1,3 +1,9 @@
+# flint (development)
+
+## Bug fixes
+
+* `fix()` and `lint()` now work correctly when several paths are passed.
+
 # flint 0.1.0
 
 ## New features

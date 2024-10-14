@@ -23,7 +23,7 @@ itself built on the Rust crate
 ## Installation
 
 ``` r
-install.packages('flint', repos = c('https://etiennebacher.r-universe.dev'))
+install.packages('flint', repos = c('https://etiennebacher.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
 ## Usage

@@ -29,7 +29,7 @@ setup_flint <- function(path = ".") {
   if (!already_in) {
     cat(
       "\n\n# flint files
-^flint$",
+^flint$\n",
       file = ".Rbuildignore",
       append = TRUE
     )

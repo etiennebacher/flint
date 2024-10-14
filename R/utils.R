@@ -55,7 +55,6 @@ get_tests_from_lintr <- function(name) {
 }
 
 resolve_linters <- function(path, linters, exclude_linters) {
-
   if (uses_flint(path)) {
     path_to_rules <- fs::path("flint/rules")
   } else if (is_flint_package(path)) {
@@ -89,7 +88,7 @@ resolve_linters <- function(path, linters, exclude_linters) {
     exclude_linters <- get_excluded_linters_from_config(path)
   }
 
-  if (is.null(linters)){
+  if (is.null(linters)) {
     if (uses_flint(path)) {
       linters <- get_linters_from_config(path)
     } else {
@@ -104,7 +103,7 @@ resolve_linters <- function(path, linters, exclude_linters) {
 
   linters <- setdiff(linters, exclude_linters)
   if (!all(linters %in% rules_basename_noext | linter_is_path_to_yml(linters))) {
-    stop("Unknown linters: ", toString(linters[! linters %in% rules_basename_noext & !linter_is_path_to_yml(linters)]))
+    stop("Unknown linters: ", toString(linters[!linters %in% rules_basename_noext & !linter_is_path_to_yml(linters)]))
   }
 
   paths_to_yaml <- Filter(function(x) linter_is_path_to_yml(x), linters)
@@ -125,9 +124,9 @@ get_linters_from_config <- function(path) {
     path <- fs::path_dir(path)
   }
   if (is_flint_package(path)) {
-    config_file <- file.path(path, "inst/config.yml")
+    config_file <- "inst/config.yml"
   } else {
-    config_file <- file.path(path, "flint/config.yml")
+    config_file <- "flint/config.yml"
   }
   if (fs::file_exists(config_file)) {
     linters <- yaml::read_yaml(config_file, readLines.warn = FALSE)[["keep"]]
@@ -226,7 +225,10 @@ uses_flint <- function(path = ".") {
   if (fs::is_file(path)) {
     path <- fs::path_dir(path)
   }
-  flint_dir <- file.path(path, "flint")
+  while (path != fs::path_dir(path)) {
+    path <- fs::path_dir(path)
+  }
+  flint_dir <- fs::path(path, "flint")
   fs::dir_exists(flint_dir) && length(list.files(flint_dir)) > 0
 }
 

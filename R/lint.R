@@ -86,7 +86,6 @@
 #' )", file = destfile)
 #'
 #' lint(destfile)
-
 lint <- function(
     path = ".",
     linters = NULL,
@@ -94,9 +93,7 @@ lint <- function(
     exclude_linters = NULL,
     open = TRUE,
     use_cache = TRUE,
-    verbose = TRUE
-) {
-
+    verbose = TRUE) {
   if (isFALSE(verbose) | is_testing()) {
     withr::local_options(cli.default_handler = function(...) { })
   }
@@ -115,7 +112,6 @@ lint <- function(
   cli::cli_progress_bar(format = "{cli::pb_spin} Checking: {i}/{length(r_files)}")
 
   for (i in seq_along(r_files)) {
-
     cli::cli_progress_update()
 
     file <- r_files[i]
@@ -132,7 +128,7 @@ lint <- function(
     }
 
     lints_raw <- astgrepr::tree_new(file = file, ignore_tags = c("flint-ignore", "nolint")) |>
-      astgrepr::tree_root()|>
+      astgrepr::tree_root() |>
       astgrepr::node_find_all(files = rule_files)
 
     if (all(lengths(lints_raw) == 0)) {
@@ -171,9 +167,9 @@ lint <- function(
   }
 
   if (isTRUE(open) &&
-      requireNamespace("rstudioapi", quietly = TRUE) &&
-      interactive() &&
-      rstudioapi::isAvailable()) {
+    requireNamespace("rstudioapi", quietly = TRUE) &&
+    interactive() &&
+    rstudioapi::isAvailable()) {
     rstudio_source_markers(lints)
     return(invisible(lints))
   } else if (in_github_actions() && !is_testing()) {
@@ -193,8 +189,7 @@ lint_dir <- function(
     exclude_path = NULL,
     exclude_linters = NULL,
     use_cache = TRUE,
-    verbose = TRUE
-) {
+    verbose = TRUE) {
   if (!fs::is_dir(path)) {
     stop("`path` must be a directory.")
   }
@@ -219,8 +214,7 @@ lint_package <- function(
     exclude_path = NULL,
     exclude_linters = NULL,
     use_cache = TRUE,
-    verbose = TRUE
-) {
+    verbose = TRUE) {
   if (!fs::is_dir(path)) {
     stop("`path` must be a directory.")
   }
@@ -243,7 +237,6 @@ lint_package <- function(
 #' @export
 
 lint_text <- function(text, linters = NULL, exclude_linters = NULL) {
-
   # If the folder "flint" exists, it's possible that there are custom rules.
   # Creating a proper tempfile in this case would make it impossible to
   # uses those rules since rules are accessed directly in the package's system

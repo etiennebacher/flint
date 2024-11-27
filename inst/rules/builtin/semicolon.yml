@@ -1,4 +1,4 @@
-id: semicolon_1
+id: semicolon-1
 language: r
 severity: warning
 rule:

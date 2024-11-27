@@ -18,7 +18,7 @@ message: Use is.na for comparisons to NA (not == or !=).
 
 ---
 
-id: equals_na_2
+id: equals_na-2
 language: r
 severity: warning
 rule:

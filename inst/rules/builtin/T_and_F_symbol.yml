@@ -31,7 +31,7 @@ message: Use TRUE instead of the symbol T.
 
 ---
 
-id: true_false_symbol_2
+id: true_false_symbol-2
 language: r
 severity: warning
 rule:
@@ -64,7 +64,7 @@ message: Use FALSE instead of the symbol F.
 
 ---
 
-id: true_false_symbol_3
+id: true_false_symbol-3
 language: r
 severity: warning
 rule:
@@ -81,7 +81,7 @@ message: Don't use T as a variable name, as it can break code relying on T being
 
 ---
 
-id: true_false_symbol_4
+id: true_false_symbol-4
 language: r
 severity: warning
 rule:

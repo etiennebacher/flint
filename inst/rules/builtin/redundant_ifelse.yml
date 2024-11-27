@@ -1,4 +1,4 @@
-id: redundant_ifelse_1
+id: redundant_ifelse-1
 language: r
 severity: warning
 rule:
@@ -16,7 +16,7 @@ message: |
 
 ---
 
-id: redundant_ifelse_2
+id: redundant_ifelse-2
 language: r
 severity: warning
 rule:
@@ -34,7 +34,7 @@ message: |
 
 ---
 
-id: redundant_ifelse_3
+id: redundant_ifelse-3
 language: r
 severity: warning
 rule:
@@ -51,7 +51,7 @@ message: Prefer as.integer(~~COND~~) to ~~FUN~~(~~COND~~, ~~VAL1~~, ~~VAL2~~).
 
 ---
 
-id: redundant_ifelse_4
+id: redundant_ifelse-4
 language: r
 severity: warning
 rule:

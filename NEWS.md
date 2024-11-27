@@ -1,4 +1,11 @@
-# flint (development)
+# flint (development version)
+
+## Bug fixes
+
+* Rule names have been harmonized to use a dash instead of underscore, e.g.
+  `any_duplicated-1` instead of `any_duplicated_1`.
+
+# flint 0.1.1
 
 ## Bug fixes
 

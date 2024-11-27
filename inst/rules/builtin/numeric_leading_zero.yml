@@ -1,4 +1,4 @@
-id: numeric_leading_zero_1
+id: numeric_leading_zero-1
 language: r
 severity: warning
 rule:

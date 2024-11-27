@@ -1,6 +1,6 @@
 # Strangely, having something like pattern: length($VAR $OP $VAR2) doesn't work
 
-id: length_test_1
+id: length_test-1
 language: r
 severity: warning
 rule:
@@ -10,7 +10,7 @@ message: Checking the length of a logical vector is likely a mistake.
 
 ---
 
-id: length_test_2
+id: length_test-2
 language: r
 severity: warning
 rule:
@@ -20,7 +20,7 @@ message: Checking the length of a logical vector is likely a mistake.
 
 ---
 
-id: length_test_3
+id: length_test-3
 language: r
 severity: warning
 rule:
@@ -30,7 +30,7 @@ message: Checking the length of a logical vector is likely a mistake.
 
 ---
 
-id: length_test_4
+id: length_test-4
 language: r
 severity: warning
 rule:
@@ -40,7 +40,7 @@ message: Checking the length of a logical vector is likely a mistake.
 
 ---
 
-id: length_test_5
+id: length_test-5
 language: r
 severity: warning
 rule:
@@ -50,7 +50,7 @@ message: Checking the length of a logical vector is likely a mistake.
 
 ---
 
-id: length_test_6
+id: length_test-6
 language: r
 severity: warning
 rule:

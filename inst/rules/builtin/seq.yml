@@ -1,4 +1,4 @@
-id: seq_1
+id: seq-1
 language: r
 severity: warning
 rule:
@@ -9,7 +9,7 @@ message: |
 
 ---
 
-id: seq_2
+id: seq-2
 language: r
 severity: warning
 rule:
@@ -23,7 +23,7 @@ message: |
 
 ---
 
-id: seq_3
+id: seq-3
 language: r
 severity: warning
 rule:
@@ -37,7 +37,7 @@ message: |
 
 ---
 
-id: seq_4
+id: seq-4
 language: r
 severity: warning
 rule:
@@ -48,7 +48,7 @@ message: |
 
 ---
 
-id: seq_5
+id: seq-5
 language: r
 severity: warning
 rule:
@@ -62,7 +62,7 @@ message: |
 
 ---
 
-id: seq_6
+id: seq-6
 language: r
 severity: warning
 rule:
@@ -76,7 +76,7 @@ message: |
 
 ---
 
-id: seq_7
+id: seq-7
 language: r
 severity: warning
 rule:
@@ -90,7 +90,7 @@ message: |
 
 ---
 
-id: seq_8
+id: seq-8
 language: r
 severity: warning
 rule:
@@ -105,7 +105,7 @@ message: |
 
 ---
 
-id: seq_9
+id: seq-9
 language: r
 severity: warning
 rule:

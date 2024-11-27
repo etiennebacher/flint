@@ -1,4 +1,4 @@
-id: class_equals_1
+id: class_equals-1
 language: r
 severity: warning
 rule:
@@ -13,7 +13,7 @@ message: Instead of comparing class(x) with ==, use inherits(x, 'class-name') or
 
 ---
 
-id: class_equals_2
+id: class_equals-2
 language: r
 severity: warning
 rule:
@@ -28,7 +28,7 @@ message: "Instead of comparing class(x) with !=, use !inherits(x, 'class-name') 
 
 ---
 
-id: class_equals_3
+id: class_equals-3
 language: r
 severity: warning
 rule:

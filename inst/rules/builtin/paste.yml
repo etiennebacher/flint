@@ -1,4 +1,4 @@
-id: paste_1
+id: paste-1
 language: r
 severity: warning
 rule:
@@ -10,7 +10,7 @@ message: paste0(...) is better than paste(..., sep = "").
 
 ---
 
-id: paste_2
+id: paste-2
 language: r
 severity: warning
 rule:
@@ -26,7 +26,7 @@ message: toString(.) is more expressive than paste(., collapse = ", ").
 
 ---
 
-id: paste_3
+id: paste-3
 language: r
 severity: warning
 rule:
@@ -40,7 +40,7 @@ message: |
 
 ---
 
-id: paste_4
+id: paste-4
 language: r
 severity: warning
 rule:
@@ -61,7 +61,7 @@ message: |
 
 # ---
 #
-# id: paste_5
+# id: paste-5
 # language: r
 # severity: warning
 # rule:

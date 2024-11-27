@@ -1,4 +1,4 @@
-id: is_numeric_1
+id: is_numeric-1
 language: r
 severity: warning
 rule:
@@ -10,7 +10,7 @@ message: is.numeric(x) || is.integer(x) can be simplified to is.numeric(x). Use
 
 ---
 
-id: is_numeric_2
+id: is_numeric-2
 language: r
 severity: warning
 rule:

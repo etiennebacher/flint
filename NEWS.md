@@ -5,6 +5,9 @@
 * Rule names have been harmonized to use a dash instead of underscore, e.g.
   `any_duplicated-1` instead of `any_duplicated_1`.
 
+* Replacement of `redundant_ifelse_linter` of the form 
+  `ifelse(cond, FALSE, TRUE)` now works (#57).
+
 # flint 0.1.1
 
 ## Bug fixes

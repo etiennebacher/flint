@@ -28,7 +28,7 @@
       fix_text("ifelse(x > 5, FALSE, TRUE)")
     Output
       Old code: ifelse(x > 5, FALSE, TRUE) 
-      New code:  
+      New code: !(x > 5) 
 
 ---
 
@@ -36,7 +36,7 @@
       fix_text("if_else(x > 5, FALSE, TRUE)")
     Output
       Old code: if_else(x > 5, FALSE, TRUE) 
-      New code:  
+      New code: !(x > 5) 
 
 ---
 
@@ -44,7 +44,7 @@
       fix_text("fifelse(x > 5, FALSE, TRUE)")
     Output
       Old code: fifelse(x > 5, FALSE, TRUE) 
-      New code:  
+      New code: !(x > 5) 
 
 ---
 

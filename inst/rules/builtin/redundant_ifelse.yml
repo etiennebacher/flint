@@ -28,7 +28,7 @@ constraints:
     regex: ^TRUE$
   FUN:
     regex: ^(ifelse|fifelse|if_else)$
-fix: !(~~COND~~)
+fix: '!(~~COND~~)'
 message: |
   Use !(~~COND~~) directly instead of calling ~~FUN~~(~~COND~~, FALSE, TRUE).
 

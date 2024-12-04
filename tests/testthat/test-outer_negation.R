@@ -29,8 +29,8 @@ test_that("outer_negation_linter blocks simple disallowed usages", {
   # TODO: I rather keep it small for now
   # # na.rm doesn't change the recommendation
   # expect_lint("any(!x, na.rm = TRUE)", not_all_msg, linter)
-  # # also catch nested usage
-  # expect_lint("all(!(x + y))", not_any_msg, linter)
+  # also catch nested usage
+  expect_lint("all(!(x + y))", not_any_msg, linter)
   # # catch when all inputs are negated
   # expect_lint("any(!x, !y)", not_all_msg, linter)
   # expect_lint("all(!x, !y, na.rm = TRUE)", not_any_msg, linter)

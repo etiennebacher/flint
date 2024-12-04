@@ -30,10 +30,14 @@ message: sample.int(n, m, ...) is preferable to sample(seq_len(n), m, ...).
 
 ---
 
+# Strangely this panicks if I rename FIRST to N
 id: sample_int-4
 language: r
 severity: warning
 rule:
-  pattern: sample($N, $$$OTHER)
+  pattern: sample($FIRST, $$$OTHER)
+constraints:
+  FIRST:
+    regex: ^\d+(L|)$
 fix: sample.int(~~N~~, ~~OTHER~~)
 message: sample.int(n, m, ...) is preferable to sample(n, m, ...).

@@ -27,3 +27,13 @@ rule:
   pattern: sample(seq_len($N), $$$OTHER)
 fix: sample.int(~~N~~, ~~OTHER~~)
 message: sample.int(n, m, ...) is preferable to sample(seq_len(n), m, ...).
+
+---
+
+id: sample_int-4
+language: r
+severity: warning
+rule:
+  pattern: sample($N, $$$OTHER)
+fix: sample.int(~~N~~, ~~OTHER~~)
+message: sample.int(n, m, ...) is preferable to sample(n, m, ...).

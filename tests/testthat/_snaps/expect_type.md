@@ -51,3 +51,11 @@
     Code
       fix_text("expect_true(is.complex(foo(x)))", linters = linter)
 
+# no double replacement
+
+    Code
+      fix_text("expect_equal(typeof(x), 'double')")
+    Output
+      Old code: expect_equal(typeof(x), 'double') 
+      New code: expect_type(x, 'double') 
+

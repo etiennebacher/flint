@@ -96,3 +96,8 @@ test_that("fix works", {
   # Don't fix for this
   expect_snapshot(fix_text("expect_true(is.complex(foo(x)))", linters = linter))
 })
+
+# Replacement could be mixed up to suggest both expect_type and expect_identical
+test_that("no double replacement", {
+  expect_snapshot(fix_text("expect_equal(typeof(x), 'double')"))
+})

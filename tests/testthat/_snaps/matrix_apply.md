@@ -9,6 +9,14 @@
 ---
 
     Code
+      fix_text("apply(x, 1L, sum)", linters = linter)
+    Output
+      Old code: apply(x, 1L, sum) 
+      New code: rowSums(x) 
+
+---
+
+    Code
       fix_text("apply(x, MARGIN = 1, sum)", linters = linter)
     Output
       Old code: apply(x, MARGIN = 1, sum) 
@@ -41,6 +49,14 @@
 ---
 
     Code
+      fix_text("apply(x, 2L, sum)", linters = linter)
+    Output
+      Old code: apply(x, 2L, sum) 
+      New code: colSums(x) 
+
+---
+
+    Code
       fix_text("apply(x, MARGIN = 2, sum)", linters = linter)
     Output
       Old code: apply(x, MARGIN = 2, sum) 
@@ -68,6 +84,14 @@
       fix_text("apply(x, 1, mean)", linters = linter)
     Output
       Old code: apply(x, 1, mean) 
+      New code: rowMeans(x) 
+
+---
+
+    Code
+      fix_text("apply(x, 1L, mean)", linters = linter)
+    Output
+      Old code: apply(x, 1L, mean) 
       New code: rowMeans(x) 
 
 ---

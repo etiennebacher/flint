@@ -6,7 +6,6 @@
 #' @examples
 #' list_linters()
 list_linters <- function() {
-
   c(
     # "absolute_path", # TODO: really broken, too many false positives, e.g #42
     "any_duplicated",
@@ -50,6 +49,7 @@ list_linters <- function() {
     "semicolon",
     "seq",
     "sort",
+    "stopifnot_all",
     "T_and_F_symbol",
     "todo_comment",
     "undesirable_function",
@@ -58,7 +58,6 @@ list_linters <- function() {
     "unreachable_code",
     "which_grepl"
   )
-
 }
 
 update_linter_factory <- function() {

@@ -482,6 +482,18 @@ makeActiveBinding('sort_linter', function() { function() 'sort' }, env = environ
 
 
 
+#' @inherit lintr::stopifnot_all_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/stopifnot_all_linter>.
+
+#' @usage stopifnot_all_linter
+#' @name stopifnot_all_linter
+#' @export
+NULL
+makeActiveBinding('stopifnot_all_linter', function() { function() 'stopifnot_all' }, env = environment())
+
+
+
 #' @inherit lintr::T_and_F_symbol_linter title
 #' @description
 #' See <https://lintr.r-lib.org/reference/T_and_F_symbol_linter>.

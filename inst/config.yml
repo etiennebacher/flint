@@ -40,6 +40,7 @@ keep:
   - semicolon
   - seq
   - sort
+  - stopifnot_all
   - T_and_F_symbol
   - todo_comment
   - undesirable_function

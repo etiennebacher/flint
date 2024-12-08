@@ -8,6 +8,9 @@
 * Replacement of `redundant_ifelse_linter` of the form 
   `ifelse(cond, FALSE, TRUE)` now works (#57).
 
+* `absolute_path_linter` was deactivated in 0.0.5 but was still reported. It is
+  now properly ignored.
+
 # flint 0.1.1
 
 ## Bug fixes

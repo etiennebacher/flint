@@ -1,3 +1,12 @@
+test_that("absolute_path is not reported", {
+  create_local_package()
+  cat('paste0("/n")', file = "R/foo.R")
+  expect_equal(nrow(lint()), 0)
+
+  setup_flint()
+  expect_equal(nrow(lint()), 0)
+})
+
 # TODO
 # test_that("is_root_path", {
 #   f <- lintr:::is_root_path
@@ -162,17 +171,17 @@
 #     expect_lint(double_quote(path), lint_msg, linter)
 #   }
 
-  # lax mode: no check for strings that are likely not paths (too short or with special characters)
-  # linter <- absolute_path_linter(lax = TRUE)
-  # unlikely_path_strings <- c(
-  #   "/",
-  #   encodeString("/a\nsdf/bar"),
-  #   "/as:df/bar"
-  # )
-  # for (path in unlikely_path_strings) {
-  #   expect_lint(single_quote(path), NULL, linter)
-  #   expect_lint(double_quote(path), NULL, linter)
-  # }
+# lax mode: no check for strings that are likely not paths (too short or with special characters)
+# linter <- absolute_path_linter(lax = TRUE)
+# unlikely_path_strings <- c(
+#   "/",
+#   encodeString("/a\nsdf/bar"),
+#   "/as:df/bar"
+# )
+# for (path in unlikely_path_strings) {
+#   expect_lint(single_quote(path), NULL, linter)
+#   expect_lint(double_quote(path), NULL, linter)
+# }
 # })
 
 # test_that("raw strings are handled correctly", {

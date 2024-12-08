@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flint</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,16 +33,22 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/etiennebacher/flint/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/etiennebacher/flint/blob/v0.1.2/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="flint-development-version">flint (development version)<a class="anchor" aria-label="anchor" href="#flint-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.1.2" id="flint-012">flint 0.1.2<a class="anchor" aria-label="anchor" href="#flint-012"></a></h2>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="new-features-0-1-2">New features<a class="anchor" aria-label="anchor" href="#new-features-0-1-2"></a></h3>
+<ul><li>
+<code>sample(n, m)</code> is now reported and can be rewritten as <code>sample.int(n, m)</code> when <code>n</code> is a literal integer.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-0-1-2">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-2"></a></h3>
 <ul><li><p>Rule names have been harmonized to use a dash instead of underscore, e.g. <code>any_duplicated-1</code> instead of <code>any_duplicated_1</code>.</p></li>
 <li><p>Replacement of <code>redundant_ifelse_linter</code> of the form <code>ifelse(cond, FALSE, TRUE)</code> now works (<a href="https://github.com/etiennebacher/flint/issues/57" class="external-link">#57</a>).</p></li>
 <li><p><code>absolute_path_linter</code> was deactivated in 0.0.5 but was still reported. It is now properly ignored.</p></li>
+<li><p>Code like <code>expect_equal(typeof(x), 'class')</code> was modified twice by <code>expect_identical_linter</code> and <code>expect_type_linter</code>, which lead to a wrong rewrite. It is now replaced by <code>expect_type(x, 'class')</code>.</p></li>
 </ul></div>
 </div>
     <div class="section level2">

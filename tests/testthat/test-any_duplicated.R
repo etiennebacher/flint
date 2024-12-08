@@ -43,7 +43,8 @@ test_that("any_duplicated_linter catches length(unique()) equivalencies too", {
   # nrow-style equivalency
   expect_lint("nrow(DF) == length(unique(DF$col))", lint_msg_df, linter)
   expect_lint("length(unique(DF$col)) == nrow(DF)", lint_msg_df, linter)
-  # TODO: why doesn't this work (see also at bottom)
+  # TODO: problem is that if I put != instead, the error message/fix still
+  # proposes ==
   # expect_lint("nrow(DF) == length(unique(DF[['col']]))", lint_msg_df2, linter)
   # expect_lint("length(unique(DF[['col']])) == nrow(DF)", lint_msg_df2, linter)
 

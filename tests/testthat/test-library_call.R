@@ -10,7 +10,8 @@ test_that("library_call_linter skips allowed usages", {
     linter
   )
 
-  expect_lint("print('test')",
+  expect_lint(
+    "print('test')",
     NULL,
     linter
   )
@@ -33,17 +34,16 @@ test_that("library_call_linter skips allowed usages", {
     linter
   )
 
-  # TODO
-  # expect_lint(
-  #   trim_some("
-  #     suppressPackageStartupMessages({
-  #       library(dplyr)
-  #       library(knitr)
-  #     })
-  #   "),
-  #   NULL,
-  #   linter
-  # )
+  expect_lint(
+    trim_some("
+      suppressPackageStartupMessages({
+        library(dplyr)
+        library(knitr)
+      })
+    "),
+    NULL,
+    linter
+  )
 })
 
 test_that("library_call_linter warns on disallowed usages", {
@@ -139,94 +139,6 @@ test_that("skips allowed usages of library()/character.only=TRUE", {
   expect_lint("function(pkg) library(pkg, character.only = TRUE)", NULL, linter)
   expect_lint("function(pkgs) sapply(pkgs, require, character.only = TRUE)", NULL, linter)
 })
-
-# test_that("blocks disallowed usages of strings in library()/require()", {
-#   linter <- library_call_linter()
-#   char_only_msg <- rex::rex("Use symbols in library calls", anything, "character.only")
-#   direct_stub <- "Call library() directly, not vectorized with "
-#
-#   expect_lint(
-#     'library("data.table")',
-#     rex::rex("Use symbols, not strings, in library calls."),
-#     linter
-#   )
-#
-#   expect_lint('library("data.table", character.only = TRUE)', char_only_msg, linter)
-#   expect_lint('suppressWarnings(library("data.table", character.only = TRUE))', char_only_msg, linter)
-#
-#   expect_lint(
-#     "do.call(library, list(data.table))",
-#     rex::rex(direct_stub, "do.call()"),
-#     linter
-#   )
-#   expect_lint(
-#     'do.call("library", list(data.table))',
-#     rex::rex(direct_stub, "do.call()"),
-#     linter
-#   )
-#   expect_lint(
-#     'lapply("data.table", library, character.only = TRUE)',
-#     rex::rex(direct_stub, "lapply()"),
-#     linter
-#   )
-#   expect_lint(
-#     'purr::map("data.table", library, character.only = TRUE)',
-#     rex::rex(direct_stub, "map()"),
-#     linter
-#   )
-# })
-#
-# test_that("character.only=TRUE is caught in *apply functions passed as strings", {
-#   linter <- library_call_linter()
-#   lib_msg <- rex::rex("Call library() directly, not vectorized with sapply()")
-#   req_msg <- rex::rex("Call require() directly, not vectorized with sapply()")
-#
-#   expect_lint("sapply(pkgs, 'library', character.only = TRUE)", lib_msg, linter)
-#   expect_lint('sapply(pkgs, "library", character.only = TRUE)', lib_msg, linter)
-#   expect_lint("sapply(pkgs, 'require', character.only = TRUE)", req_msg, linter)
-#   expect_lint('sapply(pkgs, "require", character.only = TRUE)', req_msg, linter)
-# })
-#
-# test_that("character.only=TRUE is caught with multiple-line source", {
-#   expect_lint(
-#     trim_some('
-#       suppressWarnings(library(
-#         "data.table",
-#         character.only = TRUE
-#       ))
-#     '),
-#     rex::rex("Use symbols in library calls", anything, "character.only"),
-#     library_call_linter()
-#   )
-# })
-#
-# test_that("character.only=TRUE is caught inside purrr::walk as well", {
-#   expect_lint(
-#     'purr::walk("data.table", library, character.only = TRUE)',
-#     rex::rex("Call library() directly, not vectorized with walk()"),
-#     library_call_linter()
-#   )
-# })
-#
-# test_that("multiple lints are generated correctly", {
-#   expect_lint(
-#     trim_some('{
-#       library("dplyr", character.only = TRUE)
-#       print("not a library call")
-#       require("gfile")
-#       sapply(pkg_list, "library", character.only = TRUE)
-#       purrr::walk(extra_list, require, character.only = TRUE)
-#     }'),
-#     list(
-#       list(message = rex::rex("library calls", anything, "character.only")),
-#       list(message = rex::rex("Move all require calls to the top of the script.")),
-#       list(message = "symbols, not strings, in require calls"),
-#       list(message = rex::rex("library() directly", anything, "vectorized with sapply()")),
-#       list(message = rex::rex("require() directly", anything, "vectorized with walk()"))
-#     ),
-#     library_call_linter()
-#   )
-# })
 
 patrick::with_parameters_test_that(
   "library_call_linter skips allowed usages",

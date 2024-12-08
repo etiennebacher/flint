@@ -49,6 +49,7 @@ test_that("sample_int_linter catches literal integer/numeric in the first arg", 
   linter <- sample_int_linter()
   lint_msg <- "sample.int(n, m, ...) is preferable to sample(n, m, ...)."
 
+  expect_lint("sample('a', 4)", NULL, linter)
   expect_lint("sample(10L, 4)", lint_msg, linter)
   expect_lint("sample(10, 5)", lint_msg, linter)
 })

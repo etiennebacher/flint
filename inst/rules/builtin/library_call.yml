@@ -16,7 +16,7 @@ rule:
         - kind: comment
   not:
     inside:
-      stopBy:
+      stopBy: end
       any:
         - kind: function_definition
         - kind: call

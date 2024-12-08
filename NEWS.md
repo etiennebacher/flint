@@ -1,5 +1,10 @@
 # flint (development version)
 
+## New features
+
+* `sample(n, m)` is now reported and can be rewritten as `sample.int(n, m)` 
+  when `n` is a literal integer.
+
 ## Bug fixes
 
 * Rule names have been harmonized to use a dash instead of underscore, e.g.
@@ -10,6 +15,10 @@
 
 * `absolute_path_linter` was deactivated in 0.0.5 but was still reported. It is
   now properly ignored.
+
+* Code like `expect_equal(typeof(x), 'class')` was modified twice by
+  `expect_identical_linter` and `expect_type_linter`, which lead to a wrong
+  rewrite. It is now replaced by `expect_type(x, 'class')`.
 
 # flint 0.1.1
 

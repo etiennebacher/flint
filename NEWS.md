@@ -5,6 +5,9 @@
 * New linter `list_comparison_linter()` to detect a comparison with a list,
   e.g. `lapply(x, sum) > 10`. No automatic fix available.
 
+* Line breaks are removed from multi-line messages reported by `lint*` 
+  functions. 
+
 # flint 0.1.2
 
 ## New features

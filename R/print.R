@@ -1,6 +1,7 @@
 #' @export
 print.flint_lint <- function(x, ...) {
   for (i in seq_along(x$text)) {
+    x$message[i] <- gsub("\\n", "", x$message[i])
     if (grepl("\\n", x$text[i])) {
       cat(paste0("Original code:\n", crayon::red(x$text[i]), "\n"))
       cat(paste0("Suggestion: ", crayon::green(x$message[i]), "\n"))

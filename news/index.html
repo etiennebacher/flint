@@ -40,8 +40,15 @@
 <h2 class="pkg-version" data-toc-text="development version" id="flint-development-version">flint (development version)<a class="anchor" aria-label="anchor" href="#flint-development-version"></a></h2>
 <div class="section level3">
 <h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
-<ul><li><p>New linter <code><a href="../reference/list_comparison_linter.html">list_comparison_linter()</a></code> to detect a comparison with a list, e.g. <code>lapply(x, sum) &gt; 10</code>. No automatic fix available.</p></li>
+<ul><li><p>New linter <code><a href="../reference/stopifnot_all_linter.html">stopifnot_all_linter()</a></code> to detect calls to <code>stopifnot(all(...))</code> since the <code><a href="https://rdrr.io/r/base/all.html" class="external-link">all()</a></code> is unnecessary. This has an automatic fix available.</p></li>
+<li><p>New linter <code><a href="../reference/list_comparison_linter.html">list_comparison_linter()</a></code> to detect a comparison with a list, e.g. <code>lapply(x, sum) &gt; 10</code>. No automatic fix available.</p></li>
 <li><p>Line breaks are removed from multi-line messages reported by <code>lint*</code> functions.</p></li>
+<li><p><code>matrix_apply_linter</code> now detects when <code>1L</code> and <code>2L</code> are used in the <code>MARGIN</code> argument.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<ul><li>
+<code>library_call_linter</code> no longer reports cases where <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> calls are wrapped in <code><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages()</a></code>.</li>
 </ul></div>
 </div>
     <div class="section level2">

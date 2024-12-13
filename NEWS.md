@@ -1,3 +1,10 @@
+# flint (development version)
+
+## New features
+
+* New linter `list_comparison_linter()` to detect a comparison with a list,
+  e.g. `lapply(x, sum) > 10`. No automatic fix available.
+
 # flint 0.1.2
 
 ## New features

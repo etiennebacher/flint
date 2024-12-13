@@ -292,6 +292,18 @@ makeActiveBinding('library_call_linter', function() { function() 'library_call' 
 
 
 
+#' @inherit lintr::list_comparison_linter title
+#' @description
+#' See <https://lintr.r-lib.org/reference/list_comparison_linter>.
+
+#' @usage list_comparison_linter
+#' @name list_comparison_linter
+#' @export
+NULL
+makeActiveBinding('list_comparison_linter', function() { function() 'list_comparison' }, env = environment())
+
+
+
 #' @inherit lintr::literal_coercion_linter title
 #' @description
 #' See <https://lintr.r-lib.org/reference/literal_coercion_linter>.

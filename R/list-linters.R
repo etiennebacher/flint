@@ -33,6 +33,7 @@ list_linters <- function() {
     "length_test",
     "lengths",
     "library_call",
+    "list_comparison",
     "literal_coercion",
     "matrix_apply",
     "missing_argument",

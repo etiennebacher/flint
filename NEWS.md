@@ -2,11 +2,22 @@
 
 ## New features
 
+* New linter `stopifnot_all_linter()` to detect calls to `stopifnot(all(...))`
+  since the `all()` is unnecessary. This has an automatic fix available.
+
 * New linter `list_comparison_linter()` to detect a comparison with a list,
   e.g. `lapply(x, sum) > 10`. No automatic fix available.
 
 * Line breaks are removed from multi-line messages reported by `lint*` 
   functions. 
+
+* `matrix_apply_linter` now detects when `1L` and `2L` are used in the `MARGIN`
+  argument.
+
+## Bug fixes
+
+* `library_call_linter` no longer reports cases where `library()` calls are
+  wrapped in `suppressPackageStartupMessages()`.
 
 # flint 0.1.2
 

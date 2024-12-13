@@ -38,6 +38,7 @@
 <url><loc>https://flint.etiennebacher.com/reference/lengths_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/library_call_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/lint.html</loc></url>
+<url><loc>https://flint.etiennebacher.com/reference/list_comparison_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/list_linters.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/literal_coercion_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/matrix_apply_linter.html</loc></url>
@@ -57,6 +58,7 @@
 <url><loc>https://flint.etiennebacher.com/reference/setup_flint.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/setup_flint_gha.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/sort_linter.html</loc></url>
+<url><loc>https://flint.etiennebacher.com/reference/stopifnot_all_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/todo_comment_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/undesirable_function_linter.html</loc></url>
 <url><loc>https://flint.etiennebacher.com/reference/undesirable_operator_linter.html</loc></url>

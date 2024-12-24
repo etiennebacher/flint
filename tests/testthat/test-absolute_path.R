@@ -1,10 +1,10 @@
 test_that("absolute_path is not reported", {
-  create_local_package()
-  cat('paste0("/n")', file = "R/foo.R")
-  expect_equal(nrow(lint()), 0)
+	create_local_package()
+	cat('paste0("/n")', file = "R/foo.R")
+	expect_equal(nrow(lint()), 0)
 
-  setup_flint()
-  expect_equal(nrow(lint()), 0)
+	setup_flint()
+	expect_equal(nrow(lint()), 0)
 })
 
 # TODO

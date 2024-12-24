@@ -1,94 +1,96 @@
 test_that("missing_argument_linter skips allowed usages", {
-  linter <- missing_argument_linter()
+	linter <- missing_argument_linter()
 
-  expect_lint("fun(x, a = 1)", NULL, linter)
-  expect_lint("fun(x = 1, a = 1)", NULL, linter)
-  expect_lint("dt[, 1]", NULL, linter)
-  expect_lint("dt[, 'col']", NULL, linter)
-  expect_lint("array[, , 1]", NULL, linter)
-  expect_lint("switch(a =, b =, c = 1, 0)", NULL, linter)
-  expect_lint("alist(a =, b =, c = 1, 0)", NULL, linter)
-  expect_lint("pairlist(path = quote(expr = ))", NULL, linter) # 1889
+	expect_lint("fun(x, a = 1)", NULL, linter)
+	expect_lint("fun(x = 1, a = 1)", NULL, linter)
+	expect_lint("dt[, 1]", NULL, linter)
+	expect_lint("dt[, 'col']", NULL, linter)
+	expect_lint("array[, , 1]", NULL, linter)
+	expect_lint("switch(a =, b =, c = 1, 0)", NULL, linter)
+	expect_lint("alist(a =, b =, c = 1, 0)", NULL, linter)
+	expect_lint("pairlist(path = quote(expr = ))", NULL, linter) # 1889
 
-  # always allow this missing usage
-  expect_lint("foo()", NULL, linter)
+	# always allow this missing usage
+	expect_lint("foo()", NULL, linter)
 })
 
 test_that("missing_argument_linter blocks disallowed usages", {
-  linter <- missing_argument_linter()
-  lint_msg <- "Missing argument in function call."
+	linter <- missing_argument_linter()
+	lint_msg <- "Missing argument in function call."
 
-  expect_lint("fun(, a = 1)", lint_msg, linter)
-  expect_lint(
-    "f <- function(x, y) x\nf(, y = 1)\n",
-    lint_msg,
-    linter
-  )
-  expect_lint("fun(a = 1,, b = 2)", lint_msg, linter)
-  expect_lint("fun(b = 1, a =)", lint_msg, linter)
-  expect_lint("fun(a = 1,)", lint_msg, linter)
-  expect_lint("fun(a = )", lint_msg, linter)
+	expect_lint("fun(, a = 1)", lint_msg, linter)
+	expect_lint(
+		"f <- function(x, y) x\nf(, y = 1)\n",
+		lint_msg,
+		linter
+	)
+	expect_lint("fun(a = 1,, b = 2)", lint_msg, linter)
+	expect_lint("fun(b = 1, a =)", lint_msg, linter)
+	expect_lint("fun(a = 1,)", lint_msg, linter)
+	expect_lint("fun(a = )", lint_msg, linter)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       list(
         a = 1,
         b = 2,
       )
-    "),
-    lint_msg,
-    linter
-  )
+    "
+		),
+		lint_msg,
+		linter
+	)
 
-  expect_lint("stats::median(1:10, a =)", lint_msg, linter)
-  expect_lint("env$get(1:10, a =)", lint_msg, linter)
+	expect_lint("stats::median(1:10, a =)", lint_msg, linter)
+	expect_lint("env$get(1:10, a =)", lint_msg, linter)
 
-  # TODO
-  # Fixes https://github.com/r-lib/lintr/issues/906
-  # Comments should be ignored so that missing arguments could be
-  # properly identified in these cases.
-  # expect_lint(
-  #   trim_some("
-  #     fun(
-  #       1,
-  #       2,
-  #       # comment
-  #     )
-  #   "),
-  #   lint_msg,
-  #   linter
-  # )
+	# TODO
+	# Fixes https://github.com/r-lib/lintr/issues/906
+	# Comments should be ignored so that missing arguments could be
+	# properly identified in these cases.
+	# expect_lint(
+	#   trim_some("
+	#     fun(
+	#       1,
+	#       2,
+	#       # comment
+	#     )
+	#   "),
+	#   lint_msg,
+	#   linter
+	# )
 
-  # expect_lint(
-  #   trim_some("
-  #     fun(
-  #       # comment
-  #       ,
-  #       1
-  #     )
-  #   "),
-  #   lint_msg,
-  #   linter
-  # )
+	# expect_lint(
+	#   trim_some("
+	#     fun(
+	#       # comment
+	#       ,
+	#       1
+	#     )
+	#   "),
+	#   lint_msg,
+	#   linter
+	# )
 
-  # expect_lint(
-  #   trim_some("
-  #     fun(
-  #       a = # comment
-  #       ,
-  #       1
-  #     )
-  #   "),
-  #   lint_msg,
-  #   linter
-  # )
+	# expect_lint(
+	#   trim_some("
+	#     fun(
+	#       a = # comment
+	#       ,
+	#       1
+	#     )
+	#   "),
+	#   lint_msg,
+	#   linter
+	# )
 })
 
 test_that("except list can be empty", {
-  linter <- missing_argument_linter()
+	linter <- missing_argument_linter()
 
-  expect_lint("switch(a =, b = 1, 0)", NULL, linter)
-  expect_lint("alist(a =)", NULL, linter)
+	expect_lint("switch(a =, b = 1, 0)", NULL, linter)
+	expect_lint("alist(a =)", NULL, linter)
 })
 
 # test_that("allow_trailing can allow trailing empty args also for non-excepted functions", {

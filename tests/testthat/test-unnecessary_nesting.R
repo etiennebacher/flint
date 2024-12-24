@@ -1,36 +1,41 @@
 test_that("unnecessary_nesting_linter skips allowed usages", {
-  linter <- unnecessary_nesting_linter()
+	linter <- unnecessary_nesting_linter()
 
-  # parallel stops() and return()s are OK
-  expect_lint(
-    trim_some("
+	# parallel stops() and return()s are OK
+	expect_lint(
+		trim_some(
+			"
       if (A) {
         stop()
       } else {
         stop()
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (A) {
         return()
       } else {
         return()
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 })
 
 test_that("Multiple if/else statements don't require unnesting", {
-  # with further branches, reducing nesting might be less readable
-  expect_lint(
-    trim_some("
+	# with further branches, reducing nesting might be less readable
+	expect_lint(
+		trim_some(
+			"
       if (x == 'a') {
         stop()
       } else if (x == 'b') {
@@ -38,43 +43,49 @@ test_that("Multiple if/else statements don't require unnesting", {
       } else {
         stop()
       }
-    "),
-    NULL,
-    unnecessary_nesting_linter()
-  )
+    "
+		),
+		NULL,
+		unnecessary_nesting_linter()
+	)
 })
 
 test_that("else-less if statements don't lint", {
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (x == 4) {
         msg <- 'failed'
         stop(msg)
       }
-    "),
-    NULL,
-    unnecessary_nesting_linter()
-  )
+    "
+		),
+		NULL,
+		unnecessary_nesting_linter()
+	)
 })
 
 test_that("non-terminal expressions are not considered for the logic", {
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (x == 4) {
         x <- 5
         return(x)
       } else {
         return(x)
       }
-    "),
-    NULL,
-    unnecessary_nesting_linter()
-  )
+    "
+		),
+		NULL,
+		unnecessary_nesting_linter()
+	)
 })
 
 test_that("parallels in further nesting are skipped", {
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (length(bucket) > 1) {
         return(age)
       } else {
@@ -85,10 +96,11 @@ test_that("parallels in further nesting are skipped", {
           return('unknown')
         }
       }
-    "),
-    NULL,
-    unnecessary_nesting_linter()
-  )
+    "
+		),
+		NULL,
+		unnecessary_nesting_linter()
+	)
 })
 
 # TODO: improve support
@@ -196,17 +208,19 @@ test_that("parallels in further nesting are skipped", {
 # })
 
 test_that("unnecessary_nesting_linter skips one-expression if and else clauses", {
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (TRUE) {
         x
       } else {
         y
       }
-    "),
-    NULL,
-    unnecessary_nesting_linter()
-  )
+    "
+		),
+		NULL,
+		unnecessary_nesting_linter()
+	)
 })
 
 # test_that("unnecessary_nesting_linter skips one-expression while loops", {
@@ -378,44 +392,51 @@ test_that("unnecessary_nesting_linter skips one-expression if and else clauses",
 # })
 
 test_that("unnecessary_nesting_linter skips allowed usages", {
-  linter <- unnecessary_nesting_linter()
+	linter <- unnecessary_nesting_linter()
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (x && y) {
         1L
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       for (x in 1:3) {
         if (x && y) {
           1L
         }
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (x) {
         1L
       } else if (y) {
         2L
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (x) {
         1L
       } else {
@@ -424,73 +445,85 @@ test_that("unnecessary_nesting_linter skips allowed usages", {
           3L
         }
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (if (x) TRUE else FALSE) {
         1L
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (x) {
         y <- x + 1L
         if (y) {
           1L
         }
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if ((x && y) || (if (x) TRUE else FALSE)) {
         1L
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  # if there is any additional code between the inner and outer scopes, no lint
-  expect_lint(
-    trim_some("
+	# if there is any additional code between the inner and outer scopes, no lint
+	expect_lint(
+		trim_some(
+			"
       if (x && a) {
         y <- x + 1L
         if (y || b) {
           1L
         }
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (x) {
         if (y) {
           1L
         }
         y <- x + 1L
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (x) {
         y <- x + 1L
         if (y) {
@@ -498,13 +531,15 @@ test_that("unnecessary_nesting_linter skips allowed usages", {
         }
         y <- x
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (x) {
         y <- x + 1L
         {
@@ -513,13 +548,15 @@ test_that("unnecessary_nesting_linter skips allowed usages", {
           }
         }
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (x) {
         {
            y <- x + 1L
@@ -528,13 +565,15 @@ test_that("unnecessary_nesting_linter skips allowed usages", {
            }
         }
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (x) {
         {
           if (y) {
@@ -543,13 +582,15 @@ test_that("unnecessary_nesting_linter skips allowed usages", {
         }
         y <- x + 1L
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (x) {
         {
           y <- x + 1L
@@ -560,13 +601,15 @@ test_that("unnecessary_nesting_linter skips allowed usages", {
           }
         }
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (A) {
         foo()
       } else if (B) {
@@ -576,13 +619,15 @@ test_that("unnecessary_nesting_linter skips allowed usages", {
           buz()
         }
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (A) {
         if (B) {
           'hi'
@@ -590,80 +635,93 @@ test_that("unnecessary_nesting_linter skips allowed usages", {
           'hello
         }
       }
-    "),
-    NULL,
-    linter
-  )
+    "
+		),
+		NULL,
+		linter
+	)
 })
 
 test_that("unnecessary_nesting_linter blocks disallowed usages", {
-  lint_message <- "Don't use nested `if` statements"
-  linter <- unnecessary_nesting_linter()
+	lint_message <- "Don't use nested `if` statements"
+	linter <- unnecessary_nesting_linter()
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (x) {
         if (y) {
           1L
         }
       }
-    "),
-    lint_message,
-    linter
-  )
+    "
+		),
+		lint_message,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (x) {
         if (y) 1L
       }
-    "),
-    lint_message,
-    linter
-  )
+    "
+		),
+		lint_message,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (x && a) {
         if (y || b) {
           1L
         }
       }
-    "),
-    lint_message,
-    linter
-  )
+    "
+		),
+		lint_message,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       if (if (x) TRUE else FALSE) {
         if (y) {
           1L
         }
       }
-    "),
-    lint_message,
-    linter
-  )
+    "
+		),
+		lint_message,
+		linter
+	)
 
-  expect_lint(
-    "if (x) if (y) 1L",
-    lint_message,
-    linter
-  )
+	expect_lint(
+		"if (x) if (y) 1L",
+		lint_message,
+		linter
+	)
 
-  expect_lint(
-    trim_some("
+	expect_lint(
+		trim_some(
+			"
       for (x in 1:3) {
         if (x) if (y) 1L
       }
-    "),
-    lint_message,
-    linter
-  )
+    "
+		),
+		lint_message,
+		linter
+	)
 
-  expect_equal(
-    nrow(lint_text("
+	expect_equal(
+		nrow(
+			lint_text(
+				"
       if (x) {
         if (y) {
           if (z) {
@@ -671,9 +729,11 @@ test_that("unnecessary_nesting_linter blocks disallowed usages", {
           }
         }
       }
-    ")),
-    2
-  )
+    "
+			)
+		),
+		2
+	)
 })
 
 # test_that("else that can drop braces is found", {

@@ -1,5 +1,5 @@
 test_that("stopifnot_all_linter skips allowed usages", {
-  expect_lint("stopifnot(all(x) || any(y))", NULL, stopifnot_all_linter())
+	expect_lint("stopifnot(all(x) || any(y))", NULL, stopifnot_all_linter())
 })
 
 # TODO
@@ -28,14 +28,14 @@ test_that("stopifnot_all_linter skips allowed usages", {
 # })
 
 test_that("fix works", {
-  linter <- stopifnot_all_linter()
-  expect_snapshot(
-    fix_text("stopifnot(all(x > 0 & y < 1))", linters = linter)
-  )
+	linter <- stopifnot_all_linter()
+	expect_snapshot(
+		fix_text("stopifnot(all(x > 0 & y < 1))", linters = linter)
+	)
 
-  lines <- "
+	lines <- "
 stopifnot(exprs = {
   all(x > 0 & y < 1)
 })"
-  expect_snapshot(fix_text(lines, linters = linter))
+	expect_snapshot(fix_text(lines, linters = linter))
 })

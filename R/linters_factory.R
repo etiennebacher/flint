@@ -1,5 +1,3 @@
-
-
 #' @inherit lintr::any_duplicated_linter title
 #' @description
 #' See <https://lintr.r-lib.org/reference/any_duplicated_linter>.
@@ -8,9 +6,13 @@
 #' @name any_duplicated_linter
 #' @export
 NULL
-makeActiveBinding('any_duplicated_linter', function() { function() 'any_duplicated' }, env = environment())
-
-
+makeActiveBinding(
+	'any_duplicated_linter',
+	function() {
+		function() 'any_duplicated'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::any_is_na_linter title
 #' @description
@@ -20,9 +22,13 @@ makeActiveBinding('any_duplicated_linter', function() { function() 'any_duplicat
 #' @name any_is_na_linter
 #' @export
 NULL
-makeActiveBinding('any_is_na_linter', function() { function() 'any_is_na' }, env = environment())
-
-
+makeActiveBinding(
+	'any_is_na_linter',
+	function() {
+		function() 'any_is_na'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::class_equals_linter title
 #' @description
@@ -32,9 +38,13 @@ makeActiveBinding('any_is_na_linter', function() { function() 'any_is_na' }, env
 #' @name class_equals_linter
 #' @export
 NULL
-makeActiveBinding('class_equals_linter', function() { function() 'class_equals' }, env = environment())
-
-
+makeActiveBinding(
+	'class_equals_linter',
+	function() {
+		function() 'class_equals'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::condition_message_linter title
 #' @description
@@ -44,9 +54,13 @@ makeActiveBinding('class_equals_linter', function() { function() 'class_equals' 
 #' @name condition_message_linter
 #' @export
 NULL
-makeActiveBinding('condition_message_linter', function() { function() 'condition_message' }, env = environment())
-
-
+makeActiveBinding(
+	'condition_message_linter',
+	function() {
+		function() 'condition_message'
+	},
+	env = environment()
+)
 
 #' double_assignment
 
@@ -54,9 +68,13 @@ makeActiveBinding('condition_message_linter', function() { function() 'condition
 #' @name double_assignment_linter
 #' @export
 NULL
-makeActiveBinding('double_assignment_linter', function() { function() 'double_assignment' }, env = environment())
-
-
+makeActiveBinding(
+	'double_assignment_linter',
+	function() {
+		function() 'double_assignment'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::duplicate_argument_linter title
 #' @description
@@ -66,9 +84,13 @@ makeActiveBinding('double_assignment_linter', function() { function() 'double_as
 #' @name duplicate_argument_linter
 #' @export
 NULL
-makeActiveBinding('duplicate_argument_linter', function() { function() 'duplicate_argument' }, env = environment())
-
-
+makeActiveBinding(
+	'duplicate_argument_linter',
+	function() {
+		function() 'duplicate_argument'
+	},
+	env = environment()
+)
 
 #' empty_assignment
 
@@ -76,9 +98,13 @@ makeActiveBinding('duplicate_argument_linter', function() { function() 'duplicat
 #' @name empty_assignment_linter
 #' @export
 NULL
-makeActiveBinding('empty_assignment_linter', function() { function() 'empty_assignment' }, env = environment())
-
-
+makeActiveBinding(
+	'empty_assignment_linter',
+	function() {
+		function() 'empty_assignment'
+	},
+	env = environment()
+)
 
 #' equal_assignment
 
@@ -86,9 +112,13 @@ makeActiveBinding('empty_assignment_linter', function() { function() 'empty_assi
 #' @name equal_assignment_linter
 #' @export
 NULL
-makeActiveBinding('equal_assignment_linter', function() { function() 'equal_assignment' }, env = environment())
-
-
+makeActiveBinding(
+	'equal_assignment_linter',
+	function() {
+		function() 'equal_assignment'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::equals_na_linter title
 #' @description
@@ -98,9 +128,13 @@ makeActiveBinding('equal_assignment_linter', function() { function() 'equal_assi
 #' @name equals_na_linter
 #' @export
 NULL
-makeActiveBinding('equals_na_linter', function() { function() 'equals_na' }, env = environment())
-
-
+makeActiveBinding(
+	'equals_na_linter',
+	function() {
+		function() 'equals_na'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::expect_comparison_linter title
 #' @description
@@ -110,9 +144,13 @@ makeActiveBinding('equals_na_linter', function() { function() 'equals_na' }, env
 #' @name expect_comparison_linter
 #' @export
 NULL
-makeActiveBinding('expect_comparison_linter', function() { function() 'expect_comparison' }, env = environment())
-
-
+makeActiveBinding(
+	'expect_comparison_linter',
+	function() {
+		function() 'expect_comparison'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::expect_identical_linter title
 #' @description
@@ -122,9 +160,13 @@ makeActiveBinding('expect_comparison_linter', function() { function() 'expect_co
 #' @name expect_identical_linter
 #' @export
 NULL
-makeActiveBinding('expect_identical_linter', function() { function() 'expect_identical' }, env = environment())
-
-
+makeActiveBinding(
+	'expect_identical_linter',
+	function() {
+		function() 'expect_identical'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::expect_length_linter title
 #' @description
@@ -134,9 +176,13 @@ makeActiveBinding('expect_identical_linter', function() { function() 'expect_ide
 #' @name expect_length_linter
 #' @export
 NULL
-makeActiveBinding('expect_length_linter', function() { function() 'expect_length' }, env = environment())
-
-
+makeActiveBinding(
+	'expect_length_linter',
+	function() {
+		function() 'expect_length'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::expect_named_linter title
 #' @description
@@ -146,9 +192,13 @@ makeActiveBinding('expect_length_linter', function() { function() 'expect_length
 #' @name expect_named_linter
 #' @export
 NULL
-makeActiveBinding('expect_named_linter', function() { function() 'expect_named' }, env = environment())
-
-
+makeActiveBinding(
+	'expect_named_linter',
+	function() {
+		function() 'expect_named'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::expect_not_linter title
 #' @description
@@ -158,9 +208,13 @@ makeActiveBinding('expect_named_linter', function() { function() 'expect_named' 
 #' @name expect_not_linter
 #' @export
 NULL
-makeActiveBinding('expect_not_linter', function() { function() 'expect_not' }, env = environment())
-
-
+makeActiveBinding(
+	'expect_not_linter',
+	function() {
+		function() 'expect_not'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::expect_null_linter title
 #' @description
@@ -170,9 +224,13 @@ makeActiveBinding('expect_not_linter', function() { function() 'expect_not' }, e
 #' @name expect_null_linter
 #' @export
 NULL
-makeActiveBinding('expect_null_linter', function() { function() 'expect_null' }, env = environment())
-
-
+makeActiveBinding(
+	'expect_null_linter',
+	function() {
+		function() 'expect_null'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::expect_true_false_linter title
 #' @description
@@ -182,9 +240,13 @@ makeActiveBinding('expect_null_linter', function() { function() 'expect_null' },
 #' @name expect_true_false_linter
 #' @export
 NULL
-makeActiveBinding('expect_true_false_linter', function() { function() 'expect_true_false' }, env = environment())
-
-
+makeActiveBinding(
+	'expect_true_false_linter',
+	function() {
+		function() 'expect_true_false'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::expect_type_linter title
 #' @description
@@ -194,9 +256,13 @@ makeActiveBinding('expect_true_false_linter', function() { function() 'expect_tr
 #' @name expect_type_linter
 #' @export
 NULL
-makeActiveBinding('expect_type_linter', function() { function() 'expect_type' }, env = environment())
-
-
+makeActiveBinding(
+	'expect_type_linter',
+	function() {
+		function() 'expect_type'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::for_loop_index_linter title
 #' @description
@@ -206,9 +272,13 @@ makeActiveBinding('expect_type_linter', function() { function() 'expect_type' },
 #' @name for_loop_index_linter
 #' @export
 NULL
-makeActiveBinding('for_loop_index_linter', function() { function() 'for_loop_index' }, env = environment())
-
-
+makeActiveBinding(
+	'for_loop_index_linter',
+	function() {
+		function() 'for_loop_index'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::function_return_linter title
 #' @description
@@ -218,9 +288,13 @@ makeActiveBinding('for_loop_index_linter', function() { function() 'for_loop_ind
 #' @name function_return_linter
 #' @export
 NULL
-makeActiveBinding('function_return_linter', function() { function() 'function_return' }, env = environment())
-
-
+makeActiveBinding(
+	'function_return_linter',
+	function() {
+		function() 'function_return'
+	},
+	env = environment()
+)
 
 #' implicit_assignment
 
@@ -228,9 +302,13 @@ makeActiveBinding('function_return_linter', function() { function() 'function_re
 #' @name implicit_assignment_linter
 #' @export
 NULL
-makeActiveBinding('implicit_assignment_linter', function() { function() 'implicit_assignment' }, env = environment())
-
-
+makeActiveBinding(
+	'implicit_assignment_linter',
+	function() {
+		function() 'implicit_assignment'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::is_numeric_linter title
 #' @description
@@ -240,9 +318,13 @@ makeActiveBinding('implicit_assignment_linter', function() { function() 'implici
 #' @name is_numeric_linter
 #' @export
 NULL
-makeActiveBinding('is_numeric_linter', function() { function() 'is_numeric' }, env = environment())
-
-
+makeActiveBinding(
+	'is_numeric_linter',
+	function() {
+		function() 'is_numeric'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::length_levels_linter title
 #' @description
@@ -252,9 +334,13 @@ makeActiveBinding('is_numeric_linter', function() { function() 'is_numeric' }, e
 #' @name length_levels_linter
 #' @export
 NULL
-makeActiveBinding('length_levels_linter', function() { function() 'length_levels' }, env = environment())
-
-
+makeActiveBinding(
+	'length_levels_linter',
+	function() {
+		function() 'length_levels'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::length_test_linter title
 #' @description
@@ -264,9 +350,13 @@ makeActiveBinding('length_levels_linter', function() { function() 'length_levels
 #' @name length_test_linter
 #' @export
 NULL
-makeActiveBinding('length_test_linter', function() { function() 'length_test' }, env = environment())
-
-
+makeActiveBinding(
+	'length_test_linter',
+	function() {
+		function() 'length_test'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::lengths_linter title
 #' @description
@@ -276,9 +366,13 @@ makeActiveBinding('length_test_linter', function() { function() 'length_test' },
 #' @name lengths_linter
 #' @export
 NULL
-makeActiveBinding('lengths_linter', function() { function() 'lengths' }, env = environment())
-
-
+makeActiveBinding(
+	'lengths_linter',
+	function() {
+		function() 'lengths'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::library_call_linter title
 #' @description
@@ -288,9 +382,13 @@ makeActiveBinding('lengths_linter', function() { function() 'lengths' }, env = e
 #' @name library_call_linter
 #' @export
 NULL
-makeActiveBinding('library_call_linter', function() { function() 'library_call' }, env = environment())
-
-
+makeActiveBinding(
+	'library_call_linter',
+	function() {
+		function() 'library_call'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::list_comparison_linter title
 #' @description
@@ -300,9 +398,13 @@ makeActiveBinding('library_call_linter', function() { function() 'library_call' 
 #' @name list_comparison_linter
 #' @export
 NULL
-makeActiveBinding('list_comparison_linter', function() { function() 'list_comparison' }, env = environment())
-
-
+makeActiveBinding(
+	'list_comparison_linter',
+	function() {
+		function() 'list_comparison'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::literal_coercion_linter title
 #' @description
@@ -312,9 +414,13 @@ makeActiveBinding('list_comparison_linter', function() { function() 'list_compar
 #' @name literal_coercion_linter
 #' @export
 NULL
-makeActiveBinding('literal_coercion_linter', function() { function() 'literal_coercion' }, env = environment())
-
-
+makeActiveBinding(
+	'literal_coercion_linter',
+	function() {
+		function() 'literal_coercion'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::matrix_apply_linter title
 #' @description
@@ -324,9 +430,13 @@ makeActiveBinding('literal_coercion_linter', function() { function() 'literal_co
 #' @name matrix_apply_linter
 #' @export
 NULL
-makeActiveBinding('matrix_apply_linter', function() { function() 'matrix_apply' }, env = environment())
-
-
+makeActiveBinding(
+	'matrix_apply_linter',
+	function() {
+		function() 'matrix_apply'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::missing_argument_linter title
 #' @description
@@ -336,9 +446,13 @@ makeActiveBinding('matrix_apply_linter', function() { function() 'matrix_apply' 
 #' @name missing_argument_linter
 #' @export
 NULL
-makeActiveBinding('missing_argument_linter', function() { function() 'missing_argument' }, env = environment())
-
-
+makeActiveBinding(
+	'missing_argument_linter',
+	function() {
+		function() 'missing_argument'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::nested_ifelse_linter title
 #' @description
@@ -348,9 +462,13 @@ makeActiveBinding('missing_argument_linter', function() { function() 'missing_ar
 #' @name nested_ifelse_linter
 #' @export
 NULL
-makeActiveBinding('nested_ifelse_linter', function() { function() 'nested_ifelse' }, env = environment())
-
-
+makeActiveBinding(
+	'nested_ifelse_linter',
+	function() {
+		function() 'nested_ifelse'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::numeric_leading_zero_linter title
 #' @description
@@ -360,9 +478,13 @@ makeActiveBinding('nested_ifelse_linter', function() { function() 'nested_ifelse
 #' @name numeric_leading_zero_linter
 #' @export
 NULL
-makeActiveBinding('numeric_leading_zero_linter', function() { function() 'numeric_leading_zero' }, env = environment())
-
-
+makeActiveBinding(
+	'numeric_leading_zero_linter',
+	function() {
+		function() 'numeric_leading_zero'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::outer_negation_linter title
 #' @description
@@ -372,9 +494,13 @@ makeActiveBinding('numeric_leading_zero_linter', function() { function() 'numeri
 #' @name outer_negation_linter
 #' @export
 NULL
-makeActiveBinding('outer_negation_linter', function() { function() 'outer_negation' }, env = environment())
-
-
+makeActiveBinding(
+	'outer_negation_linter',
+	function() {
+		function() 'outer_negation'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::package_hooks_linter title
 #' @description
@@ -384,9 +510,13 @@ makeActiveBinding('outer_negation_linter', function() { function() 'outer_negati
 #' @name package_hooks_linter
 #' @export
 NULL
-makeActiveBinding('package_hooks_linter', function() { function() 'package_hooks' }, env = environment())
-
-
+makeActiveBinding(
+	'package_hooks_linter',
+	function() {
+		function() 'package_hooks'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::paste_linter title
 #' @description
@@ -396,9 +526,13 @@ makeActiveBinding('package_hooks_linter', function() { function() 'package_hooks
 #' @name paste_linter
 #' @export
 NULL
-makeActiveBinding('paste_linter', function() { function() 'paste' }, env = environment())
-
-
+makeActiveBinding(
+	'paste_linter',
+	function() {
+		function() 'paste'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::redundant_equals_linter title
 #' @description
@@ -408,9 +542,13 @@ makeActiveBinding('paste_linter', function() { function() 'paste' }, env = envir
 #' @name redundant_equals_linter
 #' @export
 NULL
-makeActiveBinding('redundant_equals_linter', function() { function() 'redundant_equals' }, env = environment())
-
-
+makeActiveBinding(
+	'redundant_equals_linter',
+	function() {
+		function() 'redundant_equals'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::redundant_ifelse_linter title
 #' @description
@@ -420,9 +558,13 @@ makeActiveBinding('redundant_equals_linter', function() { function() 'redundant_
 #' @name redundant_ifelse_linter
 #' @export
 NULL
-makeActiveBinding('redundant_ifelse_linter', function() { function() 'redundant_ifelse' }, env = environment())
-
-
+makeActiveBinding(
+	'redundant_ifelse_linter',
+	function() {
+		function() 'redundant_ifelse'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::rep_len_linter title
 #' @description
@@ -432,9 +574,13 @@ makeActiveBinding('redundant_ifelse_linter', function() { function() 'redundant_
 #' @name rep_len_linter
 #' @export
 NULL
-makeActiveBinding('rep_len_linter', function() { function() 'rep_len' }, env = environment())
-
-
+makeActiveBinding(
+	'rep_len_linter',
+	function() {
+		function() 'rep_len'
+	},
+	env = environment()
+)
 
 #' right_assignment
 
@@ -442,9 +588,13 @@ makeActiveBinding('rep_len_linter', function() { function() 'rep_len' }, env = e
 #' @name right_assignment_linter
 #' @export
 NULL
-makeActiveBinding('right_assignment_linter', function() { function() 'right_assignment' }, env = environment())
-
-
+makeActiveBinding(
+	'right_assignment_linter',
+	function() {
+		function() 'right_assignment'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::sample_int_linter title
 #' @description
@@ -454,9 +604,13 @@ makeActiveBinding('right_assignment_linter', function() { function() 'right_assi
 #' @name sample_int_linter
 #' @export
 NULL
-makeActiveBinding('sample_int_linter', function() { function() 'sample_int' }, env = environment())
-
-
+makeActiveBinding(
+	'sample_int_linter',
+	function() {
+		function() 'sample_int'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::semicolon_linter title
 #' @description
@@ -466,9 +620,13 @@ makeActiveBinding('sample_int_linter', function() { function() 'sample_int' }, e
 #' @name semicolon_linter
 #' @export
 NULL
-makeActiveBinding('semicolon_linter', function() { function() 'semicolon' }, env = environment())
-
-
+makeActiveBinding(
+	'semicolon_linter',
+	function() {
+		function() 'semicolon'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::seq_linter title
 #' @description
@@ -478,9 +636,13 @@ makeActiveBinding('semicolon_linter', function() { function() 'semicolon' }, env
 #' @name seq_linter
 #' @export
 NULL
-makeActiveBinding('seq_linter', function() { function() 'seq' }, env = environment())
-
-
+makeActiveBinding(
+	'seq_linter',
+	function() {
+		function() 'seq'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::sort_linter title
 #' @description
@@ -490,9 +652,13 @@ makeActiveBinding('seq_linter', function() { function() 'seq' }, env = environme
 #' @name sort_linter
 #' @export
 NULL
-makeActiveBinding('sort_linter', function() { function() 'sort' }, env = environment())
-
-
+makeActiveBinding(
+	'sort_linter',
+	function() {
+		function() 'sort'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::stopifnot_all_linter title
 #' @description
@@ -502,9 +668,13 @@ makeActiveBinding('sort_linter', function() { function() 'sort' }, env = environ
 #' @name stopifnot_all_linter
 #' @export
 NULL
-makeActiveBinding('stopifnot_all_linter', function() { function() 'stopifnot_all' }, env = environment())
-
-
+makeActiveBinding(
+	'stopifnot_all_linter',
+	function() {
+		function() 'stopifnot_all'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::T_and_F_symbol_linter title
 #' @description
@@ -514,9 +684,13 @@ makeActiveBinding('stopifnot_all_linter', function() { function() 'stopifnot_all
 #' @name T_and_F_symbol_linter
 #' @export
 NULL
-makeActiveBinding('T_and_F_symbol_linter', function() { function() 'T_and_F_symbol' }, env = environment())
-
-
+makeActiveBinding(
+	'T_and_F_symbol_linter',
+	function() {
+		function() 'T_and_F_symbol'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::todo_comment_linter title
 #' @description
@@ -526,9 +700,13 @@ makeActiveBinding('T_and_F_symbol_linter', function() { function() 'T_and_F_symb
 #' @name todo_comment_linter
 #' @export
 NULL
-makeActiveBinding('todo_comment_linter', function() { function() 'todo_comment' }, env = environment())
-
-
+makeActiveBinding(
+	'todo_comment_linter',
+	function() {
+		function() 'todo_comment'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::undesirable_function_linter title
 #' @description
@@ -538,9 +716,13 @@ makeActiveBinding('todo_comment_linter', function() { function() 'todo_comment' 
 #' @name undesirable_function_linter
 #' @export
 NULL
-makeActiveBinding('undesirable_function_linter', function() { function() 'undesirable_function' }, env = environment())
-
-
+makeActiveBinding(
+	'undesirable_function_linter',
+	function() {
+		function() 'undesirable_function'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::undesirable_operator_linter title
 #' @description
@@ -550,9 +732,13 @@ makeActiveBinding('undesirable_function_linter', function() { function() 'undesi
 #' @name undesirable_operator_linter
 #' @export
 NULL
-makeActiveBinding('undesirable_operator_linter', function() { function() 'undesirable_operator' }, env = environment())
-
-
+makeActiveBinding(
+	'undesirable_operator_linter',
+	function() {
+		function() 'undesirable_operator'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::unnecessary_nesting_linter title
 #' @description
@@ -562,9 +748,13 @@ makeActiveBinding('undesirable_operator_linter', function() { function() 'undesi
 #' @name unnecessary_nesting_linter
 #' @export
 NULL
-makeActiveBinding('unnecessary_nesting_linter', function() { function() 'unnecessary_nesting' }, env = environment())
-
-
+makeActiveBinding(
+	'unnecessary_nesting_linter',
+	function() {
+		function() 'unnecessary_nesting'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::unreachable_code_linter title
 #' @description
@@ -574,9 +764,13 @@ makeActiveBinding('unnecessary_nesting_linter', function() { function() 'unneces
 #' @name unreachable_code_linter
 #' @export
 NULL
-makeActiveBinding('unreachable_code_linter', function() { function() 'unreachable_code' }, env = environment())
-
-
+makeActiveBinding(
+	'unreachable_code_linter',
+	function() {
+		function() 'unreachable_code'
+	},
+	env = environment()
+)
 
 #' @inherit lintr::which_grepl_linter title
 #' @description
@@ -586,5 +780,10 @@ makeActiveBinding('unreachable_code_linter', function() { function() 'unreachabl
 #' @name which_grepl_linter
 #' @export
 NULL
-makeActiveBinding('which_grepl_linter', function() { function() 'which_grepl' }, env = environment())
-
+makeActiveBinding(
+	'which_grepl_linter',
+	function() {
+		function() 'which_grepl'
+	},
+	env = environment()
+)

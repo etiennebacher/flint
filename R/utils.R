@@ -1,254 +1,298 @@
 clean_lints <- function(lints_raw, file) {
-  locs <- astgrepr::node_range_all(lints_raw)
-  txts <- astgrepr::node_text_all(lints_raw)
+	locs <- astgrepr::node_range_all(lints_raw)
+	txts <- astgrepr::node_text_all(lints_raw)
 
-  # for data.table NOTE on undefined objects
-  line_start <- NULL
+	# for data.table NOTE on undefined objects
+	line_start <- NULL
 
-  locs_reorg <- lapply(seq_along(locs), function(x) {
-    dat <- locs[[x]]
-    res <- data.table::rbindlist(lapply(dat, function(y) {
-      # locations are 0-indexed
-      list(
-        line_start = y$start[1] + 1,
-        col_start = y$start[2] + 1,
-        line_end = y$end[1] + 1,
-        col_end = y$end[2] + 1
-      )
-    }), use.names = TRUE)
-    if (nrow(res) > 0) {
-      res[["id"]] <- names(locs)[x]
-    }
-    res
-  })
-  locs_reorg <- Filter(function(x) length(x) > 0, locs_reorg)
+	locs_reorg <- lapply(seq_along(locs), function(x) {
+		dat <- locs[[x]]
+		res <- data.table::rbindlist(
+			lapply(dat, function(y) {
+				# locations are 0-indexed
+				list(
+					line_start = y$start[1] + 1,
+					col_start = y$start[2] + 1,
+					line_end = y$end[1] + 1,
+					col_end = y$end[2] + 1
+				)
+			}),
+			use.names = TRUE
+		)
+		if (nrow(res) > 0) {
+			res[["id"]] <- names(locs)[x]
+		}
+		res
+	})
+	locs_reorg <- Filter(function(x) length(x) > 0, locs_reorg)
 
-  locs2 <- data.table::rbindlist(locs_reorg, use.names = TRUE)
-  txts2 <- data.table::data.table(text = unlist(txts, recursive = TRUE, use.names = FALSE))
+	locs2 <- data.table::rbindlist(locs_reorg, use.names = TRUE)
+	txts2 <- data.table::data.table(
+		text = unlist(txts, recursive = TRUE, use.names = FALSE)
+	)
 
-  other_info <- lapply(seq_along(lints_raw), function(x) {
-    res <- attributes(lints_raw[[x]])[["other_info"]]
-    res[["language"]] <- NULL
-    # If there are several constraints, then the output (including the message)
-    # will be duplicated. Constraints are not actually needed in the output.
-    res[["constraints"]] <- NULL
-    res[["id"]] <- names(lints_raw)[x]
-    res
-  })
+	other_info <- lapply(seq_along(lints_raw), function(x) {
+		res <- attributes(lints_raw[[x]])[["other_info"]]
+		res[["language"]] <- NULL
+		# If there are several constraints, then the output (including the message)
+		# will be duplicated. Constraints are not actually needed in the output.
+		res[["constraints"]] <- NULL
+		res[["id"]] <- names(lints_raw)[x]
+		res
+	})
 
-  other_info <- data.table::rbindlist(other_info, fill = TRUE, use.names = TRUE)
+	other_info <- data.table::rbindlist(other_info, fill = TRUE, use.names = TRUE)
 
-  lints <- cbind(txts2, locs2)
-  lints <- merge(lints, other_info, by = "id", all.x = TRUE)
-  lints[["file"]] <- file
-  lints <- unique(lints)
+	lints <- cbind(txts2, locs2)
+	lints <- merge(lints, other_info, by = "id", all.x = TRUE)
+	lints[["file"]] <- file
+	lints <- unique(lints)
 
-  lints[order(line_start)]
+	lints[order(line_start)]
 }
 
-
 get_tests_from_lintr <- function(name) {
-  url <- paste0("https://raw.githubusercontent.com/r-lib/lintr/main/tests/testthat/test-", name, "_linter.R")
-  dest <- paste0("tests/testthat/test-", name, ".R")
-  utils::download.file(url, destfile = dest)
-  rstudioapi::documentOpen(dest)
+	url <- paste0(
+		"https://raw.githubusercontent.com/r-lib/lintr/main/tests/testthat/test-",
+		name,
+		"_linter.R"
+	)
+	dest <- paste0("tests/testthat/test-", name, ".R")
+	utils::download.file(url, destfile = dest)
+	rstudioapi::documentOpen(dest)
 }
 
 resolve_linters <- function(path, linters, exclude_linters) {
-  if (uses_flint(path)) {
-    path_to_rules <- fs::path("flint/rules")
-  } else if (is_flint_package(path)) {
-    path_to_rules <- fs::path("inst/rules")
-  } else {
-    path_to_rules <- fs::path(system.file(package = "flint"), "rules")
-  }
+	if (uses_flint(path)) {
+		path_to_rules <- fs::path("flint/rules")
+	} else if (is_flint_package(path)) {
+		path_to_rules <- fs::path("inst/rules")
+	} else {
+		path_to_rules <- fs::path(system.file(package = "flint"), "rules")
+	}
 
-  has_custom_linters <- fs::dir_exists(fs::path(path_to_rules, "custom")) &&
-    length(list.files(fs::path(path_to_rules, "custom"), pattern = "\\.yml$")) > 0
+	has_custom_linters <- fs::dir_exists(fs::path(path_to_rules, "custom")) &&
+		length(list.files(fs::path(path_to_rules, "custom"), pattern = "\\.yml$")) >
+			0
 
-  # All rule files
-  if (isTRUE(has_custom_linters)) {
-    rules <- c(
-      list.files(fs::path(path_to_rules, "builtin"), pattern = "\\.yml$", full.names = TRUE),
-      list.files(fs::path(path_to_rules, "custom"), pattern = "\\.yml$", full.names = TRUE)
-    )
-  } else {
-    rules <- list.files(fs::path(path_to_rules, "builtin"), pattern = "\\.yml$", full.names = TRUE)
-  }
+	# All rule files
+	if (isTRUE(has_custom_linters)) {
+		rules <- c(
+			list.files(
+				fs::path(path_to_rules, "builtin"),
+				pattern = "\\.yml$",
+				full.names = TRUE
+			),
+			list.files(
+				fs::path(path_to_rules, "custom"),
+				pattern = "\\.yml$",
+				full.names = TRUE
+			)
+		)
+	} else {
+		rules <- list.files(
+			fs::path(path_to_rules, "builtin"),
+			pattern = "\\.yml$",
+			full.names = TRUE
+		)
+	}
 
-  rules_basename <- basename(rules)
-  rules_basename_noext <- gsub("\\.yml$", "", rules_basename)
+	rules_basename <- basename(rules)
+	rules_basename_noext <- gsub("\\.yml$", "", rules_basename)
 
-  if (anyDuplicated(rules_basename) > 0) {
-    stop("Some rule files are duplicated: ", toString(rules_basename[duplicated(rules_basename)]))
-  }
+	if (anyDuplicated(rules_basename) > 0) {
+		stop(
+			"Some rule files are duplicated: ",
+			toString(rules_basename[duplicated(rules_basename)])
+		)
+	}
 
-  # All linters passed to lint() / fix()
-  if (is.null(exclude_linters) && uses_flint(path)) {
-    exclude_linters <- get_excluded_linters_from_config(path)
-  }
+	# All linters passed to lint() / fix()
+	if (is.null(exclude_linters) && uses_flint(path)) {
+		exclude_linters <- get_excluded_linters_from_config(path)
+	}
 
-  if (is.null(linters)) {
-    if (uses_flint(path)) {
-      linters <- get_linters_from_config(path)
-    } else {
-      linters <- rules_basename_noext
-    }
-  } else {
-    if (is.list(linters)) {
-      # for compat with lintr
-      linters <- unlist(linters)
-    }
-  }
+	if (is.null(linters)) {
+		if (uses_flint(path)) {
+			linters <- get_linters_from_config(path)
+		} else {
+			linters <- rules_basename_noext
+		}
+	} else {
+		if (is.list(linters)) {
+			# for compat with lintr
+			linters <- unlist(linters)
+		}
+	}
 
-  linters <- setdiff(linters, exclude_linters)
-  if (!all(linters %in% rules_basename_noext | linter_is_path_to_yml(linters))) {
-    stop("Unknown linters: ", toString(linters[!linters %in% rules_basename_noext & !linter_is_path_to_yml(linters)]))
-  }
+	linters <- setdiff(linters, exclude_linters)
+	if (
+		!all(linters %in% rules_basename_noext | linter_is_path_to_yml(linters))
+	) {
+		stop(
+			"Unknown linters: ",
+			toString(
+				linters[
+					!linters %in% rules_basename_noext & !linter_is_path_to_yml(linters)
+				]
+			)
+		)
+	}
 
-  paths_to_yaml <- Filter(function(x) linter_is_path_to_yml(x), linters)
+	paths_to_yaml <- Filter(function(x) linter_is_path_to_yml(x), linters)
 
-  res <- rules[match(linters, rules_basename_noext)]
-  res <- res[!is.na(res)]
-  c(res, paths_to_yaml)
+	res <- rules[match(linters, rules_basename_noext)]
+	res <- res[!is.na(res)]
+	c(res, paths_to_yaml)
 }
 
 linter_is_path_to_yml <- function(x) {
-  vapply(x, function(y) {
-    fs::is_absolute_path(y) && grepl("\\.yml$", y)
-  }, FUN.VALUE = logical(1L))
+	vapply(
+		x,
+		function(y) {
+			fs::is_absolute_path(y) && grepl("\\.yml$", y)
+		},
+		FUN.VALUE = logical(1L)
+	)
 }
 
 get_linters_from_config <- function(path) {
-  if (fs::is_file(path)) {
-    path <- fs::path_dir(path)
-  }
-  if (is_flint_package(path)) {
-    config_file <- "inst/config.yml"
-  } else {
-    config_file <- "flint/config.yml"
-  }
-  if (fs::file_exists(config_file)) {
-    linters <- yaml::read_yaml(config_file, readLines.warn = FALSE)[["keep"]]
-    if (length(linters) == 0) {
-      stop("`", config_file, "` exists but doesn't contain any rule.")
-    }
-    if (anyDuplicated(linters) > 0) {
-      stop(
-        "In `", config_file, "`, the following linters are duplicated: ",
-        toString(linters[duplicated(linters)])
-      )
-    }
-  } else {
-    return(NULL)
-  }
-  linters
+	if (fs::is_file(path)) {
+		path <- fs::path_dir(path)
+	}
+	if (is_flint_package(path)) {
+		config_file <- "inst/config.yml"
+	} else {
+		config_file <- "flint/config.yml"
+	}
+	if (fs::file_exists(config_file)) {
+		linters <- yaml::read_yaml(config_file, readLines.warn = FALSE)[["keep"]]
+		if (length(linters) == 0) {
+			stop("`", config_file, "` exists but doesn't contain any rule.")
+		}
+		if (anyDuplicated(linters) > 0) {
+			stop(
+				"In `",
+				config_file,
+				"`, the following linters are duplicated: ",
+				toString(linters[duplicated(linters)])
+			)
+		}
+	} else {
+		return(NULL)
+	}
+	linters
 }
 
 get_excluded_linters_from_config <- function(path) {
-  if (fs::is_file(path)) {
-    path <- fs::path_dir(path)
-  }
-  if (is_flint_package(path)) {
-    config_file <- file.path(path, "inst/config.yml")
-  } else {
-    config_file <- file.path(path, "flint/config.yml")
-  }
-  if (fs::file_exists(config_file)) {
-    linters <- yaml::read_yaml(config_file, readLines.warn = FALSE)[["exclude"]]
-    if (length(linters) == 0) {
-      return(NULL)
-    }
-    if (anyDuplicated(linters) > 0) {
-      stop(
-        "In `", config_file, "`, the following excluded linters are duplicated: ",
-        toString(linters[duplicated(linters)])
-      )
-    }
-  }
+	if (fs::is_file(path)) {
+		path <- fs::path_dir(path)
+	}
+	if (is_flint_package(path)) {
+		config_file <- file.path(path, "inst/config.yml")
+	} else {
+		config_file <- file.path(path, "flint/config.yml")
+	}
+	if (fs::file_exists(config_file)) {
+		linters <- yaml::read_yaml(config_file, readLines.warn = FALSE)[["exclude"]]
+		if (length(linters) == 0) {
+			return(NULL)
+		}
+		if (anyDuplicated(linters) > 0) {
+			stop(
+				"In `",
+				config_file,
+				"`, the following excluded linters are duplicated: ",
+				toString(linters[duplicated(linters)])
+			)
+		}
+	}
 }
 
 resolve_path <- function(path, exclude_path) {
-  paths <- lapply(path, function(x) {
-    if (fs::is_dir(x)) {
-      list.files(x, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
-    } else {
-      x
-    }
-  }) |>
-    unlist() |>
-    unique() |>
-    fs::path_abs()
+	paths <- lapply(path, function(x) {
+		if (fs::is_dir(x)) {
+			list.files(x, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
+		} else {
+			x
+		}
+	}) |>
+		unlist() |>
+		unique() |>
+		fs::path_abs()
 
-  excluded <- lapply(exclude_path, function(x) {
-    if (fs::is_dir(x)) {
-      list.files(x, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
-    } else {
-      x
-    }
-  }) |>
-    unlist() |>
-    unique() |>
-    fs::path_abs()
+	excluded <- lapply(exclude_path, function(x) {
+		if (fs::is_dir(x)) {
+			list.files(x, pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
+		} else {
+			x
+		}
+	}) |>
+		unlist() |>
+		unique() |>
+		fs::path_abs()
 
-  setdiff(paths, excluded)
+	setdiff(paths, excluded)
 }
 
 resolve_hashes <- function(path, use_cache) {
-  if (!use_cache || !uses_flint(path)) {
-    NULL
-  } else if (is_flint_package(path) || is_testing()) {
-    readRDS(file.path("inst/cache_file_state.rds"))
-  } else {
-    readRDS(file.path("flint/cache_file_state.rds"))
-  }
+	if (!use_cache || !uses_flint(path)) {
+		NULL
+	} else if (is_flint_package(path) || is_testing()) {
+		readRDS(file.path("inst/cache_file_state.rds"))
+	} else {
+		readRDS(file.path("flint/cache_file_state.rds"))
+	}
 }
 
 is_flint_package <- function(path) {
-  if (length(path) > 1) {
-    path <- fs::path_common(path)
-  }
-  if (fs::is_file(path)) {
-    path <- fs::path_dir(path)
-  }
-  path <- file.path(path, "DESCRIPTION")
-  if (!fs::file_exists(path)) {
-    return(FALSE)
-  }
-  read.dcf(path)[, "Package"] == "flint"
+	if (length(path) > 1) {
+		path <- fs::path_common(path)
+	}
+	if (fs::is_file(path)) {
+		path <- fs::path_dir(path)
+	}
+	path <- file.path(path, "DESCRIPTION")
+	if (!fs::file_exists(path)) {
+		return(FALSE)
+	}
+	read.dcf(path)[, "Package"] == "flint"
 }
 
 uses_flint <- function(path = ".") {
-  if (length(path) > 1) {
-    path <- fs::path_common(path)
-  }
-  if (fs::is_file(path)) {
-    path <- fs::path_dir(path)
-  }
-  while (path != fs::path_dir(path)) {
-    path <- fs::path_dir(path)
-  }
-  flint_dir <- fs::path(path, "flint")
-  fs::dir_exists(flint_dir) && length(list.files(flint_dir)) > 0
+	if (length(path) > 1) {
+		path <- fs::path_common(path)
+	}
+	if (fs::is_file(path)) {
+		path <- fs::path_dir(path)
+	}
+	while (path != fs::path_dir(path)) {
+		path <- fs::path_dir(path)
+	}
+	flint_dir <- fs::path(path, "flint")
+	fs::dir_exists(flint_dir) && length(list.files(flint_dir)) > 0
 }
 
 is_testing <- function() {
-  identical(Sys.getenv("TESTTHAT"), "true")
+	identical(Sys.getenv("TESTTHAT"), "true")
 }
 
 new_rule <- function(name) {
-  dest <- paste0("inst/rules/builtin/", name, ".yml")
-  cat("id: ...
+	dest <- paste0("inst/rules/builtin/", name, ".yml")
+	cat(
+		"id: ...
 language: r
 severity: warning
 rule:
   pattern: ...
 fix: ...
 message: ...
-", file = dest)
-  rstudioapi::documentOpen(dest)
+",
+		file = dest
+	)
+	rstudioapi::documentOpen(dest)
 }
 
 uses_git <- function() {
-  fs::dir_exists(".git")
+	fs::dir_exists(".git")
 }

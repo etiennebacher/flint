@@ -26,6 +26,11 @@ itself built on the Rust crate
 install.packages('flint', repos = c('https://etiennebacher.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
+**Note:** using `remotes::install_github()`,
+`devtools::install_github()`, or `pak::pak()` without specifying the
+R-universe repo will require you to [setup
+Rust](https://www.rust-lang.org/tools/install) to build the package.
+
 ## Usage
 
 Optional setup:
@@ -113,28 +118,34 @@ file <- system.file("bench/test.R", package = "flint")
 
 bench::mark(
   lintr = lintr::lint(
-    file, linters = list(lintr::any_duplicated_linter(), lintr::any_is_na_linter(),
-                         lintr::matrix_apply_linter(), lintr::function_return_linter(),
-                         lintr::lengths_linter(), lintr::T_and_F_symbol_linter(),
-                         lintr::undesirable_function_linter(), lintr::expect_length_linter())
+    file,
+    linters = list(
+      lintr::any_duplicated_linter(), lintr::any_is_na_linter(),
+      lintr::matrix_apply_linter(), lintr::function_return_linter(),
+      lintr::lengths_linter(), lintr::T_and_F_symbol_linter(),
+      lintr::undesirable_function_linter(), lintr::expect_length_linter()
+    )
   ),
   flint = flint::lint(
-    file, linters = list(flint::any_duplicated_linter(), flint::any_is_na_linter(),
-                         flint::matrix_apply_linter(), flint::function_return_linter(),
-                         flint::lengths_linter(), flint::T_and_F_symbol_linter(),
-                         flint::undesirable_function_linter(), flint::expect_length_linter()),
+    file,
+    linters = list(
+      flint::any_duplicated_linter(), flint::any_is_na_linter(),
+      flint::matrix_apply_linter(), flint::function_return_linter(),
+      flint::lengths_linter(), flint::T_and_F_symbol_linter(),
+      flint::undesirable_function_linter(), flint::expect_length_linter()
+    ),
     verbose = FALSE,
     open = FALSE
   ),
   check = FALSE
 )
-#> Warning: Some expressions had a GC in every
-#> iteration; so filtering is disabled.
+#> Warning: Some expressions had a GC in every iteration;
+#> so filtering is disabled.
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>
-#> 1 lintr         1.89s    1.89s     0.528  308.57MB
-#> 2 flint      101.64ms  102.4ms     9.71     1.67MB
+#> 1 lintr         3.36s    3.36s     0.298  317.43MB
+#> 2 flint      183.07ms 186.15ms     5.39     1.73MB
 #> # ℹ 1 more variable: `gc/sec` <dbl>
 ```
 

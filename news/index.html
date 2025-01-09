@@ -47,8 +47,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
-<ul><li>
-<code>library_call_linter</code> no longer reports cases where <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> calls are wrapped in <code><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages()</a></code>.</li>
+<ul><li><p><code>library_call_linter</code> no longer reports cases where <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> calls are wrapped in <code><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages()</a></code>.</p></li>
+<li><p>Nested fixes no longer overlap. The <code>fix*()</code> functions now run several times on the files containing nested fixes until there are no more fixes to apply. This can be deactivated to run only once per file by adding <code>rerun = FALSE</code> (<a href="https://github.com/etiennebacher/flint/issues/61" class="external-link">#61</a>).</p></li>
 </ul></div>
 </div>
     <div class="section level2">

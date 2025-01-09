@@ -76,7 +76,8 @@ quickly experiment with some lints and fixes.</p>
 <span>  exclude_path <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  exclude_linters <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  force <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  rerun <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">fix_dir</span><span class="op">(</span></span>
@@ -85,7 +86,8 @@ quickly experiment with some lints and fixes.</p>
 <span>  exclude_path <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  exclude_linters <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  force <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  rerun <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">fix_package</span><span class="op">(</span></span>
@@ -94,10 +96,11 @@ quickly experiment with some lints and fixes.</p>
 <span>  exclude_path <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  exclude_linters <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  force <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  rerun <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">fix_text</span><span class="op">(</span><span class="va">text</span>, linters <span class="op">=</span> <span class="cn">NULL</span>, exclude_linters <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">fix_text</span><span class="op">(</span><span class="va">text</span>, linters <span class="op">=</span> <span class="cn">NULL</span>, exclude_linters <span class="op">=</span> <span class="cn">NULL</span>, rerun <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -128,12 +131,18 @@ compatibility with <code>lintr</code>).</p></dd>
 
 <dt id="arg-force">force<a class="anchor" aria-label="anchor" href="#arg-force"></a></dt>
 <dd><p>Force the application of fixes on the files. This is used only
-in the case where Git is not detected, several files will be modified, and the
-code is run in a non-interactive setting.</p></dd>
+in the case where Git is not detected, several files will be modified, and
+the code is run in a non-interactive setting.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>Show messages.</p></dd>
+
+
+<dt id="arg-rerun">rerun<a class="anchor" aria-label="anchor" href="#arg-rerun"></a></dt>
+<dd><p>Run the function several times until there are no more fixes to
+apply. This is useful in the case of nested lints. If <code>FALSE</code>, the function
+runs only once, potentially ignoring nested fixes.</p></dd>
 
 
 <dt id="arg-text">text<a class="anchor" aria-label="anchor" href="#arg-text"></a></dt>

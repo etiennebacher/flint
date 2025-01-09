@@ -72,6 +72,7 @@
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'flint'</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'https://etiennebacher.r-universe.dev'</span>, <span class="st">'https://cloud.r-project.org'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><strong>Note:</strong> using <code>remotes::install_github()</code>, <code>devtools::install_github()</code>, or <code><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak::pak()</a></code> without specifying the R-universe repo will require you to <a href="https://www.rust-lang.org/tools/install" class="external-link">setup Rust</a> to build the package.</p>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
@@ -148,28 +149,34 @@
 <span></span>
 <span><span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span></span>
 <span>  lintr <span class="op">=</span> <span class="fu">lintr</span><span class="fu">::</span><span class="fu">lint</span><span class="op">(</span></span>
-<span>    <span class="va">file</span>, linters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">lintr</span><span class="fu">::</span><span class="fu">any_duplicated_linter</span><span class="op">(</span><span class="op">)</span>, <span class="fu">lintr</span><span class="fu">::</span><span class="fu">any_is_na_linter</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                         <span class="fu">lintr</span><span class="fu">::</span><span class="fu">matrix_apply_linter</span><span class="op">(</span><span class="op">)</span>, <span class="fu">lintr</span><span class="fu">::</span><span class="fu">function_return_linter</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                         <span class="fu">lintr</span><span class="fu">::</span><span class="fu">lengths_linter</span><span class="op">(</span><span class="op">)</span>, <span class="fu">lintr</span><span class="fu">::</span><span class="fu">T_and_F_symbol_linter</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                         <span class="fu">lintr</span><span class="fu">::</span><span class="fu">undesirable_function_linter</span><span class="op">(</span><span class="op">)</span>, <span class="fu">lintr</span><span class="fu">::</span><span class="fu">expect_length_linter</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">file</span>,</span>
+<span>    linters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu">lintr</span><span class="fu">::</span><span class="fu">any_duplicated_linter</span><span class="op">(</span><span class="op">)</span>, <span class="fu">lintr</span><span class="fu">::</span><span class="fu">any_is_na_linter</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      <span class="fu">lintr</span><span class="fu">::</span><span class="fu">matrix_apply_linter</span><span class="op">(</span><span class="op">)</span>, <span class="fu">lintr</span><span class="fu">::</span><span class="fu">function_return_linter</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      <span class="fu">lintr</span><span class="fu">::</span><span class="fu">lengths_linter</span><span class="op">(</span><span class="op">)</span>, <span class="fu">lintr</span><span class="fu">::</span><span class="fu">T_and_F_symbol_linter</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      <span class="fu">lintr</span><span class="fu">::</span><span class="fu">undesirable_function_linter</span><span class="op">(</span><span class="op">)</span>, <span class="fu">lintr</span><span class="fu">::</span><span class="fu">expect_length_linter</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  flint <span class="op">=</span> <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/lint.html">lint</a></span><span class="op">(</span></span>
-<span>    <span class="va">file</span>, linters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/any_duplicated_linter.html">any_duplicated_linter</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/any_is_na_linter.html">any_is_na_linter</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                         <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/matrix_apply_linter.html">matrix_apply_linter</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/function_return_linter.html">function_return_linter</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                         <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/lengths_linter.html">lengths_linter</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/T_and_F_symbol_linter.html">T_and_F_symbol_linter</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                         <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/undesirable_function_linter.html">undesirable_function_linter</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/expect_length_linter.html">expect_length_linter</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="va">file</span>,</span>
+<span>    linters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/any_duplicated_linter.html">any_duplicated_linter</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/any_is_na_linter.html">any_is_na_linter</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/matrix_apply_linter.html">matrix_apply_linter</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/function_return_linter.html">function_return_linter</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/lengths_linter.html">lengths_linter</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/T_and_F_symbol_linter.html">T_and_F_symbol_linter</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/undesirable_function_linter.html">undesirable_function_linter</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">flint</span><span class="fu">::</span><span class="fu"><a href="reference/expect_length_linter.html">expect_length_linter</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
 <span>    verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>    open <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  check <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Some expressions had a GC in every</span></span>
-<span><span class="co">#&gt; iteration; so filtering is disabled.</span></span>
+<span><span class="co">#&gt; Warning: Some expressions had a GC in every iteration;</span></span>
+<span><span class="co">#&gt; so filtering is disabled.</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 6</span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc</span></span>
 <span><span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;</span></span>
-<span><span class="co">#&gt; 1 lintr         1.89s    1.89s     0.528  308.57MB</span></span>
-<span><span class="co">#&gt; 2 flint      101.64ms  102.4ms     9.71     1.67MB</span></span>
+<span><span class="co">#&gt; 1 lintr         3.36s    3.36s     0.298  317.43MB</span></span>
+<span><span class="co">#&gt; 2 flint      183.07ms 186.15ms     5.39     1.73MB</span></span>
 <span><span class="co">#&gt; # ℹ 1 more variable: `gc/sec` &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 <div class="section level2">

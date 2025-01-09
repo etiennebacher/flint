@@ -103,39 +103,15 @@ fix <- function(path = ".",
     format = "{cli::pb_spin} Checking: {i}/{length(r_files)}"
   )
 
+  browser()
+
   for (i in seq_along(r_files)) {
     cli::cli_progress_update()
     file <- r_files[i]
-    needed_fixing[[file]] <- TRUE
-    root <- astgrepr::tree_new(
-      file = file,
-      ignore_tags = c("flint-ignore", "nolint")
-    ) |>
-      astgrepr::tree_root()
-
-    lints_raw <- astgrepr::node_find_all(root, files = rule_files)
-
-    lints <- Filter(Negate(is.null), lints_raw)
-    lints <- Filter(function(x) length(attributes(x)$other_info$fix) > 0, lints)
-    n_fixes[[file]] <- length(lints)
-
-    if (length(lints) == 0) {
-      needed_fixing[[file]] <- FALSE
-      next
-    }
-    args <- append(
-      list(x = astgrepr:::add_rulelist_class(lints)),
-      vapply(
-        lints,
-        function(x) as.character(attributes(x)$other_info$fix),
-        character(1)
-      )
-    )
-    names(args)[2:length(args)] <- names(lints)
-    replacement2 <- as.call(append(astgrepr::node_replace_all, args)) |> eval()
-
-    fixes[[file]] <- astgrepr::tree_rewrite(root, replacement2)
-    writeLines(text = fixes[[file]], file)
+    res <- parse_and_rewrite_file(file, rule_files)
+    needed_fixing[[file]] <- res[["needed_fixing"]]
+    fixes[[file]] <- res[["fixes"]]
+    n_fixes[[file]] <- res[["n_fixes"]]
   }
 
   cli::cli_progress_done()
@@ -239,4 +215,48 @@ fix_text <- function(text, linters = NULL, exclude_linters = NULL, rerun = TRUE)
   class(out) <- c("flint_fix", class(out))
   attr(out, "original") <- text
   out
+}
+
+parse_and_rewrite_file <- function(file, rule_files) {
+  needed_fixing <- TRUE
+  root <- astgrepr::tree_new(
+    file = file,
+    ignore_tags = c("flint-ignore", "nolint")
+  ) |>
+    astgrepr::tree_root()
+
+  lints_raw <- astgrepr::node_find_all(root, files = rule_files)
+
+  lints <- Filter(Negate(is.null), lints_raw)
+  lints <- Filter(function(x) length(attributes(x)$other_info$fix) > 0, lints)
+  n_fixes <- length(lints)
+
+  if (length(lints) == 0) {
+    needed_fixing <- FALSE
+    return(
+      list(
+        needed_fixing = FALSE,
+        fixes = character(0),
+        n_fixes = 0
+      )
+    )
+  }
+  args <- append(
+    list(x = astgrepr:::add_rulelist_class(lints)),
+    vapply(
+      lints,
+      function(x) as.character(attributes(x)$other_info$fix),
+      character(1)
+    )
+  )
+  names(args)[2:length(args)] <- names(lints)
+  replacement2 <- as.call(append(astgrepr::node_replace_all, args)) |> eval()
+
+  fixes <- astgrepr::tree_rewrite(root, replacement2)
+  writeLines(text = fixes, file)
+  list(
+    needed_fixing = needed_fixing,
+    fixes = fixes,
+    n_fixes = n_fixes
+  )
 }

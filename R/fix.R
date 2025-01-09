@@ -103,15 +103,20 @@ fix <- function(path = ".",
     format = "{cli::pb_spin} Checking: {i}/{length(r_files)}"
   )
 
-  browser()
-
   for (i in seq_along(r_files)) {
     cli::cli_progress_update()
     file <- r_files[i]
-    res <- parse_and_rewrite_file(file, rule_files)
-    needed_fixing[[file]] <- res[["needed_fixing"]]
-    fixes[[file]] <- res[["fixes"]]
-    n_fixes[[file]] <- res[["n_fixes"]]
+    has_skipped_fixes <- TRUE
+    repeat {
+      if (!has_skipped_fixes) {
+        break
+      }
+      res <- parse_and_rewrite_file(file, rule_files)
+      needed_fixing[[file]] <- res[["needed_fixing"]]
+      fixes[[file]] <- res[["fixes"]]
+      n_fixes[[file]] <- res[["n_fixes"]]
+      has_skipped_fixes <- res[["has_skipped_fixes"]]
+    }
   }
 
   cli::cli_progress_done()
@@ -209,7 +214,8 @@ fix_text <- function(text, linters = NULL, exclude_linters = NULL, rerun = TRUE)
     verbose = FALSE,
     rerun = rerun
   )
-  if (length(out) == 0) {
+
+  if (length(out[[1]]) == 0) {
     return(invisible())
   }
   class(out) <- c("flint_fix", class(out))
@@ -237,7 +243,8 @@ parse_and_rewrite_file <- function(file, rule_files) {
       list(
         needed_fixing = FALSE,
         fixes = character(0),
-        n_fixes = 0
+        n_fixes = 0,
+        has_skipped_fixes = FALSE
       )
     )
   }
@@ -253,10 +260,12 @@ parse_and_rewrite_file <- function(file, rule_files) {
   replacement2 <- as.call(append(astgrepr::node_replace_all, args)) |> eval()
 
   fixes <- astgrepr::tree_rewrite(root, replacement2)
+
   writeLines(text = fixes, file)
   list(
     needed_fixing = needed_fixing,
     fixes = fixes,
-    n_fixes = n_fixes
+    n_fixes = n_fixes,
+    has_skipped_fixes = attr(fixes, "has_skipped_fixes")
   )
 }

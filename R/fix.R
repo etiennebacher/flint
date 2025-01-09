@@ -14,8 +14,11 @@
 #'
 #' @inheritParams lint
 #' @param force Force the application of fixes on the files. This is used only
-#' in the case where Git is not detected, several files will be modified, and the
-#' code is run in a non-interactive setting.
+#' in the case where Git is not detected, several files will be modified, and
+#' the code is run in a non-interactive setting.
+#' @param rerun Run the function several times until there are no more fixes to
+#' apply. This is useful in the case of nested lints. If `FALSE`, the function
+#' runs only once, potentially ignoring nested fixes.
 #' @inheritSection lint Ignoring lines
 #'
 #' @export
@@ -51,7 +54,8 @@ fix <- function(
 	exclude_path = NULL,
 	exclude_linters = NULL,
 	force = FALSE,
-	verbose = TRUE
+	verbose = TRUE,
+	rerun = TRUE
 ) {
 	if (isFALSE(verbose) | is_testing()) {
 		withr::local_options(cli.default_handler = function(...) {
@@ -104,36 +108,17 @@ fix <- function(
 	for (i in seq_along(r_files)) {
 		cli::cli_progress_update()
 		file <- r_files[i]
-		needed_fixing[[file]] <- TRUE
-		root <- astgrepr::tree_new(
-			file = file,
-			ignore_tags = c("flint-ignore", "nolint")
-		) |>
-			astgrepr::tree_root()
-
-		lints_raw <- astgrepr::node_find_all(root, files = rule_files)
-
-		lints <- Filter(Negate(is.null), lints_raw)
-		lints <- Filter(function(x) length(attributes(x)$other_info$fix) > 0, lints)
-		n_fixes[[file]] <- length(lints)
-
-		if (length(lints) == 0) {
-			needed_fixing[[file]] <- FALSE
-			next
+		has_skipped_fixes <- TRUE
+		repeat {
+			if (!has_skipped_fixes) {
+				break
+			}
+			res <- parse_and_rewrite_file(file, rule_files)
+			needed_fixing[[file]] <- res[["needed_fixing"]]
+			fixes[[file]] <- res[["fixes"]]
+			n_fixes[[file]] <- res[["n_fixes"]]
+			has_skipped_fixes <- res[["has_skipped_fixes"]]
 		}
-		args <- append(
-			list(x = astgrepr:::add_rulelist_class(lints)),
-			vapply(
-				lints,
-				function(x) as.character(attributes(x)$other_info$fix),
-				character(1)
-			)
-		)
-		names(args)[2:length(args)] <- names(lints)
-		replacement2 <- as.call(append(astgrepr::node_replace_all, args)) |> eval()
-
-		fixes[[file]] <- astgrepr::tree_rewrite(root, replacement2)
-		writeLines(text = fixes[[file]], file)
 	}
 
 	cli::cli_progress_done()
@@ -157,7 +142,8 @@ fix_dir <- function(
 	exclude_path = NULL,
 	exclude_linters = NULL,
 	force = FALSE,
-	verbose = TRUE
+	verbose = TRUE,
+	rerun = TRUE
 ) {
 	if (!fs::is_dir(path)) {
 		stop("`path` must be a directory.")
@@ -168,7 +154,8 @@ fix_dir <- function(
 		exclude_path = exclude_path,
 		exclude_linters = exclude_linters,
 		force = force,
-		verbose = verbose
+		verbose = verbose,
+		rerun = rerun
 	)
 }
 
@@ -181,7 +168,8 @@ fix_package <- function(
 	exclude_path = NULL,
 	exclude_linters = NULL,
 	force = FALSE,
-	verbose = TRUE
+	verbose = TRUE,
+	rerun = TRUE
 ) {
 	if (!fs::is_dir(path)) {
 		stop("`path` must be a directory.")
@@ -197,7 +185,8 @@ fix_package <- function(
 		exclude_path = exclude_path,
 		exclude_linters = exclude_linters,
 		force = force,
-		verbose = verbose
+		verbose = verbose,
+		rerun = rerun
 	)
 }
 
@@ -205,7 +194,12 @@ fix_package <- function(
 #'
 #' @rdname fix
 #' @export
-fix_text <- function(text, linters = NULL, exclude_linters = NULL) {
+fix_text <- function(
+	text,
+	linters = NULL,
+	exclude_linters = NULL,
+	rerun = TRUE
+) {
 	# If the folder "flint" exists, it's possible that there are custom rules.
 	# Creating a proper tempfile in this case would make it impossible to
 	# uses those rules since rules are accessed directly in the package's system
@@ -228,12 +222,61 @@ fix_text <- function(text, linters = NULL, exclude_linters = NULL) {
 		tmp,
 		linters = linters,
 		exclude_linters = exclude_linters,
-		verbose = FALSE
+		verbose = FALSE,
+		rerun = rerun
 	)
-	if (length(out) == 0) {
+
+	if (length(out[[1]]) == 0) {
 		return(invisible())
 	}
 	class(out) <- c("flint_fix", class(out))
 	attr(out, "original") <- text
 	out
+}
+
+parse_and_rewrite_file <- function(file, rule_files) {
+	needed_fixing <- TRUE
+	root <- astgrepr::tree_new(
+		file = file,
+		ignore_tags = c("flint-ignore", "nolint")
+	) |>
+		astgrepr::tree_root()
+
+	lints_raw <- astgrepr::node_find_all(root, files = rule_files)
+
+	lints <- Filter(Negate(is.null), lints_raw)
+	lints <- Filter(function(x) length(attributes(x)$other_info$fix) > 0, lints)
+	n_fixes <- length(lints)
+
+	if (length(lints) == 0) {
+		needed_fixing <- FALSE
+		return(
+			list(
+				needed_fixing = FALSE,
+				fixes = character(0),
+				n_fixes = 0,
+				has_skipped_fixes = FALSE
+			)
+		)
+	}
+	args <- append(
+		list(x = astgrepr:::add_rulelist_class(lints)),
+		vapply(
+			lints,
+			function(x) as.character(attributes(x)$other_info$fix),
+			character(1)
+		)
+	)
+	names(args)[2:length(args)] <- names(lints)
+	replacement2 <- as.call(append(astgrepr::node_replace_all, args)) |> eval()
+
+	fixes <- astgrepr::tree_rewrite(root, replacement2)
+
+	writeLines(text = fixes, file)
+	list(
+		needed_fixing = needed_fixing,
+		fixes = fixes,
+		n_fixes = n_fixes,
+		has_skipped_fixes = attr(fixes, "has_skipped_fixes")
+	)
 }

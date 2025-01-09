@@ -19,6 +19,11 @@
 * `library_call_linter` no longer reports cases where `library()` calls are
   wrapped in `suppressPackageStartupMessages()`.
 
+* Nested fixes no longer overlap. The `fix*()` functions now run several times
+  on the files containing nested fixes until there are no more fixes to apply. 
+  This can be deactivated to run only once per file by adding `rerun = FALSE`
+  (#61).
+
 # flint 0.1.2
 
 ## New features

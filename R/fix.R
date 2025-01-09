@@ -17,8 +17,8 @@
 #' in the case where Git is not detected, several files will be modified, and
 #' the code is run in a non-interactive setting.
 #' @param rerun Run the function several times until there are no more fixes to
-#' apply. If `FALSE`, the function runs only once, potentially ignoring nested
-#' fixes.
+#' apply. This is useful in the case of nested lints. If `FALSE`, the function
+#' runs only once, potentially ignoring nested fixes.
 #' @inheritSection lint Ignoring lines
 #'
 #' @export

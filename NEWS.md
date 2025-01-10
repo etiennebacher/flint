@@ -14,6 +14,9 @@
 * `matrix_apply_linter` now detects when `1L` and `2L` are used in the `MARGIN`
   argument.
 
+* `any_is_na_linter` now reports cases like `NA %in% x`, and can fix them to be
+  `anyNA(x)` instead.
+
 ## Bug fixes
 
 * `library_call_linter` no longer reports cases where `library()` calls are
@@ -23,6 +26,9 @@
   on the files containing nested fixes until there are no more fixes to apply. 
   This can be deactivated to run only once per file by adding `rerun = FALSE`
   (#61).
+
+* `any_is_na_linter` wrongly reported cases like `any(is.na(x), y)`. Those are
+  no longer reported.
 
 # flint 0.1.2
 

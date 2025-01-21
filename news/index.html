@@ -51,6 +51,8 @@
 <ul><li><p><code>library_call_linter</code> no longer reports cases where <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> calls are wrapped in <code><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages()</a></code>.</p></li>
 <li><p>Nested fixes no longer overlap. The <code>fix*()</code> functions now run several times on the files containing nested fixes until there are no more fixes to apply. This can be deactivated to run only once per file by adding <code>rerun = FALSE</code> (<a href="https://github.com/etiennebacher/flint/issues/61" class="external-link">#61</a>).</p></li>
 <li><p><code>any_is_na_linter</code> wrongly reported cases like <code>any(is.na(x), y)</code>. Those are no longer reported.</p></li>
+<li><p>No longer lint and fix <code>expect_equal(length(x), length(y))</code>, which is more readable than <code>expect_length(x, length(y))</code>.</p></li>
+<li><p>No longer lint and fix <code>expect_equal(names(x), names(y))</code>, which is more readable than <code>expect_named(x, names(y))</code>.</p></li>
 </ul></div>
 </div>
     <div class="section level2">

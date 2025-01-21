@@ -33,6 +33,9 @@
 * No longer lint and fix `expect_equal(length(x), length(y))`, which is more 
   readable than `expect_length(x, length(y))`.
 
+* No longer lint and fix `expect_equal(names(x), names(y))`, which is more 
+  readable than `expect_named(x, names(y))`.
+
 # flint 0.1.2
 
 ## New features

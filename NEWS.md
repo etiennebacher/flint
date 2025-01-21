@@ -30,6 +30,9 @@
 * `any_is_na_linter` wrongly reported cases like `any(is.na(x), y)`. Those are
   no longer reported.
 
+* No longer lint and fix `expect_equal(length(x), length(y))`, which is more 
+  readable than `expect_length(x, length(y))`.
+
 # flint 0.1.2
 
 ## New features

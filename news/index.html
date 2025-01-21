@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">flint</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,9 +37,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="flint-development-version">flint (development version)<a class="anchor" aria-label="anchor" href="#flint-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.2.0" id="flint-020">flint 0.2.0<a class="anchor" aria-label="anchor" href="#flint-020"></a></h2>
 <div class="section level3">
-<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-0-2-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-2-0"></a></h3>
 <ul><li><p>New linter <code><a href="../reference/stopifnot_all_linter.html">stopifnot_all_linter()</a></code> to detect calls to <code>stopifnot(all(...))</code> since the <code><a href="https://rdrr.io/r/base/all.html" class="external-link">all()</a></code> is unnecessary. This has an automatic fix available.</p></li>
 <li><p>New linter <code><a href="../reference/list_comparison_linter.html">list_comparison_linter()</a></code> to detect a comparison with a list, e.g. <code>lapply(x, sum) &gt; 10</code>. No automatic fix available.</p></li>
 <li><p>Line breaks are removed from multi-line messages reported by <code>lint*</code> functions.</p></li>
@@ -47,7 +47,7 @@
 <li><p><code>any_is_na_linter</code> now reports cases like <code>NA %in% x</code>, and can fix them to be <code>anyNA(x)</code> instead.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-0-2-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-0"></a></h3>
 <ul><li><p><code>library_call_linter</code> no longer reports cases where <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> calls are wrapped in <code><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages()</a></code>.</p></li>
 <li><p>Nested fixes no longer overlap. The <code>fix*()</code> functions now run several times on the files containing nested fixes until there are no more fixes to apply. This can be deactivated to run only once per file by adding <code>rerun = FALSE</code> (<a href="https://github.com/etiennebacher/flint/issues/61" class="external-link">#61</a>).</p></li>
 <li><p><code>any_is_na_linter</code> wrongly reported cases like <code>any(is.na(x), y)</code>. Those are no longer reported.</p></li>

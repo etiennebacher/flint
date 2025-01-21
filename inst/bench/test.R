@@ -16,7 +16,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -45,7 +44,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -73,7 +71,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -103,7 +100,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -131,7 +127,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -160,7 +155,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -187,7 +181,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -217,7 +210,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -246,7 +238,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -274,7 +265,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -304,7 +294,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -332,7 +321,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -362,7 +350,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -390,7 +377,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -420,7 +406,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -449,7 +434,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -477,7 +461,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -507,7 +490,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -534,7 +516,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -563,7 +544,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -591,7 +571,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -621,7 +600,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -649,7 +627,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -679,7 +656,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -707,7 +683,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -737,7 +712,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -765,7 +739,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -795,7 +768,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -823,7 +795,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -853,7 +824,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -882,7 +852,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -909,7 +878,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -938,7 +906,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -966,7 +933,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -996,7 +962,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1024,7 +989,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -1054,7 +1018,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1082,7 +1045,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -1112,7 +1074,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1140,7 +1101,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -1170,7 +1130,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1198,7 +1157,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -1228,7 +1186,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1256,7 +1213,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -1285,7 +1241,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1313,7 +1268,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1341,7 +1295,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -1371,7 +1324,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1399,7 +1351,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -1429,7 +1380,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1457,7 +1407,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -1487,7 +1436,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1515,7 +1463,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -1545,7 +1492,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1573,7 +1519,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -1603,7 +1548,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1631,7 +1575,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -1660,7 +1603,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1687,7 +1629,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -1717,7 +1658,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1746,7 +1686,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1774,7 +1713,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -1804,7 +1742,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1832,7 +1769,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -1862,7 +1798,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1890,7 +1825,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -1920,7 +1854,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1949,7 +1882,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -1977,7 +1909,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2007,7 +1938,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2034,7 +1964,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2063,7 +1992,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2091,7 +2019,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2121,7 +2048,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2150,7 +2076,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2178,7 +2103,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2208,7 +2132,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2236,7 +2159,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2266,7 +2188,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2294,7 +2215,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2324,7 +2244,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2352,7 +2271,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2382,7 +2300,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2409,7 +2326,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2438,7 +2354,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2466,7 +2381,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2496,7 +2410,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2524,7 +2437,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2554,7 +2466,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2583,7 +2494,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2611,7 +2521,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2641,7 +2550,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2669,7 +2577,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2699,7 +2606,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2727,7 +2633,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2757,7 +2662,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2784,7 +2688,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2813,7 +2716,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2841,7 +2743,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2871,7 +2772,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2899,7 +2799,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2929,7 +2828,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -2957,7 +2855,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -2987,7 +2884,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -3016,7 +2912,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -3044,7 +2939,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -3074,7 +2968,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -3102,7 +2995,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -3132,7 +3024,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -3159,7 +3050,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -3188,7 +3078,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -3216,7 +3105,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -3246,7 +3134,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -3274,7 +3161,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -3304,7 +3190,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -3332,7 +3217,6 @@ apply(x, 1, sum)
 apply(x, 1, paste)
 
 apply(x, 2, sum)
-
 
 1 ->> blah
 
@@ -3362,7 +3246,6 @@ apply(x, 1, paste)
 
 apply(x, 2, sum)
 
-
 1 ->> blah
 
 1 ->> blah
@@ -3372,4 +3255,3 @@ is.na(x)
 x == "NA"
 
 is.na(x)
-

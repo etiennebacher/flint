@@ -1,119 +1,119 @@
 test_that("package_hooks_linter skips allowed usages of packageStartupMessage() & library.dynam()", {
-	linter <- package_hooks_linter()
+  linter <- package_hooks_linter()
 
-	# allowed in .onAttach, not .onLoad
-	expect_lint(
-		".onAttach <- function(lib, pkg) packageStartupMessage('hi')",
-		NULL,
-		linter
-	)
-	# allowed in .onLoad, not .onAttach
-	expect_lint(".onLoad <- function(lib, pkg) library.dynam()", NULL, linter)
+  # allowed in .onAttach, not .onLoad
+  expect_lint(
+    ".onAttach <- function(lib, pkg) packageStartupMessage('hi')",
+    NULL,
+    linter
+  )
+  # allowed in .onLoad, not .onAttach
+  expect_lint(".onLoad <- function(lib, pkg) library.dynam()", NULL, linter)
 })
 
 test_that("package_hooks_linter blocks simple disallowed usages of packageStartupMessage() & library.dynam()", {
-	linter <- package_hooks_linter()
+  linter <- package_hooks_linter()
 
-	# inline version
-	expect_lint(
-		".onLoad <- function(lib, pkg) packageStartupMessage('hi')",
-		"Put packageStartupMessage() calls in .onAttach(), not .onLoad().",
-		linter
-	)
+  # inline version
+  expect_lint(
+    ".onLoad <- function(lib, pkg) packageStartupMessage('hi')",
+    "Put packageStartupMessage() calls in .onAttach(), not .onLoad().",
+    linter
+  )
 
-	# multiline version
-	expect_lint(
-		trim_some(
-			"
+  # multiline version
+  expect_lint(
+    trim_some(
+      "
       .onAttach <- function(libname, pkgname) {
         library.dynam()
       }
     "
-		),
-		"Put library.dynam() calls in .onLoad(), not .onAttach().",
-		linter
-	)
+    ),
+    "Put library.dynam() calls in .onLoad(), not .onAttach().",
+    linter
+  )
 
-	# found at deeper nesting too
-	expect_lint(
-		trim_some(
-			"
+  # found at deeper nesting too
+  expect_lint(
+    trim_some(
+      "
       .onLoad <- function(libname, pkgname) {
         foo(bar(baz(packageStartupMessage('hi'))))
       }
     "
-		),
-		"Put packageStartupMessage() calls in .onAttach()",
-		linter
-	)
+    ),
+    "Put packageStartupMessage() calls in .onAttach()",
+    linter
+  )
 })
 
 test_that("package_hooks_linter blocks simple disallowed usages of other blocked messaging functions", {
-	linter <- package_hooks_linter()
+  linter <- package_hooks_linter()
 
-	expect_lint(
-		".onLoad <- function(lib, pkg) catr('hi')",
-		NULL,
-		linter
-	)
+  expect_lint(
+    ".onLoad <- function(lib, pkg) catr('hi')",
+    NULL,
+    linter
+  )
 
-	for (fn in c(
-		"cat",
-		"installed.packages",
-		"message",
-		"packageStartupMessage",
-		"print",
-		"writeLines"
-	)) {
-		# inline version
-		expect_lint(
-			paste0(".onLoad <- function(lib, pkg) ", fn, "('hi')"),
-			paste0("Don't use ", fn, "() in .onLoad()"),
-			linter
-		)
-		# multiline version
-		expect_lint(
-			paste0(".onLoad <- function(lib, pkg) {\n", fn, "('hi')\n}"),
-			paste0("Don't use ", fn, "() in .onLoad()"),
-			linter
-		)
-		# found at deeper nesting too
-		expect_lint(
-			paste0(
-				".onLoad <- function(lib, pkg) {\nfoo(bar(baz(",
-				fn,
-				"('hi'))))\n}"
-			),
-			paste0("Don't use ", fn, "() in .onLoad()"),
-			linter
-		)
-	}
+  for (fn in c(
+    "cat",
+    "installed.packages",
+    "message",
+    "packageStartupMessage",
+    "print",
+    "writeLines"
+  )) {
+    # inline version
+    expect_lint(
+      paste0(".onLoad <- function(lib, pkg) ", fn, "('hi')"),
+      paste0("Don't use ", fn, "() in .onLoad()"),
+      linter
+    )
+    # multiline version
+    expect_lint(
+      paste0(".onLoad <- function(lib, pkg) {\n", fn, "('hi')\n}"),
+      paste0("Don't use ", fn, "() in .onLoad()"),
+      linter
+    )
+    # found at deeper nesting too
+    expect_lint(
+      paste0(
+        ".onLoad <- function(lib, pkg) {\nfoo(bar(baz(",
+        fn,
+        "('hi'))))\n}"
+      ),
+      paste0("Don't use ", fn, "() in .onLoad()"),
+      linter
+    )
+  }
 
-	# Almost same set of functions but not exactly
-	for (fn in c("cat", "installed.packages", "message", "print", "writeLines")) {
-		# inline version
-		expect_lint(
-			paste0(".onAttach <- function(lib, pkg) ", fn, "('hi')"),
-			paste0("Don't use ", fn, "() in .onAttach()"),
-			linter
-		)
-		# multiline version
-		expect_lint(
-			paste0(".onAttach <- function(lib, pkg) {\n", fn, "('hi')\n}"),
-			paste0("Don't use ", fn, "() in .onAttach()"),
-			linter
-		)
-		# found at deeper nesting too
-		expect_lint(
-			paste0(
-				".onAttach <- function(lib, pkg) {\nfoo(bar(baz(",
-				fn,
-				"('hi'))))\n}"
-			),
-			paste0("Don't use ", fn, "() in .onAttach()"),
-			linter
-		)
-	}
+  # Almost same set of functions but not exactly
+  for (fn in c("cat", "installed.packages", "message", "print", "writeLines")) {
+    # inline version
+    expect_lint(
+      paste0(".onAttach <- function(lib, pkg) ", fn, "('hi')"),
+      paste0("Don't use ", fn, "() in .onAttach()"),
+      linter
+    )
+    # multiline version
+    expect_lint(
+      paste0(".onAttach <- function(lib, pkg) {\n", fn, "('hi')\n}"),
+      paste0("Don't use ", fn, "() in .onAttach()"),
+      linter
+    )
+    # found at deeper nesting too
+    expect_lint(
+      paste0(
+        ".onAttach <- function(lib, pkg) {\nfoo(bar(baz(",
+        fn,
+        "('hi'))))\n}"
+      ),
+      paste0("Don't use ", fn, "() in .onAttach()"),
+      linter
+    )
+  }
 })
 
 # test_that("package_hooks_linter skips valid .onLoad() and .onAttach() arguments", {
@@ -149,98 +149,98 @@ test_that("package_hooks_linter blocks simple disallowed usages of other blocked
 # })
 
 test_that("package_hooks_linter skips valid namespace loading", {
-	linter <- package_hooks_linter()
+  linter <- package_hooks_linter()
 
-	expect_lint(
-		".onAttach <- function(lib, pkg) { requireNamespace('foo') }",
-		NULL,
-		linter
-	)
-	expect_lint(
-		".onLoad <- function(lib, pkg) {  requireNamespace('foo') }",
-		NULL,
-		linter
-	)
+  expect_lint(
+    ".onAttach <- function(lib, pkg) { requireNamespace('foo') }",
+    NULL,
+    linter
+  )
+  expect_lint(
+    ".onLoad <- function(lib, pkg) {  requireNamespace('foo') }",
+    NULL,
+    linter
+  )
 })
 
 test_that("package_hooks_linter blocks attaching namespaces", {
-	linter <- package_hooks_linter()
+  linter <- package_hooks_linter()
 
-	expect_lint(
-		".onAttach <- function(lib, pkg) { require(foo) }",
-		"Don't alter the search() path in .onAttach() by calling require().",
-		linter
-	)
-	expect_lint(
-		".onLoad <- function(lib, pkg) { library(foo) }",
-		"Don't alter the search() path in .onLoad() by calling library().",
-		linter
-	)
-	expect_lint(
-		".onLoad <- function(lib, pkg) { installed.packages() }",
-		"Don't slow down package load by running installed.packages() in .onLoad().",
-		linter
-	)
+  expect_lint(
+    ".onAttach <- function(lib, pkg) { require(foo) }",
+    "Don't alter the search() path in .onAttach() by calling require().",
+    linter
+  )
+  expect_lint(
+    ".onLoad <- function(lib, pkg) { library(foo) }",
+    "Don't alter the search() path in .onLoad() by calling library().",
+    linter
+  )
+  expect_lint(
+    ".onLoad <- function(lib, pkg) { installed.packages() }",
+    "Don't slow down package load by running installed.packages() in .onLoad().",
+    linter
+  )
 
-	# find at further nesting too
-	expect_lint(
-		".onAttach <- function(lib, pkg) { a(b(c(require(foo)))) }",
-		"Don't alter the search() path in .onAttach() by calling require().",
-		linter
-	)
-	expect_lint(
-		".onLoad <- function(lib, pkg) { d(e(f(library(foo)))) }",
-		"Don't alter the search() path in .onLoad() by calling library().",
-		linter
-	)
-	expect_lint(
-		".onLoad <- function(lib, pkg) { g(h(i(installed.packages()))) }",
-		"Don't slow down package load by running installed.packages() in .onLoad().",
-		linter
-	)
+  # find at further nesting too
+  expect_lint(
+    ".onAttach <- function(lib, pkg) { a(b(c(require(foo)))) }",
+    "Don't alter the search() path in .onAttach() by calling require().",
+    linter
+  )
+  expect_lint(
+    ".onLoad <- function(lib, pkg) { d(e(f(library(foo)))) }",
+    "Don't alter the search() path in .onLoad() by calling library().",
+    linter
+  )
+  expect_lint(
+    ".onLoad <- function(lib, pkg) { g(h(i(installed.packages()))) }",
+    "Don't slow down package load by running installed.packages() in .onLoad().",
+    linter
+  )
 
-	# TODO: also find when used as names
-	# expect_lint(
-	#   ".onAttach <- function(lib, pkg) { sapply(c('a', 'b', 'c'), require, character.only = TRUE) }",
-	#   "Don't alter the search() path in .onAttach() by calling require().",
-	#   linter
-	# )
-	# expect_lint(
-	#   ".onAttach <- function(lib, pkg) { lapply(c('a', 'b', 'c'), library, character.only = TRUE) }",
-	#   "Don't alter the search() path in .onAttach() by calling library()",
-	#   linter
-	# )
+  # TODO: also find when used as names
+  # expect_lint(
+  #   ".onAttach <- function(lib, pkg) { sapply(c('a', 'b', 'c'), require, character.only = TRUE) }",
+  #   "Don't alter the search() path in .onAttach() by calling require().",
+  #   linter
+  # )
+  # expect_lint(
+  #   ".onAttach <- function(lib, pkg) { lapply(c('a', 'b', 'c'), library, character.only = TRUE) }",
+  #   "Don't alter the search() path in .onAttach() by calling library()",
+  #   linter
+  # )
 })
 
 test_that("package_hooks_linter skips valid .onDetach() and .Last.lib()", {
-	linter <- package_hooks_linter()
+  linter <- package_hooks_linter()
 
-	expect_lint(".onDetach <- function(lib) { }", NULL, linter)
-	expect_lint(".onDetach <- function(libname) { }", NULL, linter)
+  expect_lint(".onDetach <- function(lib) { }", NULL, linter)
+  expect_lint(".onDetach <- function(libname) { }", NULL, linter)
 
-	expect_lint(".Last.lib <- function(lib) { }", NULL, linter)
-	expect_lint(".Last.lib <- function(libname) { }", NULL, linter)
+  expect_lint(".Last.lib <- function(lib) { }", NULL, linter)
+  expect_lint(".Last.lib <- function(libname) { }", NULL, linter)
 })
 
 test_that("package_hooks_linter catches usage of library.dynam.unload()", {
-	linter <- package_hooks_linter()
+  linter <- package_hooks_linter()
 
-	expect_lint(
-		".onDetach <- function(lib) { library.dynam.unload() }",
-		"Use library.dynam.unload() calls in .onUnload(), not .onDetach().",
-		linter
-	)
-	expect_lint(
-		".Last.lib <- function(lib) { library.dynam.unload() }",
-		"Use library.dynam.unload() calls in .onUnload(), not .Last.lib().",
-		linter
-	)
-	# expected usage is in .onUnload
-	expect_lint(
-		".onUnload <- function(lib) { library.dynam.unload() }",
-		NULL,
-		linter
-	)
+  expect_lint(
+    ".onDetach <- function(lib) { library.dynam.unload() }",
+    "Use library.dynam.unload() calls in .onUnload(), not .onDetach().",
+    linter
+  )
+  expect_lint(
+    ".Last.lib <- function(lib) { library.dynam.unload() }",
+    "Use library.dynam.unload() calls in .onUnload(), not .Last.lib().",
+    linter
+  )
+  # expected usage is in .onUnload
+  expect_lint(
+    ".onUnload <- function(lib) { library.dynam.unload() }",
+    NULL,
+    linter
+  )
 })
 
 # test_that("package_hooks_linter detects bad argument names in .onDetach()/.Last.lib()", {

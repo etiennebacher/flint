@@ -1,18 +1,18 @@
 test_that("function_return_linter skips allowed usages", {
-	lines_simple <- trim_some(
-		"
+  lines_simple <- trim_some(
+    "
     foo <- function(x) {
       x <- x + 1
       return(x)
     }
   "
-	)
-	expect_lint(lines_simple, NULL, function_return_linter())
+  )
+  expect_lint(lines_simple, NULL, function_return_linter())
 
-	# arguably an expression as complicated as this should also be assigned,
-	#   but for now that's out of the scope of this linter
-	lines_subassignment <- trim_some(
-		"
+  # arguably an expression as complicated as this should also be assigned,
+  #   but for now that's out of the scope of this linter
+  lines_subassignment <- trim_some(
+    "
     foo <- function(x) {
       return(x[, {
         col <- col + 1
@@ -20,72 +20,72 @@ test_that("function_return_linter skips allowed usages", {
       }])
     }
   "
-	)
-	expect_lint(lines_subassignment, NULL, function_return_linter())
+  )
+  expect_lint(lines_subassignment, NULL, function_return_linter())
 })
 
 test_that("function_return_linter blocks simple disallowed usages", {
-	linter <- function_return_linter()
-	lint_msg <- "Move the assignment outside of the return() clause"
+  linter <- function_return_linter()
+  lint_msg <- "Move the assignment outside of the return() clause"
 
-	expect_lint(
-		trim_some(
-			"
+  expect_lint(
+    trim_some(
+      "
       foo <- function(x) {
         return(x <- x + 1)
       }
     "
-		),
-		lint_msg,
-		linter
-	)
+    ),
+    lint_msg,
+    linter
+  )
 
-	expect_lint(
-		trim_some(
-			"
+  expect_lint(
+    trim_some(
+      "
       foo <- function(x) {
         return(x <<- x + 1)
       }
     "
-		),
-		lint_msg,
-		linter
-	)
+    ),
+    lint_msg,
+    linter
+  )
 
-	expect_lint(
-		trim_some(
-			"
+  expect_lint(
+    trim_some(
+      "
       foo <- function(x) {
         return(x + 1 ->> x)
       }
     "
-		),
-		lint_msg,
-		linter
-	)
+    ),
+    lint_msg,
+    linter
+  )
 
-	expect_lint(
-		trim_some(
-			"
+  expect_lint(
+    trim_some(
+      "
       foo <- function(x) {
         return(x + 1 -> x)
       }
     "
-		),
-		lint_msg,
-		linter
-	)
+    ),
+    lint_msg,
+    linter
+  )
 
-	side_effect_lines <- expect_lint(
-		trim_some(
-			"
+  side_effect_lines <- expect_lint(
+    trim_some(
+      "
       e <- new.env()
       foo <- function(x) {
         return(e$val <- x + 1)
       }
     "
-		),
-		lint_msg,
-		linter
-	)
+    ),
+    lint_msg,
+    linter
+  )
 })

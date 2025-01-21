@@ -1,46 +1,46 @@
 test_that("assignment_linter skips allowed usages", {
-	linter <- NULL
+  linter <- NULL
 
-	expect_lint("blah", NULL, linter)
-	expect_lint("blah <- 1", NULL, linter)
-	expect_lint("blah<-1", NULL, linter)
-	expect_lint("fun(blah=1)", NULL, linter)
+  expect_lint("blah", NULL, linter)
+  expect_lint("blah <- 1", NULL, linter)
+  expect_lint("blah<-1", NULL, linter)
+  expect_lint("fun(blah=1)", NULL, linter)
 })
 
 test_that("assignment_linter blocks disallowed usages", {
-	linter <- NULL
-	lint_msg <- "Use <-, not =, for assignment."
+  linter <- NULL
+  lint_msg <- "Use <-, not =, for assignment."
 
-	expect_lint("blah=1", lint_msg, linter)
-	expect_lint("blah = 1", lint_msg, linter)
-	expect_lint("blah = fun(1)", lint_msg, linter)
-	expect_lint("fun((blah = fun(1)))", lint_msg, linter)
+  expect_lint("blah=1", lint_msg, linter)
+  expect_lint("blah = 1", lint_msg, linter)
+  expect_lint("blah = fun(1)", lint_msg, linter)
+  expect_lint("fun((blah = fun(1)))", lint_msg, linter)
 
-	expect_lint("blah = fun(1) {", lint_msg, linter)
+  expect_lint("blah = fun(1) {", lint_msg, linter)
 })
 
 test_that("arguments handle <<- and ->/->> correctly", {
-	expect_lint("1 -> blah", "Use <-, not ->, for assignment.", NULL)
-	expect_lint("1 ->> blah", "->> can have hard-to-predict behavior;", NULL)
-	expect_lint("blah <<- blah", "<<- can have hard-to-predict behavior;", NULL)
+  expect_lint("1 -> blah", "Use <-, not ->, for assignment.", NULL)
+  expect_lint("1 ->> blah", "->> can have hard-to-predict behavior;", NULL)
+  expect_lint("blah <<- blah", "<<- can have hard-to-predict behavior;", NULL)
 
-	# <<- is only blocked optionally
-	# expect_lint("1 <<- blah", NULL, NULL)
-	# expect_lint(
-	#   "1 <<- blah",
-	#   "<<- can have hard-to-predict behavior;",
-	#   assignment_linter(allow_cascading_assign = FALSE)
-	# )
+  # <<- is only blocked optionally
+  # expect_lint("1 <<- blah", NULL, NULL)
+  # expect_lint(
+  #   "1 <<- blah",
+  #   "<<- can have hard-to-predict behavior;",
+  #   assignment_linter(allow_cascading_assign = FALSE)
+  # )
 
-	# # blocking -> can be disabled
-	# expect_lint("1 -> blah", NULL, assignment_linter(allow_right_assign = TRUE))
-	# expect_lint("1 ->> blah", NULL, assignment_linter(allow_right_assign = TRUE))
-	# # blocked under cascading assign but not under right assign --> blocked
-	# expect_lint(
-	#   "1 ->> blah",
-	#   "->> can have hard-to-predict behavior;",
-	#   assignment_linter(allow_cascading_assign = FALSE, allow_right_assign = TRUE)
-	# )
+  # # blocking -> can be disabled
+  # expect_lint("1 -> blah", NULL, assignment_linter(allow_right_assign = TRUE))
+  # expect_lint("1 ->> blah", NULL, assignment_linter(allow_right_assign = TRUE))
+  # # blocked under cascading assign but not under right assign --> blocked
+  # expect_lint(
+  #   "1 ->> blah",
+  #   "->> can have hard-to-predict behavior;",
+  #   assignment_linter(allow_cascading_assign = FALSE, allow_right_assign = TRUE)
+  # )
 })
 #
 # test_that("arguments handle trailing assignment operators correctly", {

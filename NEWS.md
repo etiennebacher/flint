@@ -1,3 +1,10 @@
+# flint (development version)
+
+## Bug fixes
+
+* No longer error about unavailable sourceMarkers when running `lint()` in
+  Positron.
+
 # flint 0.2.0
 
 ## New features

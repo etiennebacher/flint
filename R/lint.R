@@ -181,7 +181,8 @@ lint <- function(
     isTRUE(open) &&
       requireNamespace("rstudioapi", quietly = TRUE) &&
       interactive() &&
-      rstudioapi::isAvailable()
+      rstudioapi::isAvailable() &&
+      !is_positron()
   ) {
     rstudio_source_markers(lints)
     return(invisible(lints))

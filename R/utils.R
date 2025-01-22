@@ -296,3 +296,7 @@ message: ...
 uses_git <- function() {
   fs::dir_exists(".git")
 }
+
+is_positron <- function() {
+  identical(Sys.getenv("POSITRON"), "1")
+}

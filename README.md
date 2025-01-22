@@ -144,8 +144,8 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression      min   median `itr/sec` mem_alloc
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>
-#> 1 lintr         3.36s    3.36s     0.298  317.43MB
-#> 2 flint      183.07ms 186.15ms     5.39     1.73MB
+#> 1 lintr         3.26s    3.26s     0.307  315.22MB
+#> 2 flint      186.44ms 190.74ms     4.95     1.74MB
 #> # ℹ 1 more variable: `gc/sec` <dbl>
 ```
 

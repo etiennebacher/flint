@@ -16,6 +16,8 @@
 * The cache used after `setup_flint()` is now invalidated if the rules used
   change.
 
+* Do not print "empty data.table(...)" when no lints are detected.
+
 # flint 0.2.0
 
 ## New features

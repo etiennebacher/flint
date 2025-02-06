@@ -1,13 +1,17 @@
 test_that("config.yml is taken into account", {
   create_local_package()
   setup_flint()
+  fs::dir_create("tests/testthat")
 
   cat("a = 1", file = "R/foo.R")
-  expect_equal(nrow(lint()), 1)
+  cat("a = 1", file = "tests/testthat/foo.R")
+  expect_equal(nrow(lint()), 2)
 
-  # Only keep one linter, not the one about assignment symbols
+  # # Only keep one linter, not the one about assignment symbols
   cat("keep:\n  - class_equals", file = "flint/config.yml")
   expect_equal(nrow(lint()), 0)
+  expect_equal(nrow(lint_dir("R")), 0)
+  expect_equal(nrow(lint_package()), 0)
 
   # commented out linter not taken into account
   cat(
@@ -15,6 +19,17 @@ test_that("config.yml is taken into account", {
     file = "flint/config.yml"
   )
   expect_equal(nrow(lint()), 0)
+  expect_equal(nrow(lint_dir("R")), 0)
+  expect_equal(nrow(lint_package()), 0)
+
+  # "exclude" field works
+  cat(
+    "keep:\n  - class_equals\nexclude:\n  - equal_assignment",
+    file = "flint/config.yml"
+  )
+  expect_equal(nrow(lint()), 0)
+  expect_equal(nrow(lint_dir("R")), 0)
+  expect_equal(nrow(lint_package()), 0)
 })
 
 test_that("config.yml errors when it doesn't contain any rule", {

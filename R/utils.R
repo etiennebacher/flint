@@ -107,14 +107,24 @@ resolve_linters <- function(path, linters, exclude_linters) {
     )
   }
 
+  path_common <- if (length(path) > 1) {
+    if (all(fs::path_has_parent(path, "."))) {
+      "."
+    } else {
+      fs::path_common(path)
+    }
+  } else {
+    path
+  }
+
   # All linters passed to lint() / fix()
-  if (is.null(exclude_linters) && uses_flint(path)) {
-    exclude_linters <- get_excluded_linters_from_config(path)
+  if (is.null(exclude_linters) && uses_flint(path_common)) {
+    exclude_linters <- get_excluded_linters_from_config(path_common)
   }
 
   if (is.null(linters)) {
-    if (uses_flint(path)) {
-      linters <- get_linters_from_config(path)
+    if (uses_flint(path_common)) {
+      linters <- get_linters_from_config(path_common)
     } else {
       linters <- rules_basename_noext
     }
@@ -158,8 +168,15 @@ linter_is_path_to_yml <- function(x) {
 
 get_linters_from_config <- function(path) {
   if (fs::is_file(path)) {
-    path <- fs::path_dir(path)
+    path <- tryCatch(
+      rprojroot::find_root(
+        rprojroot::is_rstudio_project | rprojroot::is_r_package,
+        path = path
+      ),
+      error = function(e) fs::path_dir(path)
+    )
   }
+  # browser()
   if (is_flint_package(path)) {
     config_file <- "inst/config.yml"
   } else {
@@ -178,15 +195,19 @@ get_linters_from_config <- function(path) {
         toString(linters[duplicated(linters)])
       )
     }
-  } else {
-    return(NULL)
+    linters
   }
-  linters
 }
 
 get_excluded_linters_from_config <- function(path) {
   if (fs::is_file(path)) {
-    path <- fs::path_dir(path)
+    path <- tryCatch(
+      rprojroot::find_root(
+        rprojroot::is_rstudio_project | rprojroot::is_r_package,
+        path = path
+      ),
+      error = function(e) fs::path_dir(path)
+    )
   }
   if (is_flint_package(path)) {
     config_file <- file.path(path, "inst/config.yml")
@@ -206,6 +227,7 @@ get_excluded_linters_from_config <- function(path) {
         toString(linters[duplicated(linters)])
       )
     }
+    linters
   }
 }
 
@@ -261,14 +283,19 @@ is_flint_package <- function(path) {
 
 uses_flint <- function(path = ".") {
   if (length(path) > 1) {
-    path <- fs::path_common(path)
+    if (all(fs::path_has_parent(path, "."))) {
+      path <- "."
+    } else {
+      path <- fs::path_common(path)
+    }
   }
-  if (fs::is_file(path)) {
-    path <- fs::path_dir(path)
-  }
-  while (path != fs::path_dir(path)) {
-    path <- fs::path_dir(path)
-  }
+  tryCatch(
+    path <- rprojroot::find_root(
+      rprojroot::is_rstudio_project | rprojroot::is_r_package,
+      path = path
+    ),
+    error = function(e) return(FALSE)
+  )
   flint_dir <- fs::path(path, "flint")
   fs::dir_exists(flint_dir) && length(list.files(flint_dir)) > 0
 }

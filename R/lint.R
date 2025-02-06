@@ -121,7 +121,9 @@ lint <- function(
     file <- r_files[i]
 
     if (use_cache) {
-      current_hash <- digest::digest(readLines(file, warn = FALSE))
+      current_hash <- digest::digest(
+        c(readLines(file, warn = FALSE), rule_files)
+      )
       if (!is.null(names(hashes)) && file %in% names(hashes)) {
         stored_info <- hashes[[file]]
         if (current_hash == stored_info[["hash"]]) {

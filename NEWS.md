@@ -5,6 +5,12 @@
 * No longer error about unavailable sourceMarkers when running `lint()` in
   Positron.
 
+* Better detection of `flint/config.yml` when using running `flint` on a 
+  package or a directory.
+
+* The cache used after `setup_flint()` is now invalidated if the rules used
+  change.
+
 # flint 0.2.0
 
 ## New features

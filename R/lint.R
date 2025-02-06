@@ -191,6 +191,9 @@ lint <- function(
   } else if (in_github_actions() && !is_testing()) {
     github_actions_log_lints(lints)
   } else {
+    if (Sys.getenv("FLINT_ERROR_ON_LINT") == "true" && nrow(lints) > 0) {
+      stop("Some lints were found.")
+    }
     lints
   }
 }

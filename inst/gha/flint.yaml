@@ -33,3 +33,5 @@ jobs:
       - name: Run flint
         run: flint::lint()
         shell: Rscript {0}
+        env:
+          FLINT_ERROR_ON_LINT: true

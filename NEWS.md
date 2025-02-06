@@ -1,5 +1,10 @@
 # flint (development version)
 
+## New features
+
+* New environment variable `FLINT_ERROR_ON_LINT` to determine whether `flint`
+  should error if some lints were found.
+
 ## Bug fixes
 
 * No longer error about unavailable sourceMarkers when running `lint()` in

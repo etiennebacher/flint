@@ -165,7 +165,7 @@ lint <- function(
 
   if (nrow(lints) == 0) {
     cli::cli_alert_success("No lints detected.")
-    return(invisible())
+    return(invisible(data.table()))
   } else {
     cli::cli_alert_success(
       "Found {nrow(lints)} lint{?s} in {length(unique(lints$file))} file{?s}."
